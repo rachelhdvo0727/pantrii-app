@@ -81,7 +81,7 @@ export default function BottomTabBuyers() {
                 name="Hjem"
                 component={HomeScreen}
                 options={{
-                    headerTitle: 'Feed',
+                    headerTitle: '',
                     title: 'Home',
                     tabBarIcon: ({ focused, color, size }) => (
                         <View style={focused && styles.focusedBottomtab}>
