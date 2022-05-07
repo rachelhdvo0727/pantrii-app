@@ -1,26 +1,12 @@
 import { View, Image, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function TopNavBuyers() {
+export default function TopNavSuppliers() {
     return (
         <View style={styles.container}>
-            <Ionicons
-                name="search-outline"
-                size={24}
-                color="#FFFFFF"
-                style={{ marginTop: 8 }}
-            />
-
             <Image
                 style={{ width: 125, height: 40 }}
                 source={require('../../assets/logos/pantrii-primary-logo.png')}
-            />
-
-            <Ionicons
-                name="cart-outline"
-                size={24}
-                color="#FFFFFF"
-                style={{ marginTop: 8 }}
             />
         </View>
     );
@@ -31,7 +17,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'stretch',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         paddingBottom: 1,
         width: 370,
         // borderTopWidth: 1,

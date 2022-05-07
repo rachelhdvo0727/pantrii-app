@@ -20,14 +20,12 @@ export default function BottomTabBuyers() {
                     fontFamily: 'TT-Commons-Bold',
                     textTransform: 'uppercase',
                     letterSpacing: 1,
-                    fontSize: 20,
                 },
                 tabBarActiveTintColor: '#9DB76E',
                 tabBarInactiveTintColor: '#1B463C',
                 tabBarLabelStyle: {
                     fontFamily: 'TT-Commons-Regular',
                     letterSpacing: 0.5,
-                    fontSize: '10',
                 },
                 tabBarShowIcon: true,
                 tabBarStyle: {
@@ -43,11 +41,11 @@ export default function BottomTabBuyers() {
                 component={HomeScreen}
                 options={{
                     headerTitle: (props) => <TopNavBuyers {...props} />,
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={focused ? 'home' : 'home-outline'}
-                                size={size}
+                                size={24}
                                 color={color}
                             />
                         </View>
@@ -59,13 +57,13 @@ export default function BottomTabBuyers() {
                 component={ProductsScreen}
                 options={{
                     headerTitle: (props) => <TopNavBuyers {...props} />,
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={
                                     focused ? 'fast-food' : 'fast-food-outline'
                                 }
-                                size={size}
+                                size={24}
                                 color={color}
                             />
                         </View>
@@ -77,11 +75,11 @@ export default function BottomTabBuyers() {
                 component={CategoriesScreen}
                 options={{
                     headerTitle: (props) => <TopNavBuyers {...props} />,
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={focused ? 'grid' : 'grid-outline'}
-                                size={size}
+                                size={24}
                                 color={color}
                             />
                         </View>
@@ -93,11 +91,11 @@ export default function BottomTabBuyers() {
                 component={FavouritesScreen}
                 options={{
                     headerTitle: (props) => <TopNavBuyers {...props} />,
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={focused ? 'heart' : 'heart-outline'}
-                                size={size}
+                                size={24}
                                 color={color}
                             />
                         </View>
@@ -109,7 +107,7 @@ export default function BottomTabBuyers() {
                 component={ProfileScreen}
                 options={{
                     headerTitle: (props) => <TopNavBuyers {...props} />,
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={
@@ -117,7 +115,7 @@ export default function BottomTabBuyers() {
                                         ? 'person-circle'
                                         : 'person-circle-outline'
                                 }
-                                size={size}
+                                size={24}
                                 color={color}
                             />
                         </View>
@@ -134,8 +132,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    headerH1: {
-        fontFamily: 'TT-Commons-Bold',
     },
 });
