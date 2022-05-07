@@ -6,6 +6,7 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabBuyers from '../screens/buyers/BottomTabBuyers';
 import { StatusBar } from 'expo-status-bar';
+import { StyleSheet } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 export default function Navigation() {

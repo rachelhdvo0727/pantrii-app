@@ -6,4 +6,7 @@ export default generalStyles = StyleSheet.create({
         color: '#FFFFFF',
         fontFamily: 'TT-Common-Bold',
     },
+    headerLogo: {
+        width: 80,
+    },
 });
