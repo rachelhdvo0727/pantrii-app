@@ -3,12 +3,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TopNavSuppliers() {
     return (
-        <View style={styles.container}>
-            <Image
-                style={{ width: 125, height: 40 }}
-                source={require('../../assets/logos/pantrii-primary-logo.png')}
-            />
-        </View>
+        <Image
+            style={{ width: 125, height: 40, marginBottom: 8 }}
+            source={require('../../assets/logos/pantrii-primary-logo.png')}
+        />
     );
 }
 

@@ -1,6 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+const generalStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     headerH1: {
         fontFamily: 'TT-Commons-Bold',
     },
@@ -8,3 +13,5 @@ export default StyleSheet.create({
         width: 80,
     },
 });
+
+export default generalStyles;
