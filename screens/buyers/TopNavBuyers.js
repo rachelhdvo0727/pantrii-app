@@ -3,26 +3,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TopNavBuyers() {
     return (
-        <View style={styles.container}>
-            <Ionicons
-                name="search-outline"
-                size={24}
-                color="#FFFFFF"
-                style={{ marginTop: 8 }}
-            />
-
-            <Image
-                style={{ width: 125, height: 40 }}
-                source={require('../../assets/logos/pantrii-primary-logo.png')}
-            />
-
-            <Ionicons
-                name="cart-outline"
-                size={24}
-                color="#FFFFFF"
-                style={{ marginTop: 8 }}
-            />
-        </View>
+        <Image
+            style={{ width: 125, height: 40, marginBottom: 8 }}
+            source={require('../../assets/logos/pantrii-primary-logo.png')}
+        />
     );
 }
 
@@ -34,8 +18,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingBottom: 1,
         width: 370,
-        // borderTopWidth: 1,
-        // borderColor: 'white',
     },
     searchContainer: {
         width: 40,
@@ -51,8 +33,5 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         paddingTop: 8,
         paddingLeft: 12,
-    },
-    headerH1: {
-        fontFamily: 'TT-Commons-Bold',
     },
 });

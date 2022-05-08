@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
-import ProductsScreen from './ProductsScreen';
 import CategoriesScreen from './CategoriesScreen';
 import FavouritesScreen from './FavouritesScreen';
 import ProfileScreen from './ProfileScreen';
+import CartScreen from './CartScreen';
 import TopNavBuyers from './TopNavBuyers';
 
 const Tab = createBottomTabNavigator();
@@ -16,10 +16,11 @@ export default function BottomTabBuyers() {
         <Tab.Navigator
             screenOptions={{
                 headerTitleStyle: {
-                    color: '#000000',
+                    color: '#EFF2EE',
                     fontFamily: 'TT-Commons-Bold',
                     textTransform: 'uppercase',
-                    letterSpacing: 1,
+                    letterSpacing: 1.5,
+                    fontSize: 20,
                 },
                 tabBarActiveTintColor: '#9DB76E',
                 tabBarInactiveTintColor: '#1B463C',
@@ -53,28 +54,10 @@ export default function BottomTabBuyers() {
                 }}
             />
             <Tab.Screen
-                name="Produkter"
-                component={ProductsScreen}
-                options={{
-                    headerTitle: (props) => <TopNavBuyers {...props} />,
-                    tabBarIcon: ({ focused, color }) => (
-                        <View style={focused && styles.focusedBottomtab}>
-                            <Ionicons
-                                name={
-                                    focused ? 'fast-food' : 'fast-food-outline'
-                                }
-                                size={24}
-                                color={color}
-                            />
-                        </View>
-                    ),
-                }}
-            />
-            <Tab.Screen
                 name="Kategorier"
                 component={CategoriesScreen}
                 options={{
-                    headerTitle: (props) => <TopNavBuyers {...props} />,
+                    headerTitle: 'Kategorier',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
@@ -90,12 +73,28 @@ export default function BottomTabBuyers() {
                 name="Favoritter"
                 component={FavouritesScreen}
                 options={{
-                    headerTitle: (props) => <TopNavBuyers {...props} />,
+                    headerTitle: 'Favoritter',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={focused ? 'heart' : 'heart-outline'}
-                                size={24}
+                                size={28}
+                                color={color}
+                            />
+                        </View>
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Kurv"
+                component={CartScreen}
+                options={{
+                    headerTitle: 'Kurv',
+                    tabBarIcon: ({ focused, color }) => (
+                        <View style={focused && styles.focusedBottomtab}>
+                            <Ionicons
+                                name={focused ? 'basket' : 'basket-outline'}
+                                size={28}
                                 color={color}
                             />
                         </View>
@@ -106,7 +105,7 @@ export default function BottomTabBuyers() {
                 name="Profil"
                 component={ProfileScreen}
                 options={{
-                    headerTitle: (props) => <TopNavBuyers {...props} />,
+                    headerTitle: 'Profil',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
@@ -115,7 +114,7 @@ export default function BottomTabBuyers() {
                                         ? 'person-circle'
                                         : 'person-circle-outline'
                                 }
-                                size={24}
+                                size={28}
                                 color={color}
                             />
                         </View>
