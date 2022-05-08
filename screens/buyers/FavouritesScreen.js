@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import styles from '../../styles/General.js';
 
 export default function FavouritesScreen() {
     return (
@@ -10,15 +11,3 @@ export default function FavouritesScreen() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    headerH1: {
-        fontFamily: 'TT-Commons-Bold',
-    },
-});
