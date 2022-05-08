@@ -98,7 +98,7 @@ export default function BottomTabSuppliers() {
                                         ? 'person-circle'
                                         : 'person-circle-outline'
                                 }
-                                size={24}
+                                size={28}
                                 color={color}
                             />
                         </View>
