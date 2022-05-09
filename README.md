@@ -2,8 +2,8 @@
 
 ## Installation
 
- Clone this repo
- Run npm install or npm ci
+ - Clone this repo
+ - Run `npm install` or `npm ci`
 
 ## Dockerisation
 
