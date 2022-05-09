@@ -26,7 +26,8 @@ export default function App() {
     }
     return (
         <View style={styles.container}>
-            <Text style={{ fontFamily: 'TT-Commons-Bold' }}>Hi</Text>
+            <Text style={{ fontFamily: 'TT-Commons-Bold' }}>Hi Hi Hi</Text>
+            <Text style={{ fontFamily: 'TT-Commons-Regular' }}>Hello what's your name, love?</Text>
             <StatusBar style="auto" />
         </View>
     );
