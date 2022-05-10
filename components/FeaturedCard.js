@@ -14,7 +14,7 @@ export const ITEM_WIDTH = Dimensions.get('window').width - 30;
 
 export default FeaturedCard = ({ item, index }) => {
     return (
-        <TouchableOpacity style={styles.featuredWrapper} key={index}>
+        <View style={styles.featuredWrapper} key={index}>
             <ImageBackground
                 source={item.imgUrl}
                 style={styles.imageBg}
@@ -23,7 +23,7 @@ export default FeaturedCard = ({ item, index }) => {
             >
                 <Text style={styles.featuredTitle}>{item.title}</Text>
             </ImageBackground>
-        </TouchableOpacity>
+        </View>
     );
 };
 
