@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Button from './components/actions/Button';
 
 const loadFonts = () => {
     return Font.loadAsync({
@@ -27,8 +28,8 @@ export default function App() {
     return (
         <View style={styles.container}>
             <Text style={{ fontFamily: 'TT-Commons-Bold' }}>Hi Hi Hi</Text>
-            <Text style={{ fontFamily: 'TT-Commons-Regular' }}>Hello what's your name, love?</Text>
             <StatusBar style="auto" />
+            <Button title="log ind" primary></Button>
         </View>
     );
 }
