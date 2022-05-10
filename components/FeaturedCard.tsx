@@ -14,7 +14,7 @@ interface Props {
     onPress: (arg: any) => void;
  }
 
- export default function EventCard({
+ export default function FeaturedCard({
     title,
     imageSrc,
     onPress,
@@ -24,6 +24,8 @@ interface Props {
           <ImageBackground
              source={imageSrc}
              resizeMode="cover"
+             style={styles.imageBg}
+             imageStyle={{ borderRadius: 10}} 
              >
              <View style={styles.titleWrapper} >
                    <Text style={styles.featuredTitle}>
@@ -39,10 +41,12 @@ const styles = StyleSheet.create({
     featuredWrapper: {
         width: '100%',
         height: 170,
-        backgroundColor: 'red',
         borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+    },
+    imageBg: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     titleWrapper: {
         height: 50,  
@@ -53,5 +57,6 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontFamily: 'TT-Commons-Bold',
         letterSpacing: 1,
+        textTransform: 'uppercase',
     }
 });
