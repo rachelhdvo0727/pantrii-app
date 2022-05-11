@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: 'TT-Commons-Regular',
         color: '#1B463C',
-        letterSpacing: 1.3,
+        letterSpacing: 1,
+        fontSize: 10,
     },
 });
