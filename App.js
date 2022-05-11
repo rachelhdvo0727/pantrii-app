@@ -3,8 +3,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import Button from './components/actions/Button';
+import IconButton from './components/actions/IconButton';
+import FavoriteButton from './components/actions/FavoriteButton';
+import ViewButton from './components/actions/ViewButton';
 
 const loadFonts = () => {
     return Font.loadAsync({
@@ -27,9 +29,12 @@ export default function App() {
     }
     return (
         <View style={styles.container}>
-            <Text style={{ fontFamily: 'TT-Commons-Bold' }}>Hi Hi Hi</Text>
             <StatusBar style="auto" />
             <Button title="log ind" primary></Button>
+            <IconButton title="detaljer" arrowRight></IconButton>
+            <IconButton title="sort" arrowDown outlined></IconButton>
+            <FavoriteButton isActive></FavoriteButton>
+            <ViewButton></ViewButton>
         </View>
     );
 }
