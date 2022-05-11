@@ -38,6 +38,11 @@ const generalStyles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
     },
+    containerLarge: {
+        width: 185,
+        height: 120,
+        borderRadius: 10,
+    },
 });
 
 export default generalStyles;

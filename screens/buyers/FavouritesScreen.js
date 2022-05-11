@@ -5,7 +5,7 @@ import generalStyles from '../../styles/General.js';
 export default function FavouritesScreen() {
     return (
         <View style={generalStyles.container}>
-            <Text style={generalStyles.headerH1}>Favoritter</Text>
+            <Text style={generalStyles.headerH}>Favoritter</Text>
         </View>
     );
 }
