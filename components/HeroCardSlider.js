@@ -14,6 +14,7 @@ export default function HeroCardSlider() {
                 layout="default"
                 ref={isCarousel}
                 data={data}
+                inactiveSlideOpacity={1}
                 renderItem={({ item: { title, imgUrl }, index }) => (
                     <HeroCard key={index} title={title} imageSrc={imgUrl} />
                 )}

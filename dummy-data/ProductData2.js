@@ -1,4 +1,4 @@
-const productData = [
+const productData2 = [
     {
         imageSrc: require('../assets/products/tofu.png'),
         productTitle: 'Tofu',
@@ -46,4 +46,4 @@ const productData = [
     },
 ];
 
-export default productData;
+export default productData2;
