@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1.3,
     },
     iconSpacing: {
-        marginLeft: 8.5,
+        marginLeft: 4,
     },
     isActive: {
         backgroundColor: '#EA6F2D',
