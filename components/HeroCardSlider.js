@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import FeaturedCard, { SLIDER_WIDTH, ITEM_WIDTH } from './FeaturedCard';
+import HeroCard, { SLIDER_WIDTH, ITEM_WIDTH } from './HeroCard';
 import data from '../dummy-data/Data';
 
-export default function FeaturedSlider() {
+export default function HeroCardSlider() {
     const [index, setIndex] = React.useState(0);
     const isCarousel = React.useRef(null);
 
@@ -14,7 +14,9 @@ export default function FeaturedSlider() {
                 layout="default"
                 ref={isCarousel}
                 data={data}
-                renderItem={FeaturedCard}
+                renderItem={({ item: { title, imgUrl }, index }) => (
+                    <HeroCard key={index} title={title} imageSrc={imgUrl} />
+                )}
                 sliderWidth={SLIDER_WIDTH}
                 itemWidth={ITEM_WIDTH}
                 onSnapToItem={(index) => setIndex(index)}

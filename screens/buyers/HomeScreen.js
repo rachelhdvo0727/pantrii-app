@@ -1,15 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import generalStyles from '../../styles/General';
-import FeaturedSlider from '../../components/FeaturedSlider';
-import ProductsSlider from '../../components/ProductsSlider';
-import ProductCard from '../../components/ProductCard';
+import HeroCardSlider from '../../components/HeroCardSlider';
 
 export default function HomeScreen() {
     return (
         <View style={generalStyles.homeContainer}>
-            <FeaturedSlider />
-            <ProductsSlider />
+            <HeroCardSlider />
         </View>
     );
 }

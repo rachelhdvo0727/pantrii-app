@@ -5,27 +5,39 @@ import {
     StyleSheet,
     Dimensions,
     Image,
-    TouchableOpacity,
+    Pressable,
     ImageBackground,
 } from 'react-native';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 export const ITEM_WIDTH = Dimensions.get('window').width - 30;
 
-export default FeaturedCard = ({ item, index }) => {
+interface Props {
+    onPress: () => void;
+    title: string;
+    imageSrc: { uri: string };
+}
+
+const HeroCard = ({
+    title,
+    imageSrc,
+    onPress,
+}: Props) => {
     return (
-        <View style={styles.featuredWrapper} key={index}>
+        <Pressable style={styles.featuredWrapper}>
             <ImageBackground
-                source={item.imgUrl}
+                source={imageSrc}
                 style={styles.imageBg}
                 resizeMode="cover"
                 imageStyle={{ borderRadius: 10 }}
             >
-                <Text style={styles.featuredTitle}>{item.title}</Text>
+                <Text style={styles.featuredTitle}>{title}</Text>
             </ImageBackground>
-        </View>
+        </Pressable>
     );
 };
+
+export default HeroCard;
 
 const styles = StyleSheet.create({
     featuredWrapper: {
