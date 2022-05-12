@@ -3,6 +3,7 @@ import { StyleSheet, Pressable, View, Text } from 'react-native';
 
 interface Props {
     onPress: () => void;
+   
 }
 
 function ViewButton({ onPress }: Props) {
