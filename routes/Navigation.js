@@ -13,8 +13,8 @@ const Stack = createNativeStackNavigator();
 export default function Navigation() {
     return (
         <NavigationContainer>
-            {/* <BottomTabBuyers /> */}
-            <BottomTabSuppliers />
+            <BottomTabBuyers />
+            {/* <BottomTabSuppliers /> */}
         </NavigationContainer>
     );
 }
