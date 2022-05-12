@@ -1,9 +1,17 @@
 import { StyleSheet } from 'react-native';
 
-export default generalStyles = StyleSheet.create({
+const generalStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     headerH1: {
-        fontSize: 26,
-        color: '#FFFFFF',
-        fontFamily: 'TT-Common-Bold',
+        fontFamily: 'TT-Commons-Bold',
+    },
+    headerLogo: {
+        width: 80,
     },
 });
+
+export default generalStyles;

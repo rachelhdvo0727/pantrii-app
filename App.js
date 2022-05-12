@@ -3,10 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import Button from './components/actions/Button';
-import IconButton from './components/actions/IconButton';
-import FavoriteButton from './components/actions/FavoriteButton';
-import ViewButton from './components/actions/ViewButton';
+import Navigation from './routes/Navigation';
 
 const loadFonts = () => {
     return Font.loadAsync({
@@ -27,16 +24,7 @@ export default function App() {
             />
         );
     }
-    return (
-        <View style={styles.container}>
-            <StatusBar style="auto" />
-            <Button title="log ind" primary></Button>
-            <IconButton title="detaljer" arrowRight></IconButton>
-            <IconButton title="sort" arrowDown outlined></IconButton>
-            <FavoriteButton isActive></FavoriteButton>
-            <ViewButton></ViewButton>
-        </View>
-    );
+    return <Navigation />;
 }
 
 const styles = StyleSheet.create({
