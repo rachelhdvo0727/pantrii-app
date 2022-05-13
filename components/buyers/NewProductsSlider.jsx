@@ -11,7 +11,7 @@ export const SLIDER_WIDTH = Dimensions.get('window').width;
 
 const NewProductsSlider = () => {
     const [index, setIndex] = React.useState(0);
-    const isCarousel = React.useRef(null);
+    const carouselRef = React.useRef(null);
     const navigation = useNavigation();
 
     return (
@@ -24,7 +24,7 @@ const NewProductsSlider = () => {
             </View>
             <Carousel
                 layout="default"
-                ref={isCarousel}
+                ref={carouselRef}
                 data={productData}
                 activeSlideAlignment="start"
                 inactiveSlideScale={1}
