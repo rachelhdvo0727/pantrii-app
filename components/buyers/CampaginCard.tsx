@@ -22,7 +22,7 @@ const CampaginCard = ({
     // onPress,
 }: Props) => {
     return (
-        <Pressable style={generalStyles.containerLarge}>
+        <Pressable style={generalStyles.cardContainer}>
             <ImageBackground
                 source={imageSrc}
                 style={generalStyles.imageBg}
