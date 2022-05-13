@@ -13,9 +13,9 @@ const generalStyles = StyleSheet.create({
     },
     headerH1: {
         fontFamily: 'TT-Commons-Bold',
-        fontSize: 10,
+        fontSize: 20,
         textTransform: 'uppercase',
-        letterSpacing: 1,
+        letterSpacing: 1.5,
         color: '#FFFFFF',
     },
     headerH2: {
@@ -42,6 +42,11 @@ const generalStyles = StyleSheet.create({
         width: 185,
         height: 120,
         borderRadius: 10,
+    },
+    imageBg: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 
