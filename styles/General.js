@@ -9,7 +9,7 @@ const generalStyles = StyleSheet.create({
     homeContainer: {
         flex: 1,
         backgroundColor: '#EFF2EE',
-        paddingVertical: 15,
+        paddingTop: 15,
     },
     headerH1: {
         fontFamily: 'TT-Commons-Bold',
