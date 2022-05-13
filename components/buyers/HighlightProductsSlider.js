@@ -57,6 +57,7 @@ const HighLightProductsSlider = () => {
                 itemWidth={185}
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
+                enableSnap={false}
             />
         </View>
     );
