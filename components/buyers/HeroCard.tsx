@@ -12,7 +12,7 @@ import {
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 export const ITEM_WIDTH = Dimensions.get('window').width - 30;
 
-interface Props {
+export interface Props {
     onPress?: () => void;
     title: string;
     imageSrc: { uri: string };

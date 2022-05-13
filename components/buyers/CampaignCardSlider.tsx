@@ -6,7 +6,7 @@ import CampaignCard from './CampaignCard';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 
-export default function CampaignCardSlider() {
+const CampaignCardSlider: React.FC = () => {
     return (
         <View style={styles.container}>
             <Text style={[generalStyles.headerH2, styles.padding]}>
@@ -24,7 +24,9 @@ export default function CampaignCardSlider() {
             </View>
         </View>
     );
-}
+};
+
+export default CampaignCardSlider;
 
 const styles = StyleSheet.create({
     container: {

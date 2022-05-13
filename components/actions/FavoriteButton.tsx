@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-interface Props {
+export interface Props {
     onPress: () => void;
     isActive: boolean;
 }
 
-function FavoriteButton({ isActive, onPress }: Props) {
+const FavoriteButton: React.FC<Props> = ({ isActive, onPress }) => {
     return (
         <Pressable
             style={[styles.container, isActive ? styles.isActive : null]}
@@ -25,7 +25,7 @@ function FavoriteButton({ isActive, onPress }: Props) {
             </View>
         </Pressable>
     );
-}
+};
 export default FavoriteButton;
 
 const styles = StyleSheet.create({
