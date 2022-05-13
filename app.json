@@ -27,6 +27,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "splash": {
+      "image": "./assets/pantrii-splash.png",
+      "backgroundColor": "#1B463C",
+      "resizeMode": "cover"
     }
   }
 }
