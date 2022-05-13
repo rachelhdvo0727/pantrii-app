@@ -4,7 +4,7 @@ import generalStyles from '../../styles/General';
 import HeroCardSlider from '../../components/buyers/HeroCardSlider';
 import NewProductsSlider from '../../components/buyers/NewProductsSlider';
 import HighLightProductsSlider from '../../components/buyers/HighlightProductsSlider';
-import CampaginSlider from '../../components/buyers/CampaginCardSlider';
+import CampaignCardSlider from '../../components/buyers/CampaignCardSlider';
 
 export default function HomeScreen() {
     return (
@@ -13,7 +13,7 @@ export default function HomeScreen() {
                 <HeroCardSlider />
                 <NewProductsSlider />
                 <HighLightProductsSlider />
-                <CampaginSlider />
+                <CampaignCardSlider />
             </ScrollView>
         </View>
     );

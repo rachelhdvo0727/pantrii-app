@@ -9,18 +9,13 @@ import {
 } from 'react-native';
 import generalStyles from '../../styles/General';
 
-
 interface Props {
     // onPress: () => void;
     title: string;
-    imageSrc: { uri: string };
+    imageSrc: React.ComponentProps<typeof ImageBackground>['source'];
 }
 
-const CampaginCard = ({
-    title,
-    imageSrc,
-    // onPress,
-}: Props) => {
+const CampaginCard = ({ title, imageSrc }: Props) => {
     return (
         <Pressable style={generalStyles.containerLarge}>
             <ImageBackground
@@ -36,4 +31,3 @@ const CampaginCard = ({
 };
 
 export default CampaginCard;
-
