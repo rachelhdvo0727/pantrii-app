@@ -6,9 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/pantrii-splash.png",
+      "backgroundColor": "#1B463C",
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -27,11 +27,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "splash": {
-      "image": "./assets/pantrii-splash.png",
-      "backgroundColor": "#1B463C",
-      "resizeMode": "cover"
     }
   }
 }
