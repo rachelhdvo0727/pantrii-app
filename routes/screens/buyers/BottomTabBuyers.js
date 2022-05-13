@@ -2,12 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import HomeScreen from './HomeScreen';
 import CategoriesScreen from './CategoriesScreen';
 import FavouritesScreen from './FavouritesScreen';
 import ProfileScreen from './ProfileScreen';
 import CartScreen from './CartScreen';
-import TopNavBuyers from './TopNavBuyers';
 import HomeStack from './HomeStack';
 
 const Tab = createBottomTabNavigator();

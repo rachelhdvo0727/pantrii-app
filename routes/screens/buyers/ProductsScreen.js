@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import generalStyles from '../../styles/General.js';
+import generalStyles from '../../../styles/General';
 
-export default function ProfileScreen() {
+export default function ProductsScreen() {
     return (
         <View style={generalStyles.container}>
-            <Text style={styles.headerH1}>Profil</Text>
+            <Text style={generalStyles.headerH1}>Produkter</Text>
         </View>
     );
 }
