@@ -8,6 +8,7 @@ import FavouritesScreen from './FavouritesScreen';
 import ProfileScreen from './ProfileScreen';
 import CartScreen from './CartScreen';
 import TopNavBuyers from './TopNavBuyers';
+import HomeStack from './HomeStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,9 +40,8 @@ export default function BottomTabBuyers() {
         >
             <Tab.Screen
                 name="Hjem"
-                component={HomeScreen}
+                component={HomeStack}
                 options={{
-                    headerTitle: (props) => <TopNavBuyers {...props} />,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
@@ -51,6 +51,7 @@ export default function BottomTabBuyers() {
                             />
                         </View>
                     ),
+                    headerShown: false,
                 }}
             />
             <Tab.Screen

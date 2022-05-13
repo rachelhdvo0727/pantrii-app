@@ -20,7 +20,7 @@ const generalStyles = StyleSheet.create({
     },
     headerH2: {
         fontFamily: 'TT-Commons-Bold',
-        fontSize: 16,
+        fontSize: 18,
         textTransform: 'uppercase',
         letterSpacing: 1,
         color: '#000000',
@@ -28,9 +28,20 @@ const generalStyles = StyleSheet.create({
     headerLogo: {
         width: 80,
     },
+    flexHeading: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingBottom: 5,
+    },
     line: {
         borderBottomWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
+    },
+    containerLarge: {
+        width: 185,
+        height: 120,
+        borderRadius: 10,
     },
 });
 
