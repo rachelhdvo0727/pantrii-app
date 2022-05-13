@@ -1,23 +1,19 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    Pressable,
-    ImageBackground,
-} from 'react-native';
+import { StyleSheet, Text, Pressable, ImageBackground } from 'react-native';
 import generalStyles from '../../styles/General';
 
 interface Props {
-    // onPress: () => void;
+    onPress?: React.ComponentProps<typeof Pressable>['onPress'];
     title: string;
     imageSrc: React.ComponentProps<typeof ImageBackground>['source'];
 }
 
-const CampaginCard = ({ title, imageSrc }: Props) => {
+function CampaignCard({ title, imageSrc, onPress }: Props) {
     return (
-        <Pressable style={generalStyles.containerLarge}>
+        <Pressable
+            style={[generalStyles.containerLarge, styles.container]}
+            onPress={onPress}
+        >
             <ImageBackground
                 source={imageSrc}
                 style={generalStyles.imageBg}
@@ -28,6 +24,12 @@ const CampaginCard = ({ title, imageSrc }: Props) => {
             </ImageBackground>
         </Pressable>
     );
-};
+}
 
-export default CampaginCard;
+export default CampaignCard;
+
+const styles = StyleSheet.create({
+    container: {
+        marginRight: 15,
+    },
+});
