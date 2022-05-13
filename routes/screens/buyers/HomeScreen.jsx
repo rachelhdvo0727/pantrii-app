@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
 import HeroCardSlider from '../../../components/buyers/HeroCardSlider';
 import NewProductsSlider from '../../../components/buyers/NewProductsSlider';
 import HighLightProductsSlider from '../../../components/buyers/HighlightProductsSlider';
+import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 
 export default function HomeScreen() {
     return (
@@ -12,6 +13,7 @@ export default function HomeScreen() {
                 <HeroCardSlider />
                 <NewProductsSlider />
                 <HighLightProductsSlider />
+                <CampaignCardSlider />
             </ScrollView>
         </View>
     );

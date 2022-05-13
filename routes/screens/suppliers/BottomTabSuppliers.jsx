@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import HomeSuppliersScreen from './HomeScreen';
 import ProductsSuppliersScreen from './ProductsScreen';
