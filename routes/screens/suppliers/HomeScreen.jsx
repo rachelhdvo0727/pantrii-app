@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import generalStyles from '../../../styles/General.js';
+import generalStyles from '../../../styles/General';
 import Button from '../../../components/actions/Button';
 import { StatusBar } from 'expo-status-bar';
 import IconButton from '../../../components/actions/IconButton';

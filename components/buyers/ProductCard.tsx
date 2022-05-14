@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    Pressable,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-interface Props {
-    // onPress: () => void;
-    imageSrc: { uri: string };
+export interface Props {
+    // onPress: React.ComponentProps<typeof Pressable>['onPress'];
+    imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: string;
     producerTitle: string;
     productDesc: string;
@@ -32,15 +26,14 @@ const ProductCard = ({
     secondary,
 }: Props) => {
     return (
-        <Pressable style={[styles.productWrapper, secondary && styles.secondary,]} >
-              <Image
-                style={styles.image}
-                source={imageSrc}
-            ></Image>
+        <Pressable
+            style={[styles.productWrapper, secondary && styles.secondary]}
+        >
+            <Image style={styles.image} source={imageSrc}></Image>
             <Text style={styles.productTitle}>{productTitle}</Text>
             <View style={styles.infoWrapper}>
                 <Text style={styles.producerTitle}>{producerTitle}</Text>
-                <Text style={styles.productDesc} numberOfLines = { 1 }>
+                <Text style={styles.productDesc} numberOfLines={1}>
                     {productDesc}
                 </Text>
             </View>
@@ -52,12 +45,16 @@ const ProductCard = ({
                         <Text style={styles.bulkPrice}>{bulkPrice}</Text>
                         <Text style={styles.singularPrice}>{singlePrice}</Text>
                     </View>
-                    <View style={[styles.cartButtonWrapper, { width: secondary ? 36 : 30 },]}>
+                    <View
+                        style={[
+                            styles.cartButtonWrapper,
+                            { width: secondary ? 36 : 30 },
+                        ]}
+                    >
                         <Ionicons name="cart-outline" size={16} color="white" />
                     </View>
                 </View>
             </View>
-
         </Pressable>
     );
 };
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         position: 'relative',
     },
-    secondary: { 
+    secondary: {
         width: 182,
     },
     favouriteWrapper: {

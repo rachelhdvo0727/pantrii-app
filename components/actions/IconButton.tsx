@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
-interface Props {
+export interface Props {
     onPress: () => void;
     title: string;
     children: React.ReactChild;
@@ -12,14 +12,14 @@ interface Props {
     arrowDown?: boolean;
 }
 
-function IconButton({
+const IconButton: React.FC<Props> = ({
     title,
     children,
     outlined,
     arrowRight,
     arrowDown,
     onPress,
-}: Props) {
+}) => {
     return (
         <Pressable
             onPress={onPress}
@@ -47,7 +47,7 @@ function IconButton({
             </View>
         </Pressable>
     );
-}
+};
 
 export default IconButton;
 

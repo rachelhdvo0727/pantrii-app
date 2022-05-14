@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 
-interface Props {
+export interface Props {
     onPress: () => void;
     title: string;
     primary?: boolean;
@@ -10,14 +10,14 @@ interface Props {
     children?: React.ReactChild;
 }
 
-function Button({
+const Button: React.FC<Props> = ({
     title,
     children,
     primary,
     secondary,
     outlined,
     onPress,
-}: Props) {
+}) => {
     return (
         <Pressable
             onPress={onPress}
@@ -47,7 +47,7 @@ function Button({
             {children}
         </Pressable>
     );
-}
+};
 
 export default Button;
 

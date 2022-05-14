@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, Pressable, ImageBackground } from 'react-native';
 import generalStyles from '../../styles/General';
 
-interface Props {
+export interface Props {
     onPress?: React.ComponentProps<typeof Pressable>['onPress'];
     title: string;
     imageSrc: React.ComponentProps<typeof ImageBackground>['source'];
 }
 
-function CampaignCard({ title, imageSrc, onPress }: Props) {
+const CampaignCard: React.FC<Props> = ({ title, imageSrc, onPress }) => {
     return (
         <Pressable
             style={[generalStyles.containerLarge, styles.container]}
@@ -16,7 +16,7 @@ function CampaignCard({ title, imageSrc, onPress }: Props) {
         >
             <ImageBackground
                 source={imageSrc}
-                style={generalStyles.imageBg}
+                style={generalStyles?.imageBg}
                 resizeMode="cover"
                 imageStyle={{ borderRadius: 10 }}
             >
@@ -24,7 +24,7 @@ function CampaignCard({ title, imageSrc, onPress }: Props) {
             </ImageBackground>
         </Pressable>
     );
-}
+};
 
 export default CampaignCard;
 
