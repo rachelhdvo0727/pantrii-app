@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    View,
     Text,
     StyleSheet,
     Pressable,
@@ -9,19 +8,14 @@ import {
 import generalStyles from '../../styles/General';
 
 
-interface Props {
-    onPress: () => void;
+export interface Props {
+    onPress?: React.ComponentProps<typeof Pressable>['onPress'];
     title: string;
-    imageSrc: { uri: string };
+    imageSrc: React.ComponentProps<typeof ImageBackground>['source'];
     secondary?: boolean;
 }
 
-const CategoryCard = ({
-    onPress,
-    title,
-    imageSrc,
-    secondary,
-}: Props) => {
+const CategoryCard : React.FC<Props> = ({ title, imageSrc, onPress, secondary }) => {
     return (
         <Pressable style={[generalStyles.cardContainer, styles.padding, secondary && styles.secondary]} onPress={onPress}>
             <ImageBackground
