@@ -1,11 +1,11 @@
-import { View, Image, StyleSheet } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Image, StyleSheet } from 'react-native';
+import PantriiLogo from '../../../assets/logos/pantrii-primary-logo.png';
 
 export default function TopNavBuyers() {
     return (
         <Image
             style={{ width: 125, height: 40, marginBottom: 8 }}
-            source={require('../../assets/logos/pantrii-primary-logo.png')}
+            source={PantriiLogo}
         />
     );
 }

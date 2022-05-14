@@ -6,13 +6,13 @@ import data from '../../dummy-data/Data';
 
 export default function HeroCardSlider() {
     const [index, setIndex] = React.useState(0);
-    const isCarousel = React.useRef(null);
+    const carouselRef = React.useRef(null);
 
     return (
         <View>
             <Carousel
                 layout="default"
-                ref={isCarousel}
+                ref={carouselRef}
                 data={data}
                 inactiveSlideOpacity={1}
                 renderItem={({ item: { title, imgUrl }, index }) => (
@@ -26,7 +26,8 @@ export default function HeroCardSlider() {
             <Pagination
                 dotsLength={data.length}
                 activeDotIndex={index}
-                carouselRef={isCarousel}
+                tappableDots={true}
+                carouselRef={carouselRef}
                 dotStyle={{
                     width: 6,
                     height: 6,
@@ -39,7 +40,6 @@ export default function HeroCardSlider() {
                 inactiveDotStyle={{
                     backgroundColor: '#BCBCBC',
                 }}
-                tappableDots={true}
             />
         </View>
     );

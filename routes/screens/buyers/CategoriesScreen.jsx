@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import generalStyles from '../../styles/General.js';
 import CategoryCard from '../../components/buyers/CategoryCard';
 import CategoryData from '../../dummy-data/CategoriesData.js';
+import generalStyles from '../../../styles/General';
 
 export default function CategoriesScreen() {
     return (
