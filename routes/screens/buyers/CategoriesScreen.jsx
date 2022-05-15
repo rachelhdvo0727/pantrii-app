@@ -1,28 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    SafeAreaView,
+    FlatList,
+    Dimensions,
+} from 'react-native';
 import generalStyles from '../../../styles/General';
 import axios from 'axios';
+import { mongoDbConfig } from '../../../utils/api';
+import CategoryCard from '../../../components/buyers/CategoryCard';
+import dictionary from '../../../dummy-data/dictionary';
+import { categoryImages } from '../../../dummy-data/images';
 
 export default function CategoriesScreen() {
-    const data = JSON.stringify({
-        collection: 'categories',
-        database: 'pantriiapp',
-        dataSource: 'PantriiApp',
-    });
-    const config = {
-        method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Request-Headers': '*',
-            'Api-key':
-                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
-        },
-        data: data,
-    };
-    const [categories, setCategories] = React.useState(null);
+    const content = dictionary?.categories;
+    const [categories, setCategories] = React.useState([]);
     React.useEffect(() => {
-        axios(config)
+        axios(mongoDbConfig('post', 'categories'))
             .then(function (response) {
                 setCategories(response.data?.documents);
             })
@@ -31,21 +26,38 @@ export default function CategoriesScreen() {
             });
     }, []);
 
-    React.useEffect(() => {
-        console?.log(categories);
-    }, []);
     return (
-        <View style={generalStyles.container}>
+        <SafeAreaView style={[generalStyles.container, styles.listContainer]}>
             <FlatList
-                data={categories?.length > 0 ? categories : null}
-                keyExtractor={(item) => item?._id?.$oid}
+                data={categories}
+                keyExtractor={(item) => item?._id}
                 renderItem={({ item }) => (
-                    <View key={item?._id?.$oid}>
-                    <Text>{item.name}</Text>
-                    </View>
+                    <CategoryCard
+                        title={content.name[item?.name]}
+                        imageSrc={categoryImages[item?.imageSrc]}
+                        cardStyle={styles.cardContainer}
+                        imageStyle={styles.image}
+                    />
                 )}
                 scrollEnabled={true}
+                style={generalStyles.homeContainer}
+                numColumns={2}
             ></FlatList>
-        </View>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    listContainer: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    cardContainer: {
+        marginHorizontal: 5,
+    },
+    image: {
+        flex: 1,
+        justifyContent: 'center',
+        height: '100%',
+    },
+});
