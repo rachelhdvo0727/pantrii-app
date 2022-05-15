@@ -15,9 +15,11 @@ import dictionary from '../../../dummy-data/dictionary';
 import { categoryImages } from '../../../dummy-data/images';
 
 export default function CategoriesScreen() {
-    const content = dictionary?.categories;
+    const content = dictionary?.categories; // DA dictionary
+
     const [categories, setCategories] = React.useState([]);
     React.useEffect(() => {
+        // Fetch all categories from MongoDB api
         axios(mongoDbConfig('post', 'categories'))
             .then(function (response) {
                 setCategories(response.data?.documents);
@@ -27,12 +29,16 @@ export default function CategoriesScreen() {
             });
     }, []);
 
+    // Added allProduct object at the start of array
     const allProducts = {
         _id: '0',
         name: 'allProducts',
         imageSrc: 'all-products.png',
     };
-    if (categories?.length > 0) categories?.unshift(allProducts);
+    if (categories?.length > 0)
+        categories
+            ?.sort((a, b) => a.name.localeCompare(b.name))
+            .unshift(allProducts);
 
     return (
         <SafeAreaView style={[generalStyles.container]}>
