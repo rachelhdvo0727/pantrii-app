@@ -1,6 +1,7 @@
 {
    "categories": {
       "name": {
+         "allProducts": "alle produkter",
          "bread": "brød",
          "dairy": "mejeri",
          "dessert": "kage",

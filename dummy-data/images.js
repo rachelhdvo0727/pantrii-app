@@ -1,4 +1,5 @@
 export const categoryImages = {
+    'all-products.png': require('../assets/categories/all-products.png'),
     'bread.png': require('../assets/categories/bread.png'),
     'colonial.png': require('../assets/categories/colonial.png'),
     'dairy.png': require('../assets/categories/dairy.png'),
