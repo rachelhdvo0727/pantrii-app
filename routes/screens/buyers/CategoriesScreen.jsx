@@ -2,6 +2,7 @@ import React from 'react';
 import {
     StyleSheet,
     Text,
+    View,
     SafeAreaView,
     FlatList,
     Dimensions,
@@ -26,8 +27,15 @@ export default function CategoriesScreen() {
             });
     }, []);
 
+    const allProducts = {
+        _id: '0',
+        name: 'allProducts',
+        imageSrc: 'all-products.png',
+    };
+    if (categories?.length > 0) categories?.unshift(allProducts);
+
     return (
-        <SafeAreaView style={[generalStyles.container, styles.listContainer]}>
+        <SafeAreaView style={[generalStyles.container]}>
             <FlatList
                 data={categories}
                 keyExtractor={(item) => item?._id}
@@ -36,12 +44,15 @@ export default function CategoriesScreen() {
                         title={content.name[item?.name]}
                         imageSrc={categoryImages[item?.imageSrc]}
                         cardStyle={styles.cardContainer}
-                        imageStyle={styles.image}
                     />
                 )}
-                scrollEnabled={true}
-                style={generalStyles.homeContainer}
                 numColumns={2}
+                scrollEnabled={true}
+                contentContainerStyle={[
+                    generalStyles.homeContainer,
+                    styles.listContainer,
+                ]}
+                columnWrapperStyle={styles.columnWrapperStyle}
             ></FlatList>
         </SafeAreaView>
     );
@@ -49,15 +60,14 @@ export default function CategoriesScreen() {
 
 const styles = StyleSheet.create({
     listContainer: {
-        flex: 1,
+        alignContent: 'center',
         alignItems: 'center',
     },
-    cardContainer: {
-        marginHorizontal: 5,
+    columnWrapperStyle: {
+        justifyContent: 'space-between',
     },
-    image: {
-        flex: 1,
-        justifyContent: 'center',
-        height: '100%',
+    cardContainer: {
+        paddingHorizontal: 8,
+        width: Dimensions.get('window').width / 2,
     },
 });

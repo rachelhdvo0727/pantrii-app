@@ -41,7 +41,7 @@ const CategoryCard: React.FC<Props> = ({
                 resizeMode="cover"
                 imageStyle={[{ borderRadius: secondary ? 5 : 10 }, imageStyle]}
             >
-                <View style={[styles.background]}></View>
+                <View style={[styles.overlay]}></View>
                 <Text
                     style={[
                         generalStyles.headerH1,
@@ -69,18 +69,19 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 15,
     },
-    background: {
+    overlay: {
         backgroundColor: '#000000',
-        borderRadius: 5,
+        borderRadius: 10,
         position: 'absolute',
         height: 120,
         top: 0,
         left: 0,
         right: 0,
         zIndex: 888,
-        opacity: 0.2,
+        opacity: 0.28,
     },
     title: {
+        textAlign: 'center',
         zIndex: 999,
     },
 });
