@@ -55,8 +55,8 @@ export default function CategoriesScreen() {
                 numColumns={2}
                 scrollEnabled={true}
                 contentContainerStyle={[
-                    generalStyles.homeContainer,
-                    styles.listContainer,
+                    generalStyles.container,
+                    styles.contentContainerStyle,
                 ]}
                 columnWrapperStyle={styles.columnWrapperStyle}
             ></FlatList>
@@ -65,7 +65,7 @@ export default function CategoriesScreen() {
 }
 
 const styles = StyleSheet.create({
-    listContainer: {
+    contentContainerStyle: {
         alignContent: 'center',
         alignItems: 'center',
     },
