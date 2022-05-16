@@ -28,6 +28,9 @@ const generalStyles = StyleSheet.create({
     headerLogo: {
         width: 80,
     },
+    spaceBetween: {
+        justifyContent: 'space-between',
+    },
     flexHeading: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -38,7 +41,7 @@ const generalStyles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
     },
-    containerLarge: {
+    cardContainer: {
         width: 185,
         height: 120,
         borderRadius: 10,

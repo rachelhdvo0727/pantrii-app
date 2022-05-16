@@ -11,7 +11,7 @@ export interface Props {
 const CampaignCard: React.FC<Props> = ({ title, imageSrc, onPress }) => {
     return (
         <Pressable
-            style={[generalStyles.containerLarge, styles.container]}
+            style={[generalStyles.cardContainer, styles.container]}
             onPress={onPress}
         >
             <ImageBackground
