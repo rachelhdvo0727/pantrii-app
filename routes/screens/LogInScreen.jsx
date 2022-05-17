@@ -6,10 +6,6 @@ import { Link, useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 
-// import { useDispatch } from 'react-redux';
-// import { logIn, restoreUser, refreshToken } from '../store/actions/UserActions';
-// import * as SecureStore from 'expo-secure-store';
-
 export default function LogInScreen(props) {
     const navigation = useNavigation();
     const [email, onChangeEmail] = React.useState('');
