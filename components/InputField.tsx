@@ -15,6 +15,7 @@ interface Props {
     autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
     autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
     secureTextEntry?: React.ComponentProps<typeof TextInput>['secureTextEntry'];
+    inputStyle?: React.ComponentProps<typeof View>['style'];
 }
 
 export default function InputField({
@@ -30,6 +31,7 @@ export default function InputField({
     multiline,
     autoCapitalize,
     autoComplete,
+    inputStyle,
 }: Props) {
     const [touched, setTouched] = React.useState(false);
     const onChangeText = (text: string) => {
@@ -40,7 +42,7 @@ export default function InputField({
 
     return (
         <View>
-            <View style={styles.container}>
+            <View style={[styles.container, inputStyle]}>
                 <Text style={styles.label}>{label}</Text>
                 <TextInput
                     value={value}
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
 
         borderRadius: 1000,
         borderStyle: 'solid',
-        borderColor: '#1B463C',
+        // borderColor: '#1B463C',
         borderWidth: 1,
     },
     label: {
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
         lineHeight: 17,
         letterSpacing: 1,
         textTransform: 'capitalize',
-        color: '#1B463C',
+        // color: '#1B463C',
         paddingHorizontal: 5,
 
         position: 'absolute',
