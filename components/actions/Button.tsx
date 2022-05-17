@@ -4,6 +4,7 @@ import { StyleSheet, Pressable, View, Text } from 'react-native';
 export interface Props {
     onPress: () => void;
     title: string;
+    buttonStyle: React.ComponentProps<typeof Pressable>['style'];
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
@@ -16,6 +17,7 @@ const Button: React.FC<Props> = ({
     primary,
     secondary,
     outlined,
+    buttonStyle,
     onPress,
 }) => {
     return (
@@ -26,6 +28,7 @@ const Button: React.FC<Props> = ({
                 primary && styles.primary,
                 secondary && styles.secondary,
                 outlined && styles.outlined,
+                buttonStyle,
             ]}
         >
             <View>
