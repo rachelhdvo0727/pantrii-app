@@ -30,7 +30,7 @@ const ProductCard = ({
             style={[styles.productWrapper, secondary && styles.secondary]}
         >
             <Image style={styles.image} source={imageSrc}></Image>
-            <Text style={styles.productTitle}>{productTitle}</Text>
+            <Text style={styles.productTitle} numberOfLines={1}>{productTitle}</Text>
             <View style={styles.infoWrapper}>
                 <Text style={styles.producerTitle}>{producerTitle}</Text>
                 <Text style={styles.productDesc} numberOfLines={1}>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
     },
     unit: {
-        fontSize: 12,
+        fontSize: 11,
         fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.2,
         paddingVertical: 5,
@@ -143,12 +143,12 @@ const styles = StyleSheet.create({
     },
     bulkPrice: {
         fontSize: 14,
-        fontFamily: 'TT-Commons-Bold',
+        fontFamily: 'TT-Commons-DemiBold',
         letterSpacing: 0.2,
     },
     singularPrice: {
         fontSize: 12,
-        fontFamily: 'TT-Commons-Medium',
+        fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.2,
     },
     cartButtonWrapper: {

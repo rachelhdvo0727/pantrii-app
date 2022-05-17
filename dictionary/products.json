@@ -1,0 +1,22 @@
+{
+    "products": {
+        "productTitle": {
+            "allProducts": "alle produkter"
+        },
+        "producerTitle": {
+            "allProducts": "alle produkter"
+        },
+        "productDescription": {
+            "allProducts": "alle produkter"
+        },
+        "productStory": {
+            "allProducts": "alle produkter"
+        },
+        "productUnique": {
+            "allProducts": "alle produkter"
+        },
+        "expiryDate": {
+            "allProducts": "alle produkter"
+        }
+    }
+}
