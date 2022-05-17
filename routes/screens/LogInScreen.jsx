@@ -13,10 +13,16 @@ import InputField from '../../components/InputField';
 export default function LogInScreen(props) {
     const navigation = useNavigation();
     const [email, onChangeEmail] = React.useState('');
+    const [isEmailValid, setIsEmailValid] = React.useState(false);
+
     const [password, onChangePassword] = React.useState('');
+    const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+
     const handleLogIn = () => {
-        //   dispatch(logIn(email, password));
         console.log('authenticating user...');
+        if (email !== '' && password !== '') {
+            console.log('log in');
+        }
     };
     const showSignUp = () => {
         navigation?.navigate('SignUpScreen');
@@ -28,15 +34,34 @@ export default function LogInScreen(props) {
                 style={[styles.icon, { width: 97, height: 97 }]}
             ></Image>
             <View style={styles.formWrapper}>
-                <InputField label="email"></InputField>
-                <InputField label="password" secureTextEntry></InputField>
+                <InputField
+                    label="email"
+                    placeholder="example@mail.com"
+                    value={email}
+                    onValid={(valid) => setIsEmailValid(valid)}
+                    setContent={(email) => onChangeEmail(email)}
+                    autoCapitalize={false}
+                    autoComplete={false}
+                ></InputField>
+                <InputField
+                    label="password"
+                    placeholder="**********"
+                    secureTextEntry
+                    value={password}
+                    onValid={(valid) => setIsPasswordValid(valid)}
+                    setContent={(password) => onChangePassword(password)}
+                    autoCapitalize={false}
+                    autoComplete={false}
+                ></InputField>
                 <Button
                     title="log ind"
                     primary
                     buttonStyle={styles.buttonStyle}
                     onPress={handleLogIn}
                 ></Button>
-                <Text style={styles.mediumText}>Jeg er ny hér</Text>
+                <Text style={styles.mediumText}>
+                    Jeg er ny hér. Registrer mig.
+                </Text>
                 <Button
                     title="bliv kunde"
                     outlined
@@ -61,7 +86,6 @@ const styles = StyleSheet.create({
     },
     icon: {
         marginBottom: 50,
-        //   margin: 20,
     },
     buttonStyle: {
         alignSelf: 'center',
@@ -70,7 +94,7 @@ const styles = StyleSheet.create({
         ...generalStyles.mediumText,
         fontSize: 15,
         textAlign: 'center',
-        marginTop: 20,
+        marginTop: 25,
         marginBottom: 5,
     },
 });
