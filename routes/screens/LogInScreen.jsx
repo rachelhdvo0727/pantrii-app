@@ -1,8 +1,8 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
-import { StyleSheet, Text, View, Image } from 'react-native';
 // Components
-import { Link, useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 
@@ -30,23 +30,23 @@ export default function LogInScreen(props) {
                 style={[styles.icon, { width: 97, height: 97 }]}
             ></Image>
             <View style={styles.formWrapper}>
+                <Text style={styles.header}>log ind</Text>
+
                 <InputField
                     label="email"
                     placeholder="example@mail.com"
                     value={email}
                     onValid={(valid) => setIsEmailValid(valid)}
                     setContent={(email) => onChangeEmail(email)}
-                    autoCapitalize={false}
                     autoComplete={false}
                 ></InputField>
                 <InputField
-                    label="password"
+                    label="adgangskode"
                     placeholder="**********"
                     secureTextEntry
                     value={password}
                     onValid={(valid) => setIsPasswordValid(valid)}
                     setContent={(password) => onChangePassword(password)}
-                    autoCapitalize={false}
                     autoComplete={false}
                 ></InputField>
                 <Button
@@ -77,11 +77,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
+    header: {
+        ...generalStyles.headerH2,
+        marginVertical: 15,
+        paddingHorizontal: 30,
+    },
     formWrapper: {
-        width: '100%',
+        width: '95%',
     },
     icon: {
-        marginBottom: 50,
+        marginBottom: 30,
     },
     buttonStyle: {
         alignSelf: 'center',
