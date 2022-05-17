@@ -11,8 +11,8 @@ import generalStyles from '../../../styles/General';
 import axios from 'axios';
 import { mongoDbConfig } from '../../../utils/api';
 import CategoryCard from '../../../components/buyers/CategoryCard';
-import dictionary from '../../../dummy-data/dictionary';
-import { categoryImages } from '../../../dummy-data/images';
+import dictionary from '../../../dictionary/categories';
+import { categoryImages } from '../../../dictionary/images';
 
 export default function CategoriesScreen() {
     const content = dictionary?.categories; // DA dictionary
@@ -55,7 +55,6 @@ export default function CategoriesScreen() {
                 numColumns={2}
                 scrollEnabled={true}
                 contentContainerStyle={[
-                    generalStyles.container,
                     styles.contentContainerStyle,
                 ]}
                 columnWrapperStyle={styles.columnWrapperStyle}
@@ -68,12 +67,14 @@ const styles = StyleSheet.create({
     contentContainerStyle: {
         alignContent: 'center',
         alignItems: 'center',
+        width: '100%',
+        paddingVertical: 15,
     },
     columnWrapperStyle: {
         justifyContent: 'space-between',
     },
     cardContainer: {
         paddingHorizontal: 8,
-        width: Dimensions.get('window').width / 2,
+        width: Dimensions.get('window').width / 2 - 8,
     },
 });

@@ -3,7 +3,7 @@ import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
 import ProductCard from './ProductCard';
-import productData2 from '../../dummy-data/ProductData2';
+import productData2 from '../../dictionary/ProductData2';
 import generalStyles from '../../styles/General';
 import ViewButton from '../actions/ViewButton';
 

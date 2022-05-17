@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import HeroCard, { SLIDER_WIDTH, ITEM_WIDTH } from './HeroCard';
-import data from '../../dummy-data/Data';
+import data from '../../dictionary/Data';
 
 export default function HeroCardSlider() {
     const [index, setIndex] = React.useState(0);

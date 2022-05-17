@@ -10,8 +10,8 @@ const productData2 = [
     },
     {
         imageSrc: require('../assets/products/627fc4457a0fa962a5cb745b.png'),
-        productTitle: 'Tofu',
-        producerTitle: 'Le Trang',
+        productTitle: 'Bruun Kola',
+        producerTitle: 'Bruun Kola',
         productDesc: 'Tofu med citrongræs og chili',
         productUnit: '1 x 10stk',
         bulkPrice: '200,00 /kolli',
