@@ -45,7 +45,7 @@ const HomeStack = () => {
                 name="HighlightProducts"
                 component={HighLightProductsScreen}
                 options={{
-                    headerTitle: 'UDVALGT TIL DIG',
+                    headerTitle: 'POPULÆRT LIGE NU',
                     headerBackTitle: '',
                 }}
             />

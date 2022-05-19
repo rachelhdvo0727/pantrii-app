@@ -59,8 +59,8 @@ const HighLightProductsSlider = () => {
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
-                // productCard width plus 8
-                itemWidth={178}
+                // productCard width plus 5
+                itemWidth={180}
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}

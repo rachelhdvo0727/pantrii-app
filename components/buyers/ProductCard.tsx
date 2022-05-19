@@ -63,7 +63,7 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
     productWrapper: {
-        width: 170,
+        width: 175,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     },
     bulkPrice: {
         fontSize: 14,
-        fontFamily: 'TT-Commons-DemiBold',
+        fontFamily: 'TT-Commons-Bold',
         letterSpacing: 0.2,
     },
     singularPrice: {
