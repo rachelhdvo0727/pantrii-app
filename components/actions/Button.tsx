@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 
 export interface Props {
-    onPress: () => void;
-    title: string;
+    onPress: React.ComponentProps<typeof Pressable>['onPress'];
+    title: React.ComponentProps<typeof Text>['children'];
     buttonStyle?: React.ComponentProps<typeof Pressable>['style'];
     primary?: boolean;
     secondary?: boolean;
