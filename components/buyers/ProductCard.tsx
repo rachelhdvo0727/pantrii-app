@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export interface Props {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     secondary: {
-        width: 187,
+        width: Dimensions.get('window').width / 2 - 20,
     },
     favouriteWrapper: {
         alignItems: 'center',
