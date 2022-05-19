@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     secondary: {
-        width: 182,
+        width: 187,
     },
     favouriteWrapper: {
         alignItems: 'center',
