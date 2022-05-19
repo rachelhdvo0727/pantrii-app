@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import { RadioButton } from 'react-native-paper';
+import ApprovedModal from '../../components/ApprovedModal';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
@@ -20,7 +21,16 @@ export default function LogInScreen(props) {
 
     const [email, onChangeEmail] = React.useState('');
     const [password, onChangePassword] = React.useState('');
-    const handleSignUp = () => {};
+
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const handleSignUp = () => {
+        setModalVisible(true);
+    };
+
+    const onSignUpSuccess = () => {
+        setModalVisible(!modalVisible);
+        navigation?.navigate('LogInScreen');
+    };
 
     const showLogIn = () => {
         navigation.navigate('LogInScreen');
@@ -29,6 +39,7 @@ export default function LogInScreen(props) {
     React.useEffect(() => {
         //   console.log(value);
     });
+
     return (
         <SafeAreaView style={{ flex: 1, marginTop: 70 }}>
             <ScrollView>
@@ -153,6 +164,20 @@ export default function LogInScreen(props) {
                     ></Button>
                 </View>
             </ScrollView>
+
+            {/* Success sign uo modal */}
+            <ApprovedModal
+                messageTitle="godkendt"
+                messageText="Din konto er oprette. Fortsæt med at logge ind"
+                isModalVisible={modalVisible}
+                buttonTitle="log ind"
+                hasConfirmedIcon={true}
+                hasButton={true}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+                onPress={onSignUpSuccess}
+            ></ApprovedModal>
         </SafeAreaView>
     );
 }
