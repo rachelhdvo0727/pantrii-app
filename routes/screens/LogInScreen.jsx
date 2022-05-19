@@ -17,7 +17,10 @@ export default function LogInScreen(props) {
     const handleLogIn = () => {
         console.log('authenticating user...');
         if (email !== '' && password !== '') {
-            console.log('log in');
+            console.log('emtpty inputs');
+        } else {
+            //authenticate inputs
+            setModalVisible(!modalVisible);
         }
     };
     const showSignUp = () => {
