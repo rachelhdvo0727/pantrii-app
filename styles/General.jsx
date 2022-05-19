@@ -29,6 +29,8 @@ const generalStyles = StyleSheet.create({
         fontFamily: 'TT-Commons-Regular',
         fontSize: 14,
         color: '#000000',
+        lineHeight: 17,
+        letterSpacing: 0.8,
     },
     mediumText: {
         fontFamily: 'TT-Commons-Medium',
