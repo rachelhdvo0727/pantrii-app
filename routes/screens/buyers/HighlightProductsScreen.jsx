@@ -5,7 +5,7 @@ import generalStyles from '../../../styles/General';
 export default function HighLightProductsScreen() {
     return (
         <View style={generalStyles.container}>
-            <Text style={generalStyles.headerH1}>Udvalgt til dig</Text>
+            <Text style={generalStyles.headerH1}>Populært lige nu</Text>
         </View>
     );
 }

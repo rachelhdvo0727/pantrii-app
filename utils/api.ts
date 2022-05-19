@@ -20,6 +20,36 @@ export const mongoDbConfig = (method: string, collection: string) => {
     };
 };
 
+// Fetch data with sort lates and limit 10
+const fetchLastestData = (collection: string) => {
+    return JSON.stringify({
+        collection: collection,
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        limit: 10,
+        sort: { 
+            "dateTime": -1 
+        },
+    });
+};
+
+export const fetchLastestProducts = (
+    method: string,
+    collection: string,
+) => {
+    return {
+        method: method,
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Request-Headers': '*',
+            'Api-key':
+                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
+        },
+        data: fetchLastestData(collection),
+    };
+};
+
 // Fetch data with filtered isFeatured
 const fetchFeaturedData = (collection: string, isFiltered: boolean) => {
     return JSON.stringify({

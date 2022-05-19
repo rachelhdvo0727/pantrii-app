@@ -35,7 +35,7 @@ const HighLightProductsSlider = () => {
     return (
         <View style={styles.container}>
             <View style={generalStyles.flexHeading}>
-                <Text style={generalStyles.headerH2}>Udvalgt til dig</Text>
+                <Text style={generalStyles.headerH2}>Populært lige nu</Text>
                 <ViewButton
                     onPress={() => navigation.navigate('HighlightProducts')}
                 />
