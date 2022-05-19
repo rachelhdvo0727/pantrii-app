@@ -1,11 +1,11 @@
 const data = [
     {
         title: 'Tilbud på Nordic Quinoa',
-        imgUrl: require('../assets/banners/quinoa.png'),
+        imgUrl: require('../assets/banners/62864b82212c889524bc8f7f.png'),
     },
     {
         title: 'Ny Chokolade fra Friis Holm',
-        imgUrl: require('../assets/banners/chokolade.jpg'),
+        imgUrl: require('../assets/banners/62864cca212c889524bc8f83.png'),
     },
     {
         title: '',

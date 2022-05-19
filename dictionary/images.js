@@ -29,3 +29,9 @@ export const productImages = {
     '628639b1212c889524bc8f7d.png': require('../assets/products/628639b1212c889524bc8f7d.png'),
     '62863c52212c889524bc8f7e.png': require('../assets/products/62863c52212c889524bc8f7e.png'),
 };
+
+export const bannerImages = {
+    '62864b82212c889524bc8f7f.png': require('../assets/banners/62864b82212c889524bc8f7f.png'),
+    '62865146212c889524bc8f87.png': require('../assets/banners/62865146212c889524bc8f87.png'),
+    '62865197212c889524bc8f88.png': require('../assets/banners/62865197212c889524bc8f88.png'),
+};

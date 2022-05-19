@@ -2,21 +2,38 @@ import React from 'react';
 import { View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import HeroCard, { SLIDER_WIDTH, ITEM_WIDTH } from './HeroCard';
-import data from '../../dictionary/Data';
+import { mongoDbConfig } from '../../utils/api';
+import { bannerImages } from '../../dictionary/images';
+import axios from 'axios';
 
 export default function HeroCardSlider() {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
+
+    const [heroProducts, setHeroProducts] = React.useState([]);
+    React.useEffect(() => {
+        // Fetch all categories from MongoDB api
+        axios(mongoDbConfig('post', 'advertisements'))
+            .then(function (response) {
+                setHeroProducts(response.data?.documents);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     return (
         <View>
             <Carousel
                 layout="default"
                 ref={carouselRef}
-                data={data}
+                data={heroProducts}
                 inactiveSlideOpacity={1}
-                renderItem={({ item: { title, imgUrl }, index }) => (
-                    <HeroCard key={index} title={title} imageSrc={imgUrl} />
+                renderItem={({ item }) => (
+                    <HeroCard
+                        title={item?.title}
+                        imageSrc={bannerImages[item?.imageSrc]}
+                    />
                 )}
                 sliderWidth={SLIDER_WIDTH}
                 itemWidth={ITEM_WIDTH}
@@ -24,7 +41,7 @@ export default function HeroCardSlider() {
                 useScrollView={true}
             />
             <Pagination
-                dotsLength={data.length}
+                dotsLength={heroProducts.length}
                 activeDotIndex={index}
                 tappableDots={true}
                 carouselRef={carouselRef}
