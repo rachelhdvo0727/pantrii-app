@@ -3,7 +3,7 @@ import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
 import ProductCard from './ProductCard';
-import productData from '../../dictionary/ProductData';
+import dictionary from '../../dictionary/products';
 import generalStyles from '../../styles/General';
 import ViewButton from '../actions/ViewButton';
 import { mongoDbConfig } from '../../utils/api';
@@ -16,6 +16,8 @@ const NewProductsSlider = () => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
     const navigation = useNavigation();
+
+    const content = dictionary?.products; // DA dictionary
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
@@ -41,19 +43,19 @@ const NewProductsSlider = () => {
             <Carousel
                 layout="default"
                 ref={carouselRef}
-                data={products.slice(0, 4)}
+                data={products.slice(0, 6)}
                 activeSlideAlignment="start"
                 inactiveSlideScale={1}
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <ProductCard
-                        productTitle={item?.productTitle}
+                        productTitle={content.productTitle[item?.productTitle]}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={item?.productDesc}
+                        productDesc={content.productDesc[item?.productDesc]}
                         productUnit={item?.productUnit}
-                        bulkPrice={item?.bulkPrice + 'kr/kolli'}
-                        singlePrice={item?.singlePrice + 'kr/enhed'}
+                        bulkPrice={item?.bulkPrice + '/' + content.currency.DKK + ' kolli'}
+                        singlePrice={item?.singlePrice + '/' + content.currency.DKK + ' enhed'}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
