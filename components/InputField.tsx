@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, View, TextInput, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-interface Props {
+export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
     label: string;
     onBlur?: React.ComponentProps<typeof TextInput>['onBlur'];
