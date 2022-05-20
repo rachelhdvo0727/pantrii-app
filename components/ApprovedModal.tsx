@@ -31,7 +31,7 @@ export default function ApprovedModal({
             <Modal
                 visible={isModalVisible}
                 onRequestClose={onRequestClose}
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
             >
                 <View style={styles.centeredView}>
