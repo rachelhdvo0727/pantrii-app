@@ -3,7 +3,7 @@ import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
 import ProductCard from './ProductCard';
-import productData from '../../dummy-data/ProductData';
+import productData from '../../dictionary/ProductData';
 import generalStyles from '../../styles/General';
 import ViewButton from '../actions/ViewButton';
 
@@ -53,8 +53,8 @@ const NewProductsSlider = () => {
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
-                // productCard width plus 15
-                itemWidth={185}
+                // productCard width plus 8
+                itemWidth={178}
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}

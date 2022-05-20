@@ -1,6 +1,6 @@
-const productData2 = [
+const productData = [
     {
-        imageSrc: require('../assets/products/konfekt.png'),
+        imageSrc: require('../assets/products/627f7dea518bc449e09feb4e.png'),
         productTitle: 'Tofu',
         producerTitle: 'Le Trang',
         productDesc: 'Tofu med citrongræs og chili',
@@ -9,36 +9,36 @@ const productData2 = [
         singlePrice: '20,00 /enhed',
     },
     {
-        imageSrc: require('../assets/products/bruun-kola.png'),
-        productTitle: 'Tofu',
-        producerTitle: 'Le Trang',
+        imageSrc: require('../assets/products/627fc11a8d01488b6a18c5da.png'),
+        productTitle: 'Oh!Pops',
+        producerTitle: 'Oh!Pops',
         productDesc: 'Tofu med citrongræs og chili',
         productUnit: '1 x 10stk',
         bulkPrice: '200,00 /kolli',
         singlePrice: '20,00 /enhed',
     },
     {
-        imageSrc: require('../assets/products/ravioli.png'),
-        productTitle: 'Tofu',
-        producerTitle: 'Le Trang',
+        imageSrc: require('../assets/products/627fc4457a0fa962a5cb745b.png'),
+        productTitle: 'Bruun Kola',
+        producerTitle: 'Bruun Kola',
+        productDesc: 'Dansk kola',
+        productUnit: '1 x 10stk',
+        bulkPrice: '200,00 /kolli',
+        singlePrice: '20,00 /enhed',
+    },
+    {
+        imageSrc: require('../assets/products/627fc6217a0fa962a5cb745c.png'),
+        productTitle: 'Konfekt',
+        producerTitle: 'Konfekt',
         productDesc: 'Tofu med citrongræs og chili',
         productUnit: '1 x 10stk',
         bulkPrice: '200,00 /kolli',
         singlePrice: '20,00 /enhed',
     },
     {
-        imageSrc: require('../assets/products/oh-pops.png'),
-        productTitle: 'Tofu',
-        producerTitle: 'Le Trang',
-        productDesc: 'Tofu med citrongræs og chili',
-        productUnit: '1 x 10stk',
-        bulkPrice: '200,00 /kolli',
-        singlePrice: '20,00 /enhed',
-    },
-    {
-        imageSrc: require('../assets/products/tofu.png'),
-        productTitle: 'Tofu',
-        producerTitle: 'Le Trang',
+        imageSrc: require('../assets/products/627fce067a0fa962a5cb745e.png'),
+        productTitle: 'Ravioli',
+        producerTitle: 'La Treccia',
         productDesc: 'Tofu med citrongræs og chili',
         productUnit: '1 x 10stk',
         bulkPrice: '200,00 /kolli',
@@ -46,4 +46,4 @@ const productData2 = [
     },
 ];
 
-export default productData2;
+export default productData;
