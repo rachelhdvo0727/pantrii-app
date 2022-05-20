@@ -5,27 +5,31 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
+import { useForm, Controller } from 'react-hook-form';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
-    const [email, onChangeEmail] = React.useState('');
-    const [isEmailValid, setIsEmailValid] = React.useState(false);
-
-    const [password, onChangePassword] = React.useState('');
-    const [isPasswordValid, setIsPasswordValid] = React.useState(false);
-
-    const handleLogIn = () => {
-        console.log('authenticating user...');
-        if (email !== '' && password !== '') {
-            console.log('emtpty inputs');
-        } else {
-            //authenticate inputs
-            setModalVisible(!modalVisible);
-        }
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
+    const onSubmit = (data) => {
+        console.log(data);
+        // POST
+        // founduser ? save in SecureStore
+        // go to Home
     };
+
     const showSignUp = () => {
         navigation?.navigate('SignUpScreen');
     };
+
     return (
         <View style={[styles.container]}>
             <Image
@@ -34,29 +38,59 @@ export default function LogInScreen(props) {
             ></Image>
             <View style={styles.formWrapper}>
                 <Text style={styles.header}>log ind</Text>
+                <Controller
+                    name="email"
+                    control={control}
+                    rules={{
+                        required: 'Dette er påkrævet',
+                        pattern: {
+                            value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            message: 'Din email er ugyldig',
+                        },
+                    }}
+                    render={({
+                        field: { onChange, onBlur, value },
+                        fieldState: { error },
+                    }) => (
+                        <InputField
+                            label="email"
+                            placeholder="example@mail.com"
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            autoComplete={false}
+                            errorMessage={error}
+                        ></InputField>
+                    )}
+                ></Controller>
 
-                <InputField
-                    label="email"
-                    placeholder="example@mail.com"
-                    value={email}
-                    onValid={(valid) => setIsEmailValid(valid)}
-                    setContent={(email) => onChangeEmail(email)}
-                    autoComplete={false}
-                ></InputField>
-                <InputField
-                    label="adgangskode"
-                    placeholder="**********"
-                    secureTextEntry
-                    value={password}
-                    onValid={(valid) => setIsPasswordValid(valid)}
-                    setContent={(password) => onChangePassword(password)}
-                    autoComplete={false}
-                ></InputField>
+                <Controller
+                    name="password"
+                    control={control}
+                    rules={{
+                        required: 'Dette er påkrævet',
+                    }}
+                    render={({
+                        field: { onChange, onBlur, value },
+                        fieldState: { error },
+                    }) => (
+                        <InputField
+                            label="adgangskode"
+                            placeholder="**********"
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            secureTextEntry
+                            autoComplete={false}
+                            errorMessage={error}
+                        ></InputField>
+                    )}
+                ></Controller>
                 <Button
                     title="log ind"
                     primary
                     buttonStyle={styles.buttonStyle}
-                    onPress={handleLogIn}
+                    onPress={handleSubmit(onSubmit)}
                 ></Button>
                 <Text style={styles.mediumText}>
                     Jeg er ny hér. Registrer mig.

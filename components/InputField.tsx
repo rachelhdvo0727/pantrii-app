@@ -6,9 +6,8 @@ export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
     label: string;
     onBlur?: React.ComponentProps<typeof TextInput>['onBlur'];
-    onValid(arg: boolean): void;
-    setContent(arg: string): void;
-    errorMessage?: string;
+    onChangeText?: React.ComponentProps<typeof TextInput>['onChangeText'];
+    errorMessage?: { message: string };
     placeholder: React.ComponentProps<typeof TextInput>['placeholder'];
     keyboardType?: React.ComponentProps<typeof TextInput>['keyboardType'];
     multiline?: React.ComponentProps<typeof TextInput>['multiline'];
@@ -22,8 +21,7 @@ export default function InputField({
     value,
     label,
     onBlur,
-    onValid,
-    setContent,
+    onChangeText,
     errorMessage,
     placeholder,
     keyboardType,
@@ -33,43 +31,37 @@ export default function InputField({
     autoComplete,
     inputStyle,
 }: Props) {
-    const [touched, setTouched] = React.useState(false);
-    const onChangeText = (text: string) => {
-        setTouched(true);
-        text === '' ? onValid(false) : onValid(true);
-        setContent(text);
-    };
-
     return (
-        <View>
-            <View style={[styles.container, inputStyle]}>
+        <View style={inputStyle}>
+            <View style={styles.container}>
                 <Text style={styles.label}>{label}</Text>
                 <TextInput
                     value={value}
                     onChangeText={onChangeText}
-                    onBlur={() => setTouched(true)}
+                    onBlur={onBlur}
                     placeholder={placeholder}
                     keyboardType={keyboardType}
                     multiline={multiline}
                     autoCapitalize={autoCapitalize}
                     autoComplete={autoComplete}
                     secureTextEntry={secureTextEntry}
+                    blurOnSubmit
                     style={styles.textValue}
                 ></TextInput>
             </View>
             {/* Error message */}
-            {touched ? (
-                !onValid ? (
-                    <SafeAreaView style={styles.errorContainer}>
-                        <MaterialIcons
-                            name="error"
-                            size={17}
-                            color="red"
-                            style={styles.errorIcon}
-                        />
-                        <Text style={styles.errorMessage}>{errorMessage}</Text>
-                    </SafeAreaView>
-                ) : null
+            {errorMessage && errorMessage?.message !== '' ? (
+                <SafeAreaView style={styles.errorContainer}>
+                    <MaterialIcons
+                        name="error"
+                        size={17}
+                        color="red"
+                        style={styles.errorIcon}
+                    />
+                    <Text style={styles.errorMessage}>
+                        {errorMessage?.message}
+                    </Text>
+                </SafeAreaView>
             ) : null}
         </View>
     );
@@ -120,6 +112,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: 'center',
         marginHorizontal: 50,
+        marginBottom: 15,
     },
     errorMessage: {
         fontFamily: 'TT-Commons-Regular',
