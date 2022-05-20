@@ -54,9 +54,7 @@ export default function CategoriesScreen() {
                 )}
                 numColumns={2}
                 scrollEnabled={true}
-                contentContainerStyle={[
-                    styles.contentContainerStyle,
-                ]}
+                contentContainerStyle={[styles.contentContainerStyle]}
                 columnWrapperStyle={styles.columnWrapperStyle}
             ></FlatList>
         </SafeAreaView>
@@ -75,6 +73,6 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         paddingHorizontal: 8,
-        width: Dimensions.get('window').width / 2 - 8,
+        width: Dimensions.get('window').width / 2,
     },
 });
