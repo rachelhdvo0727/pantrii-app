@@ -14,6 +14,7 @@ export interface Props {
     autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
     autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
     secureTextEntry?: React.ComponentProps<typeof TextInput>['secureTextEntry'];
+    maxLength?: React.ComponentProps<typeof TextInput>['maxLength'];
     inputStyle?: React.ComponentProps<typeof View>['style'];
 }
 
@@ -25,6 +26,7 @@ export default function InputField({
     errorMessage,
     placeholder,
     keyboardType,
+    maxLength,
     secureTextEntry,
     multiline,
     autoCapitalize,
@@ -45,6 +47,7 @@ export default function InputField({
                     autoCapitalize={autoCapitalize}
                     autoComplete={autoComplete}
                     secureTextEntry={secureTextEntry}
+                    maxLength={maxLength}
                     blurOnSubmit
                     style={styles.textValue}
                 ></TextInput>
@@ -70,7 +73,7 @@ export default function InputField({
 const styles = StyleSheet.create({
     container: {
         marginVertical: 10,
-        marginHorizontal: 25,
+        marginHorizontal: 18,
         paddingVertical: 10,
         paddingHorizontal: 25,
         backgroundColor: '#EFF2EE',
@@ -109,15 +112,17 @@ const styles = StyleSheet.create({
     },
     errorContainer: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        marginHorizontal: 50,
+
+        alignContent: 'center',
+        marginHorizontal: 30,
         marginBottom: 15,
+        paddingHorizontal: 14,
     },
     errorMessage: {
         fontFamily: 'TT-Commons-Regular',
         fontSize: 14,
         letterSpacing: 1,
+        lineHeight: 17.5,
         marginTop: 1,
         color: 'red',
     },
