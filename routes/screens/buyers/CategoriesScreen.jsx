@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    FlatList,
-    Dimensions,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList, Dimensions } from 'react-native';
 import generalStyles from '../../../styles/General';
 import axios from 'axios';
 import { mongoDbConfig } from '../../../utils/api';
@@ -20,7 +13,7 @@ export default function CategoriesScreen() {
     const [categories, setCategories] = React.useState([]);
     React.useEffect(() => {
         // Fetch all categories from MongoDB api
-        axios(mongoDbConfig('post', 'categories'))
+        axios(mongoDbConfig('categories'))
             .then(function (response) {
                 setCategories(response.data?.documents);
             })
