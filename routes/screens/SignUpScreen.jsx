@@ -15,8 +15,10 @@ import InputField from '../../components/InputField';
 import { useForm, Controller } from 'react-hook-form';
 import { RadioButton } from 'react-native-paper';
 import ApprovedModal from '../../components/ApprovedModal';
-
-import { passwordRules } from '../../utils/variables';
+// API
+import axios from 'axios';
+import { createUserAccount } from '../../utils/api';
+import CryptoJS from 'crypto-js';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
@@ -45,19 +47,22 @@ export default function LogInScreen(props) {
 
     const onSubmit = (data) => {
         setModalVisible(true);
-        const dataToSend = JSON.stringify(data);
-        console.log(data);
-        // POST
-    };
 
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const onSignUpSuccess = () => {
-        setModalVisible(!modalVisible);
-        navigation?.navigate('LogInScreen');
+        // Send data
+        axios(createUserAccount(data))
+            .then((response) => console.log(response))
+            .catch((error) => console.error(error));
     };
 
     const showLogIn = () => {
         navigation.navigate('LogInScreen');
+    };
+
+    // Modal
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const onSignUpSuccess = () => {
+        setModalVisible(!modalVisible);
+        navigation?.navigate('LogInScreen');
     };
 
     React.useEffect(() => {
@@ -286,7 +291,6 @@ export default function LogInScreen(props) {
                                 control={control}
                                 rules={{
                                     required: 'Postnr. er påkrævet',
-                                    valueAsNumber: true,
                                 }}
                                 render={({
                                     field: { onChange, onBlur, value },
