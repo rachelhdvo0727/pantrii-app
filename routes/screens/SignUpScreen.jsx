@@ -12,21 +12,45 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
+import { useForm, Controller } from 'react-hook-form';
 import { RadioButton } from 'react-native-paper';
 import ApprovedModal from '../../components/ApprovedModal';
+
+import { passwordRules } from '../../utils/variables';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
     const [value, setValue] = React.useState('');
 
-    const [email, onChangeEmail] = React.useState('');
-    const [password, onChangePassword] = React.useState('');
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            phone: '',
+            address: {
+                line1: '',
+                line2: '',
+                zipCode: '',
+                city: '',
+                country: '',
+            },
+        },
+    });
 
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const handleSignUp = () => {
+    const onSubmit = (data) => {
         setModalVisible(true);
+        const dataToSend = JSON.stringify(data);
+        console.log(data);
+        // POST
     };
 
+    const [modalVisible, setModalVisible] = React.useState(false);
     const onSignUpSuccess = () => {
         setModalVisible(!modalVisible);
         navigation?.navigate('LogInScreen');
@@ -85,74 +109,252 @@ export default function LogInScreen(props) {
                                 />
                             </View>
                         </RadioButton.Group>
-                        <InputField
-                            label="fornavn *"
-                            placeholder="John"
-                            value={email}
-                            onValid={(valid) => setIsEmailValid(valid)}
-                            setContent={(email) => onChangeEmail(email)}
-                            autoComplete={false}
-                            autoCapitalize="words"
-                        ></InputField>
-                        <InputField
-                            label="efternavn *"
-                            placeholder="Eksempel"
-                            autoComplete={false}
-                            autoCapitalize="words"
-                        ></InputField>
-                        <InputField
-                            label="email *"
-                            placeholder="example@mail.com"
-                            autoComplete={false}
-                        ></InputField>
-                        <InputField
-                            label="mobilnummer *"
-                            placeholder="57575757"
-                            autoComplete={false}
-                        ></InputField>
-                        <InputField
-                            label="adresselinje 1 *"
-                            placeholder="Vejnavn og husnummer"
-                            autoComplete={false}
-                            autoCapitalize="words"
-                        ></InputField>
-                        <InputField
-                            label="adresselinje 2"
-                            placeholder="Evt. dørnummer"
-                            autoComplete={false}
-                            autoCapitalize="sentences"
-                        ></InputField>
+                        <Controller
+                            name="firstName"
+                            control={control}
+                            rules={{
+                                required: 'Fornavn er påkrævet',
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="fornavn *"
+                                    placeholder="John"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoComplete={false}
+                                    autoCapitalize="words"
+                                    errorMessage={error}
+                                ></InputField>
+                            )}
+                        ></Controller>
+                        <Controller
+                            name="lastName"
+                            control={control}
+                            rules={{
+                                required: 'Efternavn er påkrævet',
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="efternavn *"
+                                    placeholder="Eksempel"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoComplete={false}
+                                    autoCapitalize="words"
+                                    errorMessage={error}
+                                ></InputField>
+                            )}
+                        ></Controller>
+
+                        <Controller
+                            name="email"
+                            control={control}
+                            rules={{
+                                required: 'Email er påkrævet',
+                                pattern: {
+                                    value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                    message: 'Din email er ugyldig',
+                                },
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="email *"
+                                    placeholder="example@mail.com"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoComplete={false}
+                                    errorMessage={error}
+                                ></InputField>
+                            )}
+                        ></Controller>
+                        <Controller
+                            name="password"
+                            control={control}
+                            rules={{
+                                required: 'Adgangskode er påkrævet',
+                                minLength: {
+                                    value: 12,
+                                    message:
+                                        'Adgangskode skal være mellem 12-20 karakterer',
+                                },
+                                maxLength: {
+                                    value: 20,
+                                    message:
+                                        'Adgangskode skal være mellem 12-20 karakterer',
+                                },
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="adgangskode *"
+                                    placeholder="**********"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    secureTextEntry
+                                    autoComplete={false}
+                                    errorMessage={error}
+                                    maxLength={20}
+                                ></InputField>
+                            )}
+                        ></Controller>
+                        <Controller
+                            name="phone"
+                            control={control}
+                            rules={{
+                                required: 'Mobilnummer er påkrævet',
+                                pattern: {
+                                    value: /^((\(?\+45\)?)?)(\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2})$/,
+                                    message:
+                                        'Mobilnummer skal være 8 cifre, uden landskode',
+                                },
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="mobilnummer *"
+                                    placeholder="57575757"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoComplete={false}
+                                    errorMessage={error}
+                                ></InputField>
+                            )}
+                        ></Controller>
+                        <Controller
+                            name={`address.line1`}
+                            control={control}
+                            rules={{
+                                required: 'Adresse er påkrævet',
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="adresselinje 1 *"
+                                    placeholder="Vejnavn og husnummer"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    errorMessage={error}
+                                    autoComplete={false}
+                                    autoCapitalize="words"
+                                ></InputField>
+                            )}
+                        ></Controller>
+                        <Controller
+                            name={`address.line2`}
+                            control={control}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="adresselinje 2"
+                                    placeholder="Evt. dørnummer"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    errorMessage={error}
+                                    autoComplete={false}
+                                    autoCapitalize="sentences"
+                                ></InputField>
+                            )}
+                        ></Controller>
+
                         <View style={styles.fieldset}>
-                            <InputField
-                                label="postnr. *"
-                                placeholder="2000"
-                                autoComplete={false}
-                                autoCapitalize="sentences"
-                                inputStyle={{
-                                    width: '90%',
+                            <Controller
+                                name={`address.zipCode`}
+                                control={control}
+                                rules={{
+                                    required: 'Postnr. er påkrævet',
+                                    valueAsNumber: true,
                                 }}
-                            ></InputField>
-                            <InputField
-                                label="by *"
-                                placeholder="København"
-                                autoComplete={false}
-                                inputStyle={{
-                                    width: 120,
-                                    alignSelf: 'flex-start',
+                                render={({
+                                    field: { onChange, onBlur, value },
+                                    fieldState: { error },
+                                }) => (
+                                    <InputField
+                                        label="postnr. *"
+                                        placeholder="2000"
+                                        value={value}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        errorMessage={error}
+                                        autoComplete={false}
+                                        keyboardType="numbers-and-punctuation"
+                                        inputStyle={styles.fieldsetCell}
+                                    ></InputField>
+                                )}
+                            ></Controller>
+                            <Controller
+                                name={`address.city`}
+                                control={control}
+                                rules={{
+                                    required: 'By er påkrævet',
                                 }}
-                            ></InputField>
+                                render={({
+                                    field: { onChange, onBlur, value },
+                                    fieldState: { error },
+                                }) => (
+                                    <InputField
+                                        label="by *"
+                                        placeholder="København"
+                                        autoComplete
+                                        value={value}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        errorMessage={error}
+                                        inputStyle={styles.fieldsetCell}
+                                    ></InputField>
+                                )}
+                            ></Controller>
                         </View>
-                        <InputField
-                            label="land *"
-                            placeholder="Danmark"
-                            autoComplete={false}
-                        ></InputField>
+                        <Controller
+                            name={`address.country`}
+                            control={control}
+                            rules={{
+                                required: 'Land er påkrævet',
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="land *"
+                                    placeholder="Danmark"
+                                    autoComplete={false}
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    errorMessage={error}
+                                ></InputField>
+                            )}
+                        ></Controller>
 
                         <Button
                             title="registrér mig"
                             primary
                             buttonStyle={styles.buttonStyle}
-                            onPress={handleSignUp}
+                            onPress={handleSubmit(onSubmit)}
                         ></Button>
                     </View>
                     <Text style={styles.mediumText}>Velkomme tilbage</Text>
@@ -192,21 +394,20 @@ const styles = StyleSheet.create({
     },
     formWrapper: { width: '95%', marginVertical: 20 },
     header: {
-        ...generalStyles.headerH2,
+        ...generalStyles.headerH1,
+        color: '#000000',
         marginVertical: 10,
-        paddingHorizontal: 30,
+        paddingHorizontal: 18,
     },
     buttonStyle: { alignSelf: 'center' },
     fieldset: {
-        width: '100%',
-
         flexDirection: 'row',
-        alignContent: 'stretch',
-        justifyContent: 'space-between',
     },
+    fieldsetCell: { flex: 1 },
     radioButtonGroup: {
         flexDirection: 'row',
-        alignContent: 'stretch',
+        //  alignContent: 'stretch',
+        alignContent: 'flex-start',
     },
     radioButtonLabel: {
         fontFamily: 'TT-Commons-DemiBold',
