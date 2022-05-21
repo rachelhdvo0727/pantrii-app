@@ -211,6 +211,7 @@ export default function LogInScreen(props) {
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     secureTextEntry
+                                    isPasswordInput
                                     autoComplete={false}
                                     errorMessage={error}
                                     maxLength={20}

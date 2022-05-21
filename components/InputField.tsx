@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, View, TextInput, Text } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 
 export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
@@ -14,6 +14,7 @@ export interface Props {
     autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
     autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
     secureTextEntry?: React.ComponentProps<typeof TextInput>['secureTextEntry'];
+    isPasswordInput?: boolean;
     maxLength?: React.ComponentProps<typeof TextInput>['maxLength'];
     inputStyle?: React.ComponentProps<typeof View>['style'];
 }
@@ -28,11 +29,18 @@ export default function InputField({
     keyboardType,
     maxLength,
     secureTextEntry,
+    isPasswordInput,
     multiline,
     autoCapitalize,
     autoComplete,
     inputStyle,
 }: Props) {
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const togglePassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <View style={inputStyle}>
             <View style={styles.container}>
@@ -46,11 +54,20 @@ export default function InputField({
                     multiline={multiline}
                     autoCapitalize={autoCapitalize}
                     autoComplete={autoComplete}
-                    secureTextEntry={secureTextEntry}
+                    secureTextEntry={isPasswordInput}
                     maxLength={maxLength}
                     blurOnSubmit
                     style={styles.textValue}
                 ></TextInput>
+                {isPasswordInput ? (
+                    <AntDesign
+                        name={showPassword ? 'eyeo' : 'eye'}
+                        size={17}
+                        color="black"
+                        style={styles.eyeIcon}
+                        onPress={togglePassword}
+                    />
+                ) : null}
             </View>
             {/* Error message */}
             {errorMessage && errorMessage?.message !== '' ? (
@@ -89,7 +106,6 @@ const styles = StyleSheet.create({
         lineHeight: 17,
         letterSpacing: 1,
         textTransform: 'capitalize',
-        // color: '#1B463C',
         paddingHorizontal: 5,
 
         position: 'absolute',
@@ -103,6 +119,12 @@ const styles = StyleSheet.create({
                 translateY: -59,
             },
         ],
+    },
+    eyeIcon: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        right: 20,
+        top: '62%',
     },
     textValue: {
         fontFamily: 'TT-Commons-Regular',

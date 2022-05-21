@@ -22,8 +22,6 @@ export default function LogInScreen(props) {
     const onSubmit = (data) => {
         console.log(data);
         // POST
-        const dataToSend = JSON.stringify(data);
-
         // founduser ? save in SecureStore
         // go to Home
     };
@@ -92,10 +90,11 @@ export default function LogInScreen(props) {
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
-                            secureTextEntry
                             autoComplete={false}
                             errorMessage={error}
                             maxLength={20}
+                            secureTextEntry
+                            isPasswordInput
                         ></InputField>
                     )}
                 ></Controller>
