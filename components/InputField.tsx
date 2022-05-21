@@ -54,14 +54,14 @@ export default function InputField({
                     multiline={multiline}
                     autoCapitalize={autoCapitalize}
                     autoComplete={autoComplete}
-                    secureTextEntry={isPasswordInput}
+                    secureTextEntry={showPassword}
                     maxLength={maxLength}
                     blurOnSubmit
                     style={styles.textValue}
                 ></TextInput>
                 {isPasswordInput ? (
                     <AntDesign
-                        name={showPassword ? 'eyeo' : 'eye'}
+                        name={showPassword ? 'eye' : 'eyeo'}
                         size={17}
                         color="black"
                         style={styles.eyeIcon}
