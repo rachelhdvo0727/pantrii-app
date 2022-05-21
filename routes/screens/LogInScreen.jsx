@@ -22,6 +22,8 @@ export default function LogInScreen(props) {
     const onSubmit = (data) => {
         console.log(data);
         // POST
+        const dataToSend = JSON.stringify(data);
+
         // founduser ? save in SecureStore
         // go to Home
     };
@@ -42,7 +44,7 @@ export default function LogInScreen(props) {
                     name="email"
                     control={control}
                     rules={{
-                        required: 'Dette er påkrævet',
+                        required: 'Email er påkrævet',
                         pattern: {
                             value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                             message: 'Din email er ugyldig',
@@ -54,7 +56,7 @@ export default function LogInScreen(props) {
                     }) => (
                         <InputField
                             label="email"
-                            placeholder="example@mail.com"
+                            placeholder="john@mail.com"
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -68,7 +70,17 @@ export default function LogInScreen(props) {
                     name="password"
                     control={control}
                     rules={{
-                        required: 'Dette er påkrævet',
+                        required: 'Adgangskode er påkrævet',
+                        minLength: {
+                            value: 12,
+                            message:
+                                'Adgangskode skal være mellem 12-20 karakterer',
+                        },
+                        maxLength: {
+                            value: 20,
+                            message:
+                                'Adgangskode skal være mellem 12-20 karakterer',
+                        },
                     }}
                     render={({
                         field: { onChange, onBlur, value },
@@ -83,6 +95,7 @@ export default function LogInScreen(props) {
                             secureTextEntry
                             autoComplete={false}
                             errorMessage={error}
+                            maxLength={20}
                         ></InputField>
                     )}
                 ></Controller>
@@ -115,9 +128,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     header: {
-        ...generalStyles.headerH2,
+        ...generalStyles.headerH1,
+        color: '#000000',
         marginVertical: 15,
-        paddingHorizontal: 30,
+        paddingHorizontal: 18,
     },
     formWrapper: {
         width: '95%',
