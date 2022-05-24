@@ -35,7 +35,7 @@ export default function InputField({
     inputStyle,
 }: Props) {
     return (
-        <View style={inputStyle}>
+        <View style={[inputStyle]}>
             <View style={styles.container}>
                 <Text style={styles.label}>{label}</Text>
                 <TextInput
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         letterSpacing: 1,
         lineHeight: 17.5,
-        marginTop: 1,
+        // marginTop: 1,
         color: 'red',
     },
     errorIcon: {
