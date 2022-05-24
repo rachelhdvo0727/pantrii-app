@@ -1,5 +1,6 @@
-const CryptoJS = require('crypto-js');
 import User from '../models/User';
+const CryptoJS = require('crypto-js');
+import * as Crypto from 'expo-crypto';
 
 // GENERAL
 const mongoDbData = (collection: string) => {
@@ -60,5 +61,32 @@ export const createUserAccount = (document: User) => {
                 '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
         },
         data: newUserAccountData(document),
+    };
+};
+
+// LOG IN
+const userData = (data: User) => {
+    return JSON.stringify({
+        collection: 'users',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            email: data?.email,
+            password: data?.password,
+        },
+    });
+};
+
+export const findUser = (data: User) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Request-Headers': '*',
+            'Api-key':
+                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
+        },
+        data: userData(data),
     };
 };
