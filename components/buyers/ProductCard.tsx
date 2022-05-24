@@ -14,6 +14,7 @@ import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import FavoriteIcon from '../actions/FavouriteIcon';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
@@ -44,11 +45,21 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
 }: Props) => {
-    const [modalVisible, setModalVisible] = useState(false);
+    const [isPanelActive, setIsPanelActive] = React.useState(false);
+    const openPanel = () => {
+        setIsPanelActive(!isPanelActive);
+    };
+    const renderContent = () => (
+        <View style={styles.centeredView}>
+            <Text>Swipe down to close</Text>
+        </View>
+    );
+
+    const sheetRef = React.useRef(null);
     return (
         <View>
             <Pressable
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={openPanel}
                 style={[styles.productWrapper, secondary && styles.secondary]}
             >
                 <View style={styles.icons}>
@@ -115,26 +126,15 @@ const ProductCard = ({
                     </View>
                 </View>
             </Pressable>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Hello World!</Text>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
+            {isPanelActive && (
+                <>
+                    <BottomSheet
+                        ref={sheetRef}
+                        snapPoints={[280, 0]}
+                        renderContent={renderContent}
+                    />
+                </>
+            )}
         </View>
     );
 };
@@ -256,11 +256,14 @@ const styles = StyleSheet.create({
     },
     //
     centeredView: {
+        flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        height: Dimensions.get('window').height - 100,
-        zIndex: 0,
+        height: Dimensions.get('window').height,
+        width: '100%',
+        zIndex: 1,
+        position: 'absolute',
     },
     modalView: {
         width: Dimensions.get('window').width,
