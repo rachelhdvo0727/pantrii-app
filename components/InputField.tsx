@@ -29,18 +29,11 @@ export default function InputField({
     keyboardType,
     maxLength,
     secureTextEntry,
-    isPasswordInput,
     multiline,
     autoCapitalize,
     autoComplete,
     inputStyle,
 }: Props) {
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const togglePassword = () => {
-        setShowPassword(!showPassword);
-    };
-
     return (
         <View style={inputStyle}>
             <View style={styles.container}>
@@ -54,20 +47,11 @@ export default function InputField({
                     multiline={multiline}
                     autoCapitalize={autoCapitalize}
                     autoComplete={autoComplete}
-                    secureTextEntry={!showPassword}
+                    secureTextEntry={secureTextEntry}
                     maxLength={maxLength}
                     blurOnSubmit
                     style={styles.textValue}
                 ></TextInput>
-                {isPasswordInput ? (
-                    <AntDesign
-                        name={!showPassword ? 'eye' : 'eyeo'}
-                        size={17}
-                        color="black"
-                        style={styles.eyeIcon}
-                        onPress={togglePassword}
-                    />
-                ) : null}
             </View>
             {/* Error message */}
             {errorMessage && errorMessage?.message !== '' ? (
