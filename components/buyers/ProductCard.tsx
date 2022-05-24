@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export interface Props {
@@ -30,7 +30,7 @@ const ProductCard = ({
             style={[styles.productWrapper, secondary && styles.secondary]}
         >
             <Image style={styles.image} source={imageSrc}></Image>
-            <Text style={styles.productTitle}>{productTitle}</Text>
+            <Text style={styles.productTitle} numberOfLines={1}>{productTitle}</Text>
             <View style={styles.infoWrapper}>
                 <Text style={styles.producerTitle}>{producerTitle}</Text>
                 <Text style={styles.productDesc} numberOfLines={1}>
@@ -63,14 +63,14 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
     productWrapper: {
-        width: 170,
+        width: 175,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
         position: 'relative',
     },
     secondary: {
-        width: 182,
+        width: Dimensions.get('window').width / 2 - 20,
     },
     favouriteWrapper: {
         alignItems: 'center',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
     },
     unit: {
-        fontSize: 12,
+        fontSize: 11,
         fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.2,
         paddingVertical: 5,
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     },
     singularPrice: {
         fontSize: 12,
-        fontFamily: 'TT-Commons-Medium',
+        fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.2,
     },
     cartButtonWrapper: {

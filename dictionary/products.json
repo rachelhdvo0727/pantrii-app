@@ -1,0 +1,75 @@
+{
+    "products": {
+        "productTitle": {
+            "Tofu": "Tofu",
+            "Smoked Tofu": "Tofu Røget",
+            "Ohpops! Paprika & Chili": "Ohpops! Paprika & Chili",
+            "Bruun Kola": "Bruun Kola",
+            "Confectioners - Pistachio": "Konfekthapsere - Pistacie",
+            "Burrata": "Burrata",
+            "Ravioli": "Ravioli",
+            "Jamón Ibérico Blackfods Ham 100g": "Jamón Ibérico Sortfodsskinke 100g",
+            "Beetroots": "Bolsjebeder",
+            "Saltø sausage": "Saltø pølsen",
+            "2pack: Chorizo ​​Iberico + Salchichon Iberico, 2x25g": "2pak: Chorizo Iberico + Salchichon Iberico, 2x25g",
+            "Rhubarbs": "Rabarber",
+            "Dried Kombutang": "Tørret Kombutang",
+            "Seaweed mix Kattegat": "Tangmix Kattegat",
+            "Vegan Banana Cake": "Vegansk Banankage",
+            "Love Spring": "Love Spring"       
+        },
+        "productDesc": {
+            "Tofu with lemongrass and chili": "Tofu med citrongræs og chili",
+            "Plant-based protein snack": "Plantebaseret proteinsnack",
+            "Danish-produced cola": "Danskproduceret kola",
+            "Confectionery on Danish legumes": "Konfekt på danske bælgfrugter",
+            "Fresh cheese": "Frisk ost",
+            "with truffle and mascarpone": "m. trøffel og mascarpone",
+            "100% certified Spanish product. Matured for 30+ months": "100% certificeret spansk produkt. Modnet i 30+ måneder",
+            "Red and white": "Røde og hvide",
+            "Danish grilled sausage": "Dansk grillpølse",
+            "Tapas on the go!": "Tapas on the go!",
+            "Rinsed": "Skyllede",
+            "from Denmark": "fra Danmark",
+            "Seaweed from Denmark": "Tang fra Danmark",
+            "Produced in Denmark": "Produceret i Danmark",
+            "For foodservice - Produced from surplus bananas": "Til foodservice - Produceret af overskudsbananer",
+            "Wine Gum, Vegan": "Vingummi, Vegansk"
+        },
+        "productStory": {
+            "Healthy and tasty food from good ingredients has been the recipe for Trang Thien Lê since she came to Denmark in 2014 and started making Vietnamese street food. But she has missed tofu of proper quality, and therefore she has started to make her own - from organic ingredients from Europe. Lê Trang wants to work in balance with our surroundings and our own health. This means, among other things, a low climate footprint and attention to the quality of the choice of raw materials. Find videos and recipes at @letrangtofu": "Sund og smagsfuld mad af gode råvarer har været opskriften for Trang Thien Lê, siden hun i 2014 kom til Danmark og begyndte at lave vietnamesisk streetfood. Men hun har savnet tofu af ordentlig kvalitet, og derfor er hun begyndt at lave sin egen – af økologiske råvarer fra Europa. Lê Trang ønsker at arbejde i balance med vores omgivelser og vores egen sundhed. Det betyder blandt andet et lavt klimaaftryk og opmærksom på kvaliteten i valg af råvarer. Find videoer og opskrifter på @letrangtofu.",
+            "A functional plant-based crispy protein pop made from gluten-free whole grain oatmeal, pea protein and hemp protein, with only added rapeseed oil and spice.": "En funktionel plante-baseret sprød protein pop lavet på glutenfri fuldkornshavremel, ærteprotein og hampeprotein, kun tilsat rapsolie og krydderi.",
+            "In 2015, Anders Bruun began experimenting with making his own cola at home in the kitchen. It developed into Bruun Kola which is now located at the PRISON in Horsens. From here, we spread the taste of Denmark's new cola out into the country.": "I 2015 begyndte Anders Bruun at eksperimentere med at lave sin egen cola derhjemme i køkkenet. Det udviklede sig til Bruun Kola der nu er beliggende på FÆNGSLET i Horsens. Herfra spreder vi smagen af Danmarks nye kola ud i landet.",
+            "Confectionery snacks, Pistachio 108g": "Konfekthapser, Pistacie 108g",
+            "The curd in a burrata is the same as in a mozzarella. The curd is stretched out using hot water, and then it is filled with stracciatella, a delicious mixture of cream and shredded mozzarella. Everything is stretched, shredded and shaped by hand.": "Ostemassen i en burrata er den samme som i en mozzarella. Ostemassen strækkes ud ved hjælp af varmt vand, og derefter fyldes den med stracciatella, en lækker blanding af fløde og strimlet mozzarella. Selvfølgelig alt sammen strukket, strimlet og formet i hånden.",
+            "Fresh ravioli with truffle and mascarpone - each raviolo has a weight of approx. 26 g.": "Frisk ravioli med trøffel og mascarpone - hver raviolo har en vægt på ca. 26 g.",
+            "Our juicy Jamón de cebo Ibérico black-footed ham is the type that melts in your mouth and at the same time is full of flavor. Ripened for more than 30 months, juicy, sweet and seriously tasty. It will make you want more!": "Vores saftige Jamón de cebo Ibérico sortfodsskinke er den type der smelter i munden og samtidigt er fyldt med smag. Modnet i mere end 30 måneder, saftig, sød og seriøst velsmagende. Det vil give dig lyst til mere!",
+            "Beetroots": "Bolchebeder",
+            "The chili sausage with a touch of lemon Rustic pork sausage. Gently kneaded. A sausage that bites a little again and is rounded off with a fresh touch of lemon. Hot smoked on beech soil. Gold at national professional competition.": "Chilipølsen med et strejf af citron Rustik pølse af svinekød. Nænsomt æltet. En pølse der bider lidt igen og afrundes med et frisk strejf af citron. Varmt røget på bøgesmuld. Guld ved national fagkonkurrence.",
+            "Delicate, Spanish pork matured for 60 days. Tasty Spanish tapas on-the-go!": "Delikat, spansk svinekød modnet i 60 dage. Smagfulde spanske tapas on-the-go!",
+            "Danish.": "Dansk.",
+            "Digital Laminaria": "Laminaria digitata",
+            "Directly for cooking": "Direkte til madlavningen",
+            "Vegan Banana Cake which is produced from surplus bananas in Denmark.": "Vegansk Banankage som er produceret af overskudsbananer i Danmark.",
+            "Organic and vegan soft fruit gum, flavored with juicy berries. We are at a source of love and the wine gums have the shape of hearts, fish and water drops. Does not contain gelatin, gluten or lactose.": "Økologisk og vegansk blød frugtvingummi, smagt til med saftige bær. Vi befinder os ved en kærlighedskilde og vingummierne har form som hjerter, fisk og vanddråber. Indeholder ikke gelatine, gluten eller laktose."    
+        },
+        "productUnique": {
+            "We use only three ingredients to make tofu; organic soybeans from Italy, nigaris salt from Japan and water. In this variant also lemongrass and chili. The soybeans are soaked before being ground with water for soy milk, which must have just the right viscosity. The soy milk is then boiled up and when it has cooled down again to the right temperature, nigari dissolved in water is added to the right concentration. The soy milk then coagulates and when ready it is poured into molds where it is pressed during a specific procedure determined by pressure and time intervals. This gives the very special consistency that we and our customers appreciate.": "Vi bruger kun tre ingredienser til fremstillingen af tofu; økologiske sojabønner fra Italien, nigarisalt fra Japan og vand. I denne variant også citrongræs og chili. Sojabønnerne lægges i blød før de males med vand til sojamælk, som skal have den helt rigtige viskositet. Sojamælken koges derefter op, og når den er kølet ned igen til den rette temperatur tilsættes nigari opløst i vand til den rette koncentration. Sojamælken koagulerer herefter og når den er klar hældes den i forme, hvor den presses under en bestemt procedure bestemt af tryk og tidsintervaller. Dette giver den ganske særlige konsistens, som vi og vores kunder sætter pris på.",
+            "The snack is produced by a natural process with pressure, water and heat (extrusion).": "Snacken er produceret ved en naturlig process med tryk, vand og varme ( extrudering)",
+            "The syrup for Bruun Kola is produced by Anders Bruun in the kola workshop at the Prison in Horsens. From here, the syrup is driven to Skanderborg Brewery, where the cola is mixed and bottled.": "Siruppen til Bruun Kola produceres af Anders Bruun i kola-værkstedet på FÆNGSLET i Horsens. Herfra køres siruppen til Skanderborg Bryghus hvor kolaen blandes og tappes på flaske.",
+            "Our product is handmade, and each piece is specially shaped, and this is especially evident in our rustic and unique look on each piece. Confectionery chops are based on Danish legumes.": "Vores produkt er håndlavet, og hvert stykke er særlig formet, og det giver sig særlig til kende i vores rustikke og unikke look på hvert enkelt stykke. Konfekthapsere er baseret på danske bælgfrugter.",
+            "Outside mozzarella, inside a delicious mix of cream and shredded mozzarella, used from organic and fresh milk and cream.": "Udenpå mozzarella, indeni en lækker blanding af fløde og strimlet mozzarella, brugt af økologisk og frisk mælk og fløde.",
+            "Authentic, popular and seriously tasty 100% Spanish products! Matured for more than 30 months. Carved by our experts. Easy to unpack and quick to prepare. Juicy, sweet and seriously tasty. Our delicious Jamón melts in your mouth and has a texture like silk.": "Autentiske, populære og seriøst velsmagende 100% spanske produkter! Modnet i mere end 30 måneder. Skåret af vores eksperter. Let at pakke ud og hurtig at anrette. Saftig, sød og seriøst velsmagende. Vores lækre Jamón smelter i munden og har en tekstur som silke.",
+            "Delicate, Spanish pork matured for 90 days.": "Delikat, spansk svinekød modnet i 90 dage.",
+            "The seaweed is harvested sustainably and is CO2 neutral.": "Tangen er høstet bæredygtigt og er CO2 neutral.",
+            "Produced on the bananas that are in surplus in the retail trade due to the bananas' visual challenges.": "Produceret på de bananer som er i overskud i detailhandlen grundet bananernes visuelle udfordringer.",
+            "The wine gums have a soft consistency and are shaped like small fish, hearts and drops flavored with red berries and other fruits. In addition, they are vaginal as well as gluten free.": "Vingummierne har en blød konsistens og er formet som små fisk, hjerter og dråber tilsmagt røde bær og andre frugter. Derudover er de vaganske samt glutenfri."
+        },
+        "expiryDate": {
+            "allProducts": "alle produkter"
+        },
+        "currency": {
+            "DKK": "kr"
+        }
+    }
+}
