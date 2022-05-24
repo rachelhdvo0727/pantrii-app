@@ -1,5 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as SecureStore from 'expo-secure-store';
+
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CategoriesScreen from './CategoriesScreen';
@@ -10,7 +12,11 @@ import HomeStack from './HomeStack';
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomTabBuyers() {
+export default function BottomTabBuyers(props) {
+    React.useEffect(() => {
+        console.log(props?.route.params?.user);
+    }, []);
+
     return (
         <Tab.Navigator
             screenOptions={{
@@ -49,6 +55,7 @@ export default function BottomTabBuyers() {
                             />
                         </View>
                     ),
+                    headerTitle: (props) => <TopNavBuyers {...props} />,
                     headerShown: false,
                 }}
             />
