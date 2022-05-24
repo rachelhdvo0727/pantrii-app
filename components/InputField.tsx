@@ -1,73 +1,71 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, View, TextInput, Text } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 
-interface Props {
+export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
     label: string;
     onBlur?: React.ComponentProps<typeof TextInput>['onBlur'];
-    onValid(arg: boolean): void;
-    setContent(arg: string): void;
-    errorMessage?: string;
+    onChangeText?: React.ComponentProps<typeof TextInput>['onChangeText'];
+    errorMessage?: { message: string };
     placeholder: React.ComponentProps<typeof TextInput>['placeholder'];
     keyboardType?: React.ComponentProps<typeof TextInput>['keyboardType'];
     multiline?: React.ComponentProps<typeof TextInput>['multiline'];
     autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
     autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
     secureTextEntry?: React.ComponentProps<typeof TextInput>['secureTextEntry'];
+    isPasswordInput?: boolean;
+    maxLength?: React.ComponentProps<typeof TextInput>['maxLength'];
+    inputStyle?: React.ComponentProps<typeof View>['style'];
 }
 
 export default function InputField({
     value,
     label,
     onBlur,
-    onValid,
-    setContent,
+    onChangeText,
     errorMessage,
     placeholder,
     keyboardType,
+    maxLength,
     secureTextEntry,
     multiline,
     autoCapitalize,
     autoComplete,
+    inputStyle,
 }: Props) {
-    const [touched, setTouched] = React.useState(false);
-    const onChangeText = (text: string) => {
-        setTouched(true);
-        text === '' ? onValid(false) : onValid(true);
-        setContent(text);
-    };
-
     return (
-        <View>
+        <View style={[inputStyle]}>
             <View style={styles.container}>
                 <Text style={styles.label}>{label}</Text>
                 <TextInput
                     value={value}
                     onChangeText={onChangeText}
-                    onBlur={() => setTouched(true)}
+                    onBlur={onBlur}
                     placeholder={placeholder}
                     keyboardType={keyboardType}
                     multiline={multiline}
                     autoCapitalize={autoCapitalize}
                     autoComplete={autoComplete}
                     secureTextEntry={secureTextEntry}
+                    maxLength={maxLength}
+                    blurOnSubmit
                     style={styles.textValue}
                 ></TextInput>
             </View>
             {/* Error message */}
-            {touched ? (
-                !onValid ? (
-                    <SafeAreaView style={styles.errorContainer}>
-                        <MaterialIcons
-                            name="error"
-                            size={17}
-                            color="red"
-                            style={styles.errorIcon}
-                        />
-                        <Text style={styles.errorMessage}>{errorMessage}</Text>
-                    </SafeAreaView>
-                ) : null
+            {errorMessage && errorMessage?.message !== '' ? (
+                <SafeAreaView style={styles.errorContainer}>
+                    <MaterialIcons
+                        name="error"
+                        size={17}
+                        color="red"
+                        style={styles.errorIcon}
+                    />
+                    <Text style={styles.errorMessage}>
+                        {errorMessage?.message}
+                    </Text>
+                </SafeAreaView>
             ) : null}
         </View>
     );
@@ -76,14 +74,14 @@ export default function InputField({
 const styles = StyleSheet.create({
     container: {
         marginVertical: 10,
-        marginHorizontal: 25,
+        marginHorizontal: 18,
         paddingVertical: 10,
         paddingHorizontal: 25,
         backgroundColor: '#EFF2EE',
 
         borderRadius: 1000,
         borderStyle: 'solid',
-        borderColor: '#1B463C',
+        // borderColor: '#1B463C',
         borderWidth: 1,
     },
     label: {
@@ -92,7 +90,6 @@ const styles = StyleSheet.create({
         lineHeight: 17,
         letterSpacing: 1,
         textTransform: 'capitalize',
-        color: '#1B463C',
         paddingHorizontal: 5,
 
         position: 'absolute',
@@ -107,6 +104,12 @@ const styles = StyleSheet.create({
             },
         ],
     },
+    eyeIcon: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        right: 20,
+        top: '62%',
+    },
     textValue: {
         fontFamily: 'TT-Commons-Regular',
         fontSize: 16,
@@ -115,15 +118,18 @@ const styles = StyleSheet.create({
     },
     errorContainer: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        marginHorizontal: 50,
+
+        alignContent: 'center',
+        marginHorizontal: 30,
+        marginBottom: 15,
+        paddingHorizontal: 14,
     },
     errorMessage: {
         fontFamily: 'TT-Commons-Regular',
         fontSize: 14,
         letterSpacing: 1,
-        marginTop: 1,
+        lineHeight: 17.5,
+        // marginTop: 1,
         color: 'red',
     },
     errorIcon: {
