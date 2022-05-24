@@ -6,24 +6,32 @@ import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import { useForm, Controller } from 'react-hook-form';
+import axios from 'axios';
+import { findUser } from '../../utils/api';
+import { saveData, objectToString } from '../../utils/functions';
+import * as SecureStore from 'expo-secure-store';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
+    const { control, handleSubmit } = useForm({
         defaultValues: {
             email: '',
             password: '',
         },
     });
     const onSubmit = (data) => {
-        console.log(data);
         // POST
-        // founduser ? save in SecureStore
-        // go to Home
+        axios(findUser(data))
+            .then((response) => {
+                // founduser ? save in SecureStore
+                if (response?.status === 200)
+                    saveData(
+                        'loggedInUser',
+                        objectToString(response?.data?.document?.email),
+                    ) && navigation.navigate('SignUpScreen');
+                // go to Home
+            })
+            .catch((error) => console.error(error));
     };
 
     const showSignUp = () => {
@@ -58,6 +66,7 @@ export default function LogInScreen(props) {
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
+                            autoCapitalize="none"
                             autoComplete={false}
                             errorMessage={error}
                         ></InputField>
@@ -94,7 +103,6 @@ export default function LogInScreen(props) {
                             errorMessage={error}
                             maxLength={20}
                             secureTextEntry
-                            isPasswordInput
                         ></InputField>
                     )}
                 ></Controller>
