@@ -18,17 +18,14 @@ import ApprovedModal from '../../components/ApprovedModal';
 // API
 import axios from 'axios';
 import { createUserAccount } from '../../utils/api';
-import CryptoJS from 'crypto-js';
+import * as Crypto from 'expo-crypto';
+const CryptoJS = require('crypto-js');
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
     const [value, setValue] = React.useState('');
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
+    const { control, handleSubmit } = useForm({
         defaultValues: {
             firstName: '',
             lastName: '',
@@ -50,10 +47,22 @@ export default function LogInScreen(props) {
 
         // Send data
         axios(createUserAccount(data))
-            .then((response) => console.log(response))
+            .then((response) => console.log(response?.status, response?.data))
             .catch((error) => console.error(error));
     };
 
+    // React.useEffect(() => {
+    //     async function test() {
+    //         let loggedInUser;
+    //         try {
+    //             loggedInUser = await SecureStore.getItemAsync('loggedInUser');
+    //         } catch (error) {
+    //             console.log('signup', error);
+    //         }
+    //         console.log(loggedInUser);
+    //     }
+    //     test();
+    // });
     const showLogIn = () => {
         navigation.navigate('LogInScreen');
     };
@@ -64,10 +73,6 @@ export default function LogInScreen(props) {
         setModalVisible(!modalVisible);
         navigation?.navigate('LogInScreen');
     };
-
-    React.useEffect(() => {
-        //   console.log(value);
-    });
 
     return (
         <SafeAreaView style={{ flex: 1, marginTop: 70 }}>
@@ -179,6 +184,7 @@ export default function LogInScreen(props) {
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
+                                    autoCapitalize="none"
                                     autoComplete={false}
                                     errorMessage={error}
                                 ></InputField>

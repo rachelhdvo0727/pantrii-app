@@ -9,6 +9,7 @@ import { StyleSheet } from 'react-native';
 import BottomTabBuyers from './screens/buyers/BottomTabBuyers';
 import LogInScreen from './screens/LogInScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import HomeStack from './screens/buyers/HomeStack';
 
 // import BottomTabSuppliers from './screens/suppliers/BottomTabSuppliers';
 
@@ -16,6 +17,20 @@ const Stack = createNativeStackNavigator();
 export default function Navigation() {
     // TODO: use actual login
     const loggedInUser = false;
+    const [user, setUser] = React.useState();
+    React.useEffect(() => {
+        // async function test() {
+        //     let loggedInUser;
+        //     try {
+        //         loggedInUser = await SecureStore.getItemAsync('loggedInUser');
+        //         console.log(loggedInUser);
+        //     } catch (error) {
+        //         console.log('navigation', error);
+        //     }
+        // }
+        // test();
+    });
+
     return (
         <NavigationContainer>
             {loggedInUser ? (
