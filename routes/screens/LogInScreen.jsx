@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
+import AppLogo from '../../components/svgs/AppLogo';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { findUser } from '../../utils/api';
@@ -23,13 +24,12 @@ export default function LogInScreen(props) {
         // POST
         axios(findUser(data))
             .then((response) => {
-                // founduser ? save in SecureStore
+                // founduser ? save in SecureStore && go to Home
                 if (response?.status === 200)
-                    saveData(
-                        'loggedInUser',
-                        objectToString(response?.data?.document?.email),
-                    ) && navigation.navigate('SignUpScreen');
-                // go to Home
+                    navigation?.navigate({
+                        name: 'BottomTabBuyers',
+                        params: { user: response?.data?.document },
+                    });
             })
             .catch((error) => console.error(error));
     };
@@ -40,10 +40,7 @@ export default function LogInScreen(props) {
 
     return (
         <View style={[styles.container]}>
-            <Image
-                source={require('../../assets/logos/pantrii-round-logo.png')}
-                style={[styles.icon, { width: 97, height: 97 }]}
-            ></Image>
+            <AppLogo style={styles.icon}></AppLogo>
             <View style={styles.formWrapper}>
                 <Text style={styles.header}>log ind</Text>
                 <Controller
@@ -109,7 +106,7 @@ export default function LogInScreen(props) {
                 <Button
                     title="log ind"
                     primary
-                    buttonStyle={styles.buttonStyle}
+                    buttonStyle={[styles.buttonStyle, { marginTop: 20 }]}
                     onPress={handleSubmit(onSubmit)}
                 ></Button>
                 <Text style={styles.mediumText}>
@@ -140,11 +137,9 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         paddingHorizontal: 18,
     },
+    icon: { marginTop: 10, marginBottom: 50 },
     formWrapper: {
         width: '95%',
-    },
-    icon: {
-        marginBottom: 30,
     },
     buttonStyle: {
         alignSelf: 'center',

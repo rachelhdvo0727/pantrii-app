@@ -1,5 +1,6 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import {
     StyleSheet,
@@ -9,9 +10,9 @@ import {
     ScrollView,
     SafeAreaView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
+import AppLogo from '../../components/svgs/AppLogo';
 import { useForm, Controller } from 'react-hook-form';
 import { RadioButton } from 'react-native-paper';
 import ApprovedModal from '../../components/ApprovedModal';
@@ -78,10 +79,7 @@ export default function LogInScreen(props) {
         <SafeAreaView style={{ flex: 1, marginTop: 70 }}>
             <ScrollView>
                 <View style={styles.container}>
-                    <Image
-                        source={require('../../assets/logos/pantrii-round-logo.png')}
-                        style={{ width: 97, height: 97 }}
-                    ></Image>
+                    <AppLogo style={styles.icon}></AppLogo>
 
                     {/* Form */}
                     <View style={styles.formWrapper}>
@@ -402,6 +400,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    icon: {
+        marginVertical: 10,
     },
     formWrapper: { width: '95%', marginVertical: 20 },
     header: {
