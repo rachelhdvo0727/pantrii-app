@@ -2,7 +2,7 @@
 
 ## Installation
 
-**Prequisites**: your machine must have either Xcode (Mac) or Android emulator software downloaded
+**Prequisites**: your machine must have either Xcode (Mac) or Android emulator software downloaded. You can also use your mobile device and install Expo Go App and scan with QR code. Read more on: [https://expo.dev/client](https://expo.dev/client) 
 
 1. Clone this repo
 2. Run `npm install` or `npm ci` (clean install from package.json)
