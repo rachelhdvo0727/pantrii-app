@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    StyleSheet,
-    SafeAreaView,
-    FlatList,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 import axios from 'axios';
 import { fetchFeaturedProducts } from '../../../utils/api';
@@ -13,16 +9,16 @@ import { productImages } from '../../../dictionary/images';
 
 export default function HighlightProductsScreen() {
     const content = dictionary?.products; // DA dictionary
-    
+
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
         axios(fetchFeaturedProducts('post', 'products'))
-        .then(function (response) {
-            setProducts(response.data?.documents);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                setProducts(response.data?.documents);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -32,21 +28,26 @@ export default function HighlightProductsScreen() {
                 keyExtractor={(item) => item?._id}
                 renderItem={({ item }) => (
                     <ProductCard
-                    secondary
-                    productTitle={content.productTitle[item?.productTitle]}
-                    imageSrc={productImages[item?.imageSrc]}
-                    producerTitle={item?.producerTitle}
-                    productDesc={content.productDesc[item?.productDesc]}
-                    productUnit={item?.productUnit}
-                    bulkPrice={item?.bulkPrice + '/' + content.currency.DKK + ' kolli'}
-                    singlePrice={item?.singlePrice + '/' + content.currency.DKK + ' enhed'}
-                />
+                        secondary
+                        productTitle={content.productTitle[item?.productTitle]}
+                        imageSrc={productImages[item?.imageSrc]}
+                        producerTitle={item?.producerTitle}
+                        productDesc={content.productDesc[item?.productDesc]}
+                        productUnit={item?.productUnit}
+                        bulkPrice={
+                            item?.bulkPrice + content.currency.DKK + '/kolli'
+                        }
+                        singlePrice={
+                            item?.singlePrice + content.currency.DKK + '/enhed'
+                        }
+                        isCold={item.tags?.find((tag) => tag == 'cold')}
+                        isOrganic={item.tags?.find((tag) => tag == 'organic')}
+                        isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                    />
                 )}
                 numColumns={2}
                 scrollEnabled={true}
-                contentContainerStyle={[
-                    styles.contentContainerStyle,
-                ]}
+                contentContainerStyle={[styles.contentContainerStyle]}
                 columnWrapperStyle={styles.columnWrapperStyle}
             ></FlatList>
         </SafeAreaView>
