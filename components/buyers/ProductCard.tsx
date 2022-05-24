@@ -1,6 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    Pressable,
+    Dimensions,
+} from 'react-native';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import ThermoIcon from '../svgs/ThermoIcon';
+import OrganicIcon from '../svgs/OrganicIcon';
+import FrozenIcon from '../svgs/FrozenIcon';
+import FavoriteIcon from '../actions/FavouriteIcon';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
@@ -12,6 +23,9 @@ export interface Props {
     bulkPrice: string;
     singlePrice: string;
     secondary?: boolean;
+    isCold?: string;
+    isFrozen?: string;
+    isOrganic?: string;
 }
 
 const ProductCard = ({
@@ -24,13 +38,48 @@ const ProductCard = ({
     bulkPrice,
     singlePrice,
     secondary,
+    isCold,
+    isFrozen,
+    isOrganic,
 }: Props) => {
+    console.log(isCold);
     return (
         <Pressable
             style={[styles.productWrapper, secondary && styles.secondary]}
         >
+            <View style={styles.icons}>
+                {isCold ? (
+                    <ThermoIcon
+                        style={[
+                            styles.iconHidden,
+                            { display: isCold ? 'block' : '' },
+                        ]}
+                    />
+                ) : null}
+                {isOrganic ? (
+                    <OrganicIcon
+                        style={[
+                            styles.iconHidden,
+                            { display: isOrganic ? 'block' : '' },
+                        ]}
+                    />
+                ) : null}
+                {isFrozen ? (
+                    <FrozenIcon
+                        style={[
+                            styles.iconHidden,
+                            { display: isFrozen ? 'block' : '' },
+                        ]}
+                    />
+                ) : null}
+            </View>
+            <View style={styles.favouriteIcon}>
+                <FavoriteIcon />
+            </View>
             <Image style={styles.image} source={imageSrc}></Image>
-            <Text style={styles.productTitle} numberOfLines={1}>{productTitle}</Text>
+            <Text style={styles.productTitle} numberOfLines={1}>
+                {productTitle}
+            </Text>
             <View style={styles.infoWrapper}>
                 <Text style={styles.producerTitle}>{producerTitle}</Text>
                 <Text style={styles.productDesc} numberOfLines={1}>
@@ -63,7 +112,7 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
     productWrapper: {
-        width: 175,
+        width: 180,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
@@ -96,13 +145,13 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         textTransform: 'uppercase',
         paddingVertical: 2,
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
     },
     infoWrapper: {
         borderTopWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
         paddingVertical: 2,
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
     },
     producerTitle: {
         fontSize: 14,
@@ -118,7 +167,7 @@ const styles = StyleSheet.create({
         paddingTop: 2,
     },
     bottomWrapper: {
-        paddingLeft: 5,
+        paddingLeft: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -157,5 +206,21 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    icons: {
+        position: 'absolute',
+        zIndex: 1,
+        left: 10,
+        top: 2.5,
+    },
+    iconHidden: {
+        display: 'none',
+        marginTop: 2.5,
+    },
+    favouriteIcon: {
+        position: 'absolute',
+        zIndex: 1,
+        right: 10,
+        top: 5,
     },
 });

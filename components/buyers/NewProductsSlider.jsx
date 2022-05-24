@@ -30,7 +30,7 @@ const NewProductsSlider = () => {
                 console.log(error);
             });
     }, []);
-
+    const slicedProducts = products?.slice(0, 6);
 
     return (
         <View style={styles.container}>
@@ -43,7 +43,7 @@ const NewProductsSlider = () => {
             <Carousel
                 layout="default"
                 ref={carouselRef}
-                data={products.slice(0, 6)}
+                data={slicedProducts}
                 activeSlideAlignment="start"
                 inactiveSlideScale={1}
                 inactiveSlideOpacity={1}
@@ -54,13 +54,20 @@ const NewProductsSlider = () => {
                         producerTitle={item?.producerTitle}
                         productDesc={content.productDesc[item?.productDesc]}
                         productUnit={item?.productUnit}
-                        bulkPrice={item?.bulkPrice + '/' + content.currency.DKK + ' kolli'}
-                        singlePrice={item?.singlePrice + '/' + content.currency.DKK + ' enhed'}
+                        bulkPrice={
+                            item?.bulkPrice + content.currency.DKK + '/kolli'
+                        }
+                        singlePrice={
+                            item?.singlePrice + content.currency.DKK + '/enhed'
+                        }
+                        isCold={item.tags?.find((tag) => tag == 'cold')}
+                        isOrganic={item.tags?.find((tag) => tag == 'organic')}
+                        isFrozen={item.tags?.find((tag) => tag == 'frozen')}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
                 // productCard width plus 5
-                itemWidth={180}
+                itemWidth={185}
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}
