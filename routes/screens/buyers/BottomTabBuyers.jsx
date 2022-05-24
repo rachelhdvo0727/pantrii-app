@@ -30,6 +30,7 @@ export default function BottomTabBuyers() {
                 tabBarShowIcon: true,
                 tabBarStyle: {
                     height: 80,
+                    zIndex: 999,
                 },
                 headerStyle: {
                     backgroundColor: '#1B463C',

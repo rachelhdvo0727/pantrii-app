@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -6,6 +6,8 @@ import {
     Image,
     Pressable,
     Dimensions,
+    Modal,
+    Alert,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import ThermoIcon from '../svgs/ThermoIcon';
@@ -42,69 +44,98 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
 }: Props) => {
-    console.log(isCold);
+    const [modalVisible, setModalVisible] = useState(false);
     return (
-        <Pressable
-            style={[styles.productWrapper, secondary && styles.secondary]}
-        >
-            <View style={styles.icons}>
-                {isCold ? (
-                    <ThermoIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isCold ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-                {isOrganic ? (
-                    <OrganicIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isOrganic ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-                {isFrozen ? (
-                    <FrozenIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isFrozen ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-            </View>
-            <View style={styles.favouriteIcon}>
-                <FavoriteIcon />
-            </View>
-            <Image style={styles.image} source={imageSrc}></Image>
-            <Text style={styles.productTitle} numberOfLines={1}>
-                {productTitle}
-            </Text>
-            <View style={styles.infoWrapper}>
-                <Text style={styles.producerTitle}>{producerTitle}</Text>
-                <Text style={styles.productDesc} numberOfLines={1}>
-                    {productDesc}
+        <View>
+            <Pressable
+                onPress={() => setModalVisible(!modalVisible)}
+                style={[styles.productWrapper, secondary && styles.secondary]}
+            >
+                <View style={styles.icons}>
+                    {isCold ? (
+                        <ThermoIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isCold ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                    {isOrganic ? (
+                        <OrganicIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isOrganic ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                    {isFrozen ? (
+                        <FrozenIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isFrozen ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                </View>
+                <View style={styles.favouriteIcon}>
+                    <FavoriteIcon />
+                </View>
+                <Image style={styles.image} source={imageSrc}></Image>
+                <Text style={styles.productTitle} numberOfLines={1}>
+                    {productTitle}
                 </Text>
-            </View>
-            <View style={styles.dottedLine}></View>
-            <View style={styles.bottomWrapper}>
-                <Text style={styles.unit}>{productUnit}</Text>
-                <View style={styles.bottomRightWrapper}>
-                    <View style={styles.priceWrapper}>
-                        <Text style={styles.bulkPrice}>{bulkPrice}</Text>
-                        <Text style={styles.singularPrice}>{singlePrice}</Text>
-                    </View>
-                    <View
-                        style={[
-                            styles.cartButtonWrapper,
-                            { width: secondary ? 36 : 30 },
-                        ]}
-                    >
-                        <Ionicons name="cart-outline" size={16} color="white" />
+                <View style={styles.infoWrapper}>
+                    <Text style={styles.producerTitle}>{producerTitle}</Text>
+                    <Text style={styles.productDesc} numberOfLines={1}>
+                        {productDesc}
+                    </Text>
+                </View>
+                <View style={styles.dottedLine}></View>
+                <View style={styles.bottomWrapper}>
+                    <Text style={styles.unit}>{productUnit}</Text>
+                    <View style={styles.bottomRightWrapper}>
+                        <View style={styles.priceWrapper}>
+                            <Text style={styles.bulkPrice}>{bulkPrice}</Text>
+                            <Text style={styles.singularPrice}>
+                                {singlePrice}
+                            </Text>
+                        </View>
+                        <View
+                            style={[
+                                styles.cartButtonWrapper,
+                                { width: secondary ? 36 : 30 },
+                            ]}
+                        >
+                            <Ionicons
+                                name="cart-outline"
+                                size={16}
+                                color="white"
+                            />
+                        </View>
                     </View>
                 </View>
-            </View>
-        </Pressable>
+            </Pressable>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Hello World!</Text>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Hide Modal</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
+        </View>
     );
 };
 
@@ -222,5 +253,48 @@ const styles = StyleSheet.create({
         zIndex: 1,
         right: 10,
         top: 5,
+    },
+    //
+    centeredView: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        height: Dimensions.get('window').height - 100,
+        zIndex: 0,
+    },
+    modalView: {
+        width: Dimensions.get('window').width,
+        height: 340,
+        backgroundColor: 'white',
+        borderTopEndRadius: 20,
+        borderTopStartRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+    },
+    buttonOpen: {
+        backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+        backgroundColor: '#2196F3',
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
     },
 });
