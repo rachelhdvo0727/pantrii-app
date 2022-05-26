@@ -129,13 +129,24 @@ export const fetchFeaturedProducts = (
 };
 
 // PRODUCTS IN ONE CATEGORY
-const categoryData = (categoryId: string) => {
+const categoryProductsData = (categoryId: string) => {
     return JSON.stringify({
         collection: 'products',
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
         filter: {
-            categoryId: categoryId,
+            categoryId: {
+                $oid: categoryId,
+            },
         },
     });
+};
+
+export const fetchCategoryProducts = (categoryId: string) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        headers: headers,
+        data: categoryProductsData(categoryId),
+    };
 };
