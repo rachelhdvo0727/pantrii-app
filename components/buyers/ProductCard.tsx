@@ -12,20 +12,22 @@ import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import FavoriteIcon from '../actions/FavouriteIcon';
+import Product from '../../models/Product';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
     imageSrc: React.ComponentProps<typeof Image>['source'];
-    productTitle: string;
-    producerTitle: string;
-    productDesc: string;
-    productUnit: string;
-    bulkPrice: string;
-    singlePrice: string;
+    productTitle: Product['productTitle'];
+    producerTitle: Product['producerTitle'];
+    productDesc: Product['productDesc'];
+    productUnit: Product['productUnit'];
+    bulkPrice: Product['bulkPrice'];
+    singlePrice: Product['singlePrice'];
     secondary?: boolean;
     isCold?: string;
     isFrozen?: string;
     isOrganic?: string;
+    isFeatured?: Product['isFeatured'];
 }
 
 const ProductCard = ({
@@ -42,7 +44,6 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
 }: Props) => {
-    console.log(isCold);
     return (
         <Pressable
             style={[styles.productWrapper, secondary && styles.secondary]}
