@@ -4,8 +4,10 @@ import HomeScreen from './HomeScreen';
 import TopNavBuyers from './TopNavBuyers';
 import NewProductsScreen from './NewProductsScreen';
 import HighLightProductsScreen from './HighlightProductsScreen';
+import CategoryScreen from './CategoryScreen';
 
 const Stack = createNativeStackNavigator();
+
 const HomeStack = () => {
     return (
         <Stack.Navigator
@@ -47,6 +49,14 @@ const HomeStack = () => {
                 options={{
                     headerTitle: 'POPULÆRT LIGE NU',
                     headerBackTitle: '',
+                }}
+            />
+            <Stack.Screen
+                name="CategoryScreen"
+                component={CategoryScreen}
+                options={{
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
                 }}
             />
         </Stack.Navigator>
