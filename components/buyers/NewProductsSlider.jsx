@@ -6,7 +6,7 @@ import ProductCard from './ProductCard';
 import dictionary from '../../dictionary/products';
 import generalStyles from '../../styles/General';
 import ViewButton from '../actions/ViewButton';
-import { fetchLastestProducts } from '../../utils/api';
+import { fetchLatestProducts } from '../../utils/api';
 import { productImages } from '../../dictionary/images';
 import axios from 'axios';
 
@@ -22,7 +22,7 @@ const NewProductsSlider = () => {
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
         // Fetch all categories from MongoDB api
-        axios(fetchLastestProducts('post', 'products'))
+        axios(fetchLatestProducts('products'))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })

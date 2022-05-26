@@ -3,6 +3,13 @@ const CryptoJS = require('crypto-js');
 import * as Crypto from 'expo-crypto';
 
 // GENERAL
+const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Request-Headers': '*',
+    'Api-key':
+        '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
+};
+
 const mongoDbData = (collection: string) => {
     return JSON.stringify({
         collection: collection,
@@ -15,12 +22,7 @@ export const mongoDbConfig = (collection: string) => {
     return {
         method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Request-Headers': '*',
-            'Api-key':
-                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
-        },
+        headers: headers,
         data: mongoDbData(collection),
     };
 };
@@ -54,12 +56,7 @@ export const createUserAccount = (document: User) => {
     return {
         method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/insertOne',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Request-Headers': '*',
-            'Api-key':
-                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
-        },
+        headers: headers,
         data: newUserAccountData(document),
     };
 };
@@ -81,18 +78,13 @@ export const findUser = (data: User) => {
     return {
         method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Request-Headers': '*',
-            'Api-key':
-                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
-        },
+        headers: headers,
         data: userData(data),
     };
 };
 
 // LATEST PRODUCTS - limit 10
-const fetchLastestData = (collection: string) => {
+const fetchLatestData = (collection: string) => {
     return JSON.stringify({
         collection: collection,
         dataSource: 'PantriiApp',
@@ -104,17 +96,12 @@ const fetchLastestData = (collection: string) => {
     });
 };
 
-export const fetchLastestProducts = (method: string, collection: string) => {
+export const fetchLatestProducts = (collection: string) => {
     return {
-        method: method,
+        method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Request-Headers': '*',
-            'Api-key':
-                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
-        },
-        data: fetchLastestData(collection),
+        headers: headers,
+        data: fetchLatestData(collection),
     };
 };
 
@@ -134,14 +121,21 @@ export const fetchFeaturedProducts = (
     isFiltered: boolean,
 ) => {
     return {
-        method: method,
+        method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Request-Headers': '*',
-            'Api-key':
-                '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
-        },
+        headers: headers,
         data: fetchFeaturedData(collection, isFiltered),
     };
+};
+
+// PRODUCTS IN ONE CATEGORY
+const categoryData = (categoryId: string) => {
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            categoryId: categoryId,
+        },
+    });
 };
