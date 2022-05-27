@@ -4,12 +4,13 @@ import categoryDictionary from '../../../dictionary/categories';
 import productDictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
 import { categoryImages } from '../../../dictionary/images';
-import { SLIDER_WIDTH } from '../../../utils/variables';
+import { SLIDER_WIDTH, sortOptions } from '../../../utils/variables';
 // Components
 import { StyleSheet, View, FlatList } from 'react-native';
 import CategoryCard from '../../../components/buyers/CategoryCard';
 import ProductCard from '../../../components/buyers/ProductCard';
 import Slider from '../../../components/Slider';
+import SelectDropDown from '../../../components/SelectDropDown';
 // API
 import axios from 'axios';
 import { fetchCategoryProducts, mongoDbConfig } from '../../../utils/api';
@@ -26,9 +27,14 @@ export default function AllProductsScreen(props) {
     );
     const isAllProductsView = filteredCategories[0].name !== 'allProducts';
     // Carousel
-    const ITEM_WIDTH = SLIDER_WIDTH / 3;
+    const ITEM_WIDTH = SLIDER_WIDTH / 2.9;
 
     const [categoryProducts, setCategoryProducts] = React.useState([]);
+    const [selectedSort, setSelectedSort] = React.useState(sortOptions[0]);
+    const onSelectedSort = (item) => {
+        setSelectedSort(item);
+    };
+
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
@@ -42,19 +48,22 @@ export default function AllProductsScreen(props) {
                 : fetchCategoryProducts(`${categoryId}`),
         )
             .then(function (response) {
-                // console.log(response.data?.documents);
-                setCategoryProducts(response.data?.documents);
+                const data = response.data?.documents;
+
+                setCategoryProducts(data);
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }, [categoryId, categoryName]);
+    }, [categoryId, categoryName, categoryProducts]);
 
     return (
         <View style={styles.container}>
             {/* Categories slider - show on ALL Products view*/}
             {isAllProductsView ? (
                 <Slider
+                    title="Kategorier"
+                    titleStyle={styles.titleStyle}
                     layout="default"
                     hasPagination
                     data={filteredCategories}
@@ -63,16 +72,18 @@ export default function AllProductsScreen(props) {
                     activeSlideAlignment="start"
                     snapToInterval={3}
                     itemWidth={ITEM_WIDTH}
-                    sliderWidth={SLIDER_WIDTH - 500}
+                    sliderWidth={SLIDER_WIDTH}
                     renderItem={({ item: { name, imageSrc }, index }) => (
                         <CategoryCard
                             secondary
                             key={index}
                             title={categoryContent?.name[name]}
                             imageSrc={categoryImages[imageSrc]}
-                            cardStyle={{
-                                paddingHorizontal: 2.5,
-                            }}
+                            cardStyle={
+                                {
+                                    // paddingHorizontal: 2.5,
+                                }
+                            }
                         ></CategoryCard>
                     )}
                     dotStyle={styles.dotStyle}
@@ -84,8 +95,37 @@ export default function AllProductsScreen(props) {
                 />
             ) : null}
 
+            <SelectDropDown
+                label="sortér"
+                data={sortOptions}
+                onSelect={onSelectedSort}
+                selectedItem={selectedSort}
+            />
             <FlatList
-                data={categoryProducts}
+                data={
+                    (selectedSort?.value === 'A-AA' &&
+                        categoryProducts?.sort((a, b) =>
+                            a.productTitle
+                                .normalize()
+                                .localeCompare(b.productTitle.normalize()),
+                        )) ||
+                    (selectedSort?.value === 'AA-A' &&
+                        categoryProducts?.reverse(
+                            (a, b) =>
+                                a.productTitle.toLowerCase() <
+                                    b.producerTitle.toLowerCase() && -1,
+                        )) ||
+                    (selectedSort?.value === 'lowest' &&
+                        categoryProducts?.sort(
+                            (a, b) =>
+                                parseInt(a.bulkPrice) > parseInt(b.bulkPrice),
+                        )) ||
+                    (selectedSort?.value === 'highest' &&
+                        categoryProducts?.sort(
+                            (a, b) =>
+                                parseInt(a.bulkPrice) < parseInt(b.bulkPrice),
+                        ))
+                }
                 keyExtractor={(item) => item?._id}
                 renderItem={({ item }) => (
                     <ProductCard
@@ -111,10 +151,12 @@ export default function AllProductsScreen(props) {
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                        cardStyle={styles.cardStyle}
                     />
                 )}
                 numColumns={2}
-                scrollEnabled={true}
+                // scrollEnabled={true}
+                contentContainerStyle={styles.productListContainer}
             ></FlatList>
         </View>
     );
@@ -123,10 +165,28 @@ export default function AllProductsScreen(props) {
 const styles = StyleSheet.create({
     container: {
         ...generalStyles.container,
+        paddingBottom: 0,
+        paddingHorizontal: 0,
     },
     sliderContainer: {
         paddingVertical: 2,
         paddingHorizontal: 2,
         alignSelf: 'flex-end',
+    },
+    titleStyle: {
+        fontFamily: 'TT-Commons-Regular',
+        letterSpacing: 1,
+        color: '#000000',
+        fontSize: 14,
+        textTransform: 'capitalize',
+        marginBottom: 10,
+    },
+    productListContainer: {
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 10,
+    },
+    cardStyle: {
+        margin: 5,
     },
 });
