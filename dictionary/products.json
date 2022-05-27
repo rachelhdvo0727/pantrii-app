@@ -2,7 +2,7 @@
     "products": {
         "productTitle": {
             "Tofu": "Tofu",
-            "Smoked Tofu": "Tofu Røget",
+            "Smoked Tofu": "Røget Tofu",
             "Ohpops! Paprika & Chili": "Ohpops! Paprika & Chili",
             "Bruun Kola": "Bruun Kola",
             "Confectioners - Pistachio": "Konfekthapsere - Pistacie",
@@ -16,7 +16,7 @@
             "Dried Kombutang": "Tørret Kombutang",
             "Seaweed mix Kattegat": "Tangmix Kattegat",
             "Vegan Banana Cake": "Vegansk Banankage",
-            "Love Spring": "Love Spring"       
+            "Love Spring": "Love Spring"
         },
         "productDesc": {
             "Tofu with lemongrass and chili": "Tofu med citrongræs og chili",
@@ -51,7 +51,7 @@
             "Digital Laminaria": "Laminaria digitata",
             "Directly for cooking": "Direkte til madlavningen",
             "Vegan Banana Cake which is produced from surplus bananas in Denmark.": "Vegansk Banankage som er produceret af overskudsbananer i Danmark.",
-            "Organic and vegan soft fruit gum, flavored with juicy berries. We are at a source of love and the wine gums have the shape of hearts, fish and water drops. Does not contain gelatin, gluten or lactose.": "Økologisk og vegansk blød frugtvingummi, smagt til med saftige bær. Vi befinder os ved en kærlighedskilde og vingummierne har form som hjerter, fisk og vanddråber. Indeholder ikke gelatine, gluten eller laktose."    
+            "Organic and vegan soft fruit gum, flavored with juicy berries. We are at a source of love and the wine gums have the shape of hearts, fish and water drops. Does not contain gelatin, gluten or lactose.": "Økologisk og vegansk blød frugtvingummi, smagt til med saftige bær. Vi befinder os ved en kærlighedskilde og vingummierne har form som hjerter, fisk og vanddråber. Indeholder ikke gelatine, gluten eller laktose."
         },
         "productUnique": {
             "We use only three ingredients to make tofu; organic soybeans from Italy, nigaris salt from Japan and water. In this variant also lemongrass and chili. The soybeans are soaked before being ground with water for soy milk, which must have just the right viscosity. The soy milk is then boiled up and when it has cooled down again to the right temperature, nigari dissolved in water is added to the right concentration. The soy milk then coagulates and when ready it is poured into molds where it is pressed during a specific procedure determined by pressure and time intervals. This gives the very special consistency that we and our customers appreciate.": "Vi bruger kun tre ingredienser til fremstillingen af tofu; økologiske sojabønner fra Italien, nigarisalt fra Japan og vand. I denne variant også citrongræs og chili. Sojabønnerne lægges i blød før de males med vand til sojamælk, som skal have den helt rigtige viskositet. Sojamælken koges derefter op, og når den er kølet ned igen til den rette temperatur tilsættes nigari opløst i vand til den rette koncentration. Sojamælken koagulerer herefter og når den er klar hældes den i forme, hvor den presses under en bestemt procedure bestemt af tryk og tidsintervaller. Dette giver den ganske særlige konsistens, som vi og vores kunder sætter pris på.",
