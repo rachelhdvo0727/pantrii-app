@@ -30,10 +30,7 @@ export default function CategoryScreen(props) {
     const filteredCategories = categories?.filter(
         (t) => t?.name !== categoryName,
     );
-    const isAllProductsView = filteredCategories[0]?.name !== 'allProducts';
-
-    // Carousel
-    const ITEM_WIDTH = SLIDER_WIDTH / 2.9;
+    const isAllProductsView = filteredCategories[0]?.name !== 'allProducts'; // For hiding category slider
 
     const [categoryProducts, setCategoryProducts] = React.useState(null);
     const [selectedSort, setSelectedSort] = React.useState(sortOptions[0]);
@@ -81,7 +78,7 @@ export default function CategoryScreen(props) {
                     inactiveSlideScale={1}
                     activeSlideAlignment="start"
                     snapToInterval={3}
-                    itemWidth={ITEM_WIDTH}
+                    itemWidth={128}
                     sliderWidth={SLIDER_WIDTH}
                     renderItem={({ item, index }) => (
                         <CategoryCard
@@ -109,7 +106,7 @@ export default function CategoryScreen(props) {
             ) : null}
 
             <SelectDropDown
-                label="sortér"
+                label="sortér efter"
                 data={sortOptions}
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}
@@ -212,8 +209,9 @@ const styles = StyleSheet.create({
     },
     productListContainer: {
         alignItems: 'center',
-        // justifyContent: 'space-between',
+        justifyContent: 'space-between',
         marginTop: 0,
+        paddingHorizontal: 5,
     },
     shortListStyle: { alignItems: 'flex-start', marginHorizontal: 10 },
     cardStyle: {
