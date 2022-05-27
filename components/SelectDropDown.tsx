@@ -10,13 +10,16 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-type option = { label: string; value: string };
+export interface Option {
+    label: string;
+    value: string;
+}
 
 export interface Props {
     label: string;
-    data: Array<option>;
-    onSelect(item: option): void;
-    selectedItem?: option;
+    data: Array<Option>;
+    onSelect(item: Option): void;
+    selectedItem?: Option;
 }
 
 export default function SelectDropDown({
@@ -31,13 +34,13 @@ export default function SelectDropDown({
     const toggleDropdown = () => {
         setVisible(!visible);
     };
-    const handleOnSelect = (item: option) => {
+    const handleOnSelect = (item: Option) => {
         onSelect(item);
         setVisible(false);
         setSelectedItem(item);
     };
 
-    const renderItem = (item: option) => (
+    const renderItem = (item: Option) => (
         <TouchableOpacity
             style={[
                 styles.dropdownItem,
