@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CategoriesScreen from './CategoriesScreen';
+import CategoriesMainScreen from './CategoriesMainScreen';
 import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
 import ProfileScreen from './ProfileScreen';

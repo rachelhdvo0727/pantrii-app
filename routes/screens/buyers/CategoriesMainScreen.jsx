@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 // API
 import axios from 'axios';
 
-export default function CategoriesScreen() {
+export default function CategoriesMainScreen() {
     const content = dictionary?.categories; // DA dictionary
     const navigation = useNavigation();
 

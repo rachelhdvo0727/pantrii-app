@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CategoriesScreen from './CategoriesScreen';
+import CategoriesMainScreen from './CategoriesMainScreen';
 import CategoryScreen from './CategoryScreen';
 import CategoryProductsListScreen from './CategoryProductsListScreen';
 
@@ -27,8 +27,8 @@ const CategoriesStack = () => {
             }}
         >
             <Stack.Screen
-                name="CategoriesScreen"
-                component={CategoriesScreen}
+                name="CategoriesMainScreen"
+                component={CategoriesMainScreen}
                 options={{
                     headerTitle: 'KATEGORIER',
                     headerBackTitleVisible: false,
