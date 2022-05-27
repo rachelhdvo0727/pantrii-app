@@ -1,10 +1,13 @@
 import React from 'react';
 import generalStyles from '../styles/General';
+import { SLIDER_WIDTH } from '../utils/variables';
 // Components
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 const Slider = ({
+    title,
+    titleStyle,
     data,
     renderItem,
     sliderWidth,
@@ -13,6 +16,8 @@ const Slider = ({
     inactiveSlideOpacity,
     inactiveSlideScale,
     activeSlideAlignment,
+    snapToInterval,
+    useScrollView,
     hasPagination,
     dotStyle,
     containerStyle,
@@ -23,7 +28,8 @@ const Slider = ({
     const carouselRef = React.useRef(null);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={[styles.container]}>
+            {title ? <Text style={titleStyle}>{title}</Text> : null}
             <Carousel
                 layout={layout}
                 data={data}
@@ -34,7 +40,9 @@ const Slider = ({
                 sliderWidth={sliderWidth}
                 itemWidth={itemWidth}
                 onSnapToItem={(index) => setIndex(index)}
-                useScrollView={true}
+                useScrollView={useScrollView}
+                snapToInterval={snapToInterval}
+                style={styles.carousel}
             ></Carousel>
             {hasPagination ? (
                 <Pagination
@@ -58,6 +66,14 @@ const Slider = ({
 export default Slider;
 
 const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'space-between',
+        marginBottom: 8,
+        paddingHorizontal: 10,
+    },
+    carousel: {
+        position: 'relative',
+    },
     dotStyle: {
         width: 6,
         height: 6,
