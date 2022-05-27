@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useRef, useCallback } from 'react';
 import {
     View,
     Text,
@@ -6,15 +6,18 @@ import {
     Image,
     Pressable,
     Dimensions,
-    Modal,
-    Alert,
+    TouchableOpacity,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import FavoriteIcon from '../actions/FavouriteIcon';
-import BottomSheet from 'reanimated-bottom-sheet';
+import Modal from 'react-native-modal';
+import FavoriteButton from '../actions/FavoriteButton';
+import IconButton from '../actions/IconButton';
+import Button from '../actions/Button';
+import CloseButton from '../actions/CloseButton';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
@@ -45,22 +48,138 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
 }: Props) => {
-    const [isPanelActive, setIsPanelActive] = React.useState(false);
-    const openPanel = () => {
-        setIsPanelActive(!isPanelActive);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+        console.log('hi');
     };
-    const renderContent = () => (
-        <View style={styles.centeredView}>
-            <Text>Swipe down to close</Text>
-        </View>
-    );
-
-    const sheetRef = React.useRef(null);
     return (
         <View>
+            {/* Slide up modal */}
+            <Modal
+                isVisible={isModalVisible}
+                coverScreen={true}
+                deviceHeight={Dimensions.get('window').height - 80}
+                onSwipeComplete={() => setModalVisible(false)}
+                swipeDirection="down"
+                backdropOpacity={0.3}
+            >
+                <View style={styles.modalWrapper}>
+                    <CloseButton
+                        style={{
+                            position: 'absolute',
+                            zIndex: 4,
+                            top: Dimensions.get('window').height - 440,
+                            right: 0,
+                        }}
+                        onPress={toggleModal}
+                    />
+                    <View style={styles.modalIcons}>
+                        {isCold ? (
+                            <ThermoIcon
+                                style={[
+                                    styles.iconHidden,
+                                    { display: isCold ? 'block' : '' },
+                                ]}
+                            />
+                        ) : null}
+                        {isOrganic ? (
+                            <OrganicIcon
+                                style={[
+                                    styles.iconHidden,
+                                    { display: isOrganic ? 'block' : '' },
+                                ]}
+                            />
+                        ) : null}
+                        {isFrozen ? (
+                            <FrozenIcon
+                                style={[
+                                    styles.iconHidden,
+                                    { display: isFrozen ? 'block' : '' },
+                                ]}
+                            />
+                        ) : null}
+                    </View>
+                    <View style={styles.modalView}>
+                        <View style={styles.imageGallery}>
+                            <Image
+                                style={styles.modalImage}
+                                source={imageSrc}
+                            ></Image>
+                        </View>
+                        <View style={styles.textWrapper}>
+                            <Text style={styles.modalH1} numberOfLines={1}>
+                                {productTitle}
+                            </Text>
+                            <View style={styles.bodyWrapper}>
+                                <View style={styles.padding}>
+                                    <Text
+                                        style={[
+                                            styles.producerTitle,
+                                            styles.modalH2,
+                                        ]}
+                                    >
+                                        {producerTitle}
+                                    </Text>
+                                    <Text
+                                        style={[
+                                            styles.productDesc,
+                                            styles.modalH3,
+                                        ]}
+                                        numberOfLines={1}
+                                    >
+                                        {productDesc}
+                                    </Text>
+                                    <Text style={[styles.unit, styles.modalH4]}>
+                                        {productUnit}
+                                    </Text>
+                                </View>
+                                <View
+                                    style={[
+                                        styles.modalPriceWrapper,
+                                        styles.padding,
+                                    ]}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.bulkPrice,
+                                            styles.modalH2,
+                                        ]}
+                                    >
+                                        {bulkPrice}
+                                    </Text>
+                                    <Text
+                                        style={[
+                                            styles.singularPrice,
+                                            styles.modalH3,
+                                        ]}
+                                    >
+                                        {singlePrice}
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.dottedLine}></View>
+                            <View style={styles.modalBottomWrapper}>
+                                <View
+                                    style={[
+                                        styles.bottomRightWrapper,
+                                        styles.modalBottomRightWrapper,
+                                    ]}
+                                >
+                                    <FavoriteButton />
+                                    <IconButton arrowRight title="Detaljer" />
+                                </View>
+                                <View style={styles.paddingRight}>
+                                    <Button secondary title="Tilføj til kurv" />
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
             <Pressable
-                onPress={openPanel}
                 style={[styles.productWrapper, secondary && styles.secondary]}
+                onPress={() => setModalVisible(true)}
             >
                 <View style={styles.icons}>
                     {isCold ? (
@@ -126,15 +245,6 @@ const ProductCard = ({
                     </View>
                 </View>
             </Pressable>
-            {isPanelActive && (
-                <>
-                    <BottomSheet
-                        ref={sheetRef}
-                        snapPoints={[280, 0]}
-                        renderContent={renderContent}
-                    />
-                </>
-            )}
         </View>
     );
 };
@@ -254,24 +364,18 @@ const styles = StyleSheet.create({
         right: 10,
         top: 5,
     },
-    //
-    centeredView: {
+    modalWrapper: {
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        height: Dimensions.get('window').height,
-        width: '100%',
-        zIndex: 1,
-        position: 'absolute',
+        marginBottom: 58,
     },
     modalView: {
         width: Dimensions.get('window').width,
-        height: 340,
+        height: 350,
         backgroundColor: 'white',
-        borderTopEndRadius: 20,
-        borderTopStartRadius: 20,
-        padding: 35,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
@@ -279,25 +383,82 @@ const styles = StyleSheet.create({
             height: 2,
         },
         shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
     },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
+    textWrapper: {
+        width: '100%',
     },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
+    modalH1: {
+        fontSize: 20,
+        fontFamily: 'TT-Commons-Bold',
+        letterSpacing: 0.2,
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        textTransform: 'uppercase',
     },
-    buttonClose: {
-        backgroundColor: '#2196F3',
+    modalH2: {
+        fontSize: 18,
+        fontFamily: 'TT-Commons-Bold',
+        letterSpacing: 0.2,
     },
-    textStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
+    modalH3: {
+        fontSize: 16,
+        fontFamily: 'TT-Commons-Medium',
+        letterSpacing: 0.2,
     },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
+    modalH4: {
+        fontSize: 14,
+        fontFamily: 'TT-Commons-Regular',
+        letterSpacing: 0.2,
+    },
+    imageGallery: {
+        backgroundColor: 'pink',
+        height: 185,
+        width: '100%',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    modalImage: {
+        width: '100%',
+        height: '100%',
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    bodyWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderTopWidth: 1,
+        borderColor: 'rgba(189, 189, 189, 0.5)',
+        paddingVertical: 5,
+    },
+    padding: {
+        paddingHorizontal: 20,
+    },
+    paddingRight: {
+        paddingRight: 20,
+    },
+    modalPriceWrapper: {
+        alignItems: 'flex-end',
+    },
+    modalBottomWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingVertical: 5,
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    modalBottomRightWrapper: {
+        height: 50,
+    },
+    modalIcons: {
+        position: 'absolute',
+        zIndex: 1,
+        left: 0,
+        top: Dimensions.get('window').height - 440,
     },
 });

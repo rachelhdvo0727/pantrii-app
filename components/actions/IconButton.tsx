@@ -31,7 +31,7 @@ const IconButton: React.FC<Props> = ({
                 {arrowRight ? (
                     <AntDesign
                         name="arrowright"
-                        size={15}
+                        size={12}
                         color="#1B463C"
                         style={styles.iconSpacing}
                     />
@@ -39,7 +39,7 @@ const IconButton: React.FC<Props> = ({
                 {arrowDown ? (
                     <MaterialIcons
                         name="keyboard-arrow-down"
-                        size={15}
+                        size={12}
                         color="#1B463C"
                         style={styles.iconSpacing}
                     />
@@ -59,22 +59,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderRadius: 1000,
         margin: 10,
+        justifyContent: 'center',
     },
     wrapper: {
         flexDirection: 'row',
-        paddingVertical: 7,
-        paddingHorizontal: 17,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
     },
     title: {
         fontFamily: 'TT-Commons-Regular',
-        fontSize: 14,
+        fontSize: 12,
         color: '#1B463C',
         textTransform: 'capitalize',
         lineHeight: 14,
-        letterSpacing: 1.3,
+        letterSpacing: 1.2,
     },
     iconSpacing: {
         marginLeft: 4,
+        marginTop: 1.2,
     },
     outlined: {
         backgroundColor: '#EFF2EE',
