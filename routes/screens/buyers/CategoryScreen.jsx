@@ -21,7 +21,7 @@ export default function AllProductsScreen(props) {
     const categories = props?.route?.params?.categories;
     const categoryId = props?.route?.params?.category?._id;
     const categoryName = props?.route?.params?.category?.name;
-    const filteredCategories = categories.filter(
+    const filteredCategories = categories?.filter(
         (t) => t.name !== categoryName,
     );
     const isAllProductsView = filteredCategories[0].name !== 'allProducts';
@@ -61,8 +61,9 @@ export default function AllProductsScreen(props) {
                     inactiveSlideOpacity={1}
                     inactiveSlideScale={1}
                     activeSlideAlignment="start"
+                    snapToInterval={3}
                     itemWidth={ITEM_WIDTH}
-                    sliderWidth={SLIDER_WIDTH}
+                    sliderWidth={SLIDER_WIDTH - 500}
                     renderItem={({ item: { name, imageSrc }, index }) => (
                         <CategoryCard
                             secondary
