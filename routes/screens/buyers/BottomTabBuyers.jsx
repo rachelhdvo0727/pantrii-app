@@ -41,6 +41,15 @@ export default function BottomTabBuyers(props) {
                 headerStyle: {
                     backgroundColor: '#1B463C',
                 },
+                tabBarStyle: {
+                    shadowOffset: {
+                        width: 0,
+                        height: 18,
+                    },
+                    shadowOpacity: 0.58,
+                    shadowRadius: 16.0,
+                    elevation: 10,
+                },
             }}
         >
             <Tab.Screen
