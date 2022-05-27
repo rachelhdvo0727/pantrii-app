@@ -16,6 +16,7 @@ import Product from '../../models/Product';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
+    cardStyle: React.ComponentProps<typeof Pressable>['style'];
     imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: Product['productTitle'];
     producerTitle: Product['producerTitle'];
@@ -32,6 +33,7 @@ export interface Props {
 
 const ProductCard = ({
     // onPress,
+    cardStyle,
     imageSrc,
     productTitle,
     producerTitle,
@@ -46,7 +48,11 @@ const ProductCard = ({
 }: Props) => {
     return (
         <Pressable
-            style={[styles.productWrapper, secondary && styles.secondary]}
+            style={[
+                styles.productWrapper,
+                secondary && styles.secondary,
+                cardStyle,
+            ]}
         >
             <View style={styles.icons}>
                 {isCold ? (
@@ -113,7 +119,8 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
     productWrapper: {
-        width: 180,
+        // width: 180,
+        width: Dimensions.get('window').width / 2 - 15,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
