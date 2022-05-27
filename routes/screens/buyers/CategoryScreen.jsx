@@ -22,7 +22,7 @@ export default function AllProductsScreen(props) {
     const categoryId = props?.route?.params?.category?._id;
     const categoryName = props?.route?.params?.category?.name;
     const filteredCategories = categories?.filter(
-        (t) => t.name !== categoryName,
+        (t) => t?.name !== categoryName,
     );
     const isAllProductsView = filteredCategories[0].name !== 'allProducts';
     // Carousel

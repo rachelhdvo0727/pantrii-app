@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CategoriesScreen from './CategoriesScreen';
+import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
 import ProfileScreen from './ProfileScreen';
 import CartScreen from './CartScreen';
@@ -61,9 +62,9 @@ export default function BottomTabBuyers(props) {
             />
             <Tab.Screen
                 name="Kategorier"
-                component={CategoriesScreen}
+                component={CategoriesStack}
                 options={{
-                    headerTitle: 'Kategorier',
+                    headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
