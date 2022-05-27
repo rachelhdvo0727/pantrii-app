@@ -75,7 +75,7 @@ const CategoryProductsListScreen = (props) => {
     return (
         <View style={styles.container}>
             <SelectDropDown
-                label="sortér"
+                label="Sortér efter"
                 data={sortOptions}
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}
@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: 0,
+        marginHorizontal: 10,
     },
     cardStyle: {
         margin: 5,

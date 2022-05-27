@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         ...generalStyles.paragraphText,
-        textTransform: 'capitalize',
         fontSize: 12,
     },
     dropdown: {

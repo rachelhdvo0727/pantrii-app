@@ -106,7 +106,7 @@ export default function CategoryScreen(props) {
             ) : null}
 
             <SelectDropDown
-                label="sortér efter"
+                label="Sortér efter"
                 data={sortOptions}
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}
