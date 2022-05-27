@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Text,
     View,
-    Modal,
     FlatList,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -46,7 +45,14 @@ export default function SelectDropDown({
             ]}
             onPress={() => handleOnSelect(item)}
         >
-            <Text style={styles.dropdownText}>{item?.label} &emsp;</Text>
+            <Text
+                style={[
+                    styles.dropdownText,
+                    seletedItem?.label === item?.label && styles.currentSort,
+                ]}
+            >
+                {item?.label}&emsp;&emsp;
+            </Text>
         </TouchableOpacity>
     );
     const renderDropdown = () => {
@@ -66,9 +72,18 @@ export default function SelectDropDown({
     return (
         <TouchableOpacity style={styles.container} onPress={toggleDropdown}>
             {renderDropdown()}
-            <Text style={[styles.buttonText]}>
-                {seletedItem ? `${label}: ${seletedItem?.label}` : label}
-            </Text>
+            <Text style={[styles.buttonText]}>{label}</Text>
+            {selectedItem ? (
+                <Text
+                    style={[
+                        styles.buttonText,
+                        seletedItem?.label !== '' && styles.currentSort,
+                    ]}
+                >
+                    : {seletedItem?.label}
+                </Text>
+            ) : null}
+
             <MaterialIcons
                 name={visible ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
                 size={17}
@@ -123,6 +138,6 @@ const styles = StyleSheet.create({
     },
     dropdownText: { ...generalStyles.paragraphText, fontSize: 12 },
     currentSort: {
-        fontWeight: '600',
+        fontFamily: 'TT-Commons-DemiBold',
     },
 });
