@@ -8,7 +8,6 @@ import { categoryImages } from '../../../dictionary/images';
 import { useNavigation } from '@react-navigation/native';
 // API
 import axios from 'axios';
-import { fetchCategoryProducts } from '../../../utils/api';
 
 export default function CategoriesScreen() {
     const content = dictionary?.categories; // DA dictionary

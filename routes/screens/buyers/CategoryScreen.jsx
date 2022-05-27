@@ -5,17 +5,22 @@ import productDictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
 import { categoryImages } from '../../../dictionary/images';
 import { SLIDER_WIDTH, sortOptions } from '../../../utils/variables';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import { StyleSheet, View, FlatList } from 'react-native';
 import CategoryCard from '../../../components/buyers/CategoryCard';
 import ProductCard from '../../../components/buyers/ProductCard';
 import Slider from '../../../components/Slider';
 import SelectDropDown from '../../../components/SelectDropDown';
+import BackIconButton from '../../../components/actions/BackIconButton';
+import NotFound from '../../../components/NotFound';
+import Spinner from '../../../components/Spinner';
 // API
 import axios from 'axios';
 import { fetchCategoryProducts, mongoDbConfig } from '../../../utils/api';
 
-export default function AllProductsScreen(props) {
+export default function CategoryScreen(props) {
+    const navigation = useNavigation();
     const categoryContent = categoryDictionary?.categories;
     const productContent = productDictionary?.products;
     // Clean up
@@ -25,11 +30,12 @@ export default function AllProductsScreen(props) {
     const filteredCategories = categories?.filter(
         (t) => t?.name !== categoryName,
     );
-    const isAllProductsView = filteredCategories[0].name !== 'allProducts';
+    const isAllProductsView = filteredCategories[0]?.name !== 'allProducts';
+
     // Carousel
     const ITEM_WIDTH = SLIDER_WIDTH / 2.9;
 
-    const [categoryProducts, setCategoryProducts] = React.useState([]);
+    const [categoryProducts, setCategoryProducts] = React.useState(null);
     const [selectedSort, setSelectedSort] = React.useState(sortOptions[0]);
     const onSelectedSort = (item) => {
         setSelectedSort(item);
@@ -39,23 +45,27 @@ export default function AllProductsScreen(props) {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
             headerTitle: categoryContent?.name[categoryName]?.toUpperCase(),
+            headerLeft: () => (
+                <BackIconButton onPress={() => navigation.goBack()} />
+            ),
         });
 
         // Fetch this category's products
         axios(
             isAllProductsView
                 ? mongoDbConfig('products')
-                : fetchCategoryProducts(`${categoryId}`),
+                : fetchCategoryProducts(categoryId),
         )
-            .then(function (response) {
+            .then((response) => {
                 const data = response.data?.documents;
-
-                setCategoryProducts(data);
+                setTimeout(() => {
+                    setCategoryProducts(data);
+                }, 2000);
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch((error) => {
+                console.error(error);
             });
-    }, [categoryId, categoryName, categoryProducts]);
+    }, [categoryId, categoryName]);
 
     return (
         <View style={styles.container}>
@@ -73,17 +83,20 @@ export default function AllProductsScreen(props) {
                     snapToInterval={3}
                     itemWidth={ITEM_WIDTH}
                     sliderWidth={SLIDER_WIDTH}
-                    renderItem={({ item: { name, imageSrc }, index }) => (
+                    renderItem={({ item, index }) => (
                         <CategoryCard
                             secondary
                             key={index}
-                            title={categoryContent?.name[name]}
-                            imageSrc={categoryImages[imageSrc]}
-                            cardStyle={
-                                {
-                                    // paddingHorizontal: 2.5,
-                                }
-                            }
+                            title={categoryContent?.name[item?.name]}
+                            imageSrc={categoryImages[item?.imageSrc]}
+                            onPress={() => {
+                                navigation.navigate(
+                                    'CategoryProductsListScreen',
+                                    {
+                                        category: item,
+                                    },
+                                );
+                            }}
                         ></CategoryCard>
                     )}
                     dotStyle={styles.dotStyle}
@@ -101,63 +114,79 @@ export default function AllProductsScreen(props) {
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}
             />
-            <FlatList
-                data={
-                    (selectedSort?.value === 'A-AA' &&
-                        categoryProducts?.sort((a, b) =>
-                            a.productTitle
-                                .normalize()
-                                .localeCompare(b.productTitle.normalize()),
-                        )) ||
-                    (selectedSort?.value === 'AA-A' &&
-                        categoryProducts?.reverse(
-                            (a, b) =>
-                                a.productTitle.toLowerCase() <
-                                    b.producerTitle.toLowerCase() && -1,
-                        )) ||
-                    (selectedSort?.value === 'lowest' &&
-                        categoryProducts?.sort(
-                            (a, b) =>
-                                parseInt(a.bulkPrice) > parseInt(b.bulkPrice),
-                        )) ||
-                    (selectedSort?.value === 'highest' &&
-                        categoryProducts?.sort(
-                            (a, b) =>
-                                parseInt(a.bulkPrice) < parseInt(b.bulkPrice),
-                        ))
-                }
-                keyExtractor={(item) => item?._id}
-                renderItem={({ item }) => (
-                    <ProductCard
-                        productTitle={
-                            productContent?.productTitle[item?.productTitle]
-                        }
-                        imageSrc={productImages[item?.imageSrc]}
-                        producerTitle={item?.producerTitle}
-                        productDesc={
-                            productContent?.productDesc[item?.productDesc]
-                        }
-                        productUnit={item?.productUnit}
-                        bulkPrice={
-                            item?.bulkPrice +
-                            productContent?.currency.DKK +
-                            '/kolli'
-                        }
-                        singlePrice={
-                            item?.singlePrice +
-                            productContent?.currency.DKK +
-                            '/enhed'
-                        }
-                        isCold={item.tags?.find((tag) => tag == 'cold')}
-                        isOrganic={item.tags?.find((tag) => tag == 'organic')}
-                        isFrozen={item.tags?.find((tag) => tag == 'frozen')}
-                        cardStyle={styles.cardStyle}
-                    />
-                )}
-                numColumns={2}
-                // scrollEnabled={true}
-                contentContainerStyle={styles.productListContainer}
-            ></FlatList>
+
+            {categoryProducts === null && <Spinner />}
+            {categoryProducts?.length === 0 && (
+                <NotFound
+                    text={`Der findes ikke produkter i ${categoryContent?.name[categoryName]} kategorien`}
+                />
+            )}
+            {categoryProducts?.length > 0 && (
+                <FlatList
+                    data={
+                        (selectedSort?.value === 'A-AA' &&
+                            categoryProducts?.sort((a, b) =>
+                                a.productTitle
+                                    .normalize()
+                                    .localeCompare(b.productTitle.normalize()),
+                            )) ||
+                        (selectedSort?.value === 'AA-A' &&
+                            categoryProducts?.reverse(
+                                (a, b) =>
+                                    a.productTitle.toLowerCase() <
+                                        b.productTitle.toLowerCase() && -1,
+                            )) ||
+                        (selectedSort?.value === 'lowest' &&
+                            categoryProducts?.sort(
+                                (a, b) =>
+                                    parseInt(a.bulkPrice) >
+                                    parseInt(b.bulkPrice),
+                            )) ||
+                        (selectedSort?.value === 'highest' &&
+                            categoryProducts?.sort(
+                                (a, b) =>
+                                    parseInt(a.bulkPrice) <
+                                    parseInt(b.bulkPrice),
+                            ))
+                    }
+                    keyExtractor={(item) => item?._id}
+                    renderItem={({ item }) => (
+                        <ProductCard
+                            productTitle={
+                                productContent?.productTitle[item?.productTitle]
+                            }
+                            imageSrc={productImages[item?.imageSrc]}
+                            producerTitle={item?.producerTitle}
+                            productDesc={
+                                productContent?.productDesc[item?.productDesc]
+                            }
+                            productUnit={item?.productUnit}
+                            bulkPrice={
+                                item?.bulkPrice +
+                                productContent?.currency.DKK +
+                                '/kolli'
+                            }
+                            singlePrice={
+                                item?.singlePrice +
+                                productContent?.currency.DKK +
+                                '/enhed'
+                            }
+                            isCold={item.tags?.find((tag) => tag == 'cold')}
+                            isOrganic={item.tags?.find(
+                                (tag) => tag == 'organic',
+                            )}
+                            isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                            cardStyle={styles.cardStyle}
+                        />
+                    )}
+                    numColumns={2}
+                    scrollEnabled={true}
+                    contentContainerStyle={[
+                        styles.productListContainer,
+                        categoryProducts?.length === 1 && styles.shortListStyle,
+                    ]}
+                ></FlatList>
+            )}
         </View>
     );
 }
@@ -183,9 +212,10 @@ const styles = StyleSheet.create({
     },
     productListContainer: {
         alignItems: 'center',
-        justifyContent: 'space-between',
-        marginTop: 10,
+        // justifyContent: 'space-between',
+        marginTop: 0,
     },
+    shortListStyle: { alignItems: 'flex-start', marginHorizontal: 10 },
     cardStyle: {
         margin: 5,
     },

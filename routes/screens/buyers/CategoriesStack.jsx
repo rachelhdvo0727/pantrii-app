@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CategoriesScreen from './CategoriesScreen';
 import CategoryScreen from './CategoryScreen';
+import CategoryProductsListScreen from './CategoryProductsListScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,14 @@ const CategoriesStack = () => {
             <Stack.Screen
                 name="CategoryScreen"
                 component={CategoryScreen}
+                options={{
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                }}
+            />
+            <Stack.Screen
+                name="CategoryProductsListScreen"
+                component={CategoryProductsListScreen}
                 options={{
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
