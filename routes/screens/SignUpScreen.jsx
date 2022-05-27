@@ -2,14 +2,7 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import {
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    ScrollView,
-    SafeAreaView,
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
