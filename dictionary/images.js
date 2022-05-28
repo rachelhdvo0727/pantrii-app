@@ -30,4 +30,7 @@ export const productImages = {
     '62863c52212c889524bc8f7e.png': require('../assets/products/62863c52212c889524bc8f7e.png'),
     '6292155b9aa46b32c2e25218.png': require('../assets/products/6292155b9aa46b32c2e25218.png'),
     '6292175b9aa46b32c2e25219.png': require('../assets/products/6292175b9aa46b32c2e25219.png'),
+    '627fc4457a0fa962a5cb745b-1.png': require('../assets/products/627fc4457a0fa962a5cb745b-1.png'),
+    '627fc4457a0fa962a5cb745b-2.png': require('../assets/products/627fc4457a0fa962a5cb745b-2.png'),
+    '627fc4457a0fa962a5cb745b-3.png': require('../assets/products/627fc4457a0fa962a5cb745b-3.png'),
 };
