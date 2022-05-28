@@ -2,8 +2,12 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 import axios from 'axios';
+// API
 import { fetchLatestProducts } from '../../../utils/api';
+// Components
 import ProductCard from '../../../components/buyers/ProductCard';
+import BackIcon from '../../../components/svgs/BackIcon';
+// Dictionary
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
 

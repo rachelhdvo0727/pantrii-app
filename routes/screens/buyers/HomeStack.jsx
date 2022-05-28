@@ -5,10 +5,13 @@ import TopNavBuyers from './TopNavBuyers';
 import NewProductsScreen from './NewProductsScreen';
 import HighLightProductsScreen from './HighlightProductsScreen';
 import CategoryScreen from './CategoryScreen';
+import BackIconButton from '../../../components/actions/BackIconButton';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
+    const navigation = useNavigation();
     return (
         <Stack.Navigator
             screenOptions={{
@@ -41,6 +44,9 @@ const HomeStack = () => {
                 options={{
                     headerTitle: 'NYHEDER',
                     headerBackTitle: '',
+                    headerLeft: () => (
+                        <BackIconButton onPress={() => navigation.goBack()} />
+                    ),
                 }}
             />
             <Stack.Screen
@@ -49,6 +55,9 @@ const HomeStack = () => {
                 options={{
                     headerTitle: 'POPULÆRT LIGE NU',
                     headerBackTitle: '',
+                    headerLeft: () => (
+                        <BackIconButton onPress={() => navigation.goBack()} />
+                    ),
                 }}
             />
             <Stack.Screen

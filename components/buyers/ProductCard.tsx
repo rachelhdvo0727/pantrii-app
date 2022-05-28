@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
+// Components
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
@@ -55,7 +56,6 @@ const ProductCard = ({
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
-        console.log('hi');
     };
     return (
         <View>
@@ -63,8 +63,8 @@ const ProductCard = ({
             <Modal
                 isVisible={isModalVisible}
                 coverScreen={true}
-                deviceHeight={Dimensions.get('window').height - 80}
                 onSwipeComplete={() => setModalVisible(false)}
+                onBackdropPress={() => setModalVisible(false)}
                 swipeDirection="down"
                 backdropOpacity={0.3}
             >
@@ -73,7 +73,7 @@ const ProductCard = ({
                         style={{
                             position: 'absolute',
                             zIndex: 4,
-                            top: Dimensions.get('window').height - 440,
+                            top: Dimensions.get('window').height - 370,
                             right: 0,
                         }}
                         onPress={toggleModal}
@@ -181,12 +181,13 @@ const ProductCard = ({
                     </View>
                 </View>
             </Modal>
+            {/* product card */}
             <Pressable
-               style={[
-                styles.productWrapper,
-                secondary && styles.secondary,
-                cardStyle,
-            ]}
+                style={[
+                    styles.productWrapper,
+                    secondary && styles.secondary,
+                    cardStyle,
+                ]}
                 onPress={() => setModalVisible(true)}
             >
                 <View style={styles.icons}>
@@ -378,11 +379,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginBottom: 58,
+        marginBottom: -20,
     },
     modalView: {
         width: Dimensions.get('window').width,
-        height: 350,
+        height: 360,
         backgroundColor: 'white',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
@@ -469,6 +470,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 1,
         left: 0,
-        top: Dimensions.get('window').height - 440,
+        top: Dimensions.get('window').height - 370,
     },
 });

@@ -28,4 +28,6 @@ export const productImages = {
     '62863693212c889524bc8f7c.png': require('../assets/products/62863693212c889524bc8f7c.png'),
     '628639b1212c889524bc8f7d.png': require('../assets/products/628639b1212c889524bc8f7d.png'),
     '62863c52212c889524bc8f7e.png': require('../assets/products/62863c52212c889524bc8f7e.png'),
+    '6292155b9aa46b32c2e25218.png': require('../assets/products/6292155b9aa46b32c2e25218.png'),
+    '6292175b9aa46b32c2e25219.png': require('../assets/products/6292175b9aa46b32c2e25219.png'),
 };
