@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 import axios from 'axios';
-import { fetchLastestProducts } from '../../../utils/api';
+import { fetchLatestProducts } from '../../../utils/api';
 import ProductCard from '../../../components/buyers/ProductCard';
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
@@ -12,7 +12,7 @@ export default function NewProductsScreen() {
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
-        axios(fetchLastestProducts('products'))
+        axios(fetchLatestProducts('products'))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })
