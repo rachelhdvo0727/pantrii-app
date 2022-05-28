@@ -18,7 +18,7 @@ const FavoriteButton: React.FC<Props> = ({ isActive, onPress }) => {
                 </Text>
                 <FontAwesome
                     name="heart-o"
-                    size={15}
+                    size={12}
                     color={isActive ? '#FFFFFF' : '#EA6F2D'}
                     style={[styles.iconSpacing, isActive && styles.isActive]}
                 />
@@ -35,23 +35,25 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderRadius: 1000,
         backgroundColor: '#FFFFFF',
-        margin: 10,
+        marginVertical: 10,
+        justifyContent: 'center',
     },
     wrapper: {
         flexDirection: 'row',
-        paddingVertical: 7,
-        paddingHorizontal: 17,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
     },
     title: {
         fontFamily: 'TT-Commons-Regular',
-        fontSize: 14,
+        fontSize: 12,
         color: '#EA6F2D',
         textTransform: 'capitalize',
         lineHeight: 14,
-        letterSpacing: 1.3,
+        letterSpacing: 1.2,
     },
     iconSpacing: {
         marginLeft: 4,
+        marginTop: 1.2,
     },
     isActive: {
         backgroundColor: '#EA6F2D',

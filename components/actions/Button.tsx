@@ -57,15 +57,13 @@ export default Button;
 const styles = StyleSheet.create({
     container: {
         borderRadius: 1000,
-        marginVertical: 10,
-        marginHorizontal: 10,
         paddingVertical: 15,
-        paddingHorizontal: 50,
+        paddingHorizontal: 25,
     },
     title: {
         fontFamily: 'TT-Commons-Bold',
         textTransform: 'uppercase',
-        letterSpacing: 1.5,
+        letterSpacing: 1.2,
         fontSize: 14,
     },
     primary: {

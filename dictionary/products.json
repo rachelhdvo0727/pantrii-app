@@ -16,7 +16,9 @@
             "Dried Kombutang": "Tørret Kombutang",
             "Seaweed mix Kattegat": "Tangmix Kattegat",
             "Vegan Banana Cake": "Vegansk Banankage",
-            "Love Spring": "Love Spring"
+            "Love Spring": "Love Spring",
+            "Whole Smoked Rolled Sausage": "Røget Rullepølse hel",
+            "MOSHgifler":"Dadel Gifler"
         },
         "productDesc": {
             "Tofu with lemongrass and chili": "Tofu med citrongræs og chili",
@@ -34,7 +36,8 @@
             "Seaweed from Denmark": "Tang fra Danmark",
             "Produced in Denmark": "Produceret i Danmark",
             "For foodservice - Produced from surplus bananas": "Til foodservice - Produceret af overskudsbananer",
-            "Wine Gum, Vegan": "Vingummi, Vegansk"
+            "Wine Gum, Vegan": "Vingummi, Vegansk",
+            "Cold cuts": "Pålæg"
         },
         "productStory": {
             "Healthy and tasty food from good ingredients has been the recipe for Trang Thien Lê since she came to Denmark in 2014 and started making Vietnamese street food. But she has missed tofu of proper quality, and therefore she has started to make her own - from organic ingredients from Europe. Lê Trang wants to work in balance with our surroundings and our own health. This means, among other things, a low climate footprint and attention to the quality of the choice of raw materials. Find videos and recipes at @letrangtofu": "Sund og smagsfuld mad af gode råvarer har været opskriften for Trang Thien Lê, siden hun i 2014 kom til Danmark og begyndte at lave vietnamesisk streetfood. Men hun har savnet tofu af ordentlig kvalitet, og derfor er hun begyndt at lave sin egen – af økologiske råvarer fra Europa. Lê Trang ønsker at arbejde i balance med vores omgivelser og vores egen sundhed. Det betyder blandt andet et lavt klimaaftryk og opmærksom på kvaliteten i valg af råvarer. Find videoer og opskrifter på @letrangtofu.",
@@ -51,7 +54,9 @@
             "Digital Laminaria": "Laminaria digitata",
             "Directly for cooking": "Direkte til madlavningen",
             "Vegan Banana Cake which is produced from surplus bananas in Denmark.": "Vegansk Banankage som er produceret af overskudsbananer i Danmark.",
-            "Organic and vegan soft fruit gum, flavored with juicy berries. We are at a source of love and the wine gums have the shape of hearts, fish and water drops. Does not contain gelatin, gluten or lactose.": "Økologisk og vegansk blød frugtvingummi, smagt til med saftige bær. Vi befinder os ved en kærlighedskilde og vingummierne har form som hjerter, fisk og vanddråber. Indeholder ikke gelatine, gluten eller laktose."
+            "Organic and vegan soft fruit gum, flavored with juicy berries. We are at a source of love and the wine gums have the shape of hearts, fish and water drops. Does not contain gelatin, gluten or lactose.": "Økologisk og vegansk blød frugtvingummi, smagt til med saftige bær. Vi befinder os ved en kærlighedskilde og vingummierne har form som hjerter, fisk og vanddråber. Indeholder ikke gelatine, gluten eller laktose.",
+            "Smoked Rolled Sausage 1-1.2kg":"Røget Rullepølse 1-1,2kg",
+            "MOSHgifler consists of a bag of 160 g. MOSHgifler is made on a cookie dough, filled with dates, cinnamon and vanilla.": "MOSHgifler består af en pose på 160 g. MOSHgifler er lavet på en småkagedej, fyldt med dadler, kanel og vanilje."
         },
         "productUnique": {
             "We use only three ingredients to make tofu; organic soybeans from Italy, nigaris salt from Japan and water. In this variant also lemongrass and chili. The soybeans are soaked before being ground with water for soy milk, which must have just the right viscosity. The soy milk is then boiled up and when it has cooled down again to the right temperature, nigari dissolved in water is added to the right concentration. The soy milk then coagulates and when ready it is poured into molds where it is pressed during a specific procedure determined by pressure and time intervals. This gives the very special consistency that we and our customers appreciate.": "Vi bruger kun tre ingredienser til fremstillingen af tofu; økologiske sojabønner fra Italien, nigarisalt fra Japan og vand. I denne variant også citrongræs og chili. Sojabønnerne lægges i blød før de males med vand til sojamælk, som skal have den helt rigtige viskositet. Sojamælken koges derefter op, og når den er kølet ned igen til den rette temperatur tilsættes nigari opløst i vand til den rette koncentration. Sojamælken koagulerer herefter og når den er klar hældes den i forme, hvor den presses under en bestemt procedure bestemt af tryk og tidsintervaller. Dette giver den ganske særlige konsistens, som vi og vores kunder sætter pris på.",
@@ -63,7 +68,8 @@
             "Delicate, Spanish pork matured for 90 days.": "Delikat, spansk svinekød modnet i 90 dage.",
             "The seaweed is harvested sustainably and is CO2 neutral.": "Tangen er høstet bæredygtigt og er CO2 neutral.",
             "Produced on the bananas that are in surplus in the retail trade due to the bananas' visual challenges.": "Produceret på de bananer som er i overskud i detailhandlen grundet bananernes visuelle udfordringer.",
-            "The wine gums have a soft consistency and are shaped like small fish, hearts and drops flavored with red berries and other fruits. In addition, they are vaginal as well as gluten free.": "Vingummierne har en blød konsistens og er formet som små fisk, hjerter og dråber tilsmagt røde bær og andre frugter. Derudover er de vaganske samt glutenfri."
+            "The wine gums have a soft consistency and are shaped like small fish, hearts and drops flavored with red berries and other fruits. In addition, they are vaginal as well as gluten free.": "Vingummierne har en blød konsistens og er formet som små fisk, hjerter og dråber tilsmagt røde bær og andre frugter. Derudover er de vaganske samt glutenfri.",
+            "Our date forks consist of a delicious cookie dough with fillings made from dates, cinnamon and vanilla.":"Vores daddelgifler består af en lækker småkagedej med fyld lavet af dadler, kanel og vanilje."
         },
         "expiryDate": {
             "allProducts": "alle produkter"
