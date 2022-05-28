@@ -41,7 +41,7 @@ export default function Navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={screenOptions}>
-                <Stack.Screen
+                {/* <Stack.Screen
                     name="LogInScreen"
                     component={LogInScreen}
                     options={{
@@ -55,7 +55,7 @@ export default function Navigation() {
                     options={{
                         headerShown: false,
                     }}
-                />
+                /> */}
                 <Stack.Screen
                     name="BottomTabBuyers"
                     component={BottomTabBuyers}

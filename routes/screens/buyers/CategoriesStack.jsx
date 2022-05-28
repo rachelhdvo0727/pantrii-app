@@ -1,14 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './HomeScreen';
-import TopNavBuyers from './TopNavBuyers';
-import NewProductsScreen from './NewProductsScreen';
-import HighLightProductsScreen from './HighlightProductsScreen';
+import CategoriesMainScreen from './CategoriesMainScreen';
 import CategoryScreen from './CategoryScreen';
+import CategoryProductsListScreen from './CategoryProductsListScreen';
 
 const Stack = createNativeStackNavigator();
 
-const HomeStack = () => {
+const CategoriesStack = () => {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -29,26 +27,12 @@ const HomeStack = () => {
             }}
         >
             <Stack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
+                name="CategoriesMainScreen"
+                component={CategoriesMainScreen}
                 options={{
-                    headerTitle: (props) => <TopNavBuyers {...props} />,
-                }}
-            />
-            <Stack.Screen
-                name="NewProducts"
-                component={NewProductsScreen}
-                options={{
-                    headerTitle: 'NYHEDER',
-                    headerBackTitle: '',
-                }}
-            />
-            <Stack.Screen
-                name="HighlightProducts"
-                component={HighLightProductsScreen}
-                options={{
-                    headerTitle: 'POPULÆRT LIGE NU',
-                    headerBackTitle: '',
+                    headerTitle: 'KATEGORIER',
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
                 }}
             />
             <Stack.Screen
@@ -59,7 +43,15 @@ const HomeStack = () => {
                     headerBackVisible: false,
                 }}
             />
+            <Stack.Screen
+                name="CategoryProductsListScreen"
+                component={CategoryProductsListScreen}
+                options={{
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                }}
+            />
         </Stack.Navigator>
     );
 };
-export default HomeStack;
+export default CategoriesStack;

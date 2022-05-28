@@ -1,14 +1,17 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, FlatList, Dimensions } from 'react-native';
 import generalStyles from '../../../styles/General';
-import axios from 'axios';
 import { mongoDbConfig } from '../../../utils/api';
 import CategoryCard from '../../../components/buyers/CategoryCard';
 import dictionary from '../../../dictionary/categories';
 import { categoryImages } from '../../../dictionary/images';
+import { useNavigation } from '@react-navigation/native';
+// API
+import axios from 'axios';
 
-export default function CategoriesScreen() {
+export default function CategoriesMainScreen() {
     const content = dictionary?.categories; // DA dictionary
+    const navigation = useNavigation();
 
     const [categories, setCategories] = React.useState([]);
     React.useEffect(() => {
@@ -43,6 +46,12 @@ export default function CategoriesScreen() {
                         title={content.name[item?.name]}
                         imageSrc={categoryImages[item?.imageSrc]}
                         cardStyle={styles.cardContainer}
+                        onPress={() => {
+                            navigation.navigate('CategoryScreen', {
+                                categories: categories,
+                                category: item,
+                            });
+                        }}
                     />
                 )}
                 numColumns={2}

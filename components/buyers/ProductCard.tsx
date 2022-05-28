@@ -12,24 +12,28 @@ import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import FavoriteIcon from '../actions/FavouriteIcon';
+import Product from '../../models/Product';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
+    cardStyle: React.ComponentProps<typeof Pressable>['style'];
     imageSrc: React.ComponentProps<typeof Image>['source'];
-    productTitle: string;
-    producerTitle: string;
-    productDesc: string;
-    productUnit: string;
-    bulkPrice: string;
-    singlePrice: string;
+    productTitle: Product['productTitle'];
+    producerTitle: Product['producerTitle'];
+    productDesc: Product['productDesc'];
+    productUnit: Product['productUnit'];
+    bulkPrice: Product['bulkPrice'];
+    singlePrice: Product['singlePrice'];
     secondary?: boolean;
     isCold?: string;
     isFrozen?: string;
     isOrganic?: string;
+    isFeatured?: Product['isFeatured'];
 }
 
 const ProductCard = ({
     // onPress,
+    cardStyle,
     imageSrc,
     productTitle,
     producerTitle,
@@ -42,10 +46,13 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
 }: Props) => {
-    console.log(isCold);
     return (
         <Pressable
-            style={[styles.productWrapper, secondary && styles.secondary]}
+            style={[
+                styles.productWrapper,
+                secondary && styles.secondary,
+                cardStyle,
+            ]}
         >
             <View style={styles.icons}>
                 {isCold ? (
@@ -112,7 +119,8 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
     productWrapper: {
-        width: 180,
+        // width: 180,
+        width: Dimensions.get('window').width / 2 - 18,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
@@ -145,13 +153,13 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         textTransform: 'uppercase',
         paddingVertical: 2,
-        paddingHorizontal: 10,
+        paddingHorizontal: 7.5,
     },
     infoWrapper: {
         borderTopWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
         paddingVertical: 2,
-        paddingHorizontal: 10,
+        paddingHorizontal: 7.5,
     },
     producerTitle: {
         fontSize: 14,
@@ -167,7 +175,7 @@ const styles = StyleSheet.create({
         paddingTop: 2,
     },
     bottomWrapper: {
-        paddingLeft: 10,
+        paddingLeft: 7.5,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -191,9 +199,10 @@ const styles = StyleSheet.create({
         marginRight: 4,
     },
     bulkPrice: {
-        fontSize: 14,
+        fontSize: 13.5,
         fontFamily: 'TT-Commons-Bold',
         letterSpacing: 0.2,
+        paddingBottom: 1.5,
     },
     singularPrice: {
         fontSize: 12,
