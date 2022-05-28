@@ -1,7 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import HeroCard, { SLIDER_WIDTH, ITEM_WIDTH } from './HeroCard';
+import HeroCard, { ITEM_WIDTH } from './HeroCard';
+import { SLIDER_WIDTH } from '../../utils/variables';
 import data from '../../dictionary/Data';
 
 export default function HeroCardSlider() {

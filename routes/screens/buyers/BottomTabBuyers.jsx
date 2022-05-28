@@ -1,8 +1,11 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as SecureStore from 'expo-secure-store';
+
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CategoriesScreen from './CategoriesScreen';
+import CategoriesMainScreen from './CategoriesMainScreen';
+import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
 import ProfileScreen from './ProfileScreen';
 import CartScreen from './CartScreen';
@@ -10,7 +13,11 @@ import HomeStack from './HomeStack';
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomTabBuyers() {
+export default function BottomTabBuyers(props) {
+    React.useEffect(() => {
+        console.log(props?.route.params?.user);
+    }, []);
+
     return (
         <Tab.Navigator
             screenOptions={{
@@ -35,6 +42,15 @@ export default function BottomTabBuyers() {
                 headerStyle: {
                     backgroundColor: '#1B463C',
                 },
+                tabBarStyle: {
+                    shadowOffset: {
+                        width: 0,
+                        height: 18,
+                    },
+                    shadowOpacity: 0.58,
+                    shadowRadius: 16.0,
+                    elevation: 10,
+                },
             }}
         >
             <Tab.Screen
@@ -50,14 +66,15 @@ export default function BottomTabBuyers() {
                             />
                         </View>
                     ),
+                    headerTitle: (props) => <TopNavBuyers {...props} />,
                     headerShown: false,
                 }}
             />
             <Tab.Screen
                 name="Kategorier"
-                component={CategoriesScreen}
+                component={CategoriesStack}
                 options={{
-                    headerTitle: 'Kategorier',
+                    headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons

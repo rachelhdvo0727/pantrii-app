@@ -8,9 +8,9 @@ import {
     Pressable,
     ImageBackground,
 } from 'react-native';
+import { SLIDER_WIDTH } from '../../utils/variables';
 
-export const SLIDER_WIDTH = Dimensions.get('window').width;
-export const ITEM_WIDTH = Dimensions.get('window').width - 30;
+export const ITEM_WIDTH = SLIDER_WIDTH - 30;
 
 export interface Props {
     onPress?: () => void;

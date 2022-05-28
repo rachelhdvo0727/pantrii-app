@@ -25,6 +25,18 @@ const generalStyles = StyleSheet.create({
         letterSpacing: 1,
         color: '#000000',
     },
+    paragraphText: {
+        fontFamily: 'TT-Commons-Regular',
+        fontSize: 14,
+        color: '#000000',
+        lineHeight: 17,
+        letterSpacing: 0.8,
+    },
+    mediumText: {
+        fontFamily: 'TT-Commons-Medium',
+        fontSize: 14,
+        color: '#000000',
+    },
     headerLogo: {
         width: 80,
     },
