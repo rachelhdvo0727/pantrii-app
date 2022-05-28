@@ -36,6 +36,7 @@ export interface Props {
     isFrozen?: string;
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
+    onPress: () => void;
 }
 
 const ProductCard = ({
@@ -52,6 +53,7 @@ const ProductCard = ({
     isCold,
     isFrozen,
     isOrganic,
+    onPress,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
@@ -171,7 +173,11 @@ const ProductCard = ({
                                     ]}
                                 >
                                     <FavoriteButton />
-                                    <IconButton arrowRight title="Detaljer" />
+                                    <IconButton
+                                        arrowRight
+                                        title="Detaljer"
+                                        onPress={onPress}
+                                    />
                                 </View>
                                 <View style={styles.paddingRight}>
                                     <Button secondary title="Tilføj til kurv" />
@@ -263,7 +269,7 @@ export default ProductCard;
 const styles = StyleSheet.create({
     productWrapper: {
         // width: 180,
-        width: Dimensions.get('window').width / 2 - 18,
+        width: Dimensions.get('window').width / 2 - 25,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',

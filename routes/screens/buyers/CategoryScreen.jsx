@@ -174,6 +174,12 @@ export default function CategoryScreen(props) {
                             )}
                             isFrozen={item.tags?.find((tag) => tag == 'frozen')}
                             cardStyle={styles.cardStyle}
+                            onPress={() =>
+                                navigation.navigate('ProductScreen', {
+                                    categoryProducts: categoryProducts,
+                                    product: item,
+                                })
+                            }
                         />
                     )}
                     numColumns={2}

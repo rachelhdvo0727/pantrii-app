@@ -63,10 +63,16 @@ const HighLightProductsSlider = () => {
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                        onPress={() =>
+                            navigation.navigate('ProductScreen', {
+                                products: products,
+                                product: item,
+                            })
+                        }
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
-                itemWidth={SLIDER_WIDTH / 2 - 10.8} // width depends on window's screen
+                itemWidth={SLIDER_WIDTH / 2 - 15} // width depends on window's screen
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}

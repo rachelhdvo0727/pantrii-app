@@ -63,6 +63,12 @@ const NewProductsSlider = () => {
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                        onPress={() =>
+                            navigation.navigate('ProductScreen', {
+                                products: products,
+                                product: item,
+                            })
+                        }
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

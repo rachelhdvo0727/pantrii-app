@@ -5,6 +5,7 @@ import TopNavBuyers from './TopNavBuyers';
 import NewProductsScreen from './NewProductsScreen';
 import HighLightProductsScreen from './HighlightProductsScreen';
 import CategoryScreen from './CategoryScreen';
+import ProductScreen from './ProductScreen';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import { useNavigation } from '@react-navigation/native';
 
@@ -63,6 +64,14 @@ const HomeStack = () => {
             <Stack.Screen
                 name="CategoryScreen"
                 component={CategoryScreen}
+                options={{
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                }}
+            />
+            <Stack.Screen
+                name="ProductScreen"
+                component={ProductScreen}
                 options={{
                     headerBackTitleVisible: false,
                     headerBackVisible: false,

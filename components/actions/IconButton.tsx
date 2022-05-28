@@ -5,8 +5,8 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 export interface Props {
     onPress: () => void;
     title: string;
-    children: React.ReactChild;
-    isActive: boolean;
+    children?: React.ReactChild;
+    isActive?: boolean;
     outlined?: boolean;
     arrowRight?: boolean;
     arrowDown?: boolean;

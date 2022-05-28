@@ -2,12 +2,17 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+// API
 import { fetchFeaturedProducts } from '../../../utils/api';
+// Components
 import ProductCard from '../../../components/buyers/ProductCard';
+// Dictionary
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
 
 export default function HighlightProductsScreen() {
+    const navigation = useNavigation();
     const content = dictionary?.products; // DA dictionary
 
     const [products, setProducts] = React.useState([]);
@@ -43,6 +48,12 @@ export default function HighlightProductsScreen() {
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                        onPress={() =>
+                            navigation.navigate('ProductScreen', {
+                                products: products,
+                                product: item,
+                            })
+                        }
                     />
                 )}
                 numColumns={2}
