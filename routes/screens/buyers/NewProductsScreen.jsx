@@ -12,7 +12,7 @@ export default function NewProductsScreen() {
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
-        axios(fetchLastestProducts('post', 'products'))
+        axios(fetchLastestProducts('products'))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })
