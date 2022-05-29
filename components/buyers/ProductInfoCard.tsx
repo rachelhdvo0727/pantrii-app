@@ -8,23 +8,16 @@ import {
     Dimensions,
     ScrollView,
 } from 'react-native';
-import {
-    Ionicons,
-    FontAwesome,
-    MaterialCommunityIcons,
-    Feather,
-} from '@expo/vector-icons';
+import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 // Components
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import FavoriteIcon from '../actions/FavouriteIcon';
-import Modal from 'react-native-modal';
 import FavoriteButton from '../actions/FavoriteButton';
 import IconButton from '../actions/IconButton';
 import Button from '../actions/Button';
-import CloseButton from '../actions/CloseButton';
 import Product from '../../models/Product';
 // Dictionary
 import dictionary from '../../dictionary/products.json';
@@ -81,38 +74,36 @@ const ProductInfoCard = ({
     let deliveryDate = new Date(today).toLocaleDateString('dk');
 
     return (
-        <ScrollView>
-            <View style={styles.icons}>
-                {isCold ? (
-                    <ThermoIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isCold ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-                {isOrganic ? (
-                    <OrganicIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isOrganic ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-                {isFrozen ? (
-                    <FrozenIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isFrozen ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-            </View>
-            <View style={styles.favouriteIcon}>
-                <FavoriteIcon />
-            </View>
-            <Image style={styles.image} source={imageSrc}></Image>
-            {/* <Carousel
+        <View>
+            <ScrollView>
+                <View style={styles.icons}>
+                    {isCold ? (
+                        <ThermoIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isCold ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                    {isOrganic ? (
+                        <OrganicIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isOrganic ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                    {isFrozen ? (
+                        <FrozenIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isFrozen ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                </View>
+                <Image style={styles.image} source={imageSrc}></Image>
+                {/* <Carousel
                 layout="default"
                 ref={carouselRef}
                 data={images}
@@ -128,67 +119,78 @@ const ProductInfoCard = ({
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}
             /> */}
-            <View style={styles.wrapper}>
-                <Text style={styles.productTitle}>{productTitle}</Text>
-                <View style={styles.flexWrapper}>
-                    <View style={styles.infoWrapper}>
-                        <Text style={styles.producerTitle}>
-                            {producerTitle}
-                        </Text>
-                        <Text style={styles.productDesc} numberOfLines={1}>
-                            {productDesc}
-                        </Text>
-                        <Text style={styles.unit}>{productUnit}</Text>
-                    </View>
-                    <View style={styles.priceWrapper}>
-                        <Text style={styles.bulkPrice}>{bulkPrice}</Text>
-                        <Text style={styles.singularPrice}>{singlePrice}</Text>
+                <View style={styles.wrapper}>
+                    <Text style={styles.productTitle}>{productTitle}</Text>
+                    <View style={styles.flexWrapper}>
+                        <View style={styles.infoWrapper}>
+                            <Text style={styles.producerTitle}>
+                                {producerTitle}
+                            </Text>
+                            <Text style={styles.productDesc}>
+                                {productDesc}
+                            </Text>
+                            <Text style={styles.unit}>{productUnit}</Text>
+                        </View>
+                        <View style={styles.priceWrapper}>
+                            <Text style={styles.bulkPrice}>{bulkPrice}</Text>
+                            <Text style={styles.singularPrice}>
+                                {singlePrice}
+                            </Text>
+                        </View>
                     </View>
                 </View>
+                <View style={styles.wrapper}>
+                    <Text style={styles.headerH1}>Levering</Text>
+                    <Text style={styles.flexText}>
+                        <Feather
+                            name="box"
+                            size={14}
+                            color="black"
+                            iconStyle={{ marginRight: 10 }}
+                        />
+                        {content.delivery.deliveryCost}
+                        {deliveryPrice}
+                        {content.currency.DKK}
+                    </Text>
+                    <Text style={styles.flexText}>
+                        <MaterialCommunityIcons
+                            name="truck-outline"
+                            size={14}
+                            color="black"
+                        />
+                        {content.delivery.deliveryDate} &nbsp;
+                        {deliveryDate}
+                    </Text>
+                </View>
+                <View style={styles.wrapper}>
+                    <Text style={styles.headerH1}>Produktbeskrivelse</Text>
+                    <Text style={styles.p}>{productStory}</Text>
+                    <Text style={styles.headerH1}>
+                        Varens produktion adskiller sig fra lignende varer
+                        fordi...
+                    </Text>
+                    <Text style={styles.p}>{productUnique}</Text>
+                    <Text style={styles.headerH1}>Forventet holdbarhed...</Text>
+                    <Text style={styles.flexText}>
+                        <MaterialCommunityIcons
+                            name="clock-time-two-outline"
+                            size={14}
+                            color="black"
+                        />
+                        &nbsp;
+                        {expiryDuration}
+                    </Text>
+                </View>
+            </ScrollView>
+            <View style={styles.bottomWrapper}>
+                <FavoriteButton />
+                <Button
+                    secondary
+                    buttonStyle={{ height: 45 }}
+                    title="Tilføj til kurv"
+                />
             </View>
-            <View style={styles.wrapper}>
-                <Text style={styles.headerH1}>Levering</Text>
-                <Text style={styles.flexText}>
-                    <Feather
-                        name="box"
-                        size={14}
-                        color="black"
-                        iconStyle={{ marginRight: 10 }}
-                    />
-                    &nbsp;
-                    {content.delivery.deliveryCost}
-                    {deliveryPrice}
-                    {content.currency.DKK}
-                </Text>
-                <Text style={styles.flexText}>
-                    <MaterialCommunityIcons
-                        name="truck-outline"
-                        size={14}
-                        color="black"
-                    />
-                    &nbsp; {content.delivery.deliveryDate} &nbsp;
-                    {deliveryDate}
-                </Text>
-            </View>
-            <View style={styles.wrapper}>
-                <Text style={styles.headerH1}>Produktbeskrivelse</Text>
-                <Text style={styles.p}>{productStory}</Text>
-                <Text style={styles.headerH1}>
-                    Varens produktion adskiller sig fra lignende varer fordi...
-                </Text>
-                <Text style={styles.p}>{productUnique}</Text>
-                <Text style={styles.headerH1}>Forventet holdbarhed...</Text>
-                <Text style={styles.flexText}>
-                    <MaterialCommunityIcons
-                        name="clock-time-two-outline"
-                        size={14}
-                        color="black"
-                    />
-                    &nbsp;
-                    {expiryDuration}
-                </Text>
-            </View>
-        </ScrollView>
+        </View>
     );
 };
 
@@ -197,7 +199,7 @@ export default ProductInfoCard;
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: 'white',
-        marginBottom: 20,
+        marginBottom: 15,
         paddingVertical: 10,
     },
     headerH1: {
@@ -247,6 +249,7 @@ const styles = StyleSheet.create({
     infoWrapper: {
         paddingVertical: 5,
         paddingHorizontal: 15,
+        width: '60%',
     },
     producerTitle: {
         fontSize: 18,
@@ -318,10 +321,18 @@ const styles = StyleSheet.create({
         display: 'none',
         marginTop: 2.5,
     },
-    favouriteIcon: {
+    bottomWrapper: {
+        backgroundColor: 'white',
+        paddingHorizontal: 20,
+        paddingTop: 8,
+        paddingBottom: 5,
         position: 'absolute',
-        zIndex: 1,
-        right: 20,
-        top: 10,
+        bottom: 0,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: -2 },
+        shadowOpacity: 0.3,
     },
 });

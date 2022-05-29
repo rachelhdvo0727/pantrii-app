@@ -70,6 +70,7 @@ const ProductCard = ({
                 onBackdropPress={() => setModalVisible(false)}
                 swipeDirection="down"
                 backdropOpacity={0.3}
+                animationOutTiming={500}
             >
                 <View style={styles.modalWrapper}>
                     <CloseButton

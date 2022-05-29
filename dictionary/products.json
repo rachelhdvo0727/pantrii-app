@@ -83,8 +83,8 @@
             "Expires in": "Forventet holdbarhed..."
         },
         "delivery":{
-            "deliveryDate": "Forventes leveret:",
-            "deliveryCost": "Fri fragt på alle ordrer over "
+            "deliveryDate": " Forventes leveret:",
+            "deliveryCost": " Fri fragt på alle ordrer over "
         }
     }
 }
