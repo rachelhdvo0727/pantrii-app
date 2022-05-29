@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
         paddingVertical: 15,
         paddingHorizontal: 25,
+        alignItems: 'center',
     },
     title: {
         fontFamily: 'TT-Commons-Bold',
