@@ -3,9 +3,9 @@ import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export interface Props {
-    onPress: () => void;
+    onPress: React.ComponentProps<typeof Pressable>['onPress'];
     title: string;
-    children: React.ReactChild;
+    children?: React.ReactChild;
     isActive: boolean;
     outlined?: boolean;
     arrowRight?: boolean;
