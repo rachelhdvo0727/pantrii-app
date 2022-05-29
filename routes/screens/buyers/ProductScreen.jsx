@@ -10,13 +10,14 @@ import { productImages } from '../../../dictionary/images';
 import axios from 'axios';
 // Components
 import BackIconButton from '../../../components/actions/BackIconButton';
+import ProductInfoCard from '../../../components/buyers/ProductInfoCard';
 
 export default function ProductScreen(props) {
     const navigation = useNavigation();
     const content = dictionary?.products;
 
     const products = props?.route?.params?.products;
-    const productId = props?.route?.params?.product?._id;
+    const product = props?.route?.params?.product;
     const productName = props?.route?.params?.product?.productTitle;
     const [productInfo, setProductInfo] = React.useState([]);
 
@@ -39,10 +40,20 @@ export default function ProductScreen(props) {
             });
     }, []);
     return (
-        <View style={generalStyles.container}>
-            <Text style={generalStyles.headerH}>
-                {content?.productTitle[productName]?.toUpperCase()}
-            </Text>
-        </View>
+        <ProductInfoCard
+            imageSrc={productImages[product?.imageSrc]}
+            productTitle={content?.productTitle[product?.productTitle]}
+            producerTitle={product?.producerTitle}
+            productDesc={content?.productDesc[product?.productDesc]}
+            productUnit={product?.productUnit}
+            bulkPrice={product?.bulkPrice + content.currency.DKK + '/kolli'}
+            singlePrice={product?.singlePrice + content.currency.DKK + '/enhed'}
+            productStory={content?.productStory[product?.productStory]}
+            productUnique={content?.productUnique[product?.productUnique]}
+            isCold={product.tags?.find((tag) => tag == 'cold')}
+            isOrganic={product.tags?.find((tag) => tag == 'organic')}
+            isFrozen={product.tags?.find((tag) => tag == 'frozen')}
+            expiryDuration={product?.expiryDuration}
+        />
     );
 }
