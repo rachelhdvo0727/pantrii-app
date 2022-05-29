@@ -162,7 +162,7 @@ const ProductInfoCard = ({
                         {deliveryDate}
                     </Text>
                 </View>
-                <View style={styles.wrapper}>
+                <View style={styles.wrapperBottom}>
                     <Text style={styles.headerH1}>Produktbeskrivelse</Text>
                     <Text style={styles.p}>{productStory}</Text>
                     <Text style={styles.headerH1}>
@@ -200,6 +200,11 @@ const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: 'white',
         marginBottom: 15,
+        paddingVertical: 10,
+    },
+    wrapperBottom: {
+        backgroundColor: 'white',
+        marginBottom: 80,
         paddingVertical: 10,
     },
     headerH1: {
@@ -331,8 +336,7 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        shadowColor: '#000000',
-        shadowOffset: { width: 0, height: -2 },
-        shadowOpacity: 0.3,
+        borderTopWidth: 1,
+        borderColor: 'rgba(189, 189, 189, 0.5)',
     },
 });
