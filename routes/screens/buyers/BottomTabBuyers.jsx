@@ -7,7 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import CategoriesMainScreen from './CategoriesMainScreen';
 import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
-import ProfileScreen from './ProfileScreen';
+import ProfileScreen from '../ProfilScreen';
 import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
 
