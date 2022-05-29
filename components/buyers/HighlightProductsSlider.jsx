@@ -21,8 +21,7 @@ const HighLightProductsSlider = () => {
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
-        // Fetch all categories from MongoDB api
-        axios(fetchFeaturedProducts('post', 'products', true))
+        axios(fetchFeaturedProducts('products'))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })
@@ -72,7 +71,7 @@ const HighLightProductsSlider = () => {
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
-                itemWidth={SLIDER_WIDTH / 2 - 15} // width depends on window's screen
+                itemWidth={SLIDER_WIDTH / 2 - 10.8} // width depends on window's screen
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}

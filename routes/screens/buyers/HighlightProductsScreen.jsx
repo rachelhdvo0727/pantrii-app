@@ -17,7 +17,7 @@ export default function HighlightProductsScreen() {
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
-        axios(fetchFeaturedProducts('post', 'products'))
+        axios(fetchFeaturedProducts('products'))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })

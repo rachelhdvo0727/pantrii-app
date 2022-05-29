@@ -59,6 +59,7 @@ const ProductCard = ({
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+
     return (
         <View>
             {/* Slide up modal */}
@@ -177,6 +178,7 @@ const ProductCard = ({
                                         arrowRight
                                         title="Detaljer"
                                         onPress={onPress}
+                                        onPressOut={toggleModal}
                                     />
                                 </View>
                                 <View style={styles.paddingRight}>
@@ -269,7 +271,7 @@ export default ProductCard;
 const styles = StyleSheet.create({
     productWrapper: {
         // width: 180,
-        width: Dimensions.get('window').width / 2 - 25,
+        width: Dimensions.get('window').width / 2 - 16,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
