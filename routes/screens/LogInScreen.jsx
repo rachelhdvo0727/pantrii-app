@@ -1,16 +1,17 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
+import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+import { saveData, objectToString } from '../../utils/functions';
+import * as SecureStore from 'expo-secure-store';
 // Components
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
-import { useForm, Controller } from 'react-hook-form';
+// API
 import axios from 'axios';
 import { findUser } from '../../utils/api';
-import { saveData, objectToString } from '../../utils/functions';
-import * as SecureStore from 'expo-secure-store';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
