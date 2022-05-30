@@ -1,7 +1,14 @@
 import React from 'react';
 import generalStyles from '../styles/General';
 // Components
-import { StyleSheet, StyleProp, ViewStyle, Text, View } from 'react-native';
+import {
+    StyleSheet,
+    StyleProp,
+    ViewStyle,
+    Text,
+    View,
+    PressableProps,
+} from 'react-native';
 import IconButton from './actions/IconButton';
 
 export interface SectionInInformationCardProps {
@@ -16,6 +23,7 @@ export interface SectionInInformationCardProps {
     isLastSection?: boolean;
     isEditable?: boolean;
     onEdit?: React.ComponentProps<typeof IconButton>['onPress'];
+    iconButtonStyle?: StyleProp<PressableProps>;
 }
 
 const SectionInInformationCard = ({
@@ -26,6 +34,7 @@ const SectionInInformationCard = ({
     isLastSection,
     isEditable,
     onEdit,
+    iconButtonStyle,
 }: SectionInInformationCardProps) => {
     return (
         <View
@@ -37,14 +46,17 @@ const SectionInInformationCard = ({
                 sectionStyle,
             ]}
         >
-            <Text style={styles.sectionHeader}>{sectionTitle}</Text>
-            <View style={styles.contentContainer}>{sectionContent}</View>
+            <View style={styles.contentContainer}>
+                <Text style={styles.sectionHeader}>{sectionTitle}</Text>
+                {sectionContent}
+            </View>
             {isEditable ? (
                 <IconButton
                     arrowRight
                     title="Redigér"
                     onPress={onEdit}
                     isActive={isEditable}
+                    iconButtonStyle={iconButtonStyle}
                 ></IconButton>
             ) : null}
         </View>
@@ -66,7 +78,9 @@ const styles = StyleSheet.create({
         marginTop: 3,
     },
     topSectionSpacing: { marginTop: 10 },
-    contentContainer: {},
+    contentContainer: {
+        flexDirection: 'column',
+    },
     lastSection: {
         borderBottomWidth: 0,
         marginBottom: 10,
@@ -74,5 +88,6 @@ const styles = StyleSheet.create({
     flexWithButton: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        // alignItems: 'center',
     },
 });
