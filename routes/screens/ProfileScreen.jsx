@@ -11,14 +11,10 @@ import SectionInInformationCard from '../../components/SectionInInformationCard'
 export default function ProfileScreen(props) {
     const user = props?.user;
     const navigation = useNavigation();
-    const [edit, setEdit] = React.useState({
-        mode: false,
-        informationType: '',
-    });
+    const [edit, setEdit] = React.useState(false);
 
     const onEdit = (information) => {
-        setEdit({ mode: true, informationType: information });
-        console.log('to edit screen', information);
+        setEdit(true);
 
         navigation.navigate('ProfileEditScreen', {
             user: user,
@@ -44,36 +40,27 @@ export default function ProfileScreen(props) {
                 </React.Fragment>
             }
             isEditable
+            iconButtonStyle={styles.iconButton}
             onEdit={() => onEdit('profile')}
         ></SectionInInformationCard>
     );
 
-    const Address = (address) => (
+    const Address = () => (
         <SectionInInformationCard
             sectionTitle="Adresse"
             isLastSection
             sectionContent={
                 <React.Fragment>
-                    {user?.address ? (
-                        <React.Fragment>
-                            <Text style={styles.text}>
-                                {user?.address?.line1} {user?.address?.line2}
-                            </Text>
-                            <Text style={styles.text}></Text>
-                            <Text style={styles.text}>
-                                {user?.address?.zipCode}
-                            </Text>
-                            <Text style={styles.text}>
-                                {user?.address?.city}
-                            </Text>
-                            <Text style={styles.text}>
-                                {user?.address?.country}
-                            </Text>
-                        </React.Fragment>
-                    ) : null}
+                    <Text style={styles.text}>
+                        {user?.address?.line1} {user?.address?.line2}
+                    </Text>
+                    <Text style={styles.text}>{user?.address?.zipCode}</Text>
+                    <Text style={styles.text}>{user?.address?.city}</Text>
+                    <Text style={styles.text}>{user?.address?.country}</Text>
                 </React.Fragment>
             }
             isEditable
+            iconButtonStyle={styles.iconButton}
             onEdit={() => onEdit('address')}
         ></SectionInInformationCard>
     );
@@ -106,4 +93,7 @@ const styles = StyleSheet.create({
         ...generalStyles.mediumText,
     },
     text: { ...generalStyles.paragraphText },
+    iconButton: {
+        alignSelf: 'center',
+    },
 });

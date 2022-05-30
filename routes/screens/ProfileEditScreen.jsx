@@ -15,7 +15,7 @@ import axios from 'axios';
 
 export default function ProfileEditScreen(props) {
     const navigation = useNavigation();
-    const userInformation = props.route?.params?.user;
+    const user = props.route?.params?.user;
     const informationType = props.route?.params?.informationType;
     const information =
         informationType === 'profile'
@@ -63,8 +63,15 @@ export default function ProfileEditScreen(props) {
             />
             <View style={styles.formWrapper}>
                 <Text style={styles.header}>
-                    {information[0].toUpperCase()}
-                    {information.slice(1)} information{'  '}
+                    {informationType === 'profile' &&
+                        `${information[0].toUpperCase()}${information.slice(
+                            1,
+                        )} information`}
+                    {informationType === 'address' &&
+                        `${information[0].toUpperCase()}${information.slice(
+                            1,
+                        )}`}
+                    {'  '}
                     <Feather name="edit-2" size={13} color="black" />
                 </Text>
                 {informationType === 'profile' && (
@@ -79,7 +86,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="fornavn *"
-                                    placeholder="John"
+                                    placeholder={user?.firstName}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -99,7 +106,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="efternavn *"
-                                    placeholder="Eksempel"
+                                    placeholder={user?.lastName}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -125,7 +132,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="email *"
-                                    placeholder="example@mail.com"
+                                    placeholder={user?.email}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -152,7 +159,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="mobilnummer *"
-                                    placeholder="57575757"
+                                    placeholder={user?.phone}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -177,7 +184,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="adresselinje 1 *"
-                                    placeholder="Vejnavn og husnummer"
+                                    placeholder={user?.address?.line1}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -196,7 +203,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="adresselinje 2"
-                                    placeholder="Evt. dørnummer"
+                                    placeholder={user?.address?.line2}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -219,7 +226,7 @@ export default function ProfileEditScreen(props) {
                                 }) => (
                                     <InputField
                                         label="postnr. *"
-                                        placeholder="2000"
+                                        placeholder={user?.address?.zipCode}
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -242,7 +249,7 @@ export default function ProfileEditScreen(props) {
                                 }) => (
                                     <InputField
                                         label="by *"
-                                        placeholder="København"
+                                        placeholder={user?.address?.city}
                                         autoComplete
                                         value={value}
                                         onChangeText={onChange}
@@ -265,7 +272,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="land *"
-                                    placeholder="Danmark"
+                                    placeholder={user?.address?.country}
                                     autoComplete={false}
                                     value={value}
                                     onChangeText={onChange}
