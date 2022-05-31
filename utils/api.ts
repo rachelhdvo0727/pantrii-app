@@ -151,3 +151,33 @@ export const fetchCategoryProducts = (categoryId: string, sort?: number) => {
         data: categoryProductsData(categoryId, sort),
     };
 };
+
+// EDITING USER INFORMATION
+const currentUser = (data: User, information: Object) => {
+    console.log(information);
+    return JSON.stringify({
+        collection: 'users',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            _id: { $oid: data._id },
+        },
+        update: {
+            $set: {
+                status: 'complete',
+                completedAt: information,
+            },
+        },
+    });
+};
+
+export const updateUserInformation = (data: User, information: Object) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/updateOne',
+        headers: headers,
+        data: currentUser(data, information),
+    };
+};
+
+
