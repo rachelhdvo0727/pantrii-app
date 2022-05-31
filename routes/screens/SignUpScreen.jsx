@@ -1,8 +1,16 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
+import dictionary from '../../dictionary/names.json';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    SafeAreaView,
+    FlatList,
+} from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
@@ -11,13 +19,15 @@ import { RadioButton } from 'react-native-paper';
 import ApprovedModal from '../../components/ApprovedModal';
 // API
 import axios from 'axios';
-import { createUserAccount } from '../../utils/api';
+import { createUserAccount, mongoDbConfig } from '../../utils/api';
 import * as Crypto from 'expo-crypto';
 const CryptoJS = require('crypto-js');
 
 export default function LogInScreen(props) {
+    const content = dictionary?.names; // DA dictionary
     const navigation = useNavigation();
     const [value, setValue] = React.useState('');
+    const [roles, setRoles] = React.useState([]);
 
     const { control, handleSubmit } = useForm({
         defaultValues: {
@@ -33,6 +43,7 @@ export default function LogInScreen(props) {
                 city: '',
                 country: '',
             },
+            roleId: '',
         },
     });
 
@@ -45,18 +56,12 @@ export default function LogInScreen(props) {
             .catch((error) => console.error(error));
     };
 
-    // React.useEffect(() => {
-    //     async function test() {
-    //         let loggedInUser;
-    //         try {
-    //             loggedInUser = await SecureStore.getItemAsync('loggedInUser');
-    //         } catch (error) {
-    //             console.log('signup', error);
-    //         }
-    //         console.log(loggedInUser);
-    //     }
-    //     test();
-    // });
+    React.useEffect(() => {
+        axios(mongoDbConfig('roles'))
+            .then((response) => setRoles(response?.data?.documents))
+            .catch((error) => console.error(error));
+    }, [roles]);
+
     const showLogIn = () => {
         navigation.navigate('LogInScreen');
     };
@@ -83,10 +88,10 @@ export default function LogInScreen(props) {
                         >
                             <View style={styles.radioButtonGroup}>
                                 <RadioButton.Item
-                                    label="Erhvervskunde"
-                                    value="corporate"
+                                    label={content[roles[0]?.role]}
+                                    value={roles[0]?._id}
                                     status={
-                                        value === 'corporate'
+                                        value === content?.customer
                                             ? 'checked'
                                             : 'unchecked'
                                     }
@@ -96,13 +101,13 @@ export default function LogInScreen(props) {
                                     labelStyle={styles.radioButtonLabel}
                                 />
                                 <RadioButton.Item
-                                    label="Privat"
+                                    label={content[roles[1]?.role]}
                                     status={
-                                        value === 'private'
+                                        value === content?.producer
                                             ? 'checked'
                                             : 'unchecked'
                                     }
-                                    value="private"
+                                    value={roles[1]?._id}
                                     color="#000000"
                                     labelStyle={styles.radioButtonLabel}
                                     mode="android"
@@ -171,7 +176,7 @@ export default function LogInScreen(props) {
                             }) => (
                                 <InputField
                                     label="email *"
-                                    placeholder="example@mail.com"
+                                    placeholder="eksemple@mail.com"
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
