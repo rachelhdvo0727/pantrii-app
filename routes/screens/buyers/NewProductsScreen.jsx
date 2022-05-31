@@ -39,9 +39,7 @@ export default function NewProductsScreen() {
                         producerTitle={item?.producerTitle}
                         productDesc={content.productDesc[item?.productDesc]}
                         productUnit={item?.productUnit}
-                        bulkPrice={
-                            item?.bulkPrice + content.currency.DKK + '/kolli'
-                        }
+                        bulkPrice={item?.bulkPrice + content.currency.DKK}
                         singlePrice={
                             item?.singlePrice + content.currency.DKK + '/enhed'
                         }

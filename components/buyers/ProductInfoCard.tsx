@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 265,
+        height: Dimensions.get('window').height / 3,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
         resizeMode: 'cover',

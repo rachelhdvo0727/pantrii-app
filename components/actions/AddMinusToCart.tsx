@@ -11,22 +11,38 @@ export interface Props {
     // onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
-const AddToCart: React.FC<Props> = ({}) => {
+const AddMinusToCart: React.FC<Props> = ({}) => {
     const [quantity, setQuantity] = useState(1);
     return (
-        <Button
-            // onPress={onPressAdd}
-            onPress={() => {
-                setQuantity(quantity + 1);
-                console.log(quantity);
-            }}
-            secondary
-            title="Tilføj til kurv"
-        />
+        <View style={[styles.container]}>
+            <Pressable
+                style={styles.button}
+                onPress={() => {
+                    setQuantity(quantity - 1);
+                    console.log(quantity);
+                }}
+                // onPress={onPressMinus}
+            >
+                <AntDesign name="minus" size={14} color="white" />
+            </Pressable>
+            <View style={styles.quantityWrapper}>
+                <Text style={styles.text}>{quantity}</Text>
+            </View>
+            <Pressable
+                style={styles.button}
+                // onPress={onPressAdd}
+                onPress={() => {
+                    setQuantity(quantity + 1);
+                    console.log(quantity);
+                }}
+            >
+                <AntDesign name="plus" size={14} color="white" />
+            </Pressable>
+        </View>
     );
 };
 
-export default AddToCart;
+export default AddMinusToCart;
 
 const styles = StyleSheet.create({
     container: {

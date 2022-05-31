@@ -23,6 +23,7 @@ import Button from '../actions/Button';
 import CloseButton from '../actions/CloseButton';
 import Product from '../../models/Product';
 import AddToCart from '../actions/AddToCart';
+import AddMinusToCart from '../actions/AddMinusToCart';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
@@ -62,8 +63,6 @@ const ProductCard = ({
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
-    // Example for add and minus quantity
-    // const [quantity, setQuantity] = useState(5);
     return (
         <View>
             {/* Slide up modal */}
@@ -81,7 +80,7 @@ const ProductCard = ({
                         style={{
                             position: 'absolute',
                             zIndex: 4,
-                            top: Dimensions.get('window').height - 370,
+                            top: Dimensions.get('window').height - 385,
                             right: 0,
                         }}
                         onPress={toggleModal}
@@ -187,17 +186,6 @@ const ProductCard = ({
                                     />
                                 </View>
                                 <View style={styles.paddingRight}>
-                                    {/* <AddToCart
-                                        quantity={quantity}
-                                        onPressAdd={() => {
-                                            setQuantity(quantity + 1);
-                                            console.log(quantity);
-                                        }}
-                                        onPressMinus={() => {
-                                            setQuantity(quantity - 1);
-                                            console.log(quantity);
-                                        }}
-                                    /> */}
                                     <AddToCart />
                                 </View>
                             </View>
@@ -271,7 +259,7 @@ const ProductCard = ({
                         <View
                             style={[
                                 styles.cartButtonWrapper,
-                                { width: secondary ? 36 : 30 },
+                                { width: secondary ? 36 : 36 },
                             ]}
                         >
                             <Ionicons
@@ -501,6 +489,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 1,
         left: 0,
-        top: Dimensions.get('window').height - 370,
+        top: Dimensions.get('window').height - 385,
     },
 });

@@ -64,7 +64,7 @@ const HighLightProductsSlider = () => {
                             navigation.navigate('ProductScreen', {
                                 products: products,
                                 product: item,
-                                quantity: quantity,
+                                // quantity: quantity,
                             })
                         }
                     />
