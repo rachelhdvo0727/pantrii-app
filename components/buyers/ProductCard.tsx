@@ -22,6 +22,7 @@ import IconButton from '../actions/IconButton';
 import Button from '../actions/Button';
 import CloseButton from '../actions/CloseButton';
 import Product from '../../models/Product';
+import AddToCart from '../actions/AddToCart';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
@@ -61,6 +62,7 @@ const ProductCard = ({
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+    const [quantity, setQuantity] = useState(1);
 
     return (
         <View>
@@ -185,7 +187,16 @@ const ProductCard = ({
                                     />
                                 </View>
                                 <View style={styles.paddingRight}>
-                                    <Button secondary title="Tilføj til kurv" />
+                                    <AddToCart
+                                        quantity={quantity}
+                                        onPressAdd={() => {
+                                            setQuantity(quantity + 1);
+                                        }}
+                                        onPressMinus={() => {
+                                            setQuantity(quantity - 1);
+                                        }}
+                                        disabled={true ? quantity === 0 : false}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -400,7 +411,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         width: Dimensions.get('window').width,
-        height: 360,
+        height: 375,
         backgroundColor: 'white',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
