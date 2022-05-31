@@ -9,6 +9,7 @@ export interface Props {
     secondary?: boolean;
     outlined?: boolean;
     children?: React.ReactChild;
+    disabled?: React.ComponentProps<typeof Pressable>['disabled'];
 }
 
 const Button: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<Props> = ({
     outlined,
     buttonStyle,
     onPress,
+    disabled,
 }) => {
     return (
         <Pressable
@@ -29,7 +31,9 @@ const Button: React.FC<Props> = ({
                 primary && styles.primary,
                 secondary && styles.secondary,
                 outlined && styles.outlined,
+                disabled && styles.disabled,
             ]}
+            disabled={disabled}
         >
             <View>
                 <Text
@@ -76,5 +80,8 @@ const styles = StyleSheet.create({
         borderColor: '#1B463C',
         borderWidth: 1,
         borderStyle: 'solid',
+    },
+    disabled: {
+        opacity: 0.5,
     },
 });
