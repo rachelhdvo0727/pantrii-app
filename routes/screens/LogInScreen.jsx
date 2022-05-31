@@ -1,5 +1,6 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
+import User from '../../models/User';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import { saveData, objectToString } from '../../utils/functions';
@@ -15,6 +16,7 @@ import { findUser } from '../../utils/api';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
+
     const { control, handleSubmit } = useForm({
         defaultValues: {
             email: '',
@@ -25,12 +27,31 @@ export default function LogInScreen(props) {
         // POST
         axios(findUser(data))
             .then((response) => {
-                // founduser ? save in SecureStore && go to Home
-                if (response?.status === 200)
-                    navigation?.navigate({
-                        name: 'BottomTabBuyers',
-                        params: { user: response?.data?.document },
+                const data = response?.data?.document;
+                const user = new User(
+                    data?._id,
+                    data?.firstName,
+                    data?.lastName,
+                    data?.email,
+                    data?.password,
+                    data?.phone,
+                    data?.address,
+                    data?.roleId,
+                );
+
+                // save in SecureStore & go to Home
+                if (response?.status === 200) {
+                    saveData('user', objectToString(user));
+                    navigation.navigate('BottomTabBuyers', {
+                        screen: 'HomeStack',
+                        params: {
+                            screen: 'HomeScreen',
+                            params: {
+                                user: user,
+                            },
+                        },
                     });
+                }
             })
             .catch((error) => console.error(error));
     };
