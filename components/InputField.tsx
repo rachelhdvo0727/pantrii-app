@@ -6,6 +6,7 @@ export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
     label: string;
     onBlur?: React.ComponentProps<typeof TextInput>['onBlur'];
+    onFocus?: React.ComponentProps<typeof TextInput>['onFocus'];
     onChangeText?: React.ComponentProps<typeof TextInput>['onChangeText'];
     errorMessage?: { message: string };
     placeholder: React.ComponentProps<typeof TextInput>['placeholder'];
@@ -25,6 +26,7 @@ export default function InputField({
     value,
     label,
     onBlur,
+    onFocus,
     onChangeText,
     errorMessage,
     placeholder,
@@ -36,8 +38,8 @@ export default function InputField({
     autoComplete,
     inputStyle,
     hasDefaultValue,
+    focused,
 }: Props) {
-    const [focused, setFocused] = React.useState(false);
     return (
         <View style={[inputStyle]}>
             <View style={styles.container}>
@@ -59,7 +61,7 @@ export default function InputField({
                         hasDefaultValue && styles.hasDefaultValue,
                         focused && { opacity: 1 },
                     ]}
-                    onFocus={() => setFocused(true)}
+                    onFocus={onFocus}
                 ></TextInput>
             </View>
             {/* Error message */}
