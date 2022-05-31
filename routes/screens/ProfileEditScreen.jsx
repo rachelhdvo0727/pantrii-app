@@ -25,6 +25,7 @@ export default function ProfileEditScreen(props) {
             : null;
 
     const [hasUserInformation, setHasUserInformation] = React.useState(false);
+    const [focused, setFocused] = React.useState(false);
 
     React.useEffect(() => {
         props.navigation?.setOptions({
@@ -44,6 +45,11 @@ export default function ProfileEditScreen(props) {
 
     const onSubmit = (data) => {
         // POST
+    };
+
+    const onFocus = () => {
+        setFocused(true);
+        setHasUserInformation(false);
     };
 
     return (
@@ -86,6 +92,8 @@ export default function ProfileEditScreen(props) {
                                     autoCapitalize="words"
                                     errorMessage={error}
                                     hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
                         />
@@ -107,6 +115,8 @@ export default function ProfileEditScreen(props) {
                                     autoCapitalize="words"
                                     errorMessage={error}
                                     hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
                         />
@@ -134,6 +144,8 @@ export default function ProfileEditScreen(props) {
                                     autoComplete={false}
                                     errorMessage={error}
                                     hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
                         />
@@ -161,6 +173,8 @@ export default function ProfileEditScreen(props) {
                                     autoComplete={false}
                                     errorMessage={error}
                                     hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
                         />
@@ -188,6 +202,8 @@ export default function ProfileEditScreen(props) {
                                     autoComplete={false}
                                     autoCapitalize="words"
                                     hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
                         />
@@ -207,6 +223,8 @@ export default function ProfileEditScreen(props) {
                                     errorMessage={error}
                                     autoComplete={false}
                                     autoCapitalize="sentences"
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
                         />
@@ -231,6 +249,9 @@ export default function ProfileEditScreen(props) {
                                         autoComplete={false}
                                         keyboardType="numbers-and-punctuation"
                                         inputStyle={styles.fieldsetCell}
+                                        hasUserInformation
+                                        onFocus={onFocus}
+                                        focused={focused}
                                     ></InputField>
                                 )}
                             />
@@ -253,6 +274,9 @@ export default function ProfileEditScreen(props) {
                                         onBlur={onBlur}
                                         errorMessage={error}
                                         inputStyle={styles.fieldsetCell}
+                                        hasUserInformation
+                                        onFocus={onFocus}
+                                        focused={focused}
                                     ></InputField>
                                 )}
                             />
@@ -275,6 +299,9 @@ export default function ProfileEditScreen(props) {
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     errorMessage={error}
+                                    hasUserInformation
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
                         />
