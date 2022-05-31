@@ -103,9 +103,7 @@ const CategoryProductsListScreen = (props) => {
                             }
                             productUnit={item?.productUnit}
                             bulkPrice={
-                                item?.bulkPrice +
-                                productContent?.currency.DKK +
-                                '/kolli'
+                                item?.bulkPrice + productContent?.currency.DKK
                             }
                             singlePrice={
                                 item?.singlePrice +

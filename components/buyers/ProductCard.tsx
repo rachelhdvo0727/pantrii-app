@@ -6,7 +6,9 @@ import {
     Image,
     Pressable,
     Dimensions,
-    TouchableOpacity,
+    PressableProps,
+    ViewProps,
+    StyleProp,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 // Components
@@ -23,7 +25,7 @@ import Product from '../../models/Product';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
-    cardStyle: React.ComponentProps<typeof Pressable>['style'];
+    cardStyle: StyleProp<PressableProps>;
     imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: Product['productTitle'];
     producerTitle: Product['producerTitle'];
@@ -154,12 +156,12 @@ const ProductCard = ({
                                             styles.modalH2,
                                         ]}
                                     >
-                                        {bulkPrice}
+                                        {bulkPrice}/kolli
                                     </Text>
                                     <Text
                                         style={[
                                             styles.singularPrice,
-                                            styles.modalH3,
+                                            styles.modalH4,
                                         ]}
                                     >
                                         {singlePrice}
@@ -244,8 +246,13 @@ const ProductCard = ({
                     <View style={styles.bottomRightWrapper}>
                         <View style={styles.priceWrapper}>
                             <Text style={styles.bulkPrice}>{bulkPrice}</Text>
-                            <Text style={styles.singularPrice}>
-                                {singlePrice}
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontFamily: 'TT-Commons-Regular',
+                                }}
+                            >
+                                per kolli
                             </Text>
                         </View>
                         <View
@@ -340,7 +347,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
     },
     unit: {
-        fontSize: 11,
+        fontSize: 10,
         fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.2,
         paddingVertical: 5,
@@ -349,10 +356,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         paddingVertical: 5,
         marginRight: 4,
+        justifyContent: 'center',
     },
     bulkPrice: {
-        fontSize: 13.5,
-        fontFamily: 'TT-Commons-Bold',
+        fontSize: 14,
+        fontFamily: 'TT-Commons-DemiBold',
         letterSpacing: 0.2,
         paddingBottom: 1.5,
     },

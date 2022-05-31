@@ -199,7 +199,7 @@ export default ProductInfoCard;
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: 'white',
-        marginBottom: 15,
+        marginBottom: 20,
         paddingVertical: 10,
     },
     wrapperBottom: {
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontFamily: 'TT-Commons-Bold',
         letterSpacing: 0.6,
-        paddingVertical: 5,
+        paddingVertical: 8,
         paddingHorizontal: 20,
         lineHeight: 20,
     },

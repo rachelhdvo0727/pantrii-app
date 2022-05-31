@@ -46,7 +46,7 @@ export default function ProductScreen(props) {
             producerTitle={product?.producerTitle}
             productDesc={content?.productDesc[product?.productDesc]}
             productUnit={product?.productUnit}
-            bulkPrice={product?.bulkPrice + content.currency.DKK + '/kolli'}
+            bulkPrice={product?.bulkPrice + content.currency.DKK}
             singlePrice={product?.singlePrice + content.currency.DKK + '/enhed'}
             productStory={content?.productStory[product?.productStory]}
             productUnique={content?.productUnique[product?.productUnique]}

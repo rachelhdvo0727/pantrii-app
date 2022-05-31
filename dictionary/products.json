@@ -75,7 +75,7 @@
             "allProducts": "alle produkter"
         },
         "currency": {
-            "DKK": "kr"
+            "DKK": "kr."
         },
         "description":{
             "Product is unique because": "Varens produktion adskiller sig fra lignende varer fordi...",
