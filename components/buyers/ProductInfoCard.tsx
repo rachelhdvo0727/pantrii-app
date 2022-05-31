@@ -40,9 +40,6 @@ export interface Props {
     productStory: string;
     productUnique: string;
     expiryDuration: string;
-    quantity: number;
-    onPressAdd: React.ComponentProps<typeof Pressable>['onPress'];
-    onPressMinus: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
 const ProductInfoCard = ({
@@ -60,9 +57,6 @@ const ProductInfoCard = ({
     productStory,
     productUnique,
     expiryDuration,
-    quantity,
-    onPressAdd,
-    onPressMinus,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
@@ -191,11 +185,7 @@ const ProductInfoCard = ({
             </ScrollView>
             <View style={styles.bottomWrapper}>
                 <FavoriteButton />
-                <AddToCart
-                    quantity={quantity}
-                    onPressAdd={onPressAdd}
-                    onPressMinus={onPressMinus}
-                />
+                <AddToCart />
             </View>
         </View>
     );

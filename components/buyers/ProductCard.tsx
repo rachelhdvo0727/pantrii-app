@@ -40,9 +40,6 @@ export interface Props {
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
-    quantity: number;
-    onPressAdd: React.ComponentProps<typeof Pressable>['onPress'];
-    onPressMinus: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
 const ProductCard = ({
@@ -60,15 +57,13 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
     onPress,
-    quantity,
-    onPressAdd,
-    onPressMinus,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
-
+    // Example for add and minus quantity
+    // const [quantity, setQuantity] = useState(5);
     return (
         <View>
             {/* Slide up modal */}
@@ -192,11 +187,18 @@ const ProductCard = ({
                                     />
                                 </View>
                                 <View style={styles.paddingRight}>
-                                    <AddToCart
+                                    {/* <AddToCart
                                         quantity={quantity}
-                                        onPressAdd={onPressAdd}
-                                        onPressMinus={onPressMinus}
-                                    />
+                                        onPressAdd={() => {
+                                            setQuantity(quantity + 1);
+                                            console.log(quantity);
+                                        }}
+                                        onPressMinus={() => {
+                                            setQuantity(quantity - 1);
+                                            console.log(quantity);
+                                        }}
+                                    /> */}
+                                    <AddToCart />
                                 </View>
                             </View>
                         </View>

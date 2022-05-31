@@ -6,36 +6,52 @@ import { AntDesign } from '@expo/vector-icons';
 import Button from './Button';
 
 export interface Props {
-    quantity: number;
-    onPressAdd: React.ComponentProps<typeof Pressable>['onPress'];
-    onPressMinus: React.ComponentProps<typeof Pressable>['onPress'];
+    // quantity?: number;
+    // onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    // onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
-const AddToCart: React.FC<Props> = ({ quantity, onPressAdd, onPressMinus }) => {
+const AddToCart: React.FC<Props> = ({}) => {
+    const [quantity, setQuantity] = useState(1);
     return (
         <View>
-            {/* {quantity > 0 ? ( */}
-            <View style={[styles.container]}>
-                <Pressable
-                    style={styles.button}
-                    // onPress={() => {
-                    //     setQuantity(quantity - 1);
-                    //     console.log(quantity);
-                    // }}
-                    onPress={onPressMinus}
-                >
-                    <AntDesign name="minus" size={14} color="white" />
-                </Pressable>
-                <View style={styles.quantityWrapper}>
-                    <Text style={styles.text}>{quantity}</Text>
+            {quantity > 0 ? (
+                <View style={[styles.container]}>
+                    <Pressable
+                        style={styles.button}
+                        onPress={() => {
+                            setQuantity(quantity - 1);
+                            console.log(quantity);
+                        }}
+                        // onPress={onPressMinus}
+                    >
+                        <AntDesign name="minus" size={14} color="white" />
+                    </Pressable>
+                    <View style={styles.quantityWrapper}>
+                        <Text style={styles.text}>{quantity}</Text>
+                    </View>
+                    <Pressable
+                        style={styles.button}
+                        // onPress={onPressAdd}
+                        onPress={() => {
+                            setQuantity(quantity + 1);
+                            console.log(quantity);
+                        }}
+                    >
+                        <AntDesign name="plus" size={14} color="white" />
+                    </Pressable>
                 </View>
-                <Pressable style={styles.button} onPress={onPressAdd}>
-                    <AntDesign name="plus" size={14} color="white" />
-                </Pressable>
-            </View>
-            {/* ) : ( */}
-            <Button onPress={onPressAdd} secondary title="Tilføj til kurv" />
-            {/* )} */}
+            ) : (
+                <Button
+                    // onPress={onPressAdd}
+                    onPress={() => {
+                        setQuantity(quantity + 1);
+                        console.log(quantity);
+                    }}
+                    secondary
+                    title="Tilføj til kurv"
+                />
+            )}
         </View>
     );
 };
