@@ -55,12 +55,24 @@ export default function LogInScreen(props) {
             .then((response) => console.log(response?.status, response?.data))
             .catch((error) => console.error(error));
     };
+    const mountedRef = React.useRef(true);
+    const fetchRoles = React.useCallback(() => {
+        return axios(mongoDbConfig('roles'))
+            .then((response) => {
+                setRoles(response?.data?.documents);
+            })
+            .catch((error) => {
+                console.error(error);
+                setRoles([]);
+            });
+    }, []);
 
     React.useEffect(() => {
-        axios(mongoDbConfig('roles'))
-            .then((response) => setRoles(response?.data?.documents))
-            .catch((error) => console.error(error));
-    }, [roles]);
+        fetchRoles();
+        return () => {
+            mountedRef.current = false;
+        };
+    }, []);
 
     const showLogIn = () => {
         navigation.navigate('LogInScreen');
@@ -364,7 +376,7 @@ export default function LogInScreen(props) {
                             onPress={handleSubmit(onSubmit)}
                         ></Button>
                     </View>
-                    <Text style={styles.mediumText}>Velkomme tilbage</Text>
+                    <Text style={styles.mediumText}>Velkommen tilbage</Text>
                     <Button
                         title="log ind"
                         outlined
@@ -400,7 +412,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        marginVertical: 10,
+        marginVertical: 5,
     },
     formWrapper: { width: '95%', marginVertical: 20 },
     header: {
@@ -409,15 +421,14 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingHorizontal: 18,
     },
-    buttonStyle: { alignSelf: 'center' },
+    buttonStyle: { alignSelf: 'center', marginVertical: 15 },
     fieldset: {
         flexDirection: 'row',
     },
     fieldsetCell: { flex: 1 },
     radioButtonGroup: {
         flexDirection: 'row',
-        //  alignContent: 'stretch',
-        alignContent: 'flex-start',
+        justifyContent: 'space-between',
     },
     radioButtonLabel: {
         fontFamily: 'TT-Commons-DemiBold',
@@ -431,6 +442,5 @@ const styles = StyleSheet.create({
         ...generalStyles.mediumText,
         fontSize: 15,
         textAlign: 'center',
-        marginBottom: 5,
     },
 });
