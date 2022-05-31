@@ -24,6 +24,8 @@ export default function ProfileEditScreen(props) {
             ? 'adresse'
             : null;
 
+    const [hasUserInformation, setHasUserInformation] = React.useState(false);
+
     React.useEffect(() => {
         props.navigation?.setOptions({
             headerTitle: `REDIGER ${information.toUpperCase()}`,
@@ -31,24 +33,14 @@ export default function ProfileEditScreen(props) {
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
         });
-    }, [informationType]);
 
-    const { control, handleSubmit } = useForm({
-        defaultValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            phone: '',
-            address: {
-                line1: '',
-                line2: '',
-                zipCode: '',
-                city: '',
-                country: '',
-            },
-        },
-    });
+        if (user) {
+            reset(user);
+            setHasUserInformation(true);
+        }
+    }, [informationType, user]);
+
+    const { control, handleSubmit, reset } = useForm({});
 
     const onSubmit = (data) => {
         // POST
@@ -86,13 +78,14 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="fornavn *"
-                                    placeholder={user?.firstName}
+                                    placeholder="John"
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     autoComplete={false}
                                     autoCapitalize="words"
                                     errorMessage={error}
+                                    hasDefaultValue
                                 ></InputField>
                             )}
                         />
@@ -106,18 +99,19 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="efternavn *"
-                                    placeholder={user?.lastName}
+                                    placeholder="Eksempel"
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     autoComplete={false}
                                     autoCapitalize="words"
                                     errorMessage={error}
+                                    hasDefaultValue
                                 ></InputField>
                             )}
                         />
                         <Controller
-                            name="email *"
+                            name="email"
                             control={control}
                             rules={{
                                 required: 'Email er påkrævet',
@@ -132,13 +126,14 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="email *"
-                                    placeholder={user?.email}
+                                    placeholder="eksemple@mail.com"
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     autoCapitalize="none"
                                     autoComplete={false}
                                     errorMessage={error}
+                                    hasDefaultValue
                                 ></InputField>
                             )}
                         />
@@ -159,12 +154,13 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="mobilnummer *"
-                                    placeholder={user?.phone}
+                                    placeholder="57575757"
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     autoComplete={false}
                                     errorMessage={error}
+                                    hasDefaultValue
                                 ></InputField>
                             )}
                         />
@@ -184,13 +180,14 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="adresselinje 1 *"
-                                    placeholder={user?.address?.line1}
+                                    placeholder="Vejnavn og husnummer"
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     errorMessage={error}
                                     autoComplete={false}
                                     autoCapitalize="words"
+                                    hasDefaultValue
                                 ></InputField>
                             )}
                         />
@@ -203,7 +200,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="adresselinje 2"
-                                    placeholder={user?.address?.line2}
+                                    placeholder="Evt. dørnummer"
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -226,7 +223,7 @@ export default function ProfileEditScreen(props) {
                                 }) => (
                                     <InputField
                                         label="postnr. *"
-                                        placeholder={user?.address?.zipCode}
+                                        placeholder="2000"
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -249,7 +246,7 @@ export default function ProfileEditScreen(props) {
                                 }) => (
                                     <InputField
                                         label="by *"
-                                        placeholder={user?.address?.city}
+                                        placeholder="København"
                                         autoComplete
                                         value={value}
                                         onChangeText={onChange}
@@ -272,7 +269,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label="land *"
-                                    placeholder={user?.address?.country}
+                                    placeholder="Danmark"
                                     autoComplete={false}
                                     value={value}
                                     onChangeText={onChange}
@@ -286,6 +283,7 @@ export default function ProfileEditScreen(props) {
                 <Button
                     primary
                     buttonStyle={styles.buttonStyle}
+                    disabled={hasUserInformation}
                     title="Gem"
                     onPress={handleSubmit(onSubmit)}
                 ></Button>
@@ -315,4 +313,7 @@ const styles = StyleSheet.create({
     },
     fieldsetCell: { flex: 1 },
     buttonStyle: { alignSelf: 'center', marginVertical: 10, width: '40%' },
+    hasDefaultValue: {
+        color: 'grey',
+    },
 });
