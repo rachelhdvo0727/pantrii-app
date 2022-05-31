@@ -16,15 +16,14 @@ export default function ProductScreen(props) {
     const navigation = useNavigation();
     const content = dictionary?.products;
 
-    const products = props?.route?.params?.products;
     const product = props?.route?.params?.product;
-    const productName = props?.route?.params?.product?.productTitle;
     const [productInfo, setProductInfo] = React.useState([]);
 
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle: content?.productTitle[productName]?.toUpperCase(),
+            headerTitle:
+                content?.productTitle[product?.productTitle]?.toUpperCase(),
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),

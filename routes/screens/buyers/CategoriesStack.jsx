@@ -56,6 +56,7 @@ const CategoriesStack = () => {
                 name="ProductScreen"
                 component={ProductScreen}
                 options={{
+                    headerTitle: '',
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}
