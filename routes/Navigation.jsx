@@ -10,7 +10,8 @@ import SignUpScreen from './screens/SignUpScreen';
 const Stack = createNativeStackNavigator();
 
 export default function Navigation(props) {
-    // console.log('navigation', props);
+    console.log('navigation', props);
+
     const screenOptions = {
         headerTitleStyle: {
             color: '#EFF2EE',
@@ -32,7 +33,7 @@ export default function Navigation(props) {
         <NavigationContainer>
             <Stack.Navigator
                 screenOptions={screenOptions}
-                initialRouteName={props.initialRoute}
+                initialRouteName={props?.initialRoute}
             >
                 <Stack.Screen
                     name="LogInScreen"
@@ -51,12 +52,12 @@ export default function Navigation(props) {
                 <Stack.Screen
                     name="BottomTabBuyers"
                     component={BottomTabBuyers}
-                    options={({ route }) => ({
+                    options={{
                         headerShown: false,
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
-                    })}
-                    initialParams={{ user: props.user }}
+                    }}
+                    initialParams={{ user: props?.user }}
                 ></Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
