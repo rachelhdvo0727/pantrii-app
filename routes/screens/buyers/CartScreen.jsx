@@ -1,11 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
+// Components
+import ProductCardList from '../../../components/buyers/ProductCardList';
 
 export default function CartScreen() {
     return (
-        <View style={generalStyles.container}>
-            <Text style={generalStyles.headerH1}>Kurv</Text>
-        </View>
+        <ScrollView style={generalStyles.container}>
+            <View style={styles.container}>
+                <ProductCardList />
+            </View>
+        </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+    },
+});

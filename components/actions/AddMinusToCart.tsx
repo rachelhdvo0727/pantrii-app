@@ -13,14 +13,16 @@ export interface Props {
 
 const AddMinusToCart: React.FC<Props> = ({}) => {
     const [quantity, setQuantity] = useState(1);
+
+    console.log(quantity);
     return (
         <View style={[styles.container]}>
             <Pressable
-                style={styles.button}
+                style={[styles.button, quantity === 0 ? styles.disabled : null]}
                 onPress={() => {
                     setQuantity(quantity - 1);
-                    console.log(quantity);
                 }}
+                disabled={quantity === 0 ? true : false}
                 // onPress={onPressMinus}
             >
                 <AntDesign name="minus" size={14} color="white" />
@@ -33,7 +35,6 @@ const AddMinusToCart: React.FC<Props> = ({}) => {
                 // onPress={onPressAdd}
                 onPress={() => {
                     setQuantity(quantity + 1);
-                    console.log(quantity);
                 }}
             >
                 <AntDesign name="plus" size={14} color="white" />
@@ -50,9 +51,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     button: {
-        padding: 12,
         backgroundColor: '#1B463C',
         borderRadius: 1000,
+        padding: 8,
     },
     quantityWrapper: {
         borderColor: 'black',
@@ -60,8 +61,8 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        width: Dimensions.get('window').width / 5 - 10,
-        marginHorizontal: 5,
+        width: Dimensions.get('window').width / 7,
+        marginHorizontal: 4,
     },
     text: {
         fontSize: 14,
