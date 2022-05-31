@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import generalStyles from '../../../styles/General';
 import { useNavigation } from '@react-navigation/native';
 import { mongoDbConfig } from '../../../utils/api';
@@ -18,6 +18,7 @@ export default function ProductScreen(props) {
 
     const product = props?.route?.params?.product;
     const [productInfo, setProductInfo] = React.useState([]);
+    const test = props?.route?.params?.quantity;
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -38,6 +39,7 @@ export default function ProductScreen(props) {
                 console.log(error);
             });
     }, []);
+    const [quantity, setQuantity] = useState(test);
     return (
         <ProductInfoCard
             imageSrc={productImages[product?.imageSrc]}
@@ -53,6 +55,15 @@ export default function ProductScreen(props) {
             isOrganic={product.tags?.find((tag) => tag == 'organic')}
             isFrozen={product.tags?.find((tag) => tag == 'frozen')}
             expiryDuration={product?.expiryDuration}
+            quantity={quantity}
+            onPressAdd={() => {
+                setQuantity(quantity + 1);
+                console.log(quantity);
+            }}
+            onPressMinus={() => {
+                setQuantity(quantity - 1);
+                console.log(quantity);
+            }}
         />
     );
 }

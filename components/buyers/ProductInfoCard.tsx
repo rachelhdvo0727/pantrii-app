@@ -19,6 +19,7 @@ import FavoriteButton from '../actions/FavoriteButton';
 import IconButton from '../actions/IconButton';
 import Button from '../actions/Button';
 import Product from '../../models/Product';
+import AddToCart from '../actions/AddToCart';
 // Dictionary
 import dictionary from '../../dictionary/products.json';
 
@@ -39,6 +40,9 @@ export interface Props {
     productStory: string;
     productUnique: string;
     expiryDuration: string;
+    quantity: number;
+    onPressAdd: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressMinus: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
 const ProductInfoCard = ({
@@ -56,6 +60,9 @@ const ProductInfoCard = ({
     productStory,
     productUnique,
     expiryDuration,
+    quantity,
+    onPressAdd,
+    onPressMinus,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
@@ -184,10 +191,10 @@ const ProductInfoCard = ({
             </ScrollView>
             <View style={styles.bottomWrapper}>
                 <FavoriteButton />
-                <Button
-                    secondary
-                    buttonStyle={{ height: 45 }}
-                    title="Tilføj til kurv"
+                <AddToCart
+                    quantity={quantity}
+                    onPressAdd={onPressAdd}
+                    onPressMinus={onPressMinus}
                 />
             </View>
         </View>
@@ -338,5 +345,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderTopWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
+        alignItems: 'center',
     },
 });

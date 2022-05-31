@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
@@ -30,6 +30,7 @@ const HighLightProductsSlider = () => {
             });
     }, []);
     const slicedProducts = products?.slice(0, 6);
+    const [quantity, setQuantity] = useState(5);
 
     return (
         <View style={styles.container}>
@@ -64,8 +65,18 @@ const HighLightProductsSlider = () => {
                             navigation.navigate('ProductScreen', {
                                 products: products,
                                 product: item,
+                                quantity: quantity,
                             })
                         }
+                        quantity={quantity}
+                        onPressAdd={() => {
+                            setQuantity(quantity + 1);
+                            console.log(quantity);
+                        }}
+                        onPressMinus={() => {
+                            setQuantity(quantity - 1);
+                            console.log(quantity);
+                        }}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

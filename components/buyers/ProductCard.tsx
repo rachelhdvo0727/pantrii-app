@@ -40,6 +40,9 @@ export interface Props {
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
+    quantity: number;
+    onPressAdd: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressMinus: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
 const ProductCard = ({
@@ -57,12 +60,14 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
     onPress,
+    quantity,
+    onPressAdd,
+    onPressMinus,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
-    const [quantity, setQuantity] = useState(1);
 
     return (
         <View>
@@ -189,13 +194,8 @@ const ProductCard = ({
                                 <View style={styles.paddingRight}>
                                     <AddToCart
                                         quantity={quantity}
-                                        onPressAdd={() => {
-                                            setQuantity(quantity + 1);
-                                        }}
-                                        onPressMinus={() => {
-                                            setQuantity(quantity - 1);
-                                        }}
-                                        disabled={true ? quantity === 0 : false}
+                                        onPressAdd={onPressAdd}
+                                        onPressMinus={onPressMinus}
                                     />
                                 </View>
                             </View>
@@ -431,15 +431,16 @@ const styles = StyleSheet.create({
     modalH1: {
         fontSize: 20,
         fontFamily: 'TT-Commons-Bold',
-        letterSpacing: 0.2,
+        letterSpacing: 0.5,
         paddingHorizontal: 20,
         paddingVertical: 5,
         textTransform: 'uppercase',
+        color: '#1B463C',
     },
     modalH2: {
         fontSize: 18,
         fontFamily: 'TT-Commons-Bold',
-        letterSpacing: 0.2,
+        letterSpacing: 0.5,
     },
     modalH3: {
         fontSize: 16,
