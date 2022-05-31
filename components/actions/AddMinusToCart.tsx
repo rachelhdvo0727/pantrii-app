@@ -6,37 +6,31 @@ import { AntDesign } from '@expo/vector-icons';
 import Button from './Button';
 
 export interface Props {
-    // quantity?: number;
-    // onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
-    // onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
+    quantity?: number;
+    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
+    disabled: boolean;
 }
 
-const AddMinusToCart: React.FC<Props> = ({}) => {
-    const [quantity, setQuantity] = useState(1);
-
-    console.log(quantity);
+const AddMinusToCart: React.FC<Props> = ({
+    quantity,
+    onPressAdd,
+    onPressMinus,
+    disabled,
+}) => {
     return (
         <View style={[styles.container]}>
             <Pressable
-                style={[styles.button, quantity === 0 ? styles.disabled : null]}
-                onPress={() => {
-                    setQuantity(quantity - 1);
-                }}
-                disabled={quantity === 0 ? true : false}
-                // onPress={onPressMinus}
+                style={[styles.button, disabled ? styles.disabled : null]}
+                disabled={disabled}
+                onPress={onPressMinus}
             >
                 <AntDesign name="minus" size={14} color="white" />
             </Pressable>
             <View style={styles.quantityWrapper}>
                 <Text style={styles.text}>{quantity}</Text>
             </View>
-            <Pressable
-                style={styles.button}
-                // onPress={onPressAdd}
-                onPress={() => {
-                    setQuantity(quantity + 1);
-                }}
-            >
+            <Pressable style={styles.button} onPress={onPressAdd}>
                 <AntDesign name="plus" size={14} color="white" />
             </Pressable>
         </View>

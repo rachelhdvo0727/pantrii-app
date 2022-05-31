@@ -16,6 +16,7 @@ import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import AddMinusToCart from '../actions/AddMinusToCart';
 import DeleteIcon from '../actions/DeleteButton';
+import Product from '../../models/Product';
 
 export interface Props {
     // cardStyle: StyleProp<PressableProps>;
@@ -24,7 +25,7 @@ export interface Props {
     // producerTitle: Product['producerTitle'];
     // productDesc: Product['productDesc'];
     // productUnit: Product['productUnit'];
-    // bulkPrice: Product['bulkPrice'];
+    bulkPrice: number;
     // singlePrice: Product['singlePrice'];
     // secondary?: boolean;
     // isCold?: string;
@@ -32,9 +33,19 @@ export interface Props {
     // isOrganic?: string;
     // isFeatured?: Product['isFeatured'];
     // onPress: () => void;
+    quantity?: number;
+    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
+    disabled: boolean;
 }
 
-const ProductCardList = ({}: // cardStyle,
+const ProductCardList = ({
+    quantity,
+    onPressAdd,
+    onPressMinus,
+    disabled,
+    bulkPrice,
+}: // cardStyle,
 // imageSrc,
 // productTitle,
 // producerTitle,
@@ -47,6 +58,7 @@ const ProductCardList = ({}: // cardStyle,
 // isFrozen,
 // isOrganic,
 // onPress,
+
 Props) => {
     return (
         <View style={styles.container}>
@@ -71,9 +83,14 @@ Props) => {
                 <Text style={styles.unit}>20 x 120g</Text>
                 <View style={styles.bottomWrapper}>
                     <View style={styles.priceWrapper}>
-                        <Text style={styles.bulkPrice}>210,00kr.</Text>
+                        <Text style={styles.bulkPrice}>{bulkPrice}</Text>
                     </View>
-                    <AddMinusToCart />
+                    <AddMinusToCart
+                        quantity={quantity}
+                        onPressAdd={onPressAdd}
+                        onPressMinus={onPressMinus}
+                        disabled={disabled}
+                    />
                 </View>
             </View>
             <View style={styles.delete}>

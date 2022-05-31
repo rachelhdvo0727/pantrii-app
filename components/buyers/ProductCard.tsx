@@ -19,11 +19,9 @@ import FavoriteIcon from '../actions/FavouriteIcon';
 import Modal from 'react-native-modal';
 import FavoriteButton from '../actions/FavoriteButton';
 import IconButton from '../actions/IconButton';
-import Button from '../actions/Button';
 import CloseButton from '../actions/CloseButton';
 import Product from '../../models/Product';
 import AddToCart from '../actions/AddToCart';
-import AddMinusToCart from '../actions/AddMinusToCart';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
