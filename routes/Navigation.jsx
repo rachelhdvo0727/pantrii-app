@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import * as SecureStore from 'expo-secure-store';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Components
 import BottomTabBuyers from './screens/buyers/BottomTabBuyers';
@@ -10,18 +9,8 @@ import SignUpScreen from './screens/SignUpScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function Navigation() {
-    const [loggedInUser, setLoggedInUser] = React.useState({});
-
-    React.useEffect(() => {
-        let user;
-        async function persistLogIn() {
-            user = await SecureStore.getItemAsync('user');
-            setLoggedInUser(user);
-        }
-        persistLogIn();
-    }, []);
-
+export default function Navigation(props) {
+    // console.log('navigation', props);
     const screenOptions = {
         headerTitleStyle: {
             color: '#EFF2EE',
@@ -41,14 +30,16 @@ export default function Navigation() {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Navigator
+                screenOptions={screenOptions}
+                initialRouteName={props.initialRoute}
+            >
                 <Stack.Screen
                     name="LogInScreen"
                     component={LogInScreen}
                     options={{
                         headerShown: false,
                     }}
-                    initialParams={{ user: loggedInUser }}
                 />
                 <Stack.Screen
                     name="SignUpScreen"
@@ -65,7 +56,7 @@ export default function Navigation() {
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     })}
-                    initialParams={{ user: loggedInUser }}
+                    initialParams={{ user: props.user }}
                 ></Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>

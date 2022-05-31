@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Font from 'expo-font';
+import * as SecureStore from 'expo-secure-store';
 import AppLoading from 'expo-app-loading';
 import Navigation from './routes/Navigation';
 
@@ -13,6 +14,28 @@ const loadFonts = () => {
 };
 export default function App() {
     const [fontLoaded, setFontLoaded] = React.useState(false);
+    const [loggedInUser, setLoggedInUser] = React.useState({});
+    const [initialRoute, setInitialRoute] = React.useState(null || '');
+
+    React.useEffect(() => {
+        async function persistLogIn() {
+            try {
+                const user = await SecureStore.getItemAsync('user');
+
+                if (user?.length !== 0) {
+                    setLoggedInUser(JSON.parse(user));
+                    setInitialRoute('BottomTabBuyers');
+                } else {
+                    setLoggedInUser({});
+                    setInitialRoute('LogInScreen');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        persistLogIn();
+    }, []);
+
     if (!fontLoaded) {
         return (
             <AppLoading
@@ -22,5 +45,6 @@ export default function App() {
             />
         );
     }
-    return <Navigation />;
+
+    return <Navigation initialRoute={initialRoute} user={loggedInUser} />;
 }

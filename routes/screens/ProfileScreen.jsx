@@ -24,10 +24,6 @@ export default function ProfileScreen(props) {
             }
         }
         fetchUser();
-
-        axios.(mo)
-
-        console.log('hi', user);
     }, []);
 
     const onEdit = (information) => {
@@ -40,7 +36,7 @@ export default function ProfileScreen(props) {
     };
 
     const handleLogOut = () => {
-        // SecureStore.setItemAsync('user', '');
+        SecureStore.setItemAsync('user', '');
         navigation.navigate('LogInScreen');
     };
 

@@ -14,7 +14,7 @@ import AppLogo from '../../components/svgs/AppLogo';
 import axios from 'axios';
 import { findUser } from '../../utils/api';
 
-export default function LogInScreen(props) {
+export default function LogInScreen() {
     const navigation = useNavigation();
 
     const { control, handleSubmit } = useForm({
@@ -46,9 +46,6 @@ export default function LogInScreen(props) {
                         screen: 'HomeStack',
                         params: {
                             screen: 'HomeScreen',
-                            params: {
-                                user: user,
-                            },
                         },
                     });
                 }
@@ -159,7 +156,7 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         paddingHorizontal: 18,
     },
-    icon: { marginTop: 10, marginBottom: 50 },
+    icon: { marginTop: 5, marginBottom: 40 },
     formWrapper: {
         width: '95%',
     },
@@ -171,6 +168,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: 'center',
         marginTop: 25,
-        marginBottom: 5,
+        marginBottom: 15,
     },
 });

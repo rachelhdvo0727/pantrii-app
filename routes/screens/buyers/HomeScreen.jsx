@@ -7,7 +7,6 @@ import HighLightProductsSlider from '../../../components/buyers/HighlightProduct
 import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 
 export default function HomeScreen(props) {
-    console.log('homescreen', props);
     return (
         <View style={generalStyles.homeContainer}>
             <ScrollView>
