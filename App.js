@@ -18,10 +18,9 @@ export default function App() {
     const [initialRoute, setInitialRoute] = React.useState(null || '');
 
     React.useEffect(() => {
-        async function persistLogIn() {
+        (async function () {
             try {
                 const user = await SecureStore.getItemAsync('user');
-
                 if (user?.length !== 0) {
                     setLoggedInUser(JSON.parse(user));
                     setInitialRoute('BottomTabBuyers');
@@ -32,8 +31,7 @@ export default function App() {
             } catch (error) {
                 console.error(error);
             }
-        }
-        persistLogIn();
+        })();
     }, []);
 
     if (!fontLoaded) {
