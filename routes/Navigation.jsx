@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Components
-import { StyleSheet } from 'react-native';
 import BottomTabBuyers from './screens/buyers/BottomTabBuyers';
 // import BottomTabSuppliers from './screens/suppliers/BottomTabSuppliers';
 import LogInScreen from './screens/LogInScreen';
@@ -12,15 +11,16 @@ import SignUpScreen from './screens/SignUpScreen';
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
-    // TODO: use actual login
-    const [loggedInUser, setLoggedInUser] = React.useState({
-        email: '',
-        password: '',
-    });
+    const [loggedInUser, setLoggedInUser] = React.useState({});
 
-    // React.useEffect(() => {
-    //     SecureStore.getItemAsync('user');
-    // });
+    React.useEffect(() => {
+        let user;
+        async function persistLogIn() {
+            user = await SecureStore.getItemAsync('user');
+            setLoggedInUser(user);
+        }
+        persistLogIn();
+    }, []);
 
     const screenOptions = {
         headerTitleStyle: {
@@ -38,10 +38,11 @@ export default function Navigation() {
         },
         headerTintColor: '#EFF2EE',
     };
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={screenOptions}>
-                {/* <Stack.Screen
+                <Stack.Screen
                     name="LogInScreen"
                     component={LogInScreen}
                     options={{
@@ -55,7 +56,7 @@ export default function Navigation() {
                     options={{
                         headerShown: false,
                     }}
-                /> */}
+                />
                 <Stack.Screen
                     name="BottomTabBuyers"
                     component={BottomTabBuyers}
@@ -67,8 +68,6 @@ export default function Navigation() {
                     initialParams={{ user: loggedInUser }}
                 ></Stack.Screen>
             </Stack.Navigator>
-
-            {/* <BottomTabSuppliers /> */}
         </NavigationContainer>
     );
 }
