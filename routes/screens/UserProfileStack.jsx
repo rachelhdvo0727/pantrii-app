@@ -5,7 +5,7 @@ import ProfileEditScreen from './ProfileEditScreen';
 
 const Stack = createNativeStackNavigator();
 
-const UserProfileStack = () => {
+const UserProfileStack = (props) => {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -24,6 +24,7 @@ const UserProfileStack = () => {
                 },
                 headerTintColor: '#EFF2EE',
             }}
+            initialRouteName="ProfileScreen"
         >
             <Stack.Screen
                 name="ProfileScreen"
@@ -33,6 +34,7 @@ const UserProfileStack = () => {
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}
+                initialParams={props?.route?.params}
             />
             <Stack.Screen
                 name="ProfileEditScreen"
