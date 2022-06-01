@@ -180,4 +180,22 @@ export const updateUserInformation = (data: User, information: Object) => {
     };
 };
 
+const findUserRoleConfig = (data: User) => {
+    return JSON.stringify({
+        collection: 'roles',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            roleId: data?.roleId,
+        },
+    });
+};
 
+export const findUserRole = (data: User) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
+        headers: headers,
+        data: findUserRoleConfig(data),
+    };
+};
