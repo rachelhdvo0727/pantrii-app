@@ -22,8 +22,13 @@ export default function App() {
             try {
                 const user = await SecureStore.getItemAsync('user');
                 if (user?.length !== 0) {
-                    setLoggedInUser(JSON.parse(user));
-                    setInitialRoute('BottomTabBuyers');
+                    const parsedUser = JSON.parse(user);
+                    setLoggedInUser(parsedUser);
+                    // console.log('found user', parsedUser);
+                    parsedUser?.roleTitle === 'producer' &&
+                        setInitialRoute('BottomTabSuppliers');
+                    parsedUser?.roleTitle === 'buyer' &&
+                        setInitialRoute('BottomTabBuyers');
                 } else {
                     setLoggedInUser({});
                     setInitialRoute('LogInScreen');
