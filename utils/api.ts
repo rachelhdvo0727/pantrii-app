@@ -106,25 +106,21 @@ export const fetchLatestProducts = (collection: string) => {
 };
 
 // FEATURED DATA
-const fetchFeaturedData = (collection: string, isFiltered: boolean) => {
+const fetchFeaturedData = (collection: string) => {
     return JSON.stringify({
         collection: collection,
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
-        filter: { isFeatured: isFiltered },
+        filter: { isFeatured: true },
     });
 };
 
-export const fetchFeaturedProducts = (
-    method: string,
-    collection: string,
-    isFiltered: boolean,
-) => {
+export const fetchFeaturedProducts = (collection: string) => {
     return {
         method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
         headers: headers,
-        data: fetchFeaturedData(collection, isFiltered),
+        data: fetchFeaturedData(collection),
     };
 };
 

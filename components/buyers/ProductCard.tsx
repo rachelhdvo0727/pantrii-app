@@ -6,7 +6,9 @@ import {
     Image,
     Pressable,
     Dimensions,
-    TouchableOpacity,
+    PressableProps,
+    ViewProps,
+    StyleProp,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 // Components
@@ -23,7 +25,7 @@ import Product from '../../models/Product';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
-    cardStyle: React.ComponentProps<typeof Pressable>['style'];
+    cardStyle: StyleProp<PressableProps>;
     imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: Product['productTitle'];
     producerTitle: Product['producerTitle'];
@@ -36,6 +38,7 @@ export interface Props {
     isFrozen?: string;
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
+    onPress: () => void;
 }
 
 const ProductCard = ({
@@ -52,11 +55,13 @@ const ProductCard = ({
     isCold,
     isFrozen,
     isOrganic,
+    onPress,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+
     return (
         <View>
             {/* Slide up modal */}
@@ -67,6 +72,7 @@ const ProductCard = ({
                 onBackdropPress={() => setModalVisible(false)}
                 swipeDirection="down"
                 backdropOpacity={0.3}
+                animationOutTiming={500}
             >
                 <View style={styles.modalWrapper}>
                     <CloseButton
@@ -150,12 +156,12 @@ const ProductCard = ({
                                             styles.modalH2,
                                         ]}
                                     >
-                                        {bulkPrice}
+                                        {bulkPrice}/kolli
                                     </Text>
                                     <Text
                                         style={[
                                             styles.singularPrice,
-                                            styles.modalH3,
+                                            styles.modalH4,
                                         ]}
                                     >
                                         {singlePrice}
@@ -171,7 +177,12 @@ const ProductCard = ({
                                     ]}
                                 >
                                     <FavoriteButton />
-                                    <IconButton arrowRight title="Detaljer" />
+                                    <IconButton
+                                        arrowRight
+                                        title="Detaljer"
+                                        onPress={onPress}
+                                        onPressOut={toggleModal}
+                                    />
                                 </View>
                                 <View style={styles.paddingRight}>
                                     <Button secondary title="Tilføj til kurv" />
@@ -235,8 +246,13 @@ const ProductCard = ({
                     <View style={styles.bottomRightWrapper}>
                         <View style={styles.priceWrapper}>
                             <Text style={styles.bulkPrice}>{bulkPrice}</Text>
-                            <Text style={styles.singularPrice}>
-                                {singlePrice}
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontFamily: 'TT-Commons-Regular',
+                                }}
+                            >
+                                per kolli
                             </Text>
                         </View>
                         <View
@@ -263,7 +279,7 @@ export default ProductCard;
 const styles = StyleSheet.create({
     productWrapper: {
         // width: 180,
-        width: Dimensions.get('window').width / 2 - 18,
+        width: Dimensions.get('window').width / 2 - 16,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
@@ -331,7 +347,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
     },
     unit: {
-        fontSize: 11,
+        fontSize: 10,
         fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.2,
         paddingVertical: 5,
@@ -340,10 +356,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         paddingVertical: 5,
         marginRight: 4,
+        justifyContent: 'center',
     },
     bulkPrice: {
-        fontSize: 13.5,
-        fontFamily: 'TT-Commons-Bold',
+        fontSize: 14,
+        fontFamily: 'TT-Commons-DemiBold',
         letterSpacing: 0.2,
         paddingBottom: 1.5,
     },

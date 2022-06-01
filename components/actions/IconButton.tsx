@@ -4,9 +4,10 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export interface Props {
     onPress: () => void;
+    onPressOut?: () => void;
     title: string;
-    children: React.ReactChild;
-    isActive: boolean;
+    children?: React.ReactChild;
+    isActive?: boolean;
     outlined?: boolean;
     arrowRight?: boolean;
     arrowDown?: boolean;
@@ -19,11 +20,13 @@ const IconButton: React.FC<Props> = ({
     arrowRight,
     arrowDown,
     onPress,
+    onPressOut,
 }) => {
     return (
         <Pressable
             onPress={onPress}
             style={[styles.container, outlined && styles.outlined]}
+            onPressOut={onPressOut}
         >
             <View style={styles.wrapper}>
                 <Text style={styles.title}>{title}</Text>
