@@ -29,14 +29,22 @@ export default function ProfileScreen(props) {
 
     React.useEffect(() => {
         isMounted.current = true;
-        fetchCurrentUser();
+        const timer = setTimeout(() => {
+            fetchCurrentUser();
+        }, 800);
+
         const willFocusSubscription = props.navigation.addListener(
             'focus',
             () => {
                 fetchCurrentUser();
             },
         );
-        return () => (isMounted.current = false) && willFocusSubscription;
+
+        return () =>
+            (isMounted.current = false) &&
+            willFocusSubscription &&
+            clearTimeout(timer) &&
+            setUser({ ...user });
     }, []);
 
     const onEdit = (information) => {
@@ -47,7 +55,6 @@ export default function ProfileScreen(props) {
     };
 
     const handleLogOut = () => {
-        setUser({});
         SecureStore.setItemAsync('user', '');
         navigation.navigate('LogInScreen');
     };
@@ -147,7 +154,3 @@ const styles = StyleSheet.create({
         marginVertical: 40,
     },
 });
-
-// const timer = setTimeout(() => {
-// }, 800);
-// clearTimeout(timer);
