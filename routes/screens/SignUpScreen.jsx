@@ -1,16 +1,9 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
-import dictionary from '../../dictionary/names.json';
+import dictionary from '../../dictionary/general.json';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import {
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-    SafeAreaView,
-    FlatList,
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
@@ -24,10 +17,10 @@ import * as Crypto from 'expo-crypto';
 const CryptoJS = require('crypto-js');
 
 export default function LogInScreen(props) {
-    const content = dictionary?.names; // DA dictionary
+    const content = dictionary?.customerTypes; // DA dictionary
+    const roles = props?.route.params?.roles;
     const navigation = useNavigation();
     const [value, setValue] = React.useState('');
-    const [roles, setRoles] = React.useState([]);
 
     const { control, handleSubmit } = useForm({
         defaultValues: {
@@ -55,24 +48,6 @@ export default function LogInScreen(props) {
             .then((response) => console.log(response?.status, response?.data))
             .catch((error) => console.error(error));
     };
-    const mountedRef = React.useRef(true);
-    const fetchRoles = React.useCallback(() => {
-        return axios(mongoDbConfig('roles'))
-            .then((response) => {
-                setRoles(response?.data?.documents);
-            })
-            .catch((error) => {
-                console.error(error);
-                setRoles([]);
-            });
-    }, []);
-
-    React.useEffect(() => {
-        fetchRoles();
-        return () => {
-            mountedRef.current = false;
-        };
-    }, []);
 
     const showLogIn = () => {
         navigation.navigate('LogInScreen');
