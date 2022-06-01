@@ -5,7 +5,6 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import HomeSuppliersScreen from './HomeScreen';
 import ProductsSuppliersScreen from './ProductsScreen';
 import UploadProductsScreen from './UploadProducts';
-import ProfileSuppliersScreen from './ProfileScreen';
 import ProfileScreen from '../ProfileScreen';
 import TopNavSuppliers from './TopNavSuppliers';
 
