@@ -21,8 +21,7 @@ const HighLightProductsSlider = () => {
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
-        // Fetch all categories from MongoDB api
-        axios(fetchFeaturedProducts('post', 'products', true))
+        axios(fetchFeaturedProducts('products'))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })
@@ -54,15 +53,19 @@ const HighLightProductsSlider = () => {
                         producerTitle={item?.producerTitle}
                         productDesc={content.productDesc[item?.productDesc]}
                         productUnit={item?.productUnit}
-                        bulkPrice={
-                            item?.bulkPrice + content.currency.DKK + '/kolli'
-                        }
+                        bulkPrice={item?.bulkPrice + content.currency.DKK}
                         singlePrice={
                             item?.singlePrice + content.currency.DKK + '/enhed'
                         }
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                        onPress={() =>
+                            navigation.navigate('ProductScreen', {
+                                products: products,
+                                product: item,
+                            })
+                        }
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

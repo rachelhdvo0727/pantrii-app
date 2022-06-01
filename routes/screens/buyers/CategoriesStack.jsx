@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CategoriesMainScreen from './CategoriesMainScreen';
 import CategoryScreen from './CategoryScreen';
 import CategoryProductsListScreen from './CategoryProductsListScreen';
+import ProductScreen from './ProductScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,15 @@ const CategoriesStack = () => {
                 name="CategoryProductsListScreen"
                 component={CategoryProductsListScreen}
                 options={{
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                }}
+            />
+            <Stack.Screen
+                name="ProductScreen"
+                component={ProductScreen}
+                options={{
+                    headerTitle: '',
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}

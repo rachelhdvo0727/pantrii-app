@@ -1,10 +1,17 @@
 import React from 'react';
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import {
+    StyleSheet,
+    Pressable,
+    View,
+    Text,
+    PressableProps,
+    StyleProp,
+} from 'react-native';
 
 export interface Props {
     onPress: React.ComponentProps<typeof Pressable>['onPress'];
     title: React.ComponentProps<typeof Text>['children'];
-    buttonStyle?: React.ComponentProps<typeof Pressable>['style'];
+    buttonStyle?: StyleProp<PressableProps>;
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
