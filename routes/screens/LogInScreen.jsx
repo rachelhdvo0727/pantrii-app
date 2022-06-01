@@ -37,7 +37,7 @@ export default function LogInScreen(props) {
     });
     const onSubmit = (data) => {
         // POST
-        axios(findUser(data))
+        axios(findUser(data, false))
             .then((response) => {
                 const data = response?.data?.document;
                 const currentUserRole = roles?.filter(
