@@ -16,11 +16,14 @@ export interface Props {
     onPress?: () => void;
     title: string;
     imageSrc: { uri: string };
+    secondary?: boolean;
 }
 
-const HeroCard = ({ title, imageSrc, onPress }: Props) => {
+const HeroCard = ({ title, imageSrc, onPress, secondary }: Props) => {
     return (
-        <Pressable style={styles.featuredWrapper}>
+        <Pressable
+            style={[styles.featuredWrapper, secondary && styles.secondary]}
+        >
             <ImageBackground
                 source={imageSrc}
                 style={styles.imageBg}
@@ -52,5 +55,8 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-Bold',
         letterSpacing: 1,
         textTransform: 'uppercase',
+    },
+    secondary: {
+        height: 180 / 2,
     },
 });

@@ -5,12 +5,15 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import HomeSuppliersScreen from './HomeScreen';
 import ProductsSuppliersScreen from './ProductsScreen';
 import UploadProductsScreen from './UploadProducts';
-import ProfileSuppliersScreen from './ProfileScreen';
+import ProfileScreen from '../ProfileScreen';
 import TopNavSuppliers from './TopNavSuppliers';
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomTabSuppliers() {
+export default function BottomTabSuppliers(props) {
+    React.useEffect(() => {
+        // console.log(props);
+    });
     return (
         <Tab.Navigator
             screenOptions={{
@@ -34,6 +37,7 @@ export default function BottomTabSuppliers() {
                     backgroundColor: '#1B463C',
                 },
             }}
+            initialRouteName="HomeSuppliersScreen"
         >
             <Tab.Screen
                 name="Hjem"
@@ -87,7 +91,7 @@ export default function BottomTabSuppliers() {
             />
             <Tab.Screen
                 name="Profil"
-                component={ProfileSuppliersScreen}
+                component={ProfileScreen}
                 options={{
                     headerTitle: (props) => <TopNavSuppliers {...props} />,
                     tabBarIcon: ({ focused, color }) => (
@@ -103,6 +107,7 @@ export default function BottomTabSuppliers() {
                             />
                         </View>
                     ),
+                    userRole: props?.route?.params?.userRole,
                 }}
             />
         </Tab.Navigator>

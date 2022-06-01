@@ -4,10 +4,9 @@ import * as SecureStore from 'expo-secure-store';
 
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CategoriesMainScreen from './CategoriesMainScreen';
 import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
-import ProfileScreen from './ProfileScreen';
+import UserProfileStack from '../UserProfileStack';
 import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
 
@@ -52,6 +51,7 @@ export default function BottomTabBuyers(props) {
                     elevation: 10,
                 },
             }}
+            initialRouteName="HomeStack"
         >
             <Tab.Screen
                 name="Hjem"
@@ -120,9 +120,10 @@ export default function BottomTabBuyers(props) {
             />
             <Tab.Screen
                 name="Profil"
-                component={ProfileScreen}
+                component={UserProfileStack}
                 options={{
-                    headerTitle: 'Profil',
+                    // headerTitle: 'Profil',
+                    headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
