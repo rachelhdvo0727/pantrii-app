@@ -51,6 +51,7 @@ export default function BottomTabBuyers(props) {
                     elevation: 10,
                 },
             }}
+            initialRouteName="HomeStack"
         >
             <Tab.Screen
                 name="Hjem"
