@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
     React.useEffect(() => {
-        // console.log(props);
+        console.log(props);
     });
     return (
         <Tab.Navigator
@@ -32,6 +32,13 @@ export default function BottomTabSuppliers(props) {
                 tabBarShowIcon: true,
                 tabBarStyle: {
                     height: 80,
+                    shadowOffset: {
+                        width: 0,
+                        height: 18,
+                    },
+                    shadowOpacity: 0.58,
+                    shadowRadius: 16.0,
+                    elevation: 10,
                 },
                 headerStyle: {
                     backgroundColor: '#1B463C',
@@ -92,6 +99,7 @@ export default function BottomTabSuppliers(props) {
             <Tab.Screen
                 name="Profil"
                 component={ProfileScreen}
+                initialParams={props?.route?.params}
                 options={{
                     headerTitle: (props) => <TopNavSuppliers {...props} />,
                     tabBarIcon: ({ focused, color }) => (
@@ -107,7 +115,6 @@ export default function BottomTabSuppliers(props) {
                             />
                         </View>
                     ),
-                    userRole: props?.route?.params?.userRole,
                 }}
             />
         </Tab.Navigator>

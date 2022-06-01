@@ -1,23 +1,65 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import generalStyles from '../../../styles/General';
+import { useNavigation } from '@react-navigation/native';
+// Component
+import { StyleSheet, Text, View } from 'react-native';
+import HeroCard from '../../../components/buyers/HeroCard';
+import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 import Button from '../../../components/actions/Button';
-import { StatusBar } from 'expo-status-bar';
-import IconButton from '../../../components/actions/IconButton';
-import FavoriteButton from '../../../components/actions/FavoriteButton';
-import ViewButton from '../../../components/actions/ViewButton';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function HomeSuppliersScreen() {
+export default function HomeSuppliersScreen(props) {
+    const navigation = useNavigation();
+    React.useEffect(() => {
+        console.log(props);
+    }, []);
+
+    const handleCreateProduct = () => {
+        navigation.navigate('Opret');
+    };
     return (
-        <View style={generalStyles.container}>
-            <Text style={generalStyles.headerH1}>Hjem Leverandører</Text>
-
-            <StatusBar style="auto" />
-            <Button title="log ind" primary></Button>
-            <IconButton title="detaljer" arrowRight></IconButton>
-            <IconButton title="sort" arrowDown outlined></IconButton>
-            <FavoriteButton isActive></FavoriteButton>
-            <ViewButton></ViewButton>
+        <View style={styles.container}>
+            <View style={styles.section}>
+                <HeroCard
+                    title={`Velkommen tilbage`}
+                    secondary
+                    imageSrc={require('../../../assets/banners/producer-banner-home.png')}
+                />
+                <Button
+                    primary
+                    title="&emsp;Opret vare"
+                    children={
+                        <FontAwesome name="plus" size={15} color="#FFFFFF" />
+                    }
+                    onPress={handleCreateProduct}
+                    buttonStyle={styles.buttonStyle}
+                />
+            </View>
+            <View style={styles.section}>
+                <Text style={styles.headers}>opdateringer</Text>
+            </View>
+            <View style={styles.section}>
+                <Text style={styles.headers}>dine varer</Text>
+            </View>
+            <CampaignCardSlider />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: { ...generalStyles.homeContainer },
+    section: {
+        marginHorizontal: 15,
+    },
+    buttonStyle: {
+        alignSelf: 'flex-end',
+        flexDirection: 'row-reverse',
+        justifyContent: 'center',
+
+        marginTop: 25,
+        width: '55%',
+    },
+    headers: {
+        ...generalStyles.headerH2,
+    },
+});
