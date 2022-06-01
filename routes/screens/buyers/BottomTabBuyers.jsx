@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
     React.useEffect(() => {
-        console.log(props?.route.params?.user);
+        // console.log(props?.route.params?.user);
     }, []);
 
     return (

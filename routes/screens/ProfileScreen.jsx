@@ -17,9 +17,10 @@ export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
     const [user, setUser] = React.useState({});
-    const userRole = props?.route?.params?.roleTitle;
-    const userId = props?.route?.params?._id;
+    const userRole = props?.route?.params?.user?.roleTitle;
+    const userId = props?.route?.params?.user?._id;
 
+    const isMounted = React.useRef(null);
     const fetchCurrentUser = React.useCallback(() => {
         axios(findUser(userId, true))
             .then((response) => setUser(response?.data?.document))
@@ -27,16 +28,15 @@ export default function ProfileScreen(props) {
     }, []);
 
     React.useEffect(() => {
-        const timer = setTimeout(() => {
-            fetchCurrentUser();
-        }, 800);
+        isMounted.current = true;
+        fetchCurrentUser();
         const willFocusSubscription = props.navigation.addListener(
             'focus',
             () => {
                 fetchCurrentUser();
             },
         );
-        return () => willFocusSubscription && clearTimeout(timer);
+        return () => (isMounted.current = false) && willFocusSubscription;
     }, []);
 
     const onEdit = (information) => {
@@ -47,6 +47,7 @@ export default function ProfileScreen(props) {
     };
 
     const handleLogOut = () => {
+        setUser({});
         SecureStore.setItemAsync('user', '');
         navigation.navigate('LogInScreen');
     };
@@ -146,3 +147,7 @@ const styles = StyleSheet.create({
         marginVertical: 40,
     },
 });
+
+// const timer = setTimeout(() => {
+// }, 800);
+// clearTimeout(timer);

@@ -59,7 +59,6 @@ export default function ProfileEditScreen(props) {
         // Remove address object in data to send when it's 'profile' info.
         if (informationType === 'profile') {
             delete dataDifferences?.address;
-            console.log(data);
         }
 
         // POST

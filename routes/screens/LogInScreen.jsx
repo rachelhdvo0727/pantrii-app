@@ -18,6 +18,7 @@ export default function LogInScreen(props) {
     const [roles, setRoles] = React.useState([]);
 
     React.useEffect(() => {
+        // console.log('login', props?.route);
         // Fetch all roles for this app
         axios(mongoDbConfig('roles'))
             .then((response) => {
@@ -61,18 +62,26 @@ export default function LogInScreen(props) {
                     // Navigate to the screens based on user's role
                     if (user?.roleId === currentUserRole[0]?._id) {
                         currentUserRole[0]?.role === 'producer' &&
-                            navigation.navigate('BottomTabSuppliers', {
-                                screen: 'HomeSuppliersScreen',
-                                user: user,
-                            });
+                            navigation.navigate(
+                                'BottomTabSuppliers',
+                                { user: user },
+                                // {
+                                // screen: 'HomeSuppliersScreen',
+                                // // user: user,
+                                // }
+                            );
                         currentUserRole[0]?.role === 'buyer' &&
-                            navigation.navigate('BottomTabBuyers', {
-                                screen: 'HomeStack',
-                                params: {
-                                    screen: 'HomeScreen',
-                                    user: user,
-                                },
-                            });
+                            navigation.navigate(
+                                'BottomTabBuyers',
+                                { user: user },
+                                // {
+                                // screen: 'HomeStack',
+                                // params: {
+                                //     screen: 'HomeScreen',
+                                //     // user: user,
+                                // },
+                                // }
+                            );
                     }
                     reset();
                 }

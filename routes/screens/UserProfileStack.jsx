@@ -6,6 +6,9 @@ import ProfileEditScreen from './ProfileEditScreen';
 const Stack = createNativeStackNavigator();
 
 const UserProfileStack = (props) => {
+    React.useEffect(() => {
+        // console.log('profilestack', props.route);
+    });
     return (
         <Stack.Navigator
             screenOptions={{
