@@ -1,6 +1,5 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
-import User from '../../models/User';
 import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native';
@@ -10,27 +9,37 @@ import Button from '../../components/actions/Button';
 import HeroCard from '../../components/buyers/HeroCard';
 import InformationCard from '../../components/InformationCard';
 import SectionInInformationCard from '../../components/SectionInInformationCard';
+// API
+import axios from 'axios';
+import { findUser } from '../../utils/api';
 
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
     const [user, setUser] = React.useState({});
-    const [edit, setEdit] = React.useState(false);
+    const userRole = props?.route?.params?.roleTitle;
+    const userId = props?.route?.params?._id;
+
+    const fetchCurrentUser = React.useCallback(() => {
+        axios(findUser(userId, true))
+            .then((response) => setUser(response?.data?.document))
+            .catch((error) => console.error(error));
+    }, []);
 
     React.useEffect(() => {
-        async function fetchUser() {
-            try {
-                setUser(JSON.parse(await SecureStore.getItemAsync('user')));
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchUser();
+        const timer = setTimeout(() => {
+            fetchCurrentUser();
+        }, 800);
+        const willFocusSubscription = props.navigation.addListener(
+            'focus',
+            () => {
+                fetchCurrentUser();
+            },
+        );
+        return () => willFocusSubscription && clearTimeout(timer);
     }, []);
 
     const onEdit = (information) => {
-        setEdit(true);
-
         navigation.navigate('ProfileEditScreen', {
             user: user,
             informationType: information,
@@ -88,7 +97,7 @@ export default function ProfileScreen(props) {
     return (
         <View style={generalStyles.container}>
             <HeroCard
-                title={content[user?.roleTitle]}
+                title={content[userRole]}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
             />
