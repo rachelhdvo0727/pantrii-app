@@ -122,7 +122,6 @@ export default function BottomTabBuyers(props) {
                 name="Profil"
                 component={UserProfileStack}
                 options={{
-                    // headerTitle: 'Profil',
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
