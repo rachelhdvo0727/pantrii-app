@@ -16,6 +16,7 @@ export default class User {
         public phone: string,
         public address: Address,
         public roleId: string,
+        public roleTitle: string,
     ) {
         this._id = _id;
         this.firstName = firstName;
@@ -24,5 +25,7 @@ export default class User {
         this.password = password;
         this.phone = phone;
         this.address = address;
+        this.roleId = roleId;
+        this.roleTitle = roleTitle;
     }
 }
