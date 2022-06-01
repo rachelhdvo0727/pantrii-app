@@ -83,8 +83,13 @@ export default function ProfileScreen(props) {
                     <Text style={styles.text}>
                         {user?.address?.line1} {user?.address?.line2}
                     </Text>
-                    <Text style={styles.text}>{user?.address?.zipCode}</Text>
-                    <Text style={styles.text}>{user?.address?.city}</Text>
+                    <View style={styles.cityWrapper}>
+                        <Text style={styles.text}>
+                            {user?.address?.zipCode}
+                        </Text>
+                        <Text style={styles.text}>{user?.address?.city}</Text>
+                    </View>
+
                     <Text style={styles.text}>{user?.address?.country}</Text>
                 </React.Fragment>
             }
@@ -128,6 +133,11 @@ const styles = StyleSheet.create({
         ...generalStyles.mediumText,
     },
     text: { ...generalStyles.paragraphText },
+    cityWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 110, // adjust space-between in flex
+    },
     iconButton: {
         alignSelf: 'center',
     },
