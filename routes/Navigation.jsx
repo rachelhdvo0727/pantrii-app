@@ -1,27 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import * as SecureStore from 'expo-secure-store';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 // Components
-import { StyleSheet } from 'react-native';
 import BottomTabBuyers from './screens/buyers/BottomTabBuyers';
-// import BottomTabSuppliers from './screens/suppliers/BottomTabSuppliers';
+import BottomTabSuppliers from './screens/suppliers/BottomTabSuppliers';
 import LogInScreen from './screens/LogInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function Navigation() {
-    // TODO: use actual login
-    const [loggedInUser, setLoggedInUser] = React.useState({
-        email: '',
-        password: '',
-    });
-
-    // React.useEffect(() => {
-    //     SecureStore.getItemAsync('user');
-    // });
-
+export default function Navigation(props) {
     const screenOptions = {
         headerTitleStyle: {
             color: '#EFF2EE',
@@ -38,16 +27,19 @@ export default function Navigation() {
         },
         headerTintColor: '#EFF2EE',
     };
+
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={screenOptions}>
-                {/* <Stack.Screen
+            <Stack.Navigator
+                screenOptions={screenOptions}
+                initialRouteName={props?.initialRoute}
+            >
+                <Stack.Screen
                     name="LogInScreen"
                     component={LogInScreen}
                     options={{
                         headerShown: false,
                     }}
-                    initialParams={{ user: loggedInUser }}
                 />
                 <Stack.Screen
                     name="SignUpScreen"
@@ -55,20 +47,26 @@ export default function Navigation() {
                     options={{
                         headerShown: false,
                     }}
-                /> */}
+                />
                 <Stack.Screen
                     name="BottomTabBuyers"
                     component={BottomTabBuyers}
-                    options={({ route }) => ({
+                    options={{
                         headerShown: false,
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
-                    })}
-                    initialParams={{ user: loggedInUser }}
+                    }}
+                ></Stack.Screen>
+                <Stack.Screen
+                    name="BottomTabSuppliers"
+                    component={BottomTabSuppliers}
+                    options={{
+                        headerShown: false,
+                        headerBackTitleVisible: false,
+                        headerBackVisible: false,
+                    }}
                 ></Stack.Screen>
             </Stack.Navigator>
-
-            {/* <BottomTabSuppliers /> */}
         </NavigationContainer>
     );
 }

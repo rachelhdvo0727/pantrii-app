@@ -1,20 +1,35 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
-// Components
-import { StyleSheet, Text, View, Image } from 'react-native';
+import User from '../../models/User';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+import { saveData, objectToString } from '../../utils/functions';
+// Components
+import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
-import { useForm, Controller } from 'react-hook-form';
+// API
 import axios from 'axios';
-import { findUser } from '../../utils/api';
-import { saveData, objectToString } from '../../utils/functions';
-import * as SecureStore from 'expo-secure-store';
+import { findUser, mongoDbConfig } from '../../utils/api';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
-    const { control, handleSubmit } = useForm({
+    const [roles, setRoles] = React.useState([]);
+
+    React.useEffect(() => {
+        // Fetch all roles for this app
+        axios(mongoDbConfig('roles'))
+            .then((response) => {
+                // console.log(response?.data);
+                setRoles(response?.data?.documents);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
+
+    const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             email: '',
             password: '',
@@ -24,18 +39,49 @@ export default function LogInScreen(props) {
         // POST
         axios(findUser(data))
             .then((response) => {
-                // founduser ? save in SecureStore && go to Home
-                if (response?.status === 200)
-                    navigation?.navigate({
-                        name: 'BottomTabBuyers',
-                        params: { user: response?.data?.document },
-                    });
+                const data = response?.data?.document;
+                const currentUserRole = roles?.filter(
+                    (role) => data?.roleId === role?._id,
+                );
+                const user = new User(
+                    data?._id,
+                    data?.firstName,
+                    data?.lastName,
+                    data?.email,
+                    data?.password,
+                    data?.phone,
+                    data?.address,
+                    data?.roleId,
+                    currentUserRole[0]?.role,
+                );
+
+                if (response?.status === 200) {
+                    saveData('user', objectToString(user)); // save in SecureStore
+
+                    // Navigate to the screens based on user's role
+                    if (user?.roleId === currentUserRole[0]?._id) {
+                        currentUserRole[0]?.role === 'producer' &&
+                            navigation.navigate('BottomTabSuppliers', {
+                                screen: 'HomeSuppliersScreen',
+                                user: user,
+                            });
+                        currentUserRole[0]?.role === 'buyer' &&
+                            navigation.navigate('BottomTabBuyers', {
+                                screen: 'HomeStack',
+                                params: {
+                                    screen: 'HomeScreen',
+                                    user: user,
+                                },
+                            });
+                    }
+                    reset();
+                }
             })
             .catch((error) => console.error(error));
     };
 
     const showSignUp = () => {
-        navigation?.navigate('SignUpScreen');
+        navigation?.navigate('SignUpScreen', { roles: roles });
     };
 
     return (
@@ -137,7 +183,7 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         paddingHorizontal: 18,
     },
-    icon: { marginTop: 10, marginBottom: 50 },
+    icon: { marginTop: 5, marginBottom: 40 },
     formWrapper: {
         width: '95%',
     },
@@ -149,6 +195,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: 'center',
         marginTop: 25,
-        marginBottom: 5,
+        marginBottom: 15,
     },
 });

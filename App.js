@@ -1,7 +1,6 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
+import * as SecureStore from 'expo-secure-store';
 import AppLoading from 'expo-app-loading';
 import Navigation from './routes/Navigation';
 
@@ -15,6 +14,31 @@ const loadFonts = () => {
 };
 export default function App() {
     const [fontLoaded, setFontLoaded] = React.useState(false);
+    const [loggedInUser, setLoggedInUser] = React.useState({});
+    const [initialRoute, setInitialRoute] = React.useState(null || '');
+
+    React.useEffect(() => {
+        (async function () {
+            try {
+                const user = await SecureStore.getItemAsync('user');
+                if (user?.length !== 0) {
+                    const parsedUser = JSON.parse(user);
+                    setLoggedInUser(parsedUser);
+                    // console.log('found user', parsedUser);
+                    parsedUser?.roleTitle === 'producer' &&
+                        setInitialRoute('BottomTabSuppliers');
+                    parsedUser?.roleTitle === 'buyer' &&
+                        setInitialRoute('BottomTabBuyers');
+                } else {
+                    setLoggedInUser({});
+                    setInitialRoute('LogInScreen');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, []);
+
     if (!fontLoaded) {
         return (
             <AppLoading
@@ -24,14 +48,6 @@ export default function App() {
             />
         );
     }
-    return <Navigation />;
-}
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+    return <Navigation initialRoute={initialRoute} user={loggedInUser} />;
+}

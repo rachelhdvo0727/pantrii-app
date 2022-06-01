@@ -2,112 +2,84 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import { useNavigation } from '@react-navigation/native';
-// Components
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
-import Button from '../../components/actions/Button';
-import InputField from '../../components/InputField';
-import AppLogo from '../../components/svgs/AppLogo';
 import { useForm, Controller } from 'react-hook-form';
-import { RadioButton } from 'react-native-paper';
-import ApprovedModal from '../../components/ApprovedModal';
+// Components
+import { StyleSheet, Text, View } from 'react-native';
+import HeroCard from '../../components/buyers/HeroCard';
+import InputField from '../../components/InputField';
+import BackIconButton from '../../components/actions/BackIconButton';
+import Button from '../../components/actions/Button';
+import { Feather } from '@expo/vector-icons';
 // API
 import axios from 'axios';
-import { createUserAccount, mongoDbConfig } from '../../utils/api';
-import * as Crypto from 'expo-crypto';
-const CryptoJS = require('crypto-js');
 
-export default function LogInScreen(props) {
-    const content = dictionary?.customerTypes; // DA dictionary
-    const roles = props?.route.params?.roles;
+export default function ProfileEditScreen(props) {
     const navigation = useNavigation();
-    const [value, setValue] = React.useState('');
+    const content = dictionary?.customerTypes;
+    const user = props.route?.params?.user;
+    const informationType = props.route?.params?.informationType;
+    const information =
+        informationType === 'profile'
+            ? 'profil'
+            : informationType === 'address'
+            ? 'adresse'
+            : null;
 
-    const { control, handleSubmit } = useForm({
-        defaultValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            phone: '',
-            address: {
-                line1: '',
-                line2: '',
-                zipCode: '',
-                city: '',
-                country: '',
-            },
-            roleId: '',
-        },
-    });
+    const [hasUserInformation, setHasUserInformation] = React.useState(false);
+    const [focused, setFocused] = React.useState(false);
+
+    React.useEffect(() => {
+        // console.log('editprofile', user);
+        props.navigation?.setOptions({
+            headerTitle: `REDIGER ${information.toUpperCase()}`,
+            headerLeft: () => (
+                <BackIconButton onPress={() => navigation.goBack()} />
+            ),
+        });
+
+        if (user) {
+            reset(user);
+            setHasUserInformation(true);
+        }
+    }, [informationType, user]);
+
+    const { control, handleSubmit, reset } = useForm({});
 
     const onSubmit = (data) => {
-        setModalVisible(true);
-
-        // Send data
-        axios(createUserAccount(data))
-            .then((response) => console.log(response?.status, response?.data))
-            .catch((error) => console.error(error));
+        // POST
     };
 
-    const showLogIn = () => {
-        navigation.navigate('LogInScreen');
-    };
-
-    // Modal
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const onSignUpSuccess = () => {
-        setModalVisible(!modalVisible);
-        navigation?.navigate('LogInScreen');
+    const onFocus = () => {
+        setFocused(true);
+        setHasUserInformation(false);
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, marginTop: 70 }}>
-            <ScrollView>
-                <View style={styles.container}>
-                    <AppLogo style={styles.icon}></AppLogo>
-
-                    {/* Form */}
-                    <View style={styles.formWrapper}>
-                        <Text style={styles.header}>jeg er ny her</Text>
-                        <RadioButton.Group
-                            onValueChange={(newValue) => setValue(newValue)}
-                            value={value}
-                        >
-                            <View style={styles.radioButtonGroup}>
-                                <RadioButton.Item
-                                    label={content[roles[0]?.role]}
-                                    value={roles[0]?._id}
-                                    status={
-                                        value === content?.customer
-                                            ? 'checked'
-                                            : 'unchecked'
-                                    }
-                                    color="#000000"
-                                    mode="android"
-                                    position="leading"
-                                    labelStyle={styles.radioButtonLabel}
-                                />
-                                <RadioButton.Item
-                                    label={content[roles[1]?.role]}
-                                    status={
-                                        value === content?.producer
-                                            ? 'checked'
-                                            : 'unchecked'
-                                    }
-                                    value={roles[1]?._id}
-                                    color="#000000"
-                                    labelStyle={styles.radioButtonLabel}
-                                    mode="android"
-                                    position="leading"
-                                />
-                            </View>
-                        </RadioButton.Group>
+        <View style={styles.container}>
+            <HeroCard
+                title={content[user?.roleTitle]}
+                secondary
+                imageSrc={require('../../assets/banners/profile-hero.png')}
+            />
+            <View style={styles.formWrapper}>
+                <Text style={styles.header}>
+                    {informationType === 'profile' &&
+                        `${information[0].toUpperCase()}${information.slice(
+                            1,
+                        )} information`}
+                    {informationType === 'address' &&
+                        `${information[0].toUpperCase()}${information.slice(
+                            1,
+                        )}`}
+                    {'  '}
+                    <Feather name="edit-2" size={13} color="black" />
+                </Text>
+                {informationType === 'profile' && (
+                    <React.Fragment>
                         <Controller
                             name="firstName"
                             control={control}
-                            rules={{
-                                required: 'Fornavn er påkrævet',
-                            }}
+                            rules={{}}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
@@ -121,15 +93,16 @@ export default function LogInScreen(props) {
                                     autoComplete={false}
                                     autoCapitalize="words"
                                     errorMessage={error}
+                                    hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
-                        ></Controller>
+                        />
                         <Controller
                             name="lastName"
                             control={control}
-                            rules={{
-                                required: 'Efternavn er påkrævet',
-                            }}
+                            rules={{}}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
@@ -143,10 +116,12 @@ export default function LogInScreen(props) {
                                     autoComplete={false}
                                     autoCapitalize="words"
                                     errorMessage={error}
+                                    hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
-                        ></Controller>
-
+                        />
                         <Controller
                             name="email"
                             control={control}
@@ -170,43 +145,12 @@ export default function LogInScreen(props) {
                                     autoCapitalize="none"
                                     autoComplete={false}
                                     errorMessage={error}
+                                    hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
-                        ></Controller>
-                        <Controller
-                            name="password"
-                            control={control}
-                            rules={{
-                                required: 'Adgangskode er påkrævet',
-                                minLength: {
-                                    value: 12,
-                                    message:
-                                        'Adgangskode skal være mellem 12-20 karakterer',
-                                },
-                                maxLength: {
-                                    value: 20,
-                                    message:
-                                        'Adgangskode skal være mellem 12-20 karakterer',
-                                },
-                            }}
-                            render={({
-                                field: { onChange, onBlur, value },
-                                fieldState: { error },
-                            }) => (
-                                <InputField
-                                    label="adgangskode *"
-                                    placeholder="**********"
-                                    value={value}
-                                    onChangeText={onChange}
-                                    onBlur={onBlur}
-                                    secureTextEntry
-                                    isPasswordInput
-                                    autoComplete={false}
-                                    errorMessage={error}
-                                    maxLength={20}
-                                ></InputField>
-                            )}
-                        ></Controller>
+                        />
                         <Controller
                             name="phone"
                             control={control}
@@ -230,9 +174,16 @@ export default function LogInScreen(props) {
                                     onBlur={onBlur}
                                     autoComplete={false}
                                     errorMessage={error}
+                                    hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
-                        ></Controller>
+                        />
+                    </React.Fragment>
+                )}
+                {informationType === 'address' && (
+                    <React.Fragment>
                         <Controller
                             name={`address.line1`}
                             control={control}
@@ -252,9 +203,12 @@ export default function LogInScreen(props) {
                                     errorMessage={error}
                                     autoComplete={false}
                                     autoCapitalize="words"
+                                    hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
-                        ></Controller>
+                        />
                         <Controller
                             name={`address.line2`}
                             control={control}
@@ -271,10 +225,11 @@ export default function LogInScreen(props) {
                                     errorMessage={error}
                                     autoComplete={false}
                                     autoCapitalize="sentences"
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
-                        ></Controller>
-
+                        />
                         <View style={styles.fieldset}>
                             <Controller
                                 name={`address.zipCode`}
@@ -296,9 +251,12 @@ export default function LogInScreen(props) {
                                         autoComplete={false}
                                         keyboardType="numbers-and-punctuation"
                                         inputStyle={styles.fieldsetCell}
+                                        hasUserInformation
+                                        onFocus={onFocus}
+                                        focused={focused}
                                     ></InputField>
                                 )}
-                            ></Controller>
+                            />
                             <Controller
                                 name={`address.city`}
                                 control={control}
@@ -318,9 +276,12 @@ export default function LogInScreen(props) {
                                         onBlur={onBlur}
                                         errorMessage={error}
                                         inputStyle={styles.fieldsetCell}
+                                        hasUserInformation
+                                        onFocus={onFocus}
+                                        focused={focused}
                                     ></InputField>
                                 )}
-                            ></Controller>
+                            />
                         </View>
                         <Controller
                             name={`address.country`}
@@ -340,82 +301,48 @@ export default function LogInScreen(props) {
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     errorMessage={error}
+                                    hasUserInformation
+                                    onFocus={onFocus}
+                                    focused={focused}
                                 ></InputField>
                             )}
-                        ></Controller>
-
-                        <Button
-                            title="registrér mig"
-                            primary
-                            buttonStyle={styles.buttonStyle}
-                            onPress={handleSubmit(onSubmit)}
-                        ></Button>
-                    </View>
-                    <Text style={styles.mediumText}>Velkommen tilbage</Text>
-                    <Button
-                        title="log ind"
-                        outlined
-                        buttonStyle={styles.buttonStyle}
-                        onPress={showLogIn}
-                    ></Button>
-                </View>
-            </ScrollView>
-
-            {/* Success sign uo modal */}
-            <ApprovedModal
-                messageTitle="godkendt"
-                messageText="Din konto er oprette. Fortsæt med at logge ind"
-                isModalVisible={modalVisible}
-                buttonTitle="log ind"
-                hasConfirmedIcon={true}
-                hasButton={true}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-                onPress={onSignUpSuccess}
-            ></ApprovedModal>
-        </SafeAreaView>
+                        />
+                    </React.Fragment>
+                )}
+                <Button
+                    primary
+                    buttonStyle={styles.buttonStyle}
+                    disabled={hasUserInformation}
+                    title="Gem"
+                    onPress={handleSubmit(onSubmit)}
+                ></Button>
+            </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         ...generalStyles.container,
-        backgroundColor: '#EFF2EE',
-        justifyContent: 'center',
-        flexDirection: 'column',
         alignItems: 'center',
     },
-    icon: {
-        marginVertical: 5,
-    },
-    formWrapper: { width: '95%', marginVertical: 20 },
     header: {
-        ...generalStyles.headerH1,
-        color: '#000000',
-        marginVertical: 10,
-        paddingHorizontal: 18,
+        ...generalStyles.headerH3,
+        marginBottom: 13,
+        marginLeft: 20,
     },
-    buttonStyle: { alignSelf: 'center', marginVertical: 15 },
+    formWrapper: {
+        paddingVertical: 30,
+        width: '95%',
+        alignSelf: 'center',
+        flex: 1,
+    },
     fieldset: {
         flexDirection: 'row',
     },
     fieldsetCell: { flex: 1 },
-    radioButtonGroup: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    radioButtonLabel: {
-        fontFamily: 'TT-Commons-DemiBold',
-        fontSize: 14,
-        lineHeight: 17,
-        letterSpacing: 1,
-        textTransform: 'capitalize',
-        paddingHorizontal: 5,
-    },
-    mediumText: {
-        ...generalStyles.mediumText,
-        fontSize: 15,
-        textAlign: 'center',
+    buttonStyle: { alignSelf: 'center', marginVertical: 10, width: '40%' },
+    hasDefaultValue: {
+        color: 'grey',
     },
 });

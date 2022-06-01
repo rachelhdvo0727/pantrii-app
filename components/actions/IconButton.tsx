@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import {
+    StyleSheet,
+    Pressable,
+    View,
+    Text,
+    StyleProp,
+    PressableProps,
+} from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export interface Props {
@@ -7,6 +14,7 @@ export interface Props {
     onPressOut?: () => void;
     title: string;
     children?: React.ReactChild;
+    iconButtonStyle?: StyleProp<PressableProps>;
     isActive?: boolean;
     outlined?: boolean;
     arrowRight?: boolean;
@@ -14,6 +22,7 @@ export interface Props {
 }
 
 const IconButton: React.FC<Props> = ({
+    iconButtonStyle,
     title,
     children,
     outlined,
@@ -25,7 +34,11 @@ const IconButton: React.FC<Props> = ({
     return (
         <Pressable
             onPress={onPress}
-            style={[styles.container, outlined && styles.outlined]}
+            style={[
+                styles.container,
+                outlined && styles.outlined,
+                iconButtonStyle,
+            ]}
             onPressOut={onPressOut}
         >
             <View style={styles.wrapper}>

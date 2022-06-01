@@ -6,6 +6,7 @@ export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
     label: string;
     onBlur?: React.ComponentProps<typeof TextInput>['onBlur'];
+    onFocus?: React.ComponentProps<typeof TextInput>['onFocus'];
     onChangeText?: React.ComponentProps<typeof TextInput>['onChangeText'];
     errorMessage?: { message: string };
     placeholder: React.ComponentProps<typeof TextInput>['placeholder'];
@@ -17,12 +18,15 @@ export interface Props {
     isPasswordInput?: boolean;
     maxLength?: React.ComponentProps<typeof TextInput>['maxLength'];
     inputStyle?: React.ComponentProps<typeof View>['style'];
+    hasDefaultValue?: boolean;
+    focused?: boolean;
 }
 
 export default function InputField({
     value,
     label,
     onBlur,
+    onFocus,
     onChangeText,
     errorMessage,
     placeholder,
@@ -33,6 +37,8 @@ export default function InputField({
     autoCapitalize,
     autoComplete,
     inputStyle,
+    hasDefaultValue,
+    focused,
 }: Props) {
     return (
         <View style={[inputStyle]}>
@@ -50,7 +56,12 @@ export default function InputField({
                     secureTextEntry={secureTextEntry}
                     maxLength={maxLength}
                     blurOnSubmit
-                    style={styles.textValue}
+                    style={[
+                        styles.textValue,
+                        hasDefaultValue && styles.hasDefaultValue,
+                        focused && { opacity: 1 },
+                    ]}
+                    onFocus={onFocus}
                 ></TextInput>
             </View>
             {/* Error message */}
@@ -116,6 +127,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         marginTop: 1,
     },
+    hasDefaultValue: { opacity: 0.2 },
     errorContainer: {
         flexDirection: 'row',
 
