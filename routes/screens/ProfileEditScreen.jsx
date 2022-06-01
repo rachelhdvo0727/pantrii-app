@@ -1,6 +1,6 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
-import User from '../../models/User';
+import dictionary from '../../dictionary/general.json';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 // Components
@@ -15,6 +15,7 @@ import axios from 'axios';
 
 export default function ProfileEditScreen(props) {
     const navigation = useNavigation();
+    const content = dictionary?.customerTypes;
     const user = props.route?.params?.user;
     const informationType = props.route?.params?.informationType;
     const information =
@@ -28,6 +29,7 @@ export default function ProfileEditScreen(props) {
     const [focused, setFocused] = React.useState(false);
 
     React.useEffect(() => {
+        // console.log('editprofile', user);
         props.navigation?.setOptions({
             headerTitle: `REDIGER ${information.toUpperCase()}`,
             headerLeft: () => (
@@ -55,7 +57,7 @@ export default function ProfileEditScreen(props) {
     return (
         <View style={styles.container}>
             <HeroCard
-                title="User Role"
+                title={content[user?.roleTitle]}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
             />

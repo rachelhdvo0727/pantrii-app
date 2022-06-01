@@ -1,6 +1,7 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
 import User from '../../models/User';
+import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native';
 // Components
@@ -11,8 +12,9 @@ import InformationCard from '../../components/InformationCard';
 import SectionInInformationCard from '../../components/SectionInInformationCard';
 
 export default function ProfileScreen(props) {
-    const [user, setUser] = React.useState({});
+    const content = dictionary?.customerTypes;
     const navigation = useNavigation();
+    const [user, setUser] = React.useState({});
     const [edit, setEdit] = React.useState(false);
 
     React.useEffect(() => {
@@ -86,7 +88,7 @@ export default function ProfileScreen(props) {
     return (
         <View style={generalStyles.container}>
             <HeroCard
-                title="User Role"
+                title={content[user?.roleTitle]}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
             />
