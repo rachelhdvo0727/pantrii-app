@@ -121,6 +121,7 @@ export default function BottomTabBuyers(props) {
             <Tab.Screen
                 name="Profil"
                 component={UserProfileStack}
+                initialParams={props?.route?.params}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
