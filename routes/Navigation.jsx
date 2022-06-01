@@ -1,17 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 // Components
 import BottomTabBuyers from './screens/buyers/BottomTabBuyers';
-// import BottomTabSuppliers from './screens/suppliers/BottomTabSuppliers';
+import BottomTabSuppliers from './screens/suppliers/BottomTabSuppliers';
 import LogInScreen from './screens/LogInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation(props) {
-    console.log('navigation', props);
-
     const screenOptions = {
         headerTitleStyle: {
             color: '#EFF2EE',
@@ -57,7 +56,15 @@ export default function Navigation(props) {
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     }}
-                    initialParams={{ user: props?.user }}
+                ></Stack.Screen>
+                <Stack.Screen
+                    name="BottomTabSuppliers"
+                    component={BottomTabSuppliers}
+                    options={{
+                        headerShown: false,
+                        headerBackTitleVisible: false,
+                        headerBackVisible: false,
+                    }}
                 ></Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
