@@ -4,20 +4,32 @@ import User from '../../models/User';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import { saveData, objectToString } from '../../utils/functions';
-import * as SecureStore from 'expo-secure-store';
 // Components
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
 // API
 import axios from 'axios';
-import { findUser } from '../../utils/api';
+import { findUser, mongoDbConfig } from '../../utils/api';
 
-export default function LogInScreen() {
+export default function LogInScreen(props) {
     const navigation = useNavigation();
+    const [roles, setRoles] = React.useState([]);
 
-    const { control, handleSubmit } = useForm({
+    React.useEffect(() => {
+        // Fetch all roles for this app
+        axios(mongoDbConfig('roles'))
+            .then((response) => {
+                // console.log(response?.data);
+                setRoles(response?.data?.documents);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
+
+    const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             email: '',
             password: '',
@@ -28,6 +40,9 @@ export default function LogInScreen() {
         axios(findUser(data))
             .then((response) => {
                 const data = response?.data?.document;
+                const currentUserRole = roles?.filter(
+                    (role) => data?.roleId === role?._id,
+                );
                 const user = new User(
                     data?._id,
                     data?.firstName,
@@ -37,24 +52,36 @@ export default function LogInScreen() {
                     data?.phone,
                     data?.address,
                     data?.roleId,
+                    currentUserRole[0]?.role,
                 );
 
-                // save in SecureStore & go to Home
                 if (response?.status === 200) {
-                    saveData('user', objectToString(user));
-                    navigation.navigate('BottomTabBuyers', {
-                        screen: 'HomeStack',
-                        params: {
-                            screen: 'HomeScreen',
-                        },
-                    });
+                    saveData('user', objectToString(user)); // save in SecureStore
+
+                    // Navigate to the screens based on user's role
+                    if (user?.roleId === currentUserRole[0]?._id) {
+                        currentUserRole[0]?.role === 'producer' &&
+                            navigation.navigate('BottomTabSuppliers', {
+                                screen: 'HomeSuppliersScreen',
+                                user: user,
+                            });
+                        currentUserRole[0]?.role === 'buyer' &&
+                            navigation.navigate('BottomTabBuyers', {
+                                screen: 'HomeStack',
+                                params: {
+                                    screen: 'HomeScreen',
+                                    user: user,
+                                },
+                            });
+                    }
+                    reset();
                 }
             })
             .catch((error) => console.error(error));
     };
 
     const showSignUp = () => {
-        navigation?.navigate('SignUpScreen');
+        navigation?.navigate('SignUpScreen', { roles: roles });
     };
 
     return (
