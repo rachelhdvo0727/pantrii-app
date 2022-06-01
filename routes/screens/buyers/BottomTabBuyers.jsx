@@ -7,6 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
 import UserProfileStack from '../UserProfileStack';
+import CartStack from './CartStack';
 import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
 
@@ -104,9 +105,9 @@ export default function BottomTabBuyers(props) {
             />
             <Tab.Screen
                 name="Kurv"
-                component={CartScreen}
+                component={CartStack}
                 options={{
-                    headerTitle: 'Kurv',
+                    headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons

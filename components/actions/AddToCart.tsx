@@ -13,15 +13,18 @@ export interface Props {
 
 const AddToCart: React.FC<Props> = ({}) => {
     const [quantity, setQuantity] = useState(1);
+    const [add, setAdd] = useState('Tilføj til kurv');
+    const onPressConfirm = () => setAdd('Tilføjet');
     return (
         <Button
             // onPress={onPressAdd}
             onPress={() => {
+                setAdd('Tilføjet');
                 setQuantity(quantity + 1);
                 console.log(quantity);
             }}
             secondary
-            title="Tilføj til kurv"
+            title={add}
         />
     );
 };
