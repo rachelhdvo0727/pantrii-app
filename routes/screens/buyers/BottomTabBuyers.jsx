@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
     React.useEffect(() => {
-        console.log(props?.route.params?.user);
+        // console.log(props?.route.params?.user);
     }, []);
 
     return (
@@ -121,8 +121,8 @@ export default function BottomTabBuyers(props) {
             <Tab.Screen
                 name="Profil"
                 component={UserProfileStack}
+                initialParams={props?.route?.params}
                 options={{
-                    // headerTitle: 'Profil',
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>

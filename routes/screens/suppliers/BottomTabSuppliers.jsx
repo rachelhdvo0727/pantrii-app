@@ -7,12 +7,13 @@ import ProductsSuppliersScreen from './ProductsScreen';
 import UploadProductsScreen from './UploadProducts';
 import ProfileScreen from '../ProfileScreen';
 import TopNavSuppliers from './TopNavSuppliers';
+import UserProfileStack from '../UserProfileStack';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
     React.useEffect(() => {
-        // console.log(props);
+        // console.log('nav', props?.route?.params);
     });
     return (
         <Tab.Navigator
@@ -91,8 +92,10 @@ export default function BottomTabSuppliers(props) {
             />
             <Tab.Screen
                 name="Profil"
-                component={ProfileScreen}
+                component={UserProfileStack}
+                initialParams={props?.route?.params}
                 options={{
+                    headerShown: false,
                     headerTitle: (props) => <TopNavSuppliers {...props} />,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -107,7 +110,6 @@ export default function BottomTabSuppliers(props) {
                             />
                         </View>
                     ),
-                    userRole: props?.route?.params?.userRole,
                 }}
             />
         </Tab.Navigator>

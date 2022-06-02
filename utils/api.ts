@@ -62,24 +62,33 @@ export const createUserAccount = (document: User) => {
 };
 
 // LOG IN
-const userData = (data: User) => {
-    return JSON.stringify({
-        collection: 'users',
-        dataSource: 'PantriiApp',
-        database: 'pantriiapp',
-        filter: {
-            email: data?.email,
-            password: data?.password,
-        },
-    });
+const userData = (data: User, byId?: boolean) => {
+    return byId === false
+        ? JSON.stringify({
+              collection: 'users',
+              dataSource: 'PantriiApp',
+              database: 'pantriiapp',
+              filter: {
+                  email: data?.email,
+                  password: data?.password,
+              },
+          })
+        : JSON.stringify({
+              collection: 'users',
+              dataSource: 'PantriiApp',
+              database: 'pantriiapp',
+              filter: {
+                  _id: { $oid: data },
+              },
+          });
 };
 
-export const findUser = (data: User) => {
+export const findUser = (data: User, byId?: boolean) => {
     return {
         method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
         headers: headers,
-        data: userData(data),
+        data: userData(data, byId),
     };
 };
 
@@ -150,7 +159,6 @@ export const fetchCategoryProducts = (categoryId: string, sort?: number) => {
 
 // EDITING USER INFORMATION
 const currentUser = (data: User, information: Object) => {
-    console.log(information);
     return JSON.stringify({
         collection: 'users',
         dataSource: 'PantriiApp',
@@ -159,10 +167,7 @@ const currentUser = (data: User, information: Object) => {
             _id: { $oid: data._id },
         },
         update: {
-            $set: {
-                status: 'complete',
-                completedAt: information,
-            },
+            $set: information,
         },
     });
 };

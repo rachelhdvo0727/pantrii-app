@@ -56,6 +56,7 @@ export default function Navigation(props) {
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     }}
+                    initialParams={props?.user}
                 ></Stack.Screen>
                 <Stack.Screen
                     name="BottomTabSuppliers"
@@ -65,6 +66,7 @@ export default function Navigation(props) {
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     }}
+                    initialParams={props?.user}
                 ></Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
