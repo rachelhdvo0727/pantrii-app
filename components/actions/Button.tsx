@@ -15,6 +15,7 @@ export interface Props {
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
+    confirmed: boolean;
     children?: React.ReactChild;
     disabled?: React.ComponentProps<typeof Pressable>['disabled'];
     onPressOut?: React.ComponentProps<typeof Pressable>['onPressOut'];
@@ -26,6 +27,7 @@ const Button: React.FC<Props> = ({
     primary,
     secondary,
     outlined,
+    confirmed,
     buttonStyle,
     onPress,
     disabled,
@@ -41,6 +43,7 @@ const Button: React.FC<Props> = ({
                 secondary && styles.secondary,
                 outlined && styles.outlined,
                 disabled && styles.disabled,
+                confirmed && styles.confirmed,
             ]}
             disabled={disabled}
             onPressOut={onPressOut}
@@ -93,5 +96,8 @@ const styles = StyleSheet.create({
     },
     disabled: {
         opacity: 0.5,
+    },
+    confirmed: {
+        backgroundColor: '#9DB76E',
     },
 });

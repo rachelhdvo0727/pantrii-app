@@ -12,19 +12,25 @@ export interface Props {
 }
 
 const AddToCart: React.FC<Props> = ({}) => {
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(0);
     const [add, setAdd] = useState('Tilføj til kurv');
-    const onPressConfirm = () => setAdd('Tilføjet');
+
+    console.log(quantity);
     return (
         <Button
-            // onPress={onPressAdd}
             onPress={() => {
-                setAdd('Tilføjet');
                 setQuantity(quantity + 1);
                 console.log(quantity);
             }}
-            secondary
-            title={add}
+            onPressOut={() => {
+                setTimeout(() => {
+                    setQuantity(quantity);
+                }, 1000);
+            }}
+            secondary={quantity === 0 ? true : false}
+            confirmed={quantity === 0 ? false : true}
+            buttonStyle={styles.buttonStyle}
+            title={quantity === 0 ? 'Tilføj til kurv' : 'Tilføjet'}
         />
     );
 };
@@ -40,6 +46,13 @@ const styles = StyleSheet.create({
         padding: 12,
         backgroundColor: '#1B463C',
         borderRadius: 1000,
+    },
+    buttonStyle: {
+        width: Dimensions.get('window').width / 2.5,
+    },
+    buttonConfirmed: {
+        width: Dimensions.get('window').width / 2.5,
+        backgroundColor: '#9DB76E',
     },
     quantityWrapper: {
         borderColor: 'black',
