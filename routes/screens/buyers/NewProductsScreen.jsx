@@ -15,6 +15,12 @@ export default function NewProductsScreen() {
     const navigation = useNavigation();
     const content = dictionary?.products; // DA dictionary
 
+    const numberFormat = (total) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
+
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
         axios(fetchLatestProducts('products'))
@@ -39,10 +45,8 @@ export default function NewProductsScreen() {
                         producerTitle={item?.producerTitle}
                         productDesc={content.productDesc[item?.productDesc]}
                         productUnit={item?.productUnit}
-                        bulkPrice={item?.bulkPrice + content.currency.DKK}
-                        singlePrice={
-                            item?.singlePrice + content.currency.DKK + '/enhed'
-                        }
+                        bulkPrice={numberFormat(item?.bulkPrice)}
+                        singlePrice={numberFormat(item?.singlePrice)}
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}

@@ -20,6 +20,13 @@ const HighLightProductsSlider = () => {
     const content = dictionary?.products; // DA dictionary
 
     const [products, setProducts] = React.useState([]);
+
+    const numberFormat = (total) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
+
     React.useEffect(() => {
         axios(fetchFeaturedProducts('products'))
             .then(function (response) {
@@ -53,10 +60,8 @@ const HighLightProductsSlider = () => {
                         producerTitle={item?.producerTitle}
                         productDesc={content.productDesc[item?.productDesc]}
                         productUnit={item?.productUnit}
-                        bulkPrice={item?.bulkPrice + content.currency.DKK}
-                        singlePrice={
-                            item?.singlePrice + content.currency.DKK + '/enhed'
-                        }
+                        bulkPrice={numberFormat(item?.bulkPrice)}
+                        singlePrice={numberFormat(item?.singlePrice)}
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}

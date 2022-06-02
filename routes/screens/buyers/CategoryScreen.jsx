@@ -38,6 +38,12 @@ export default function CategoryScreen(props) {
         setSelectedSort(item);
     };
 
+    const numberFormat = (total) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
+
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
@@ -158,14 +164,8 @@ export default function CategoryScreen(props) {
                                 productContent?.productDesc[item?.productDesc]
                             }
                             productUnit={item?.productUnit}
-                            bulkPrice={
-                                item?.bulkPrice + productContent?.currency.DKK
-                            }
-                            singlePrice={
-                                item?.singlePrice +
-                                productContent?.currency.DKK +
-                                '/enhed'
-                            }
+                            bulkPrice={numberFormat(item?.bulkPrice)}
+                            singlePrice={numberFormat(item?.singlePrice)}
                             isCold={item.tags?.find((tag) => tag == 'cold')}
                             isOrganic={item.tags?.find(
                                 (tag) => tag == 'organic',

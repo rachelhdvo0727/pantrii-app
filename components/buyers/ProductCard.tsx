@@ -163,7 +163,7 @@ const ProductCard = ({
                                             styles.modalH4,
                                         ]}
                                     >
-                                        {singlePrice}
+                                        {singlePrice}/enhed
                                     </Text>
                                 </View>
                             </View>

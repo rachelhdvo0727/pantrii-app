@@ -20,6 +20,12 @@ export default function ProductScreen(props) {
     const [productInfo, setProductInfo] = React.useState([]);
     // const test = props?.route?.params?.quantity;
 
+    const numberFormat = (total) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
+
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
@@ -46,8 +52,8 @@ export default function ProductScreen(props) {
             producerTitle={product?.producerTitle}
             productDesc={content?.productDesc[product?.productDesc]}
             productUnit={product?.productUnit}
-            bulkPrice={product?.bulkPrice + content.currency.DKK}
-            singlePrice={product?.singlePrice + content.currency.DKK + '/enhed'}
+            bulkPrice={numberFormat(product?.bulkPrice)}
+            singlePrice={numberFormat(product?.singlePrice)}
             productStory={content?.productStory[product?.productStory]}
             productUnique={content?.productUnique[product?.productUnique]}
             isCold={product.tags?.find((tag) => tag == 'cold')}

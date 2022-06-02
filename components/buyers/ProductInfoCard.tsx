@@ -133,9 +133,11 @@ const ProductInfoCard = ({
                             <Text style={styles.unit}>{productUnit}</Text>
                         </View>
                         <View style={styles.priceWrapper}>
-                            <Text style={styles.bulkPrice}>{bulkPrice}</Text>
+                            <Text style={styles.bulkPrice}>
+                                {bulkPrice}/kolli
+                            </Text>
                             <Text style={styles.singularPrice}>
-                                {singlePrice}
+                                {singlePrice}/enhed
                             </Text>
                         </View>
                     </View>
