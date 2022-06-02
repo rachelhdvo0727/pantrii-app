@@ -13,7 +13,6 @@ export interface Props {
 
 const AddToCart: React.FC<Props> = ({}) => {
     const [quantity, setQuantity] = useState(0);
-    const [add, setAdd] = useState('Tilføj til kurv');
 
     console.log(quantity);
     return (

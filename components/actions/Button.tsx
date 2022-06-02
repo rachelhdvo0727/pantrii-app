@@ -52,7 +52,12 @@ const Button: React.FC<Props> = ({
                 <Text
                     style={[
                         styles.title,
-                        { color: primary || secondary ? '#FFFFFF' : '#1B463C' },
+                        {
+                            color:
+                                primary || secondary || confirmed
+                                    ? '#FFFFFF'
+                                    : '#1B463C',
+                        },
                         {
                             textTransform:
                                 primary || outlined
