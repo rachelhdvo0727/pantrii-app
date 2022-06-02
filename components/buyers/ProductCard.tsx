@@ -234,7 +234,9 @@ const ProductCard = ({
                     {productTitle}
                 </Text>
                 <View style={styles.infoWrapper}>
-                    <Text style={styles.producerTitle}>{producerTitle}</Text>
+                    <Text style={styles.producerTitle} numberOfLines={1}>
+                        {producerTitle}
+                    </Text>
                     <Text style={styles.productDesc} numberOfLines={1}>
                         {productDesc}
                     </Text>
@@ -278,7 +280,7 @@ export default ProductCard;
 const styles = StyleSheet.create({
     productWrapper: {
         // width: 180,
-        width: Dimensions.get('window').width / 2 - 16,
+        width: Dimensions.get('window').width / 2 - 25,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',

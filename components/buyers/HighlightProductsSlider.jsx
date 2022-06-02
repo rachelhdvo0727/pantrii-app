@@ -75,7 +75,7 @@ const HighLightProductsSlider = () => {
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
-                itemWidth={SLIDER_WIDTH / 2 - 10.8} // width depends on window's screen
+                itemWidth={SLIDER_WIDTH / 2 - 15} // width depends on window's screen
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}
