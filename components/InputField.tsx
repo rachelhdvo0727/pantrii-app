@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     },
     hasDefaultValue: { opacity: 0.2 },
     multilineStyle: {
-        height: 100,
+        height: 85,
     },
     errorContainer: {
         flexDirection: 'row',
