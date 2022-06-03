@@ -12,6 +12,7 @@ export interface Props {
     placeholder: React.ComponentProps<typeof TextInput>['placeholder'];
     keyboardType?: React.ComponentProps<typeof TextInput>['keyboardType'];
     multiline?: React.ComponentProps<typeof TextInput>['multiline'];
+    numberOfLines?: React.ComponentProps<typeof TextInput>['numberOfLines'];
     autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
     autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
     secureTextEntry?: React.ComponentProps<typeof TextInput>['secureTextEntry'];
@@ -60,6 +61,7 @@ export default function InputField({
                         styles.textValue,
                         hasDefaultValue && styles.hasDefaultValue,
                         focused && { opacity: 1 },
+                        multiline && styles.multilineStyle,
                     ]}
                     onFocus={onFocus}
                 ></TextInput>
@@ -90,9 +92,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
         backgroundColor: '#EFF2EE',
 
-        borderRadius: 1000,
+        borderRadius: 20,
         borderStyle: 'solid',
-        // borderColor: '#1B463C',
         borderWidth: 1,
     },
     label: {
@@ -128,6 +129,9 @@ const styles = StyleSheet.create({
         marginTop: 1,
     },
     hasDefaultValue: { opacity: 0.2 },
+    multilineStyle: {
+        height: 100,
+    },
     errorContainer: {
         flexDirection: 'row',
 
