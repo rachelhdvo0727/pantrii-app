@@ -1,13 +1,21 @@
 import React from 'react';
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import {
+    StyleSheet,
+    Pressable,
+    View,
+    Text,
+    StyleProp,
+    PressableProps,
+} from 'react-native';
 
 export interface Props {
     onPress: () => void;
+    style?: StyleProp<PressableProps>;
 }
 
-const ViewButton: React.FC<Props> = ({ onPress }) => {
+const ViewButton: React.FC<Props> = ({ style, onPress }) => {
     return (
-        <Pressable onPress={onPress} style={styles.container}>
+        <Pressable onPress={onPress} style={[styles.container, style]}>
             <Text style={styles.title}>Se alle</Text>
         </Pressable>
     );
