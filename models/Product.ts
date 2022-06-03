@@ -6,6 +6,7 @@ export default class Product {
         public producerTitle: string,
         public imageSrc: string,
         public productDesc: string,
+        public amount: number,
         public bulkPrice: string,
         public singlePrice: string,
         public expiryDuration: string,
@@ -21,6 +22,7 @@ export default class Product {
         this.producerTitle = producerTitle;
         this.imageSrc = imageSrc;
         this.productDesc = productDesc;
+        this.amount = amount;
         this.bulkPrice = bulkPrice;
         this.singlePrice = singlePrice;
         this.expiryDuration = expiryDuration;
