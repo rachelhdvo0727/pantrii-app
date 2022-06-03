@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-Bold',
         letterSpacing: 1,
         textTransform: 'uppercase',
+        textAlign: 'center',
     },
     secondary: {
         height: 180 / 2,
