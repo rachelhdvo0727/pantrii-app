@@ -6,6 +6,7 @@ import {
     Text,
     StyleProp,
     PressableProps,
+    TextProps,
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
@@ -15,6 +16,7 @@ export interface Props {
     title: string;
     children?: React.ReactChild;
     iconButtonStyle?: StyleProp<PressableProps>;
+    titleStyle?: StyleProp<TextProps>;
     isActive?: boolean;
     outlined?: boolean;
     arrowRight?: boolean;
@@ -23,6 +25,7 @@ export interface Props {
 
 const IconButton: React.FC<Props> = ({
     iconButtonStyle,
+    titleStyle,
     title,
     children,
     outlined,
@@ -42,7 +45,7 @@ const IconButton: React.FC<Props> = ({
             onPressOut={onPressOut}
         >
             <View style={styles.wrapper}>
-                <Text style={styles.title}>{title}</Text>
+                <Text style={[styles.title, titleStyle]}>{title}</Text>
                 {children}
                 {arrowRight ? (
                     <AntDesign
