@@ -13,3 +13,14 @@ export const sortOptions = [
     { label: 'Laveste pris', value: 'lowest' },
     { label: 'Højeste pris', value: 'highest' },
 ];
+
+// Unit options
+export const unitOptions = [
+    { label: 'mg', value: 'mg' },
+    { label: 'g', value: 'g' },
+    { label: 'kg', value: 'kg' },
+    { label: 'ml', value: 'ml' },
+    { label: 'cl', value: 'cl' },
+    { label: 'dl', value: 'dl' },
+    { label: 'l', value: 'l' },
+];
