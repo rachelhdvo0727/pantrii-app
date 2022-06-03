@@ -77,7 +77,7 @@ const ProductCard = ({
                                     fontSize: 11,
                                 }}
                             >
-                                &thinsp; /stk.
+                                &thinsp; /enhed
                             </Text>
                         </Text>
                     </View>
@@ -123,8 +123,10 @@ const styles = StyleSheet.create({
     },
     bottomSection: {
         paddingRight: 10,
+        paddingTop: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'baseline',
     },
     productTitle: {
         fontSize: 16,
