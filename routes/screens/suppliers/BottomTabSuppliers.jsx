@@ -4,8 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import HomeSuppliersScreen from './HomeScreen';
 import ProductsSuppliersScreen from './ProductsScreen';
-import UploadProductsScreen from './UploadProducts';
-import ProfileScreen from '../ProfileScreen';
+import UploadProductsScreen from './UploadProductsScreen';
 import TopNavSuppliers from './TopNavSuppliers';
 import UserProfileStack from '../UserProfileStack';
 
@@ -19,7 +18,7 @@ export default function BottomTabSuppliers(props) {
         <Tab.Navigator
             screenOptions={{
                 headerTitleStyle: {
-                    color: '#000000',
+                    color: '#EFF2EE',
                     fontFamily: 'TT-Commons-Bold',
                     textTransform: 'uppercase',
                     letterSpacing: 1,
@@ -68,7 +67,7 @@ export default function BottomTabSuppliers(props) {
                 name="Produkter"
                 component={ProductsSuppliersScreen}
                 options={{
-                    headerTitle: (props) => <TopNavSuppliers {...props} />,
+                    headerTitle: 'alle produkter',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
@@ -86,7 +85,7 @@ export default function BottomTabSuppliers(props) {
                 name="Opret"
                 component={UploadProductsScreen}
                 options={{
-                    headerTitle: (props) => <TopNavSuppliers {...props} />,
+                    headerTitle: 'opret et produkt',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <AntDesign
