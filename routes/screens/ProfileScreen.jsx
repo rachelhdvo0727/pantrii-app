@@ -39,6 +39,7 @@ export default function ProfileScreen(props) {
                 fetchCurrentUser();
             },
         );
+        // console.log('fetched api, user', user);
 
         return () =>
             (isMounted.current = false) &&
