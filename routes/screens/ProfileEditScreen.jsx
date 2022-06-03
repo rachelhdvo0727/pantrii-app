@@ -1,6 +1,7 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
+import User from '../../models/User';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 // Components
@@ -12,6 +13,7 @@ import Button from '../../components/actions/Button';
 import { Feather } from '@expo/vector-icons';
 // API
 import axios from 'axios';
+import { updateUserInformation } from '../../utils/api';
 
 export default function ProfileEditScreen(props) {
     const navigation = useNavigation();
@@ -29,7 +31,6 @@ export default function ProfileEditScreen(props) {
     const [focused, setFocused] = React.useState(false);
 
     React.useEffect(() => {
-        // console.log('editprofile', user);
         props.navigation?.setOptions({
             headerTitle: `REDIGER ${information.toUpperCase()}`,
             headerLeft: () => (
@@ -46,7 +47,27 @@ export default function ProfileEditScreen(props) {
     const { control, handleSubmit, reset } = useForm({});
 
     const onSubmit = (data) => {
+        // Find differences between input value and local data
+        const dataDifferences = Object.keys(data).reduce((diff, key) => {
+            if (user[key] === data[key]) return diff;
+            return {
+                ...diff,
+                [key]: data[key],
+            };
+        }, {});
+
+        // Remove address object in data to send when it's 'profile' info.
+        if (informationType === 'profile') {
+            delete dataDifferences?.address;
+        }
+
         // POST
+        axios(updateUserInformation(data, dataDifferences))
+            .then((response) => {
+                // console.log(response?.data);
+                navigation?.goBack();
+            })
+            .catch((error) => console.error(error));
     };
 
     const onFocus = () => {
