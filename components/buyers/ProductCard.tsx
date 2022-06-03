@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -7,10 +7,9 @@ import {
     Pressable,
     Dimensions,
     PressableProps,
-    ViewProps,
     StyleProp,
 } from 'react-native';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 // Components
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
