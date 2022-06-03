@@ -8,7 +8,7 @@ import ProductCard from '../../../components/suppliers/ProductCard';
 import SystemMessageBanner from '../../../components/SystemMessageBanner';
 import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 import Button from '../../../components/actions/Button';
-import { FontAwesome as Entypo } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 export default function HomeSuppliersScreen(props) {
     const navigation = useNavigation();
@@ -31,7 +31,7 @@ export default function HomeSuppliersScreen(props) {
                 <Button
                     primary
                     title="&emsp;Opret vare"
-                    children={<Entypo name="plus" size={15} color="#FFFFFF" />}
+                    children={<Entypo name="plus" size={17} color="#FFFFFF" />}
                     onPress={handleCreateProduct}
                     buttonStyle={styles.buttonStyle}
                 />
