@@ -2,6 +2,7 @@ import React from 'react';
 import {
     StyleSheet,
     Pressable,
+    TouchableOpacity,
     View,
     Text,
     PressableProps,
@@ -9,14 +10,14 @@ import {
 } from 'react-native';
 
 export interface Props {
-    onPress: React.ComponentProps<typeof Pressable>['onPress'];
+    onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
     title: React.ComponentProps<typeof Text>['children'];
     buttonStyle?: StyleProp<PressableProps>;
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
     children?: React.ReactChild;
-    disabled?: React.ComponentProps<typeof Pressable>['disabled'];
+    disabled?: React.ComponentProps<typeof TouchableOpacity>['disabled'];
 }
 
 const Button: React.FC<Props> = ({
@@ -30,7 +31,7 @@ const Button: React.FC<Props> = ({
     disabled,
 }) => {
     return (
-        <Pressable
+        <TouchableOpacity
             onPress={onPress}
             style={[
                 buttonStyle,
@@ -59,7 +60,7 @@ const Button: React.FC<Props> = ({
                 </Text>
             </View>
             {children}
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 
