@@ -1,17 +1,17 @@
 import React from 'react';
 import {
     StyleSheet,
-    Pressable,
     TouchableOpacity,
     View,
     Text,
     PressableProps,
     StyleProp,
 } from 'react-native';
+import { capitalize } from '@material-ui/core';
 
 export interface Props {
     onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
-    title: React.ComponentProps<typeof Text>['children'];
+    title: string | React.ComponentProps<typeof Text>['children'];
     buttonStyle?: StyleProp<PressableProps>;
     primary?: boolean;
     secondary?: boolean;
@@ -50,13 +50,13 @@ const Button: React.FC<Props> = ({
                         { color: primary || secondary ? '#FFFFFF' : '#1B463C' },
                         {
                             textTransform:
-                                primary || outlined
-                                    ? 'uppercase'
-                                    : 'capitalize',
+                                primary || outlined ? 'uppercase' : 'none',
                         },
                     ]}
                 >
-                    {title}
+                    {typeof title === 'string' && secondary
+                        ? capitalize(title)
+                        : title}
                 </Text>
             </View>
             {children}
