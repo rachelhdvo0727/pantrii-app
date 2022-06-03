@@ -15,7 +15,7 @@ export interface Props {
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
-    confirmed: boolean;
+    confirmed?: boolean;
     children?: React.ReactChild;
     disabled?: React.ComponentProps<typeof Pressable>['disabled'];
     onPressOut?: React.ComponentProps<typeof Pressable>['onPressOut'];

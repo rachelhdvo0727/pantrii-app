@@ -17,22 +17,19 @@ import FrozenIcon from '../svgs/FrozenIcon';
 import AddMinusToCart from '../actions/AddMinusToCart';
 import DeleteIcon from '../actions/DeleteButton';
 import Product from '../../models/Product';
+import InformationCard from '../InformationCard';
 
 export interface Props {
-    // cardStyle: StyleProp<PressableProps>;
-    // imageSrc: React.ComponentProps<typeof Image>['source'];
-    // productTitle: Product['productTitle'];
-    // producerTitle: Product['producerTitle'];
-    // productDesc: Product['productDesc'];
-    // productUnit: Product['productUnit'];
+    cardStyle: StyleProp<PressableProps>;
+    imageSrc: React.ComponentProps<typeof Image>['source'];
+    productTitle: Product['productTitle'];
+    producerTitle: Product['producerTitle'];
+    productUnit: Product['productUnit'];
     bulkPrice: number;
-    // singlePrice: Product['singlePrice'];
-    // secondary?: boolean;
-    // isCold?: string;
-    // isFrozen?: string;
-    // isOrganic?: string;
-    // isFeatured?: Product['isFeatured'];
-    // onPress: () => void;
+    isCold?: string;
+    isFrozen?: string;
+    isOrganic?: string;
+    onPressDelete: () => void;
     quantity?: number;
     onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
     onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
@@ -45,42 +42,53 @@ const ProductCardList = ({
     onPressMinus,
     disabled,
     bulkPrice,
-}: // cardStyle,
-// imageSrc,
-// productTitle,
-// producerTitle,
-// productDesc,
-// productUnit,
-// bulkPrice,
-// singlePrice,
-// secondary,
-// isCold,
-// isFrozen,
-// isOrganic,
-// onPress,
-
-Props) => {
+    imageSrc,
+    productTitle,
+    producerTitle,
+    productUnit,
+    isCold,
+    isFrozen,
+    isOrganic,
+    onPressDelete,
+}: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.icons}>
-                <ThermoIcon />
-                <OrganicIcon />
-                <FrozenIcon />
+                {isCold ? (
+                    <ThermoIcon
+                        style={[
+                            styles.iconHidden,
+                            { display: isCold ? 'block' : '' },
+                        ]}
+                    />
+                ) : null}
+                {isOrganic ? (
+                    <OrganicIcon
+                        style={[
+                            styles.iconHidden,
+                            { display: isOrganic ? 'block' : '' },
+                        ]}
+                    />
+                ) : null}
+                {isFrozen ? (
+                    <FrozenIcon
+                        style={[
+                            styles.iconHidden,
+                            { display: isFrozen ? 'block' : '' },
+                        ]}
+                    />
+                ) : null}
             </View>
 
-            <Image
-                style={styles.image}
-                source={require('../../assets/products/627fc4457a0fa962a5cb745b.png')}
-            ></Image>
+            <Image style={styles.image} source={imageSrc}></Image>
             <View style={styles.productWrapper}>
-                <Text style={styles.productTitle} numberOfLines={1}>
-                    Oh!Pops!
-                </Text>
-                <Text style={styles.producerTitle}>Producer Title</Text>
-                <Text style={styles.productDesc} numberOfLines={1}>
-                    Product description
-                </Text>
-                <Text style={styles.unit}>20 x 120g</Text>
+                <View>
+                    <Text style={styles.productTitle} numberOfLines={1}>
+                        {productTitle}
+                    </Text>
+                    <Text style={styles.producerTitle}>{producerTitle}</Text>
+                    <Text style={styles.unit}>{productUnit}</Text>
+                </View>
                 <View style={styles.bottomWrapper}>
                     <View style={styles.priceWrapper}>
                         <Text style={styles.bulkPrice}>{bulkPrice}</Text>
@@ -94,7 +102,7 @@ Props) => {
                 </View>
             </View>
             <View style={styles.delete}>
-                <DeleteIcon onPress={() => console.log('delete')} />
+                <DeleteIcon onPress={onPressDelete} />
             </View>
         </View>
     );
@@ -106,11 +114,13 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         padding: 10,
+        height: 140,
     },
     productWrapper: {
         width: '70%',
         flexDirection: 'column',
         paddingLeft: 10,
+        justifyContent: 'space-between',
     },
     image: {
         width: '30%',

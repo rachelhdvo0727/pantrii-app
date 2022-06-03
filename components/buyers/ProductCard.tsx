@@ -39,6 +39,11 @@ export interface Props {
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
+    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressOut?: React.ComponentProps<typeof Pressable>['onPress'];
+    secondaryButton?: boolean;
+    confirmedButton?: boolean;
+    title: string;
 }
 
 const ProductCard = ({
@@ -56,6 +61,11 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
     onPress,
+    onPressAdd,
+    onPressOut,
+    secondaryButton,
+    confirmedButton,
+    title,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
@@ -184,7 +194,13 @@ const ProductCard = ({
                                     />
                                 </View>
                                 <View style={styles.paddingRight}>
-                                    <AddToCart />
+                                    <AddToCart
+                                        onPressOut={onPressOut}
+                                        onPress={onPressAdd}
+                                        secondary={secondaryButton}
+                                        confirmed={confirmedButton}
+                                        title={title}
+                                    />
                                 </View>
                             </View>
                         </View>

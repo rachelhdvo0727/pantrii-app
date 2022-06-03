@@ -6,30 +6,28 @@ import { AntDesign } from '@expo/vector-icons';
 import Button from './Button';
 
 export interface Props {
-    // quantity?: number;
-    // onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
-    // onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPress?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressOut?: React.ComponentProps<typeof Pressable>['onPress'];
+    secondary?: boolean;
+    confirmed?: boolean;
+    title?: string;
 }
 
-const AddToCart: React.FC<Props> = ({}) => {
-    const [quantity, setQuantity] = useState(0);
-
-    console.log(quantity);
+const AddToCart: React.FC<Props> = ({
+    onPress,
+    onPressOut,
+    secondary,
+    confirmed,
+    title,
+}) => {
     return (
         <Button
-            onPress={() => {
-                setQuantity(quantity + 1);
-                console.log(quantity);
-            }}
-            onPressOut={() => {
-                setTimeout(() => {
-                    setQuantity(quantity);
-                }, 1000);
-            }}
-            secondary={quantity === 0 ? true : false}
-            confirmed={quantity === 0 ? false : true}
+            onPress={onPress}
+            onPressOut={onPressOut}
+            secondary
+            confirmed={confirmed}
             buttonStyle={styles.buttonStyle}
-            title={quantity === 0 ? 'Tilføj til kurv' : 'Tilføjet'}
+            title={title}
         />
     );
 };

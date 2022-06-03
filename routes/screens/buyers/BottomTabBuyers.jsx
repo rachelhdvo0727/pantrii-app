@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as SecureStore from 'expo-secure-store';
 
@@ -17,6 +17,8 @@ export default function BottomTabBuyers(props) {
     React.useEffect(() => {
         // console.log(props?.route.params?.user);
     }, []);
+
+    const [cartItems, setCartItems] = useState([]);
 
     return (
         <Tab.Navigator
@@ -56,7 +58,7 @@ export default function BottomTabBuyers(props) {
         >
             <Tab.Screen
                 name="Hjem"
-                component={HomeStack}
+                children={() => <HomeStack cartItems={cartItems} />}
                 options={{
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
