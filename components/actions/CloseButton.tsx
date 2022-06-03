@@ -11,7 +11,6 @@ interface Props {
 function CloseButton({ style, onPress }: Props) {
     return (
         <Pressable style={[styles.container, style]} onPress={onPress}>
-            {/* <Ionicons name="md-close-circle-sharp" size={24} color="#992947" /> */}
             <CloseIcon />
         </Pressable>
     );
