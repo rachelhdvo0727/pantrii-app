@@ -2,5 +2,15 @@
    "customerTypes": {
       "producer": "producent",
       "buyer": "erhvervskunde"
+   },
+   "inventoryStatus": {
+      "inStock": "på lager",
+      "lowOnStock": "få på lager",
+      "soldOut": "udsolgt"
+   },
+   "tags": {
+      "isCold": "kold",
+      "isFrozen": "frost",
+      "isOrganic": "økologisk"
    }
 }
