@@ -8,6 +8,7 @@ import ProductCard from '../../../components/suppliers/ProductCard';
 import SystemMessageBanner from '../../../components/SystemMessageBanner';
 import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 import Button from '../../../components/actions/Button';
+import ViewButton from '../../../components/actions/ViewButton';
 import { Entypo } from '@expo/vector-icons';
 
 export default function HomeSuppliersScreen(props) {
@@ -50,7 +51,12 @@ export default function HomeSuppliersScreen(props) {
                 </View>
             </View>
             <View style={styles.section}>
-                <Text style={styles.headers}>dine varer</Text>
+                <View style={styles.headerWithButton}>
+                    <Text style={styles.headers}>dine varer</Text>
+                    <ViewButton
+                        onPress={() => navigation.navigate('Produkter')}
+                    />
+                </View>
                 <View style={styles.sectionContent}>
                     <ProductCard
                         productTitle="HI"
@@ -89,5 +95,10 @@ const styles = StyleSheet.create({
     },
     headers: {
         ...generalStyles.headerH2,
+    },
+    headerWithButton: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
 });
