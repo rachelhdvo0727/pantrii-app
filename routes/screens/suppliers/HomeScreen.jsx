@@ -54,8 +54,9 @@ export default function HomeSuppliersScreen(props) {
                 <View style={styles.sectionContent}>
                     <ProductCard
                         productTitle="HI"
+                        imageSrc={require('../../../assets/products/627fc6217a0fa962a5cb745c.png')}
                         amount="3"
-                        productDesc="lorem ipsum"
+                        productDesc="lorem ipsum hfeihuhfru hfeiueiurhfu fhweiuhfeiwuhf"
                         productUnit="3 x 100g"
                         bulkPrice="10000"
                         singlePrice="20000"

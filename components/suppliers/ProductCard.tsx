@@ -33,12 +33,12 @@ const ProductCard = ({
     return (
         <InformationCard style={[styles.container, cardStyle]}>
             <Image style={styles.image} source={imageSrc} />
-            <View style={styles.productContent}>
-                <View>
-                    <Text style={styles.productTitle}>{productTitle}</Text>
 
+            <View style={styles.productContent}>
+                <View style={styles.topSection}>
+                    <Text style={styles.productTitle}>{productTitle}</Text>
                     <Text style={styles.amountText}>
-                        Antal: 
+                        Antal:&ensp;
                         <Text
                             style={
                                 isLowOnStock
@@ -51,14 +51,35 @@ const ProductCard = ({
                     </Text>
                 </View>
 
-                <View>
-                    <Text style={styles.productDesc}>{productDesc}</Text>
+                <View style={styles.middleSection}>
+                    <Text style={styles.productDesc} numberOfLines={1}>
+                        {productDesc}
+                    </Text>
                 </View>
-                <View>
+
+                <View style={styles.bottomSection}>
                     <Text style={styles.unitText}>{productUnit}</Text>
                     <View>
-                        <Text style={styles.bulkPrice}>{bulkPrice}</Text>
-                        <Text style={styles.singularPrice}>{singlePrice}</Text>
+                        <Text style={styles.bulkPrice}>
+                            {bulkPrice}
+                            <Text
+                                style={{
+                                    fontSize: 11,
+                                }}
+                            >
+                                &thinsp; /kolli
+                            </Text>
+                        </Text>
+                        <Text style={styles.singularPrice}>
+                            {singlePrice}
+                            <Text
+                                style={{
+                                    fontSize: 11,
+                                }}
+                            >
+                                &thinsp; /stk.
+                            </Text>
+                        </Text>
                     </View>
                 </View>
             </View>
@@ -69,13 +90,42 @@ const ProductCard = ({
 export default ProductCard;
 
 const styles = StyleSheet.create({
-    container: { flexDirection: 'row' },
+    container: {
+        flexDirection: 'row',
+    },
     image: {
         resizeMode: 'cover',
-        borderTopRightRadius: 10,
+        width: '30%',
+        height: '106.5%',
+        marginRight: 10,
         borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
     },
-    productContent: {},
+    productContent: {
+        paddingVertical: 5,
+        flexShrink: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+    },
+    topSection: {
+        paddingRight: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(189, 189, 189, 0.5)',
+    },
+    middleSection: {
+        paddingRight: 10,
+        borderBottomWidth: 1,
+        borderColor: 'rgba(189, 189, 189, 0.5)',
+        borderStyle: 'dashed',
+    },
+    bottomSection: {
+        paddingRight: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
     productTitle: {
         fontSize: 16,
         color: '#1B463C',
@@ -83,7 +133,6 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         textTransform: 'uppercase',
         paddingVertical: 2,
-        paddingHorizontal: 7.5,
     },
     productDesc: {
         fontSize: 12,
