@@ -36,6 +36,7 @@ export default function LogInScreen(props) {
             password: '',
         },
     });
+    
     const onSubmit = (data) => {
         // POST
         axios(findUser(data, false))
