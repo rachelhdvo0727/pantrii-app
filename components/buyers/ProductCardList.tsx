@@ -36,6 +36,7 @@ export interface Props {
     onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
     onPressMinus?: React.ComponentProps<typeof Pressable>['onPress'];
     disabled: boolean;
+    secondary: boolean;
 }
 
 const ProductCardList = ({
@@ -52,36 +53,39 @@ const ProductCardList = ({
     isFrozen,
     isOrganic,
     onPressDelete,
+    secondary,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     return (
-        <View style={styles.container}>
-            <View style={styles.icons}>
-                {isCold ? (
-                    <ThermoIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isCold ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-                {isOrganic ? (
-                    <OrganicIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isOrganic ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-                {isFrozen ? (
-                    <FrozenIcon
-                        style={[
-                            styles.iconHidden,
-                            { display: isFrozen ? 'block' : '' },
-                        ]}
-                    />
-                ) : null}
-            </View>
+        <View style={[styles.container, secondary && styles.secondary]}>
+            {!secondary ? (
+                <View style={styles.icons}>
+                    {isCold ? (
+                        <ThermoIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isCold ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                    {isOrganic ? (
+                        <OrganicIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isOrganic ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                    {isFrozen ? (
+                        <FrozenIcon
+                            style={[
+                                styles.iconHidden,
+                                { display: isFrozen ? 'block' : '' },
+                            ]}
+                        />
+                    ) : null}
+                </View>
+            ) : null}
 
             <Image style={styles.image} source={imageSrc}></Image>
             <View style={styles.productWrapper}>
@@ -90,25 +94,40 @@ const ProductCardList = ({
                         {productTitle}
                     </Text>
                     <Text style={styles.producerTitle}>{producerTitle}</Text>
-                    <Text style={styles.unit}>{productUnit}</Text>
+                    {!secondary ? (
+                        <Text style={styles.unit}>{productUnit}</Text>
+                    ) : null}
                 </View>
                 <View style={styles.bottomWrapper}>
                     <View style={styles.priceWrapper}>
-                        <Text style={styles.bulkPrice}>{bulkPrice}</Text>
+                        <Text
+                            style={[
+                                styles.bulkPrice,
+                                secondary ? { paddingBottom: 0 } : null,
+                            ]}
+                        >
+                            {bulkPrice}
+                        </Text>
                     </View>
-                    <AddMinusToCart
-                        quantity={quantity}
-                        onPressAdd={onPressAdd}
-                        onPressMinus={onPressMinus}
-                        disabled={disabled}
-                    />
+                    {!secondary ? (
+                        <AddMinusToCart
+                            quantity={quantity}
+                            onPressAdd={onPressAdd}
+                            onPressMinus={onPressMinus}
+                            disabled={disabled}
+                        />
+                    ) : (
+                        <Text style={styles.quantity}>Qty: {quantity}</Text>
+                    )}
                 </View>
             </View>
             <View style={styles.delete}>
-                <DeleteIcon
-                    // onPress={onPressDelete}
-                    onPress={() => setModalVisible(true)}
-                />
+                {!secondary ? (
+                    <DeleteIcon
+                        // onPress={onPressDelete}
+                        onPress={() => setModalVisible(true)}
+                    />
+                ) : null}
             </View>
             <Modal
                 isVisible={isModalVisible}
@@ -145,6 +164,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 10,
         height: 140,
+    },
+    secondary: {
+        height: 100,
+        paddingVertical: 5,
+        paddingHorizontal: 0,
     },
     productWrapper: {
         width: '70%',
@@ -190,8 +214,8 @@ const styles = StyleSheet.create({
     bottomWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
     },
-
     unit: {
         fontSize: 10,
         fontFamily: 'TT-Commons-Regular',
@@ -208,6 +232,11 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-DemiBold',
         letterSpacing: 0.2,
         paddingBottom: 1.5,
+    },
+    quantity: {
+        fontSize: 14,
+        fontFamily: 'TT-Commons-Regular',
+        letterSpacing: 0.2,
     },
     singularPrice: {
         fontSize: 12,

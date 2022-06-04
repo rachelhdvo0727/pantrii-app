@@ -168,8 +168,7 @@ export default function PaymentScreen(props) {
                     setModalVisible(!modalVisible);
                 }}
                 animationType="slide"
-                transparent={true}
-                backdropOpacity={0.3}
+                backdropOpacity={0.4}
                 animationOutTiming={600}
             >
                 <View style={styles.centeredView}>
@@ -280,5 +279,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    modal: {
+        flex: 1,
     },
 });

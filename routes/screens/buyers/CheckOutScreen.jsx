@@ -1,25 +1,30 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
-import { findUser } from '../../../utils/api';
-import axios from 'axios';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 // Component
 import InformationCard from '../../../components/InformationCard';
 import SectionInInformationCard from '../../../components/SectionInInformationCard';
 import Button from '../../../components/actions/Button';
-import dictionary from '../../../dictionary/products.json';
 import BackIconButton from '../../../components/actions/BackIconButton';
+import ProductCardList from '../../../components/buyers/ProductCardList';
 // Redux
 import { cartTotalPriceSelector } from '../../../redux/reducer/selector';
 import { useSelector } from 'react-redux';
+// Dictionary
+import dictionary from '../../../dictionary/products';
+import { productImages } from '../../../dictionary/images';
 
 export default function CheckOutScreen(props) {
     const navigation = useNavigation();
     const user = props?.route?.params?.user;
     const content = dictionary?.products;
 
+    const cart = useSelector((state) => state.cart);
+    React.useEffect(() => {
+        console.log(cart);
+    });
     React.useEffect(() => {
         // Update Screen's headerTitle
         props?.navigation?.setOptions({
@@ -125,15 +130,60 @@ export default function CheckOutScreen(props) {
             isLastSection
             sectionContent={
                 <React.Fragment>
+                    <View style={styles.contentContainerStyle}>
+                        {cart.map((item) => {
+                            return (
+                                <ProductCardList
+                                    key={item._id}
+                                    secondary
+                                    productTitle={
+                                        content.productTitle[item?.productTitle]
+                                    }
+                                    imageSrc={productImages[item?.imageSrc]}
+                                    producerTitle={item?.producerTitle}
+                                    productUnit={item?.productUnit}
+                                    bulkPrice={numberFormat(
+                                        item?.bulkPrice * item.quantity,
+                                    )}
+                                    isCold={item.tags?.find(
+                                        (tag) => tag == 'cold',
+                                    )}
+                                    isOrganic={item.tags?.find(
+                                        (tag) => tag == 'organic',
+                                    )}
+                                    isFrozen={item.tags?.find(
+                                        (tag) => tag == 'frozen',
+                                    )}
+                                    quantity={item.quantity}
+                                    onPressMinus={() => {
+                                        if (item.quantity === 1) {
+                                            dispatch(removeItem(item._id));
+
+                                            console.log('removed');
+                                            return;
+                                        } else {
+                                            dispatch(decrement(item._id));
+                                        }
+                                    }}
+                                    onPressAdd={() => {
+                                        dispatch(increment(item._id));
+                                    }}
+                                    onPressDelete={() => {
+                                        dispatch(removeItem(item._id));
+                                    }}
+                                />
+                            );
+                        })}
+                    </View>
                     <View style={styles.flex}>
-                        <Text style={styles.text}>Subtotal:</Text>
-                        <Text style={[styles.highlightText, styles.flexEnd]}>
+                        <Text style={styles.H1}>Subtotal:</Text>
+                        <Text style={[styles.H1, styles.flexEnd]}>
                             {numberFormat(totalPrice)}
                         </Text>
                     </View>
                     <View style={styles.flex}>
-                        <Text style={styles.text}>Levering:</Text>
-                        <Text style={styles.highlightText}>
+                        <Text style={styles.H1}>Levering:</Text>
+                        <Text style={styles.H1}>
                             {totalPrice > freeDelivery ? 'Gratis' : delivery}
                         </Text>
                     </View>
@@ -154,14 +204,14 @@ export default function CheckOutScreen(props) {
 
     return (
         <View style={styles.wrapper}>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <InformationCard>
                     <Address />
                     <Delivery />
                     <PaymentMethod />
                     <Overview />
                 </InformationCard>
-            </View>
+            </ScrollView>
             <View style={styles.bottomWrapper}>
                 <Text style={generalStyles.headerH2}>
                     I ALT:{' '}
@@ -196,6 +246,11 @@ const styles = StyleSheet.create({
     },
     highlightText: {
         ...generalStyles.boldText,
+    },
+    H1: {
+        ...generalStyles.boldText,
+        fontSize: 16,
+        paddingVertical: 2,
     },
     text: { ...generalStyles.paragraphText },
     bottomWrapper: {
@@ -233,5 +288,8 @@ const styles = StyleSheet.create({
         paddingVertical: 3,
         alignContent: 'center',
         alignItems: 'center',
+    },
+    contentContainerStyle: {
+        paddingVertical: 10,
     },
 });
