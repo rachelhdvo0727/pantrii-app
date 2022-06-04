@@ -1,13 +1,15 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import CartScreen from './CartScreen';
 import CheckOutScreen from './CheckOutScreen';
-import BackIconButton from '../../../components/actions/BackIconButton';
+import PaymentScreen from './PaymentScreen';
 
 const Stack = createNativeStackNavigator();
 
-const CartStack = () => {
+const CartStack = (props) => {
+    const navigation = useNavigation();
     return (
         <Stack.Navigator
             screenOptions={{
@@ -35,16 +37,24 @@ const CartStack = () => {
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}
+                initialParams={props?.route?.params}
             />
             <Stack.Screen
                 name="CheckOutScreen"
                 component={CheckOutScreen}
                 options={{
                     headerTitle: 'KASSEN',
-                    headerBackTitle: '',
-                    headerLeft: () => (
-                        <BackIconButton onPress={() => navigation.goBack()} />
-                    ),
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                }}
+            />
+            <Stack.Screen
+                name="PaymentScreen"
+                component={PaymentScreen}
+                options={{
+                    headerTitle: 'BETALING',
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
                 }}
             />
         </Stack.Navigator>

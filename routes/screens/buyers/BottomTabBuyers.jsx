@@ -10,7 +10,6 @@ import UserProfileStack from '../UserProfileStack';
 import CartStack from './CartStack';
 import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
-import CartIcon from '../../../components/actions/CartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartTotalSelector } from '../../../redux/reducer/selector';
 
@@ -109,6 +108,7 @@ export default function BottomTabBuyers(props) {
             <Tab.Screen
                 name="Kurv"
                 component={CartStack}
+                initialParams={props?.route?.params}
                 options={{
                     headerShown: false,
                     tabBarBadge: <Text>{total}</Text>,
@@ -121,7 +121,7 @@ export default function BottomTabBuyers(props) {
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={focused ? 'basket' : 'basket-outline'}
-                                size={28}
+                                size={focused ? 32 : 28}
                                 color={color}
                             />
                         </View>

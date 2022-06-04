@@ -85,6 +85,7 @@
         },
         "delivery":{
             "deliveryDate": " Forventes leveret:",
+            "standardShipping": " Standard shipping:",
             "deliveryCost": " Fri fragt på alle ordrer over "
         }
     }

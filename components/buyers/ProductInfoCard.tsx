@@ -64,6 +64,13 @@ const ProductInfoCard = ({
     const carouselRef = React.useRef(null);
     const content = dictionary?.products;
     const [addItem, setAddItem] = React.useState(false);
+
+    const numberFormat = (total: any) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
+
     // Delivery cost
     const deliveryPrice = '2000';
     // Delivery date
@@ -134,8 +141,7 @@ const ProductInfoCard = ({
                             iconStyle={{ marginRight: 10 }}
                         />
                         {content.delivery.deliveryCost}
-                        {deliveryPrice}
-                        {content.currency.DKK}
+                        {numberFormat(deliveryPrice)}
                     </Text>
                     <Text style={styles.flexText}>
                         <MaterialCommunityIcons

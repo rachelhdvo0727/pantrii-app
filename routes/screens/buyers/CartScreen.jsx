@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
-import { useNavigation } from '@react-navigation/native';
 // Components
 import ProductCardList from '../../../components/buyers/ProductCardList';
 import Button from '../../../components/actions/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import {
     increment,
     decrement,
@@ -100,11 +100,7 @@ export default function CartScreen() {
                 <Button
                     title="Gå til kassen"
                     primary
-                    onPress={() =>
-                        navigation.navigate('CheckOutScreen', {
-                            cart: cart,
-                        })
-                    }
+                    onPress={() => navigation.navigate('CheckOutScreen')}
                 />
             </View>
         </View>
