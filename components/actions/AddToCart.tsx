@@ -8,6 +8,7 @@ import Button from './Button';
 export interface Props {
     onPress?: React.ComponentProps<typeof Pressable>['onPress'];
     onPressOut?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressIn?: React.ComponentProps<typeof Pressable>['onPress'];
     secondary?: boolean;
     confirmed?: boolean;
     title?: string;
@@ -16,6 +17,7 @@ export interface Props {
 const AddToCart: React.FC<Props> = ({
     onPress,
     onPressOut,
+    onPressIn,
     secondary,
     confirmed,
     title,
@@ -24,6 +26,7 @@ const AddToCart: React.FC<Props> = ({
         <Button
             onPress={onPress}
             onPressOut={onPressOut}
+            onPressIn={onPressIn}
             secondary
             confirmed={confirmed}
             buttonStyle={styles.buttonStyle}

@@ -10,7 +10,7 @@ import { fetchLatestProducts } from '../../utils/api';
 import { productImages } from '../../dictionary/images';
 import axios from 'axios';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { addToCart } from '../../reducer/CartReducer';
+import { addToCart } from '../../redux/reducer/CartReducer';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 
@@ -28,7 +28,7 @@ const NewProductsSlider = () => {
         }).format(total);
 
     const [products, setProducts] = React.useState([]);
-    const [addItem, setAddItem] = React.useState(false);
+
     const dispatch = useDispatch();
 
     React.useEffect(() => {
@@ -78,11 +78,7 @@ const NewProductsSlider = () => {
                         }
                         onPressAdd={() => {
                             dispatch(addToCart(item));
-                            setTimeout(() => {
-                                setAddItem(true);
-                            }, 5000);
                         }}
-                        title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

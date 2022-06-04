@@ -8,7 +8,7 @@ export const cartTotalSelector = createSelector([cartSelector], (cart) =>
 
 export const cartTotalPriceSelector = createSelector([cartSelector], (cart) =>
     cart.reduce(
-        (total, current) => (total += current.price * current.quantity),
+        (total, current) => (total += current.bulkPrice * current.quantity),
         0,
     ),
 );

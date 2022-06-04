@@ -10,6 +10,7 @@ import UserProfileStack from '../UserProfileStack';
 import CartStack from './CartStack';
 import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
+import CartIcon from '../../../components/actions/CartIcon';
 
 const Tab = createBottomTabNavigator();
 
@@ -105,6 +106,20 @@ export default function BottomTabBuyers(props) {
                     ),
                 }}
             />
+            {/* <Tab.Screen
+                name="Kurv"
+                component={CartStack}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ focused, color }) => (
+                        <CartIcon
+                            name={focused ? 'basket' : 'basket-outline'}
+                            size={28}
+                            color={color}
+                        />
+                    ),
+                }}
+            /> */}
             <Tab.Screen
                 name="Kurv"
                 component={CartStack}

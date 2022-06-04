@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import AppLoading from 'expo-app-loading';
 import Navigation from './routes/Navigation';
 import { Provider } from 'react-redux';
-import store from './store/store';
+import store from './redux/store/store';
 
 const loadFonts = () => {
     return Font.loadAsync({

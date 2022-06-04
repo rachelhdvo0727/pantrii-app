@@ -3,6 +3,8 @@ import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../../redux/reducer/CartReducer';
 // API
 import { fetchLatestProducts } from '../../../utils/api';
 // Components
@@ -14,6 +16,8 @@ import { productImages } from '../../../dictionary/images';
 export default function NewProductsScreen() {
     const navigation = useNavigation();
     const content = dictionary?.products; // DA dictionary
+
+    const dispatch = useDispatch();
 
     const numberFormat = (total) =>
         new Intl.NumberFormat('en-DK', {
@@ -56,6 +60,9 @@ export default function NewProductsScreen() {
                                 product: item,
                             })
                         }
+                        onPressAdd={() => {
+                            dispatch(addToCart(item));
+                        }}
                     />
                 )}
                 numColumns={2}

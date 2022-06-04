@@ -40,10 +40,7 @@ export interface Props {
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
     onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
-    onPressOut?: React.ComponentProps<typeof Pressable>['onPress'];
-    secondaryButton?: boolean;
-    confirmedButton?: boolean;
-    title: string;
+    id: string;
 }
 
 const ProductCard = ({
@@ -62,17 +59,15 @@ const ProductCard = ({
     isOrganic,
     onPress,
     onPressAdd,
-    onPressOut,
-    secondaryButton,
-    confirmedButton,
-    title,
+    id,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
+    const [addItem, setAddItem] = React.useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
     return (
-        <View>
+        <View key={id}>
             {/* Slide up modal */}
             <Modal
                 isVisible={isModalVisible}
@@ -131,7 +126,7 @@ const ProductCard = ({
                                 {productTitle}
                             </Text>
                             <View style={styles.bodyWrapper}>
-                                <View style={styles.padding}>
+                                <View style={[styles.paddingLeft, styles.desc]}>
                                     <Text
                                         style={[
                                             styles.producerTitle,
@@ -156,7 +151,7 @@ const ProductCard = ({
                                 <View
                                     style={[
                                         styles.modalPriceWrapper,
-                                        styles.padding,
+                                        styles.paddingRight,
                                     ]}
                                 >
                                     <Text
@@ -195,11 +190,24 @@ const ProductCard = ({
                                 </View>
                                 <View style={styles.paddingRight}>
                                     <AddToCart
-                                        onPressOut={onPressOut}
+                                        title={
+                                            !addItem
+                                                ? 'Tilføj til kurv'
+                                                : 'Tilføjet'
+                                        }
+                                        secondary={addItem ? false : true}
+                                        confirmed={addItem ? true : false}
+                                        onPressOut={() =>
+                                            setTimeout(() => {
+                                                setAddItem(false);
+                                            }, 700)
+                                        }
+                                        onPressIn={() =>
+                                            setTimeout(() => {
+                                                setAddItem(true);
+                                            }, 200)
+                                        }
                                         onPress={onPressAdd}
-                                        secondary={secondaryButton}
-                                        confirmed={confirmedButton}
-                                        title={title}
                                     />
                                 </View>
                             </View>
@@ -481,8 +489,8 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(189, 189, 189, 0.5)',
         paddingVertical: 5,
     },
-    padding: {
-        paddingHorizontal: 20,
+    paddingLeft: {
+        paddingLeft: 20,
     },
     paddingRight: {
         paddingRight: 20,
@@ -506,5 +514,8 @@ const styles = StyleSheet.create({
         zIndex: 1,
         left: 0,
         top: Dimensions.get('window').height - 385,
+    },
+    desc: {
+        width: '65%',
     },
 });

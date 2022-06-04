@@ -19,6 +19,7 @@ export interface Props {
     children?: React.ReactChild;
     disabled?: React.ComponentProps<typeof Pressable>['disabled'];
     onPressOut?: React.ComponentProps<typeof Pressable>['onPressOut'];
+    onPressIn?: React.ComponentProps<typeof Pressable>['onPressIn'];
 }
 
 const Button: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const Button: React.FC<Props> = ({
     onPress,
     disabled,
     onPressOut,
+    onPressIn,
 }) => {
     return (
         <Pressable
@@ -47,6 +49,7 @@ const Button: React.FC<Props> = ({
             ]}
             disabled={disabled}
             onPressOut={onPressOut}
+            onPressIn={onPressIn}
         >
             <View>
                 <Text

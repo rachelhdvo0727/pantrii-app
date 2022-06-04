@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
 // Components
 import ProductCardList from '../../../components/buyers/ProductCardList';
@@ -10,9 +10,8 @@ import {
     decrement,
     clear,
     removeItem,
-} from '../../../reducer/CartReducer';
-import { cartTotalPriceSelector } from '../../../reducer/CartReducer';
-import CartContainer from '../../../components/CartContainer';
+} from '../../../redux/reducer/CartReducer';
+import { cartTotalPriceSelector } from '../../../redux/reducer/selector';
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
 
@@ -23,8 +22,12 @@ export default function CartScreen() {
             currency: 'DKK',
         }).format(total);
     const content = dictionary?.products;
+
     const dispatch = useDispatch();
+
     const cart = useSelector((state) => state.cart);
+    const totalPrice = useSelector(cartTotalPriceSelector);
+
     return (
         <View style={styles.wrapper}>
             <View style={styles.container}>
@@ -39,7 +42,9 @@ export default function CartScreen() {
                             imageSrc={productImages[item?.imageSrc]}
                             producerTitle={item?.producerTitle}
                             productUnit={item?.productUnit}
-                            bulkPrice={numberFormat(item?.bulkPrice)}
+                            bulkPrice={numberFormat(
+                                item?.bulkPrice * item.quantity,
+                            )}
                             isCold={item.tags?.find((tag) => tag == 'cold')}
                             isOrganic={item.tags?.find(
                                 (tag) => tag == 'organic',
@@ -68,13 +73,12 @@ export default function CartScreen() {
                 ></FlatList>
             </View>
 
-            <View style={styles.bottomWrapper}>
+            {/* <View style={styles.bottomWrapper}>
                 <Text style={generalStyles.headerH2}>
-                    I ALT:
-                    {/* I ALT: {numberFormat(total)} */}
+                    I ALT: {numberFormat(totalPrice)}
                 </Text>
                 <Button title="Gå til betaling" primary />
-            </View>
+            </View> */}
         </View>
     );
 }
@@ -82,11 +86,11 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        padding: 10,
     },
     container: {
         backgroundColor: 'white',
         borderRadius: 10,
+        margin: 10,
     },
     bottomWrapper: {
         backgroundColor: 'white',
