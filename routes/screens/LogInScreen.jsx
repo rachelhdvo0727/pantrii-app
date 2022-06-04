@@ -12,23 +12,15 @@ import AppLogo from '../../components/svgs/AppLogo';
 // API
 import axios from 'axios';
 import { findUser, mongoDbConfig } from '../../utils/api';
+import * as SecureStore from 'expo-secure-store';
+import { useSelector, useDispatch } from 'react-redux';
+import { getRoles } from '../../redux/slice/roles';
+import { getUser } from '../../redux/slice/user';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
-    const [roles, setRoles] = React.useState([]);
-
-    React.useEffect(() => {
-        // console.log('login', props?.route);
-        // Fetch all roles for this app
-        axios(mongoDbConfig('roles'))
-            .then((response) => {
-                // console.log(response?.data);
-                setRoles(response?.data?.documents);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
+    const dispatch = useDispatch();
+    const { roles } = useSelector((state) => state.roles);
 
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -36,57 +28,11 @@ export default function LogInScreen(props) {
             password: '',
         },
     });
+
     const onSubmit = (data) => {
         // POST
-        axios(findUser(data, false))
-            .then((response) => {
-                const data = response?.data?.document;
-                const currentUserRole = roles?.filter(
-                    (role) => data?.roleId === role?._id,
-                );
-                const user = new User(
-                    data?._id,
-                    data?.firstName,
-                    data?.lastName,
-                    data?.email,
-                    data?.password,
-                    data?.phone,
-                    data?.address,
-                    data?.roleId,
-                    currentUserRole[0]?.role,
-                );
-
-                if (response?.status === 200) {
-                    saveData('user', objectToString(user)); // save in SecureStore
-
-                    // Navigate to the screens based on user's role
-                    if (user?.roleId === currentUserRole[0]?._id) {
-                        currentUserRole[0]?.role === 'producer' &&
-                            navigation.navigate(
-                                'BottomTabSuppliers',
-                                { user: user },
-                                // {
-                                // screen: 'HomeSuppliersScreen',
-                                // // user: user,
-                                // }
-                            );
-                        currentUserRole[0]?.role === 'buyer' &&
-                            navigation.navigate(
-                                'BottomTabBuyers',
-                                { user: user },
-                                // {
-                                // screen: 'HomeStack',
-                                // params: {
-                                //     screen: 'HomeScreen',
-                                //     // user: user,
-                                // },
-                                // }
-                            );
-                    }
-                    reset();
-                }
-            })
-            .catch((error) => console.error(error));
+        dispatch(getUser(data));
+        // reset();
     };
 
     const showSignUp = () => {

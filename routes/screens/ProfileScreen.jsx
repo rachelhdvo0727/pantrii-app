@@ -2,7 +2,7 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 // Components
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
@@ -12,52 +12,48 @@ import SectionInInformationCard from '../../components/SectionInInformationCard'
 // API
 import axios from 'axios';
 import { findUser } from '../../utils/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../../redux/slice/user';
 
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
-    const [user, setUser] = React.useState({});
-    const userRole = props?.route?.params?.user?.roleTitle;
-    const userId = props?.route?.params?.user?._id;
-
-    const isMounted = React.useRef(null);
-    const fetchCurrentUser = React.useCallback(() => {
-        axios(findUser(userId, true))
-            .then((response) => setUser(response?.data?.document))
-            .catch((error) => console.error(error));
-    }, []);
-
-    React.useEffect(() => {
-        isMounted.current = true;
-        const timer = setTimeout(() => {
-            fetchCurrentUser();
-        }, 800);
-
-        const willFocusSubscription = props.navigation.addListener(
-            'focus',
-            () => {
-                fetchCurrentUser();
-            },
-        );
-
-        return () =>
-            (isMounted.current = false) &&
-            willFocusSubscription &&
-            clearTimeout(timer) &&
-            setUser({ ...user });
-    }, []);
+    const { user } = useSelector((state) => state.user);
+    const userRole = props?.route?.params?.currentRole;
 
     const onEdit = (information) => {
         navigation.navigate('ProfileEditScreen', {
-            user: user,
+            user: user || props?.route?.params.loggedInUser,
             informationType: information,
         });
     };
 
-    const handleLogOut = () => {
-        SecureStore.setItemAsync('user', '');
-        navigation.navigate('LogInScreen');
+    // const handleLogOut = () => {
+    //     SecureStore.setItemAsync('user', '');
+    // };
+
+    const handleLogOut = async function () {
+        return await SecureStore.setItemAsync('user', '')
+            .then(async () => {
+                // To verify that current user is now empty, currentAsync can be used
+                const currentUser = await SecureStore.getItemAsync('user');
+                if (currentUser === null) {
+                    console.log('Success!', 'No user is logged in anymore!');
+                }
+                // Navigation dispatch calls a navigation action, and popToTop will take
+                // the user back to the very first screen of the stack
+                // navigation.dispatch(StackActions.popToTop());
+                return true;
+            })
+            .catch((error) => {
+                console.log('Error!', error.message);
+                return false;
+            });
     };
+
+    React.useEffect(() => {
+        // props.navigation.popToTop();
+    });
 
     const ProfileInformation = () => (
         <SectionInInformationCard
@@ -66,14 +62,16 @@ export default function ProfileScreen(props) {
             sectionContent={
                 <React.Fragment>
                     <Text style={styles.highlightText}>
-                        {user?.firstName} {user?.lastName}
+                        {(user || props?.route?.params.loggedInUser)?.firstName}{' '}
+                        {(user || props?.route?.params.loggedInUser)?.lastName}
                     </Text>
-                    {user?.email && (
-                        <Text style={styles.text}>{user?.email}</Text>
-                    )}
-                    {user?.phone && (
-                        <Text style={styles.text}>{user?.phone}</Text>
-                    )}
+                    <Text style={styles.text}>
+                        {(user || props?.route?.params.loggedInUser).email}
+                    </Text>
+
+                    <Text style={styles.text}>
+                        {(user || props?.route?.params.loggedInUser)?.phone}
+                    </Text>
                 </React.Fragment>
             }
             isEditable
@@ -89,16 +87,35 @@ export default function ProfileScreen(props) {
             sectionContent={
                 <React.Fragment>
                     <Text style={styles.text}>
-                        {user?.address?.line1} {user?.address?.line2}
+                        {
+                            (user || props?.route?.params.loggedInUser)?.address
+                                ?.line1
+                        }
+                        {
+                            (user || props?.route?.params.loggedInUser)?.address
+                                ?.line2
+                        }
                     </Text>
                     <View style={styles.cityWrapper}>
                         <Text style={styles.text}>
-                            {user?.address?.zipCode}
+                            {
+                                (user || props?.route?.params.loggedInUser)
+                                    ?.address?.zipCode
+                            }
                         </Text>
-                        <Text style={styles.text}>{user?.address?.city}</Text>
+                        <Text style={styles.text}>
+                            {
+                                (user || props?.route?.params.loggedInUser)
+                                    ?.address?.city
+                            }
+                        </Text>
                     </View>
-
-                    <Text style={styles.text}>{user?.address?.country}</Text>
+                    <Text style={styles.text}>
+                        {
+                            (user || props?.route?.params.loggedInUser)?.address
+                                ?.country
+                        }
+                    </Text>
                 </React.Fragment>
             }
             isEditable

@@ -12,9 +12,6 @@ import UserProfileStack from '../UserProfileStack';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
-    React.useEffect(() => {
-        // console.log('nav', props?.route?.params);
-    });
     return (
         <Tab.Navigator
             screenOptions={{
@@ -38,7 +35,7 @@ export default function BottomTabSuppliers(props) {
                     backgroundColor: '#1B463C',
                 },
             }}
-            initialRouteName="HomeSuppliersScreen"
+            initialRouteName="Hjem"
         >
             <Tab.Screen
                 name="Hjem"
