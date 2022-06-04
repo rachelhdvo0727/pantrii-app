@@ -3,10 +3,18 @@ import generalStyles from '../../../styles/General';
 import { unitOptions } from '../../../utils/variables';
 import dictionary from '../../../dictionary/general.json';
 // Components
-import { StyleSheet, Text, View } from 'react-native';
+import {
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    Virtuali,
+} from 'react-native';
 import InputField from '../../../components/InputField';
-import Button from '../../../components/actions/Button';
+import InputFieldSelect from '../../../components/InputFieldSelect';
 import SelectDropDown from '../../../components/SelectDropDown';
+import Button from '../../../components/actions/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
 import { RadioButton } from 'react-native-paper';
@@ -38,7 +46,8 @@ export default function UploadProductsScreen() {
     const onSubmit = (data) => {};
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            {/* <ScrollView> */}
             <Controller
                 name="productTitle"
                 control={control}
@@ -207,6 +216,19 @@ export default function UploadProductsScreen() {
                     />
                 )}
             />
+            <Controller
+                name="categoryOption"
+                control={control}
+                render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                }) => (
+                    <InputFieldSelect
+                        label="Kategorie"
+                        placeholder="Vælge en kategorie"
+                    />
+                )}
+            />
             <RadioButton.Group
                 onValueChange={(newValue) => setValue(newValue)}
                 value={value}
@@ -243,7 +265,6 @@ export default function UploadProductsScreen() {
                             labelStyle={styles.radioButtonLabel}
                             mode="android"
                             position="leading"
-                            children={<FrozenIcon />}
                         />
                     </View>
                     <View style={styles.tagOption}>
@@ -260,7 +281,6 @@ export default function UploadProductsScreen() {
                             labelStyle={styles.radioButtonLabel}
                             mode="android"
                             position="leading"
-                            children={<OrganicIcon />}
                         />
                     </View>
                 </View>
@@ -271,16 +291,19 @@ export default function UploadProductsScreen() {
                 primary
                 buttonStyle={[styles.buttons, styles.createButton]}
             />
-        </View>
+            {/* </ScrollView> */}
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        alignSelf: 'center',
         ...generalStyles.container,
         flexDirection: 'column',
-        // alignItems: 'flex-start',
-        marginVertical: 20,
+        marginTop: 20,
+        width: '95%',
+        overflow: 'scroll',
     },
     fieldset: {
         flexDirection: 'row',
@@ -305,11 +328,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
+        // flex: 1,
     },
     radioButtonLabel: {
         fontFamily: 'TT-Commons-DemiBold',
         fontSize: 14,
-        lineHeight: 17,
         letterSpacing: 1,
         textTransform: 'capitalize',
     },
