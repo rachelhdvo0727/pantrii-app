@@ -31,54 +31,67 @@ export default function CartScreen() {
 
     return (
         <View style={styles.wrapper}>
-            <View style={styles.container}>
-                <InformationCard>
-                    <FlatList
-                        data={cart}
-                        keyExtractor={(item) => item?._id}
-                        renderItem={({ item }) => (
-                            <ProductCardList
-                                productTitle={
-                                    content.productTitle[item?.productTitle]
-                                }
-                                imageSrc={productImages[item?.imageSrc]}
-                                producerTitle={item?.producerTitle}
-                                productUnit={item?.productUnit}
-                                bulkPrice={numberFormat(
-                                    item?.bulkPrice * item.quantity,
-                                )}
-                                isCold={item.tags?.find((tag) => tag == 'cold')}
-                                isOrganic={item.tags?.find(
-                                    (tag) => tag == 'organic',
-                                )}
-                                isFrozen={item.tags?.find(
-                                    (tag) => tag == 'frozen',
-                                )}
-                                quantity={item.quantity}
-                                onPressMinus={() => {
-                                    if (item.quantity === 1) {
-                                        dispatch(removeItem(item._id));
-
-                                        console.log('removed');
-                                        return;
-                                    } else {
-                                        dispatch(decrement(item._id));
+            {cart.length === 0 ? (
+                <View style={styles.wrapperCenter}>
+                    <Text style={styles.emptyText}>Din kurv er tom</Text>
+                </View>
+            ) : (
+                <View style={styles.container}>
+                    <InformationCard>
+                        <FlatList
+                            data={cart}
+                            keyExtractor={(item) => item?._id}
+                            renderItem={({ item }) => (
+                                <ProductCardList
+                                    productTitle={
+                                        content.productTitle[item?.productTitle]
                                     }
-                                }}
-                                onPressAdd={() => {
-                                    dispatch(increment(item._id));
-                                }}
-                                onPressDelete={() => {
-                                    dispatch(removeItem(item._id));
-                                }}
-                            />
-                        )}
-                        scrollEnabled={true}
-                    ></FlatList>
-                </InformationCard>
-            </View>
+                                    imageSrc={productImages[item?.imageSrc]}
+                                    producerTitle={item?.producerTitle}
+                                    productUnit={item?.productUnit}
+                                    bulkPrice={numberFormat(
+                                        item?.bulkPrice * item.quantity,
+                                    )}
+                                    isCold={item.tags?.find(
+                                        (tag) => tag == 'cold',
+                                    )}
+                                    isOrganic={item.tags?.find(
+                                        (tag) => tag == 'organic',
+                                    )}
+                                    isFrozen={item.tags?.find(
+                                        (tag) => tag == 'frozen',
+                                    )}
+                                    quantity={item.quantity}
+                                    onPressMinus={() => {
+                                        if (item.quantity === 1) {
+                                            dispatch(removeItem(item._id));
 
-            <View style={styles.bottomWrapper}>
+                                            console.log('removed');
+                                            return;
+                                        } else {
+                                            dispatch(decrement(item._id));
+                                        }
+                                    }}
+                                    onPressAdd={() => {
+                                        dispatch(increment(item._id));
+                                    }}
+                                    onPressDelete={() => {
+                                        dispatch(removeItem(item._id));
+                                    }}
+                                />
+                            )}
+                            scrollEnabled={true}
+                        ></FlatList>
+                    </InformationCard>
+                </View>
+            )}
+            <View
+                style={
+                    cart.length === 0
+                        ? styles.displayNone
+                        : styles.bottomWrapper
+                }
+            >
                 <Text style={generalStyles.headerH2}>
                     I ALT: {numberFormat(totalPrice)}
                 </Text>
@@ -91,6 +104,13 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
+        backgroundColor: '#EFF2EE',
+    },
+    wrapperCenter: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#EFF2EE',
     },
     container: {
         backgroundColor: 'white',
@@ -113,9 +133,13 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(189, 189, 189, 0.5)',
         alignItems: 'center',
     },
-    contentContainerStyle: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#EFF2EE',
+    emptyText: {
+        justifyContent: 'center',
+        fontSize: 18,
+        fontFamily: 'TT-Commons-Medium',
+        letterSpacing: 0.5,
+    },
+    displayNone: {
+        display: 'none',
     },
 });
