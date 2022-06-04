@@ -5,10 +5,10 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
+    View,
     SafeAreaView,
     VirtualizedList,
     FlatList,
-    View,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '@material-ui/core';
@@ -20,13 +20,15 @@ export interface Option {
 
 export interface Props {
     label: string;
+    placeholder?: string;
     data: Array<Option>;
     onSelect(item: Option): void;
     selectedItem?: Option;
 }
 
-export default function SelectDropDown({
+export default function InputFieldSelect({
     label,
+    placeholder,
     data,
     onSelect,
     selectedItem,
@@ -61,7 +63,8 @@ export default function SelectDropDown({
             <Text
                 style={[
                     styles.dropdownText,
-                    seletedOption?.label === item?.label && styles.currentSort,
+                    seletedOption?.label === item?.label &&
+                        styles.currentOption,
                 ]}
             >
                 {item?.label}&emsp;&emsp;
@@ -85,48 +88,65 @@ export default function SelectDropDown({
     return (
         <TouchableOpacity style={styles.container} onPress={toggleDropdown}>
             {renderDropdown()}
-            <Text style={[styles.buttonText]}>{capitalize(label)}</Text>
-            {selectedItem ? (
-                <Text
-                    style={[
-                        styles.buttonText,
-                        seletedOption?.label !== '' && styles.currentSort,
-                    ]}
-                >
-                    {seletedOption?.label ? ': ' + seletedOption?.label : ''}
+            <Text style={[styles.label]}>{capitalize(label)}</Text>
+            <View style={styles.inputInnerWrapper}>
+                <Text style={[styles.valueText]}>
+                    {seletedOption?.label ? seletedOption?.label : placeholder}
                 </Text>
-            ) : null}
-
-            <MaterialIcons
-                name={visible ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
-                size={17}
-                color="black"
-            />
+                <MaterialIcons
+                    name={visible ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
+                    size={20}
+                    color="black"
+                    style={styles.arrowIcon}
+                />
+            </View>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#EFF2EE',
-        borderColor: '#000000',
-        borderWidth: 1,
-        borderRadius: 50,
-        paddingVertical: 3,
-        paddingHorizontal: 10,
         marginVertical: 10,
-        marginHorizontal: 10,
-        zIndex: 1,
+        marginHorizontal: 18,
+        paddingVertical: 10,
+        paddingHorizontal: 25,
+        backgroundColor: '#EFF2EE',
 
-        alignSelf: 'flex-end',
+        borderRadius: 20,
+        borderStyle: 'solid',
+        borderWidth: 1,
+    },
+    label: {
+        fontFamily: 'TT-Commons-DemiBold',
+        fontSize: 14,
+        lineHeight: 17,
+        letterSpacing: 1,
+        textTransform: 'capitalize',
+        paddingHorizontal: 5,
 
+        position: 'absolute',
+        width: 'auto',
+        height: 19.41,
+        backgroundColor: '#EFF2EE',
+        left: 20,
+        top: 50,
+        transform: [
+            {
+                translateY: -59,
+            },
+        ],
+    },
+    arrowIcon: { alignSelf: 'flex-end', position: 'relative', right: -5 },
+    valueText: {
+        fontFamily: 'TT-Commons-Regular',
+        fontSize: 16,
+        letterSpacing: 1,
+        marginTop: 2,
+        opacity: 0.2,
+    },
+    inputInnerWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    buttonText: {
-        ...generalStyles.paragraphText,
-        fontSize: 12,
     },
     dropdown: {
         zIndex: 9999,
@@ -150,7 +170,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0,
     },
     dropdownText: { ...generalStyles.paragraphText, fontSize: 12 },
-    currentSort: {
-        fontFamily: 'TT-Commons-DemiBold',
+    currentOption: {
+        opacity: 1,
     },
 });
