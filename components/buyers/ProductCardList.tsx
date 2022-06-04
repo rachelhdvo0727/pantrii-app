@@ -18,6 +18,8 @@ import AddMinusToCart from '../actions/AddMinusToCart';
 import DeleteIcon from '../actions/DeleteButton';
 import Product from '../../models/Product';
 import InformationCard from '../InformationCard';
+import Modal from 'react-native-modal';
+import Button from '../actions/Button';
 
 export interface Props {
     cardStyle: StyleProp<PressableProps>;
@@ -51,6 +53,7 @@ const ProductCardList = ({
     isOrganic,
     onPressDelete,
 }: Props) => {
+    const [isModalVisible, setModalVisible] = useState(false);
     return (
         <View style={styles.container}>
             <View style={styles.icons}>
@@ -102,8 +105,35 @@ const ProductCardList = ({
                 </View>
             </View>
             <View style={styles.delete}>
-                <DeleteIcon onPress={onPressDelete} />
+                <DeleteIcon
+                    // onPress={onPressDelete}
+                    onPress={() => setModalVisible(true)}
+                />
             </View>
+            <Modal
+                isVisible={isModalVisible}
+                coverScreen={true}
+                onSwipeComplete={() => setModalVisible(false)}
+                onBackdropPress={() => setModalVisible(false)}
+                swipeDirection="down"
+                backdropOpacity={0.3}
+                animationOutTiming={600}
+            >
+                <View style={styles.modalWrapper}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>
+                            Er du sikker på, du gerne vil slette dette produkt?
+                        </Text>
+                        <View style={styles.flex}>
+                            <Button
+                                onPress={() => setModalVisible(false)}
+                                title="Nej"
+                            />
+                            <Button onPress={onPressDelete} title="Ja" />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -198,5 +228,37 @@ const styles = StyleSheet.create({
         zIndex: 1,
         right: 10,
         top: 10,
+    },
+    modalWrapper: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalView: {
+        width: Dimensions.get('window').width - 100,
+        height: 140,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 20,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        justifyContent: 'space-between',
+    },
+    flex: {
+        width: '70%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    modalText: {
+        textAlign: 'center',
+        fontFamily: 'TT-Commons-Medium',
+        fontSize: 18,
+        lineHeight: 22,
+        letterSpacing: 0.2,
     },
 });

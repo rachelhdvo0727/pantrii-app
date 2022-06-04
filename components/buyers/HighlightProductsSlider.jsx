@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
+// Components
 import ProductCard from './ProductCard';
 import dictionary from '../../dictionary/products';
 import generalStyles from '../../styles/General';
 import ViewButton from '../actions/ViewButton';
 import { fetchFeaturedProducts } from '../../utils/api';
 import { productImages } from '../../dictionary/images';
+// API
 import axios from 'axios';
+// Redux
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../redux/reducer/CartReducer';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 
@@ -20,6 +25,8 @@ const HighLightProductsSlider = () => {
     const content = dictionary?.products; // DA dictionary
 
     const [products, setProducts] = React.useState([]);
+
+    const dispatch = useDispatch();
 
     const numberFormat = (total) =>
         new Intl.NumberFormat('en-DK', {
@@ -72,6 +79,9 @@ const HighLightProductsSlider = () => {
                                 // quantity: quantity,
                             })
                         }
+                        onPressAdd={() => {
+                            dispatch(addToCart(item));
+                        }}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

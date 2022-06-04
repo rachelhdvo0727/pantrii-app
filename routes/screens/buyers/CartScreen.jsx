@@ -14,6 +14,7 @@ import {
 import { cartTotalPriceSelector } from '../../../redux/reducer/selector';
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
+import InformationCard from '../../../components/InformationCard';
 
 export default function CartScreen() {
     const numberFormat = (total) =>
@@ -31,54 +32,58 @@ export default function CartScreen() {
     return (
         <View style={styles.wrapper}>
             <View style={styles.container}>
-                <FlatList
-                    data={cart}
-                    keyExtractor={(item) => item?._id}
-                    renderItem={({ item }) => (
-                        <ProductCardList
-                            productTitle={
-                                content.productTitle[item?.productTitle]
-                            }
-                            imageSrc={productImages[item?.imageSrc]}
-                            producerTitle={item?.producerTitle}
-                            productUnit={item?.productUnit}
-                            bulkPrice={numberFormat(
-                                item?.bulkPrice * item.quantity,
-                            )}
-                            isCold={item.tags?.find((tag) => tag == 'cold')}
-                            isOrganic={item.tags?.find(
-                                (tag) => tag == 'organic',
-                            )}
-                            isFrozen={item.tags?.find((tag) => tag == 'frozen')}
-                            quantity={item.quantity}
-                            onPressMinus={() => {
-                                if (item.quantity === 1) {
-                                    dispatch(removeItem(item._id));
-
-                                    console.log('removed');
-                                    return;
-                                } else {
-                                    dispatch(decrement(item._id));
+                <InformationCard>
+                    <FlatList
+                        data={cart}
+                        keyExtractor={(item) => item?._id}
+                        renderItem={({ item }) => (
+                            <ProductCardList
+                                productTitle={
+                                    content.productTitle[item?.productTitle]
                                 }
-                            }}
-                            onPressAdd={() => {
-                                dispatch(increment(item._id));
-                            }}
-                            onPressDelete={() => {
-                                dispatch(removeItem(item._id));
-                            }}
-                        />
-                    )}
-                    scrollEnabled={false}
-                ></FlatList>
+                                imageSrc={productImages[item?.imageSrc]}
+                                producerTitle={item?.producerTitle}
+                                productUnit={item?.productUnit}
+                                bulkPrice={numberFormat(
+                                    item?.bulkPrice * item.quantity,
+                                )}
+                                isCold={item.tags?.find((tag) => tag == 'cold')}
+                                isOrganic={item.tags?.find(
+                                    (tag) => tag == 'organic',
+                                )}
+                                isFrozen={item.tags?.find(
+                                    (tag) => tag == 'frozen',
+                                )}
+                                quantity={item.quantity}
+                                onPressMinus={() => {
+                                    if (item.quantity === 1) {
+                                        dispatch(removeItem(item._id));
+
+                                        console.log('removed');
+                                        return;
+                                    } else {
+                                        dispatch(decrement(item._id));
+                                    }
+                                }}
+                                onPressAdd={() => {
+                                    dispatch(increment(item._id));
+                                }}
+                                onPressDelete={() => {
+                                    dispatch(removeItem(item._id));
+                                }}
+                            />
+                        )}
+                        scrollEnabled={true}
+                    ></FlatList>
+                </InformationCard>
             </View>
 
-            {/* <View style={styles.bottomWrapper}>
+            <View style={styles.bottomWrapper}>
                 <Text style={generalStyles.headerH2}>
                     I ALT: {numberFormat(totalPrice)}
                 </Text>
                 <Button title="Gå til betaling" primary />
-            </View> */}
+            </View>
         </View>
     );
 }
@@ -104,5 +109,10 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
         alignItems: 'center',
+    },
+    contentContainerStyle: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#EFF2EE',
     },
 });

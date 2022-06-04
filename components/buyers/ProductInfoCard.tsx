@@ -36,10 +36,11 @@ export interface Props {
     isFrozen?: string;
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
-    onPress: () => void;
+    onPress?: () => void;
     productStory: string;
     productUnique: string;
     expiryDuration: string;
+    onPressAdd?: () => void;
 }
 
 const ProductInfoCard = ({
@@ -57,16 +58,12 @@ const ProductInfoCard = ({
     productStory,
     productUnique,
     expiryDuration,
+    onPressAdd,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
     const content = dictionary?.products;
-    const images = [
-        { name: '627fc4457a0fa962a5cb745b-1.png' },
-        { name: '627fc4457a0fa962a5cb745b-2.png' },
-        { name: '627fc4457a0fa962a5cb745b-3.png' },
-    ];
-    const listItems = images.map((image) => <Text>{image.name}</Text>);
+    const [addItem, setAddItem] = React.useState(false);
     // Delivery cost
     const deliveryPrice = '2000';
     // Delivery date
@@ -104,22 +101,7 @@ const ProductInfoCard = ({
                     ) : null}
                 </View>
                 <Image style={styles.image} source={imageSrc}></Image>
-                {/* <Carousel
-                layout="default"
-                ref={carouselRef}
-                data={images}
-                activeSlideAlignment="start"
-                inactiveSlideScale={1}
-                inactiveSlideOpacity={1}
-                renderItem={({ item }) => {
-                    listItems;
-                }}
-                sliderWidth={414}
-                itemWidth={120} // width depends on window's screen
-                useScrollView={true}
-                onSnapToItem={(index) => setIndex(index)}
-                enableSnap={false}
-            /> */}
+
                 <View style={styles.wrapper}>
                     <Text style={styles.productTitle}>{productTitle}</Text>
                     <View style={styles.flexWrapper}>
@@ -187,7 +169,22 @@ const ProductInfoCard = ({
             </ScrollView>
             <View style={styles.bottomWrapper}>
                 <FavoriteButton />
-                <AddToCart />
+                <AddToCart
+                    title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
+                    secondary={addItem ? false : true}
+                    confirmed={addItem ? true : false}
+                    onPressOut={() =>
+                        setTimeout(() => {
+                            setAddItem(false);
+                        }, 400)
+                    }
+                    onPressIn={() =>
+                        setTimeout(() => {
+                            setAddItem(true);
+                        }, 100)
+                    }
+                    onPress={onPressAdd}
+                />
             </View>
         </View>
     );

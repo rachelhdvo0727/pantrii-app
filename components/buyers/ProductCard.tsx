@@ -200,12 +200,12 @@ const ProductCard = ({
                                         onPressOut={() =>
                                             setTimeout(() => {
                                                 setAddItem(false);
-                                            }, 700)
+                                            }, 400)
                                         }
                                         onPressIn={() =>
                                             setTimeout(() => {
                                                 setAddItem(true);
-                                            }, 200)
+                                            }, 100)
                                         }
                                         onPress={onPressAdd}
                                     />

@@ -15,6 +15,9 @@ import Spinner from '../../../components/Spinner';
 // API
 import axios from 'axios';
 import { fetchCategoryProducts } from '../../../utils/api';
+// Redux
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../../redux/reducer/CartReducer';
 
 const CategoryProductsListScreen = (props) => {
     const category = props?.route?.params?.category;
@@ -27,6 +30,8 @@ const CategoryProductsListScreen = (props) => {
     const onSelectedSort = (item) => {
         setSelectedSort(item);
     };
+
+    const dispatch = useDispatch();
 
     const numberFormat = (total) =>
         new Intl.NumberFormat('en-DK', {
@@ -118,6 +123,9 @@ const CategoryProductsListScreen = (props) => {
                                 (tag) => tag === 'frozen',
                             )}
                             cardStyle={styles.cardStyle}
+                            onPressAdd={() => {
+                                dispatch(addToCart(item));
+                            }}
                         />
                     )}
                     numColumns={2}

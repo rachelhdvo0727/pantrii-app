@@ -10,12 +10,17 @@ import ProductCard from '../../../components/buyers/ProductCard';
 // Dictionary
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
+// Redux
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../../redux/reducer/CartReducer';
 
 export default function HighlightProductsScreen() {
     const navigation = useNavigation();
     const content = dictionary?.products; // DA dictionary
 
     const [products, setProducts] = React.useState([]);
+
+    const dispatch = useDispatch();
 
     const numberFormat = (total) =>
         new Intl.NumberFormat('en-DK', {
@@ -57,6 +62,9 @@ export default function HighlightProductsScreen() {
                                 product: item,
                             })
                         }
+                        onPressAdd={() => {
+                            dispatch(addToCart(item));
+                        }}
                     />
                 )}
                 numColumns={2}

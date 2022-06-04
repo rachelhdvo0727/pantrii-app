@@ -11,6 +11,9 @@ import axios from 'axios';
 // Components
 import BackIconButton from '../../../components/actions/BackIconButton';
 import ProductInfoCard from '../../../components/buyers/ProductInfoCard';
+// Redux
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../../redux/reducer/CartReducer';
 
 export default function ProductScreen(props) {
     const navigation = useNavigation();
@@ -18,7 +21,8 @@ export default function ProductScreen(props) {
 
     const product = props?.route?.params?.product;
     const [productInfo, setProductInfo] = React.useState([]);
-    // const test = props?.route?.params?.quantity;
+
+    const dispatch = useDispatch();
 
     const numberFormat = (total) =>
         new Intl.NumberFormat('en-DK', {
@@ -60,6 +64,9 @@ export default function ProductScreen(props) {
             isOrganic={product.tags?.find((tag) => tag == 'organic')}
             isFrozen={product.tags?.find((tag) => tag == 'frozen')}
             expiryDuration={product?.expiryDuration}
+            onPressAdd={() => {
+                dispatch(addToCart(product));
+            }}
         />
     );
 }
