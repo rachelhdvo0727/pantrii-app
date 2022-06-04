@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import ProductCardList from '../../../components/buyers/ProductCardList';
 import Button from '../../../components/actions/Button';
@@ -17,6 +18,7 @@ import { productImages } from '../../../dictionary/images';
 import InformationCard from '../../../components/InformationCard';
 
 export default function CartScreen() {
+    const navigation = useNavigation();
     const numberFormat = (total) =>
         new Intl.NumberFormat('en-DK', {
             style: 'currency',
@@ -95,7 +97,15 @@ export default function CartScreen() {
                 <Text style={generalStyles.headerH2}>
                     I ALT: {numberFormat(totalPrice)}
                 </Text>
-                <Button title="Gå til betaling" primary />
+                <Button
+                    title="Gå til kassen"
+                    primary
+                    onPress={() =>
+                        navigation.navigate('CheckOutScreen', {
+                            cart: cart,
+                        })
+                    }
+                />
             </View>
         </View>
     );

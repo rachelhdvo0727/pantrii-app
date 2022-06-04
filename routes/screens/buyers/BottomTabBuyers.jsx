@@ -18,9 +18,8 @@ const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
     React.useEffect(() => {}, []);
-    const total = useSelector(cartTotalSelector);
 
-    const [cartItems, setCartItems] = useState([]);
+    const total = useSelector(cartTotalSelector);
 
     return (
         <Tab.Navigator
@@ -60,7 +59,7 @@ export default function BottomTabBuyers(props) {
         >
             <Tab.Screen
                 name="Hjem"
-                children={() => <HomeStack cartItems={cartItems} />}
+                component={HomeStack}
                 options={{
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -160,5 +159,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    badge: {
+        backgroundColor: '#EA6F2D',
+        color: 'white',
+        fontSize: 12,
     },
 });

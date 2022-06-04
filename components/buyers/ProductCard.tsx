@@ -40,7 +40,6 @@ export interface Props {
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
     onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
-    id: string;
 }
 
 const ProductCard = ({
@@ -59,7 +58,6 @@ const ProductCard = ({
     isOrganic,
     onPress,
     onPressAdd,
-    id,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [addItem, setAddItem] = React.useState(false);
@@ -67,7 +65,7 @@ const ProductCard = ({
         setModalVisible(!isModalVisible);
     };
     return (
-        <View key={id}>
+        <View>
             {/* Slide up modal */}
             <Modal
                 isVisible={isModalVisible}
