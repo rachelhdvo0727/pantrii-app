@@ -11,13 +11,14 @@ import CartStack from './CartStack';
 import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
 import CartIcon from '../../../components/actions/CartIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartTotalSelector } from '../../../redux/reducer/selector';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
-    React.useEffect(() => {
-        // console.log(props?.route.params?.user);
-    }, []);
+    React.useEffect(() => {}, []);
+    const total = useSelector(cartTotalSelector);
 
     const [cartItems, setCartItems] = useState([]);
 
@@ -106,25 +107,17 @@ export default function BottomTabBuyers(props) {
                     ),
                 }}
             />
-            {/* <Tab.Screen
-                name="Kurv"
-                component={CartStack}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ focused, color }) => (
-                        <CartIcon
-                            name={focused ? 'basket' : 'basket-outline'}
-                            size={28}
-                            color={color}
-                        />
-                    ),
-                }}
-            /> */}
             <Tab.Screen
                 name="Kurv"
                 component={CartStack}
                 options={{
                     headerShown: false,
+                    tabBarBadge: <Text>{total}</Text>,
+                    tabBarBadgeStyle: {
+                        backgroundColor: '#EA6F2D',
+                        color: 'white',
+                        fontSize: 12,
+                    },
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons

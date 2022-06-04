@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         textTransform: 'uppercase',
         paddingVertical: 2,
+        width: '90%',
     },
     infoWrapper: {
         borderTopWidth: 1,

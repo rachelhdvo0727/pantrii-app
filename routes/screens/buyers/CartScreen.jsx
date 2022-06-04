@@ -95,7 +95,10 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         borderRadius: 10,
-        margin: 10,
+        marginRight: 10,
+        marginTop: 10,
+        marginLeft: 10,
+        marginBottom: 75,
     },
     bottomWrapper: {
         backgroundColor: 'white',
