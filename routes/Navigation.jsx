@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Components
 import BottomTabBuyers from './screens/buyers/BottomTabBuyers';
@@ -69,7 +69,7 @@ export default function Navigation(props) {
 
     return (
         <NavigationContainer>
-            {(loggedInUser || user) && currentRole === 'producer' && (
+            {currentRole === 'producer' && (
                 <Stack.Navigator screenOptions={screenOptions}>
                     <Stack.Screen
                         name="BottomTabSuppliers"
@@ -83,7 +83,7 @@ export default function Navigation(props) {
                     ></Stack.Screen>
                 </Stack.Navigator>
             )}
-            {(loggedInUser || user) && currentRole === 'buyer' && (
+            {currentRole === 'buyer' && (
                 <Stack.Navigator screenOptions={screenOptions}>
                     <Stack.Screen
                         name="BottomTabBuyers"
