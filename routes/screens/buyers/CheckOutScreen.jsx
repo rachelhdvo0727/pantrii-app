@@ -231,5 +231,7 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.5,
         paddingVertical: 3,
+        alignContent: 'center',
+        alignItems: 'center',
     },
 });

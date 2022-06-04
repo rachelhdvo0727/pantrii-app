@@ -5,11 +5,15 @@ import { useNavigation } from '@react-navigation/native';
 import CartScreen from './CartScreen';
 import CheckOutScreen from './CheckOutScreen';
 import PaymentScreen from './PaymentScreen';
+// Redux
+import { cartTotalSelector } from '../../../redux/reducer/selector';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 const CartStack = (props) => {
-    const navigation = useNavigation();
+    const total = useSelector(cartTotalSelector);
+
     return (
         <Stack.Navigator
             screenOptions={{
@@ -39,24 +43,28 @@ const CartStack = (props) => {
                 }}
                 initialParams={props?.route?.params}
             />
-            <Stack.Screen
-                name="CheckOutScreen"
-                component={CheckOutScreen}
-                options={{
-                    headerTitle: 'KASSEN',
-                    headerBackTitleVisible: false,
-                    headerBackVisible: false,
-                }}
-            />
-            <Stack.Screen
-                name="PaymentScreen"
-                component={PaymentScreen}
-                options={{
-                    headerTitle: 'BETALING',
-                    headerBackTitleVisible: false,
-                    headerBackVisible: false,
-                }}
-            />
+            {total > 0 ? (
+                <Stack.Screen
+                    name="CheckOutScreen"
+                    component={CheckOutScreen}
+                    options={{
+                        headerTitle: 'KASSEN',
+                        headerBackTitleVisible: false,
+                        headerBackVisible: false,
+                    }}
+                />
+            ) : null}
+            {total > 0 ? (
+                <Stack.Screen
+                    name="PaymentScreen"
+                    component={PaymentScreen}
+                    options={{
+                        headerTitle: 'BETALING',
+                        headerBackTitleVisible: false,
+                        headerBackVisible: false,
+                    }}
+                />
+            ) : null}
         </Stack.Navigator>
     );
 };

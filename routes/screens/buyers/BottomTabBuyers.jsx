@@ -8,15 +8,16 @@ import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
 import UserProfileStack from '../UserProfileStack';
 import CartStack from './CartStack';
-import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { cartTotalSelector } from '../../../redux/reducer/selector';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
-    React.useEffect(() => {}, []);
+    // React.useEffect(() => {
+    //     console.log('Total:', total);
+    // });
 
     const total = useSelector(cartTotalSelector);
 
@@ -105,6 +106,7 @@ export default function BottomTabBuyers(props) {
                     ),
                 }}
             />
+
             <Tab.Screen
                 name="Kurv"
                 component={CartStack}
@@ -116,6 +118,7 @@ export default function BottomTabBuyers(props) {
                         backgroundColor: '#EA6F2D',
                         color: 'white',
                         fontSize: 12,
+                        display: total === 0 ? 'none' : 'flex',
                     },
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
