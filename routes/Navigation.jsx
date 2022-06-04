@@ -37,8 +37,8 @@ export default function Navigation(props) {
                     )[0]?.role,
                 );
             } catch (error) {
+                console.log('no saved user');
                 setCurrentRole('');
-                console.log('no saved user', currentRole);
             }
         }
         persistLogin();
@@ -97,7 +97,7 @@ export default function Navigation(props) {
                     ></Stack.Screen>
                 </Stack.Navigator>
             )}
-            {currentRole === '' && (
+            {(!currentRole || currentRole === '') && (
                 <Stack.Navigator>
                     <Stack.Group screenOptions={screenOptions}>
                         <Stack.Screen
