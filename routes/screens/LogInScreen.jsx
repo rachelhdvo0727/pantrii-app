@@ -32,7 +32,7 @@ export default function LogInScreen(props) {
     const onSubmit = (data) => {
         // POST
         dispatch(getUser(data));
-        // reset();
+        reset();
     };
 
     const showSignUp = () => {
