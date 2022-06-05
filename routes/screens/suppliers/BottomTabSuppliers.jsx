@@ -11,6 +11,7 @@ import UserProfileStack from '../UserProfileStack';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
+    console.log('bottom tab', props?.route);
     return (
         <Tab.Navigator
             screenOptions={{
@@ -63,6 +64,7 @@ export default function BottomTabSuppliers(props) {
             <Tab.Screen
                 name="Produkter"
                 component={ProductsSuppliersScreen}
+                initialParams={props?.route?.params}
                 options={{
                     headerTitle: 'alle produkter',
                     tabBarIcon: ({ focused, color }) => (
@@ -81,6 +83,7 @@ export default function BottomTabSuppliers(props) {
             <Tab.Screen
                 name="Opret"
                 component={UploadProductsScreen}
+                initialParams={props?.route?.params}
                 options={{
                     headerTitle: 'opret et produkt',
                     tabBarIcon: ({ focused, color }) => (
