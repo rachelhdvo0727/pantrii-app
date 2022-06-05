@@ -37,7 +37,8 @@
             "Produced in Denmark": "Produceret i Danmark",
             "For foodservice - Produced from surplus bananas": "Til foodservice - Produceret af overskudsbananer",
             "Wine Gum, Vegan": "Vingummi, Vegansk",
-            "Cold cuts": "Pålæg"
+            "Cold cuts": "Pålæg",
+            "Gifler":"Gifler"
         },
         "productStory": {
             "Healthy and tasty food from good ingredients has been the recipe for Trang Thien Lê since she came to Denmark in 2014 and started making Vietnamese street food. But she has missed tofu of proper quality, and therefore she has started to make her own - from organic ingredients from Europe. Lê Trang wants to work in balance with our surroundings and our own health. This means, among other things, a low climate footprint and attention to the quality of the choice of raw materials. Find videos and recipes at @letrangtofu": "Sund og smagsfuld mad af gode råvarer har været opskriften for Trang Thien Lê, siden hun i 2014 kom til Danmark og begyndte at lave vietnamesisk streetfood. Men hun har savnet tofu af ordentlig kvalitet, og derfor er hun begyndt at lave sin egen – af økologiske råvarer fra Europa. Lê Trang ønsker at arbejde i balance med vores omgivelser og vores egen sundhed. Det betyder blandt andet et lavt klimaaftryk og opmærksom på kvaliteten i valg af råvarer. Find videoer og opskrifter på @letrangtofu.",
@@ -84,6 +85,7 @@
         },
         "delivery":{
             "deliveryDate": " Forventes leveret:",
+            "standardShipping": " Standard shipping:",
             "deliveryCost": " Fri fragt på alle ordrer over "
         }
     }

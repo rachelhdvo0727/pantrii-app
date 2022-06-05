@@ -3,8 +3,8 @@ import * as Font from 'expo-font';
 import * as SecureStore from 'expo-secure-store';
 import AppLoading from 'expo-app-loading';
 import Navigation from './routes/Navigation';
-import { store } from './redux/store';
 import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const loadFonts = () => {
     return Font.loadAsync({
@@ -16,8 +16,6 @@ const loadFonts = () => {
 };
 export default function App() {
     const [fontLoaded, setFontLoaded] = React.useState(false);
-    const [loggedInUser, setLoggedInUser] = React.useState({});
-    const [initialRoute, setInitialRoute] = React.useState(null || '');
 
     React.useEffect(() => {
         // (async function () {

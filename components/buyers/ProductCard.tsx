@@ -19,9 +19,9 @@ import FavoriteIcon from '../actions/FavouriteIcon';
 import Modal from 'react-native-modal';
 import FavoriteButton from '../actions/FavoriteButton';
 import IconButton from '../actions/IconButton';
-import Button from '../actions/Button';
 import CloseButton from '../actions/CloseButton';
 import Product from '../../models/Product';
+import AddToCart from '../actions/AddToCart';
 
 export interface Props {
     // onPress: React.ComponentProps<typeof Pressable>['onPress'];
@@ -39,6 +39,7 @@ export interface Props {
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
+    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
 const ProductCard = ({
@@ -56,12 +57,13 @@ const ProductCard = ({
     isFrozen,
     isOrganic,
     onPress,
+    onPressAdd,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
+    const [addItem, setAddItem] = React.useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
-
     return (
         <View>
             {/* Slide up modal */}
@@ -79,7 +81,7 @@ const ProductCard = ({
                         style={{
                             position: 'absolute',
                             zIndex: 4,
-                            top: Dimensions.get('window').height - 370,
+                            top: Dimensions.get('window').height - 385,
                             right: 0,
                         }}
                         onPress={toggleModal}
@@ -122,7 +124,7 @@ const ProductCard = ({
                                 {productTitle}
                             </Text>
                             <View style={styles.bodyWrapper}>
-                                <View style={styles.padding}>
+                                <View style={[styles.paddingLeft, styles.desc]}>
                                     <Text
                                         style={[
                                             styles.producerTitle,
@@ -147,7 +149,7 @@ const ProductCard = ({
                                 <View
                                     style={[
                                         styles.modalPriceWrapper,
-                                        styles.padding,
+                                        styles.paddingRight,
                                     ]}
                                 >
                                     <Text
@@ -164,7 +166,7 @@ const ProductCard = ({
                                             styles.modalH4,
                                         ]}
                                     >
-                                        {singlePrice}
+                                        {singlePrice}/enhed
                                     </Text>
                                 </View>
                             </View>
@@ -185,7 +187,26 @@ const ProductCard = ({
                                     />
                                 </View>
                                 <View style={styles.paddingRight}>
-                                    <Button secondary title="Tilføj til kurv" />
+                                    <AddToCart
+                                        title={
+                                            !addItem
+                                                ? 'Tilføj til kurv'
+                                                : 'Tilføjet'
+                                        }
+                                        secondary={addItem ? false : true}
+                                        confirmed={addItem ? true : false}
+                                        onPressOut={() =>
+                                            setTimeout(() => {
+                                                setAddItem(false);
+                                            }, 400)
+                                        }
+                                        onPressIn={() =>
+                                            setTimeout(() => {
+                                                setAddItem(true);
+                                            }, 100)
+                                        }
+                                        onPress={onPressAdd}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -235,7 +256,9 @@ const ProductCard = ({
                     {productTitle}
                 </Text>
                 <View style={styles.infoWrapper}>
-                    <Text style={styles.producerTitle}>{producerTitle}</Text>
+                    <Text style={styles.producerTitle} numberOfLines={1}>
+                        {producerTitle}
+                    </Text>
                     <Text style={styles.productDesc} numberOfLines={1}>
                         {productDesc}
                     </Text>
@@ -258,7 +281,7 @@ const ProductCard = ({
                         <View
                             style={[
                                 styles.cartButtonWrapper,
-                                { width: secondary ? 36 : 30 },
+                                { width: secondary ? 36 : 36 },
                             ]}
                         >
                             <Ionicons
@@ -279,7 +302,7 @@ export default ProductCard;
 const styles = StyleSheet.create({
     productWrapper: {
         // width: 180,
-        width: Dimensions.get('window').width / 2 - 16,
+        width: Dimensions.get('window').width / 2 - 25,
         height: 190,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
@@ -400,7 +423,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         width: Dimensions.get('window').width,
-        height: 360,
+        height: 375,
         backgroundColor: 'white',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
@@ -420,15 +443,16 @@ const styles = StyleSheet.create({
     modalH1: {
         fontSize: 20,
         fontFamily: 'TT-Commons-Bold',
-        letterSpacing: 0.2,
+        letterSpacing: 0.5,
         paddingHorizontal: 20,
         paddingVertical: 5,
         textTransform: 'uppercase',
+        color: '#1B463C',
     },
     modalH2: {
         fontSize: 18,
         fontFamily: 'TT-Commons-Bold',
-        letterSpacing: 0.2,
+        letterSpacing: 0.5,
     },
     modalH3: {
         fontSize: 16,
@@ -463,8 +487,8 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(189, 189, 189, 0.5)',
         paddingVertical: 5,
     },
-    padding: {
-        paddingHorizontal: 20,
+    paddingLeft: {
+        paddingLeft: 20,
     },
     paddingRight: {
         paddingRight: 20,
@@ -487,6 +511,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 1,
         left: 0,
-        top: Dimensions.get('window').height - 370,
+        top: Dimensions.get('window').height - 385,
+    },
+    desc: {
+        width: '65%',
     },
 });
