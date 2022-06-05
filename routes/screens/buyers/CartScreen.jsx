@@ -5,6 +5,7 @@ import generalStyles from '../../../styles/General';
 import ProductCardList from '../../../components/buyers/ProductCardList';
 import Button from '../../../components/actions/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import {
     increment,
     decrement,
@@ -17,6 +18,7 @@ import { productImages } from '../../../dictionary/images';
 import InformationCard from '../../../components/InformationCard';
 
 export default function CartScreen() {
+    const navigation = useNavigation();
     const numberFormat = (total) =>
         new Intl.NumberFormat('en-DK', {
             style: 'currency',
@@ -95,7 +97,11 @@ export default function CartScreen() {
                 <Text style={generalStyles.headerH2}>
                     I ALT: {numberFormat(totalPrice)}
                 </Text>
-                <Button title="Gå til betaling" primary />
+                <Button
+                    title="Gå til kassen"
+                    primary
+                    onPress={() => navigation.navigate('CheckOutScreen')}
+                />
             </View>
         </View>
     );

@@ -1,10 +1,19 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+// Components
 import CartScreen from './CartScreen';
+import CheckOutScreen from './CheckOutScreen';
+import PaymentScreen from './PaymentScreen';
+// Redux
+import { cartTotalSelector } from '../../../redux/reducer/selector';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
-const CartStack = () => {
+const CartStack = (props) => {
+    const total = useSelector(cartTotalSelector);
+
     return (
         <Stack.Navigator
             screenOptions={{
@@ -32,7 +41,30 @@ const CartStack = () => {
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}
+                initialParams={props?.route?.params}
             />
+            {total > 0 ? (
+                <Stack.Screen
+                    name="CheckOutScreen"
+                    component={CheckOutScreen}
+                    options={{
+                        headerTitle: 'KASSEN',
+                        headerBackTitleVisible: false,
+                        headerBackVisible: false,
+                    }}
+                />
+            ) : null}
+            {total > 0 ? (
+                <Stack.Screen
+                    name="PaymentScreen"
+                    component={PaymentScreen}
+                    options={{
+                        headerTitle: 'BETALING',
+                        headerBackTitleVisible: false,
+                        headerBackVisible: false,
+                    }}
+                />
+            ) : null}
         </Stack.Navigator>
     );
 };
