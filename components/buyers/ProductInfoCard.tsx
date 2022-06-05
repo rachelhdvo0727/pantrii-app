@@ -1,16 +1,16 @@
 import React, { useState, useMemo, useRef, useCallback } from 'react';
+import { numberFormat } from '../../utils/functions';
+// Components
 import {
     View,
     Text,
     StyleSheet,
     Image,
-    Pressable,
     Dimensions,
     ScrollView,
 } from 'react-native';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-// Components
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
@@ -64,12 +64,6 @@ const ProductInfoCard = ({
     const carouselRef = React.useRef(null);
     const content = dictionary?.products;
     const [addItem, setAddItem] = React.useState(false);
-
-    const numberFormat = (total: any) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     // Delivery cost
     const deliveryPrice = '2000';

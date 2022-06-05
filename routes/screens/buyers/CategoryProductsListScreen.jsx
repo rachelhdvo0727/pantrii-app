@@ -5,6 +5,7 @@ import productDictionary from '../../../dictionary/products.json';
 import { productImages } from '../../../dictionary/images';
 import { sortOptions } from '../../../utils/variables';
 import { useNavigation } from '@react-navigation/native';
+import { numberFormat } from '../../../utils/functions';
 // Component
 import { StyleSheet, View, FlatList } from 'react-native';
 import SelectDropDown from '../../../components/SelectDropDown';
@@ -20,24 +21,17 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
 
 const CategoryProductsListScreen = (props) => {
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
     const category = props?.route?.params?.category;
     const categoryContent = categoryDictionary?.categories;
     const productContent = productDictionary?.products;
-    const navigation = useNavigation();
 
     const [categoryProducts, setCategoryProducts] = React.useState(null);
     const [selectedSort, setSelectedSort] = React.useState(sortOptions[0]);
     const onSelectedSort = (item) => {
         setSelectedSort(item);
     };
-
-    const dispatch = useDispatch();
-
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     React.useEffect(() => {
         // Update Screen's headerTitle

@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
-import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { numberFormat } from '../../../utils/functions';
 // API
+import axios from 'axios';
 import { fetchFeaturedProducts } from '../../../utils/api';
 // Components
+import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import ProductCard from '../../../components/buyers/ProductCard';
 // Dictionary
 import dictionary from '../../../dictionary/products';
@@ -21,12 +22,6 @@ export default function HighlightProductsScreen() {
     const [products, setProducts] = React.useState([]);
 
     const dispatch = useDispatch();
-
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     React.useEffect(() => {
         axios(fetchFeaturedProducts('products'))

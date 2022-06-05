@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
+import { numberFormat } from '../../../utils/functions';
 // Components
 import ProductCardList from '../../../components/buyers/ProductCardList';
 import Button from '../../../components/actions/Button';
@@ -18,15 +19,9 @@ import { productImages } from '../../../dictionary/images';
 import InformationCard from '../../../components/InformationCard';
 
 export default function CartScreen() {
-    const navigation = useNavigation();
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
-    const content = dictionary?.products;
-
     const dispatch = useDispatch();
+    const navigation = useNavigation();
+    const content = dictionary?.products;
 
     const cart = useSelector((state) => state.cart);
     const totalPrice = useSelector(cartTotalPriceSelector);

@@ -38,12 +38,6 @@ export default function PaymentScreen(props) {
         },
     });
 
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
-
     const onSubmit = (data) => {
         setModalVisible(true);
     };
