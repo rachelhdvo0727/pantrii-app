@@ -40,6 +40,8 @@ export interface Props {
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
     onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
+    isActive?: boolean;
 }
 
 const ProductCard = ({
@@ -58,6 +60,8 @@ const ProductCard = ({
     isOrganic,
     onPress,
     onPressAdd,
+    onPressFavourite,
+    isActive,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [addItem, setAddItem] = React.useState(false);
@@ -178,7 +182,10 @@ const ProductCard = ({
                                         styles.modalBottomRightWrapper,
                                     ]}
                                 >
-                                    <FavoriteButton />
+                                    <FavoriteButton
+                                        isActive={isActive}
+                                        onPress={onPressFavourite}
+                                    />
                                     <IconButton
                                         arrowRight
                                         title="Detaljer"
@@ -249,7 +256,10 @@ const ProductCard = ({
                     ) : null}
                 </View>
                 <View style={styles.favouriteIcon}>
-                    <FavoriteIcon />
+                    <FavoriteIcon
+                        isActive={isActive}
+                        onPress={() => console.log('hi')}
+                    />
                 </View>
                 <Image style={styles.image} source={imageSrc}></Image>
                 <Text style={styles.productTitle} numberOfLines={1}>

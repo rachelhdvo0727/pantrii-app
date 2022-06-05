@@ -3,7 +3,7 @@ import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 export interface Props {
-    onPress?: () => void;
+    onPress?: React.ComponentProps<typeof Pressable>['onPress'];
     isActive?: boolean;
 }
 
