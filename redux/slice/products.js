@@ -8,18 +8,15 @@ const initialState = {
     loading: false,
 };
 
-export const getProducts = createAsyncThunk(
-    'category/getCategoryProducts',
-    () => {
-        return axios(mongoDbConfig('products'))
-            .then((response) => {
-                const products = response?.data?.documents;
-                console.log('slice', products);
-                return products;
-            })
-            .catch((error) => console.error(error));
-    },
-);
+export const getProducts = createAsyncThunk('category/getProducts', () => {
+    return axios(mongoDbConfig('products'))
+        .then((response) => {
+            const products = response?.data?.documents;
+            console.log('slice', products);
+            return products;
+        })
+        .catch((error) => console.error(error));
+});
 
 export const productsSlice = createSlice({
     name: 'products',
