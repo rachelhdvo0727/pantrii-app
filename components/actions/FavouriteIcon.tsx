@@ -5,13 +5,15 @@ import { FontAwesome } from '@expo/vector-icons';
 export interface Props {
     onPress?: React.ComponentProps<typeof Pressable>['onPress'];
     isActive?: boolean;
+    onPressOut?: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
-const FavoriteIcon: React.FC<Props> = ({ isActive, onPress }) => {
+const FavoriteIcon: React.FC<Props> = ({ isActive, onPress, onPressOut }) => {
     return (
         <Pressable
-            style={[styles.container, isActive ? styles.isActive : null]}
+            style={styles.container}
             onPress={onPress}
+            onPressOut={onPressOut}
         >
             <View>
                 <FontAwesome
@@ -30,7 +32,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     isActive: {
-        backgroundColor: '#EA6F2D',
-        color: '#FFFFFF', // for title
+        color: '#EA6F2D', // for title
     },
 });

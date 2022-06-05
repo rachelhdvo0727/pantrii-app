@@ -5,6 +5,7 @@ import { rolesSlice } from './slice/roles';
 import { categoryProductsSlice } from './slice/category';
 import { productsSlice } from './slice/products';
 import cartReducer from './reducer/CartReducer';
+import favouriteReducer from './reducer/FavouriteReducer';
 
 export const store = configureStore({
     reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
         cart: cartReducer,
         categoryProducts: categoryProductsSlice.reducer,
         products: productsSlice.reducer,
+        favourite: favouriteReducer,
     },
 });

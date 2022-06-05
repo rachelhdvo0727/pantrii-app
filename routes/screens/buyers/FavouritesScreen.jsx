@@ -21,6 +21,7 @@ export default function FavouritesScreen() {
     const favourite = useSelector((state) => state.favourite);
     React.useEffect(() => {
         console.log(favourite);
+        // console.log('Favourite', favourite);
     });
     return (
         <SafeAreaView style={[generalStyles.container]}>
@@ -48,6 +49,11 @@ export default function FavouritesScreen() {
                         }
                         onPressAdd={() => {
                             dispatch(addToCart(item));
+                        }}
+                        // Favourite
+                        isActive
+                        onPressFavourite={() => {
+                            dispatch(removeFavourite(item._id));
                         }}
                     />
                 )}

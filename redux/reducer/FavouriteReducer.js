@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
 
-const cartSlice = createSlice({
+const favouriteSlice = createSlice({
     name: 'favourite',
     initialState,
     reducers: {
         addToFavourite(state, { payload }) {
-            console.log(payload);
+            // console.log(payload);
             const { _id } = payload;
             const find = state.find((item) => item._id === _id);
 
@@ -16,14 +16,14 @@ const cartSlice = createSlice({
                     item._id === _id
                         ? {
                               ...item,
-                              quantity: item.quantity + 1,
+                              favourited: false,
                           }
                         : item,
                 );
             } else {
                 state.push({
                     ...payload,
-                    quantity: 1,
+                    favourited: true,
                 });
             }
         },
@@ -38,7 +38,7 @@ const cartSlice = createSlice({
 });
 
 export const { addToFavourite, removeFavourite, clearFavourite } =
-    cartSlice.actions;
-const favouriteReducer = cartSlice.reducer;
+    favouriteSlice.actions;
+const favouriteReducer = favouriteSlice.reducer;
 
 export default favouriteReducer;

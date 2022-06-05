@@ -42,6 +42,7 @@ export interface Props {
     onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
     onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
     isActive?: boolean;
+    toggleFavourite: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
 const ProductCard = ({
@@ -62,12 +63,15 @@ const ProductCard = ({
     onPressAdd,
     onPressFavourite,
     isActive,
+    toggleFavourite,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [addItem, setAddItem] = React.useState(false);
+    const [isFavourited, setIsFavourited] = React.useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+
     return (
         <View>
             {/* Slide up modal */}
@@ -185,6 +189,7 @@ const ProductCard = ({
                                     <FavoriteButton
                                         isActive={isActive}
                                         onPress={onPressFavourite}
+                                        onPressOut={toggleFavourite}
                                     />
                                     <IconButton
                                         arrowRight
@@ -258,7 +263,8 @@ const ProductCard = ({
                 <View style={styles.favouriteIcon}>
                     <FavoriteIcon
                         isActive={isActive}
-                        onPress={() => console.log('hi')}
+                        onPress={onPressFavourite}
+                        onPressOut={toggleFavourite}
                     />
                 </View>
                 <Image style={styles.image} source={imageSrc}></Image>

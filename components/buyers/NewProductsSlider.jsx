@@ -14,7 +14,10 @@ import axios from 'axios';
 // Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../redux/reducer/CartReducer';
-import { addToFavourite } from '../../redux/reducer/FavouriteReducer';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../redux/reducer/FavouriteReducer';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 
@@ -32,9 +35,13 @@ const NewProductsSlider = () => {
         }).format(total);
 
     const [products, setProducts] = React.useState([]);
-    const [isFavourited, setIsFavourited] = React.useState(false);
+    const [isFavourited, setIsFavourited] = React.useState(true);
+    const toggleFavourite = () => {
+        setIsFavourited(!isFavourited);
+    };
 
     const dispatch = useDispatch();
+    const favourite = useSelector((state) => state.favourite);
 
     React.useEffect(() => {
         // Fetch all categories from MongoDB api
@@ -85,11 +92,11 @@ const NewProductsSlider = () => {
                             dispatch(addToCart(item));
                         }}
                         // Favourite
-
+                        isActive={isFavourited ? false : true}
                         onPressFavourite={() => {
                             dispatch(addToFavourite(item));
-                            setIsFavourited(true);
                         }}
+                        toggleFavourite={toggleFavourite}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
