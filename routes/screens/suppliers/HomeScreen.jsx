@@ -10,11 +10,15 @@ import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 import Button from '../../../components/actions/Button';
 import ViewButton from '../../../components/actions/ViewButton';
 import { Entypo } from '@expo/vector-icons';
+// Redux
+import { useSelector } from 'react-redux';
 
 export default function HomeSuppliersScreen(props) {
     const navigation = useNavigation();
+    const loggedInUser = props.route?.params?.loggedInUser;
+    const { user } = useSelector((state) => state?.user);
     React.useEffect(() => {
-        console.log('home-supplier', props);
+        // console.log('home-supplier', props);
     }, []);
 
     const handleCreateProduct = () => {
@@ -25,7 +29,9 @@ export default function HomeSuppliersScreen(props) {
         <View style={styles.container}>
             <View style={styles.section}>
                 <HeroCard
-                    title={`Velkommen tilbage \n ${props.route?.params?.user?.firstName}`}
+                    title={`Velkommen tilbage \n ${
+                        (user || loggedInUser)?.firstName
+                    }`}
                     secondary
                     imageSrc={require('../../../assets/banners/producer-banner-home.png')}
                 />
