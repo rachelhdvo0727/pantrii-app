@@ -16,8 +16,11 @@ export interface Props {
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
+    confirmed?: boolean;
     children?: React.ReactChild;
-    disabled?: React.ComponentProps<typeof TouchableOpacity>['disabled'];
+    disabled?: React.ComponentProps<typeof Pressable>['disabled'];
+    onPressOut?: React.ComponentProps<typeof Pressable>['onPressOut'];
+    onPressIn?: React.ComponentProps<typeof Pressable>['onPressIn'];
 }
 
 const Button: React.FC<Props> = ({
@@ -26,9 +29,12 @@ const Button: React.FC<Props> = ({
     primary,
     secondary,
     outlined,
+    confirmed,
     buttonStyle,
     onPress,
     disabled,
+    onPressOut,
+    onPressIn,
 }) => {
     return (
         <TouchableOpacity
@@ -40,14 +46,22 @@ const Button: React.FC<Props> = ({
                 secondary && styles.secondary,
                 outlined && styles.outlined,
                 disabled && styles.disabled,
+                confirmed && styles.confirmed,
             ]}
             disabled={disabled}
+            onPressOut={onPressOut}
+            onPressIn={onPressIn}
         >
             <View>
                 <Text
                     style={[
                         styles.title,
-                        { color: primary || secondary ? '#FFFFFF' : '#1B463C' },
+                        {
+                            color:
+                                primary || secondary || confirmed
+                                    ? '#FFFFFF'
+                                    : '#1B463C',
+                        },
                         {
                             textTransform:
                                 primary || outlined ? 'uppercase' : 'none',
@@ -91,5 +105,8 @@ const styles = StyleSheet.create({
     },
     disabled: {
         opacity: 0.5,
+    },
+    confirmed: {
+        backgroundColor: '#9DB76E',
     },
 });

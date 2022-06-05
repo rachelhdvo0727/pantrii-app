@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
@@ -9,6 +9,8 @@ import ViewButton from '../actions/ViewButton';
 import { fetchLatestProducts } from '../../utils/api';
 import { productImages } from '../../dictionary/images';
 import axios from 'axios';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../redux/reducer/CartReducer';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 
@@ -19,7 +21,16 @@ const NewProductsSlider = () => {
 
     const content = dictionary?.products; // DA dictionary
 
+    const numberFormat = (total) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
+
     const [products, setProducts] = React.useState([]);
+
+    const dispatch = useDispatch();
+
     React.useEffect(() => {
         // Fetch all categories from MongoDB api
         axios(fetchLatestProducts('products'))
@@ -54,10 +65,8 @@ const NewProductsSlider = () => {
                         producerTitle={item?.producerTitle}
                         productDesc={content.productDesc[item?.productDesc]}
                         productUnit={item?.productUnit}
-                        bulkPrice={item?.bulkPrice + content.currency.DKK}
-                        singlePrice={
-                            item?.singlePrice + content.currency.DKK + '/enhed'
-                        }
+                        bulkPrice={numberFormat(item?.bulkPrice)}
+                        singlePrice={numberFormat(item?.singlePrice)}
                         isCold={item.tags?.find((tag) => tag == 'cold')}
                         isOrganic={item.tags?.find((tag) => tag == 'organic')}
                         isFrozen={item.tags?.find((tag) => tag == 'frozen')}
@@ -67,10 +76,13 @@ const NewProductsSlider = () => {
                                 product: item,
                             })
                         }
+                        onPressAdd={() => {
+                            dispatch(addToCart(item));
+                        }}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}
-                itemWidth={SLIDER_WIDTH / 2 - 10.8} // width depends on window's screen
+                itemWidth={SLIDER_WIDTH / 2 - 15} // width depends on window's screen
                 useScrollView={true}
                 onSnapToItem={(index) => setIndex(index)}
                 enableSnap={false}
@@ -78,6 +90,7 @@ const NewProductsSlider = () => {
         </View>
     );
 };
+
 export default NewProductsSlider;
 
 const styles = StyleSheet.create({

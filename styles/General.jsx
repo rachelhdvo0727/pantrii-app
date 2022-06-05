@@ -45,6 +45,13 @@ const generalStyles = StyleSheet.create({
         letterSpacing: 0.8,
         lineHeight: 17,
     },
+    boldText: {
+        fontFamily: 'TT-Commons-Bold',
+        fontSize: 14,
+        color: '#000000',
+        letterSpacing: 0.5,
+        lineHeight: 17,
+    },
     headerLogo: {
         width: 80,
     },

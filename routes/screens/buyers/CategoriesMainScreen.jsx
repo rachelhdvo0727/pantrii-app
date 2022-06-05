@@ -1,40 +1,24 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, FlatList, Dimensions } from 'react-native';
 import generalStyles from '../../../styles/General';
-import { mongoDbConfig } from '../../../utils/api';
 import CategoryCard from '../../../components/buyers/CategoryCard';
 import dictionary from '../../../dictionary/categories';
 import { categoryImages } from '../../../dictionary/images';
 import { useNavigation } from '@react-navigation/native';
 // API
-import axios from 'axios';
+import { getCategories } from '../../../redux/slice/categories';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function CategoriesMainScreen() {
     const content = dictionary?.categories; // DA dictionary
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const { categories } = useSelector((state) => state.categories);
 
-    const [categories, setCategories] = React.useState([]);
     React.useEffect(() => {
-        // Fetch all categories from MongoDB api
-        axios(mongoDbConfig('categories'))
-            .then(function (response) {
-                setCategories(response.data?.documents);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        // Fetch all categories
+        dispatch(getCategories());
     }, []);
-
-    // Added allProduct object at the start of array
-    const allProducts = {
-        _id: '0',
-        name: 'allProducts',
-        imageSrc: 'all-products.png',
-    };
-    if (categories?.length > 0)
-        categories
-            ?.sort((a, b) => a.name.localeCompare(b.name))
-            .unshift(allProducts);
 
     return (
         <SafeAreaView style={[generalStyles.container]}>

@@ -1,4 +1,5 @@
 import User from '../models/User';
+import ObjectId from '../models/ObjectId';
 const CryptoJS = require('crypto-js');
 import * as Crypto from 'expo-crypto';
 
@@ -29,6 +30,7 @@ export const mongoDbConfig = (collection: string) => {
 
 // SIGN UP
 const newUserAccountData = (document: User) => {
+    console.log('hi', document);
     return JSON.stringify({
         collection: 'users',
         dataSource: 'PantriiApp',
@@ -37,9 +39,7 @@ const newUserAccountData = (document: User) => {
             firstName: document?.firstName,
             lastName: document?.lastName,
             email: document?.email,
-            password: CryptoJS.SHA3(document?.password).toString(
-                CryptoJS.enc.Hex,
-            ),
+            password: document?.password,
             phone: document?.phone,
             address: {
                 line1: document?.address.line1,
@@ -47,6 +47,9 @@ const newUserAccountData = (document: User) => {
                 zipCode: document?.address.zipCode,
                 city: document?.address.city,
                 country: document?.address.country,
+            },
+            roleId: {
+                $oid: document?.roleId,
             },
         },
     });

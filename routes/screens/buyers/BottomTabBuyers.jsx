@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as SecureStore from 'expo-secure-store';
 
@@ -7,15 +7,19 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
 import UserProfileStack from '../UserProfileStack';
-import CartScreen from './CartScreen';
+import CartStack from './CartStack';
 import HomeStack from './HomeStack';
+import { useSelector } from 'react-redux';
+import { cartTotalSelector } from '../../../redux/reducer/selector';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
-    React.useEffect(() => {
-        // console.log(props?.route.params?.user);
-    }, []);
+    // React.useEffect(() => {
+    //     console.log('Total:', total);
+    // });
+
+    const total = useSelector(cartTotalSelector);
 
     return (
         <Tab.Navigator
@@ -52,7 +56,7 @@ export default function BottomTabBuyers(props) {
                     elevation: 10,
                 },
             }}
-            initialRouteName="HomeStack"
+            initialRouteName="Hjem"
         >
             <Tab.Screen
                 name="Hjem"
@@ -103,16 +107,25 @@ export default function BottomTabBuyers(props) {
                     ),
                 }}
             />
+
             <Tab.Screen
                 name="Kurv"
-                component={CartScreen}
+                component={CartStack}
+                initialParams={props?.route?.params}
                 options={{
-                    headerTitle: 'Kurv',
+                    headerShown: false,
+                    tabBarBadge: <Text>{total}</Text>,
+                    tabBarBadgeStyle: {
+                        backgroundColor: '#EA6F2D',
+                        color: 'white',
+                        fontSize: 12,
+                        display: total === 0 ? 'none' : 'flex',
+                    },
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
                                 name={focused ? 'basket' : 'basket-outline'}
-                                size={28}
+                                size={focused ? 32 : 28}
                                 color={color}
                             />
                         </View>
@@ -150,5 +163,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    badge: {
+        backgroundColor: '#EA6F2D',
+        color: 'white',
+        fontSize: 12,
     },
 });

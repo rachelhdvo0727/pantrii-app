@@ -19,6 +19,7 @@ import FavoriteButton from '../actions/FavoriteButton';
 import IconButton from '../actions/IconButton';
 import Button from '../actions/Button';
 import Product from '../../models/Product';
+import AddToCart from '../actions/AddToCart';
 // Dictionary
 import dictionary from '../../dictionary/products.json';
 
@@ -35,10 +36,11 @@ export interface Props {
     isFrozen?: string;
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
-    onPress: () => void;
+    onPress?: () => void;
     productStory: string;
     productUnique: string;
     expiryDuration: string;
+    onPressAdd?: () => void;
 }
 
 const ProductInfoCard = ({
@@ -56,16 +58,19 @@ const ProductInfoCard = ({
     productStory,
     productUnique,
     expiryDuration,
+    onPressAdd,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
     const content = dictionary?.products;
-    const images = [
-        { name: '627fc4457a0fa962a5cb745b-1.png' },
-        { name: '627fc4457a0fa962a5cb745b-2.png' },
-        { name: '627fc4457a0fa962a5cb745b-3.png' },
-    ];
-    const listItems = images.map((image) => <Text>{image.name}</Text>);
+    const [addItem, setAddItem] = React.useState(false);
+
+    const numberFormat = (total: any) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
+
     // Delivery cost
     const deliveryPrice = '2000';
     // Delivery date
@@ -103,22 +108,7 @@ const ProductInfoCard = ({
                     ) : null}
                 </View>
                 <Image style={styles.image} source={imageSrc}></Image>
-                {/* <Carousel
-                layout="default"
-                ref={carouselRef}
-                data={images}
-                activeSlideAlignment="start"
-                inactiveSlideScale={1}
-                inactiveSlideOpacity={1}
-                renderItem={({ item }) => {
-                    listItems;
-                }}
-                sliderWidth={414}
-                itemWidth={120} // width depends on window's screen
-                useScrollView={true}
-                onSnapToItem={(index) => setIndex(index)}
-                enableSnap={false}
-            /> */}
+
                 <View style={styles.wrapper}>
                     <Text style={styles.productTitle}>{productTitle}</Text>
                     <View style={styles.flexWrapper}>
@@ -132,9 +122,11 @@ const ProductInfoCard = ({
                             <Text style={styles.unit}>{productUnit}</Text>
                         </View>
                         <View style={styles.priceWrapper}>
-                            <Text style={styles.bulkPrice}>{bulkPrice}</Text>
+                            <Text style={styles.bulkPrice}>
+                                {bulkPrice}/kolli
+                            </Text>
                             <Text style={styles.singularPrice}>
-                                {singlePrice}
+                                {singlePrice}/enhed
                             </Text>
                         </View>
                     </View>
@@ -149,8 +141,7 @@ const ProductInfoCard = ({
                             iconStyle={{ marginRight: 10 }}
                         />
                         {content.delivery.deliveryCost}
-                        {deliveryPrice}
-                        {content.currency.DKK}
+                        {numberFormat(deliveryPrice)}
                     </Text>
                     <Text style={styles.flexText}>
                         <MaterialCommunityIcons
@@ -184,10 +175,21 @@ const ProductInfoCard = ({
             </ScrollView>
             <View style={styles.bottomWrapper}>
                 <FavoriteButton />
-                <Button
-                    secondary
-                    buttonStyle={{ height: 45 }}
-                    title="Tilføj til kurv"
+                <AddToCart
+                    title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
+                    secondary={addItem ? false : true}
+                    confirmed={addItem ? true : false}
+                    onPressOut={() =>
+                        setTimeout(() => {
+                            setAddItem(false);
+                        }, 400)
+                    }
+                    onPressIn={() =>
+                        setTimeout(() => {
+                            setAddItem(true);
+                        }, 100)
+                    }
+                    onPress={onPressAdd}
                 />
             </View>
         </View>
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 265,
+        height: Dimensions.get('window').height / 3,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
         resizeMode: 'cover',
@@ -338,5 +340,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderTopWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
+        alignItems: 'center',
     },
 });
