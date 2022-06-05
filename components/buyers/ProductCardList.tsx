@@ -20,6 +20,7 @@ import Product from '../../models/Product';
 import InformationCard from '../InformationCard';
 import Modal from 'react-native-modal';
 import Button from '../actions/Button';
+import generalStyles from '../../styles/General';
 
 export interface Props {
     cardStyle: StyleProp<PressableProps>;
@@ -141,7 +142,8 @@ const ProductCardList = ({
                 <View style={styles.modalWrapper}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>
-                            Er du sikker på, du gerne vil slette dette produkt?
+                            Er du sikker på, at du gerne vil slette dette
+                            produkt?
                         </Text>
                         <View style={styles.flex}>
                             <Button
@@ -267,11 +269,11 @@ const styles = StyleSheet.create({
     modalView: {
         width: Dimensions.get('window').width - 100,
         height: 140,
-        backgroundColor: 'white',
+        backgroundColor: '#FFFFFF',
         borderRadius: 20,
         padding: 20,
         alignItems: 'center',
-        shadowColor: '#000',
+        shadowColor: '#000000',
         shadowOffset: {
             width: 0,
             height: 2,
@@ -285,9 +287,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     modalText: {
+        ...generalStyles.mediumText,
         textAlign: 'center',
-        fontFamily: 'TT-Commons-Medium',
-        fontSize: 18,
+        fontSize: 17,
         lineHeight: 22,
         letterSpacing: 0.2,
     },
