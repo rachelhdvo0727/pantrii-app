@@ -5,7 +5,6 @@ import { objectToString, saveData } from '../../utils/functions';
 
 const initialState = {
     user: undefined,
-
     status: null,
     loading: false,
 };
@@ -23,7 +22,6 @@ export const getUser = createAsyncThunk('user/getUser', (data, byId) => {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getUser.pending, (state, action) => {
