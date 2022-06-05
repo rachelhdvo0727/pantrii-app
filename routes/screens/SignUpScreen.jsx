@@ -2,6 +2,7 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import { useNavigation } from '@react-navigation/native';
+import User from '../../models/User';
 // Components
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import Button from '../../components/actions/Button';
@@ -11,18 +12,21 @@ import { useForm, Controller } from 'react-hook-form';
 import { RadioButton } from 'react-native-paper';
 import ApprovedModal from '../../components/ApprovedModal';
 // API
+import { createUser } from '../../redux/slice/createUser';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { createUserAccount, mongoDbConfig } from '../../utils/api';
+import { mongoDbConfig } from '../../utils/api';
 import * as Crypto from 'expo-crypto';
 const CryptoJS = require('crypto-js');
 
 export default function LogInScreen(props) {
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
     const content = dictionary?.customerTypes; // DA dictionary
     const roles = props?.route.params?.roles;
-    const navigation = useNavigation();
     const [value, setValue] = React.useState('');
 
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             firstName: '',
             lastName: '',
@@ -41,12 +45,11 @@ export default function LogInScreen(props) {
     });
 
     const onSubmit = (data) => {
-        setModalVisible(true);
-
+        data.roleId = value; // add roleId from RadioButton group
         // Send data
-        axios(createUserAccount(data))
-            .then((response) => console.log(response?.status, response?.data))
-            .catch((error) => console.error(error));
+        dispatch(createUser(data));
+        reset();
+        setModalVisible(true);
     };
 
     const showLogIn = () => {
@@ -70,7 +73,7 @@ export default function LogInScreen(props) {
                     <View style={styles.formWrapper}>
                         <Text style={styles.header}>jeg er ny her</Text>
                         <RadioButton.Group
-                            onValueChange={(newValue) => setValue(newValue)}
+                            onValueChange={(value) => setValue(value)}
                             value={value}
                         >
                             <View style={styles.radioButtonGroup}>
