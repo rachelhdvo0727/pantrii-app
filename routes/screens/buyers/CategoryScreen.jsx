@@ -18,11 +18,15 @@ import Spinner from '../../../components/Spinner';
 // API
 import axios from 'axios';
 import { fetchCategoryProducts, mongoDbConfig } from '../../../utils/api';
+// Redux
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../../redux/reducer/CartReducer';
 
 export default function CategoryScreen(props) {
     const navigation = useNavigation();
     const categoryContent = categoryDictionary?.categories;
     const productContent = productDictionary?.products;
+    const dispatch = useDispatch();
     // Clean up
     const categories = props?.route?.params?.categories;
     const categoryId = props?.route?.params?.category?._id;
@@ -37,6 +41,12 @@ export default function CategoryScreen(props) {
     const onSelectedSort = (item) => {
         setSelectedSort(item);
     };
+
+    const numberFormat = (total) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -158,14 +168,8 @@ export default function CategoryScreen(props) {
                                 productContent?.productDesc[item?.productDesc]
                             }
                             productUnit={item?.productUnit}
-                            bulkPrice={
-                                item?.bulkPrice + productContent?.currency.DKK
-                            }
-                            singlePrice={
-                                item?.singlePrice +
-                                productContent?.currency.DKK +
-                                '/enhed'
-                            }
+                            bulkPrice={numberFormat(item?.bulkPrice)}
+                            singlePrice={numberFormat(item?.singlePrice)}
                             isCold={item.tags?.find((tag) => tag == 'cold')}
                             isOrganic={item.tags?.find(
                                 (tag) => tag == 'organic',
@@ -178,6 +182,9 @@ export default function CategoryScreen(props) {
                                     product: item,
                                 })
                             }
+                            onPressAdd={() => {
+                                dispatch(addToCart(item));
+                            }}
                         />
                     )}
                     numColumns={2}

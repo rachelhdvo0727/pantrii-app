@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as SecureStore from 'expo-secure-store';
 
@@ -7,15 +7,20 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import CategoriesStack from './CategoriesStack';
 import FavouritesScreen from './FavouritesScreen';
 import UserProfileStack from '../UserProfileStack';
+import CartStack from './CartStack';
 import CartScreen from './CartScreen';
 import HomeStack from './HomeStack';
+import CartIcon from '../../../components/actions/CartIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartTotalSelector } from '../../../redux/reducer/selector';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
-    React.useEffect(() => {
-        // console.log(props?.route.params?.user);
-    }, []);
+    React.useEffect(() => {}, []);
+    const total = useSelector(cartTotalSelector);
+
+    const [cartItems, setCartItems] = useState([]);
 
     return (
         <Tab.Navigator
@@ -55,7 +60,7 @@ export default function BottomTabBuyers(props) {
         >
             <Tab.Screen
                 name="Hjem"
-                component={HomeStack}
+                children={() => <HomeStack cartItems={cartItems} />}
                 options={{
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -104,9 +109,15 @@ export default function BottomTabBuyers(props) {
             />
             <Tab.Screen
                 name="Kurv"
-                component={CartScreen}
+                component={CartStack}
                 options={{
-                    headerTitle: 'Kurv',
+                    headerShown: false,
+                    tabBarBadge: <Text>{total}</Text>,
+                    tabBarBadgeStyle: {
+                        backgroundColor: '#EA6F2D',
+                        color: 'white',
+                        fontSize: 12,
+                    },
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons

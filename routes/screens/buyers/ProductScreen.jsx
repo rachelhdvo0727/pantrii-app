@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import generalStyles from '../../../styles/General';
 import { useNavigation } from '@react-navigation/native';
 import { mongoDbConfig } from '../../../utils/api';
@@ -11,6 +11,9 @@ import axios from 'axios';
 // Components
 import BackIconButton from '../../../components/actions/BackIconButton';
 import ProductInfoCard from '../../../components/buyers/ProductInfoCard';
+// Redux
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addToCart } from '../../../redux/reducer/CartReducer';
 
 export default function ProductScreen(props) {
     const navigation = useNavigation();
@@ -18,6 +21,14 @@ export default function ProductScreen(props) {
 
     const product = props?.route?.params?.product;
     const [productInfo, setProductInfo] = React.useState([]);
+
+    const dispatch = useDispatch();
+
+    const numberFormat = (total) =>
+        new Intl.NumberFormat('en-DK', {
+            style: 'currency',
+            currency: 'DKK',
+        }).format(total);
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -45,14 +56,17 @@ export default function ProductScreen(props) {
             producerTitle={product?.producerTitle}
             productDesc={content?.productDesc[product?.productDesc]}
             productUnit={product?.productUnit}
-            bulkPrice={product?.bulkPrice + content.currency.DKK}
-            singlePrice={product?.singlePrice + content.currency.DKK + '/enhed'}
+            bulkPrice={numberFormat(product?.bulkPrice)}
+            singlePrice={numberFormat(product?.singlePrice)}
             productStory={content?.productStory[product?.productStory]}
             productUnique={content?.productUnique[product?.productUnique]}
             isCold={product.tags?.find((tag) => tag == 'cold')}
             isOrganic={product.tags?.find((tag) => tag == 'organic')}
             isFrozen={product.tags?.find((tag) => tag == 'frozen')}
             expiryDuration={product?.expiryDuration}
+            onPressAdd={() => {
+                dispatch(addToCart(product));
+            }}
         />
     );
 }

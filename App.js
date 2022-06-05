@@ -3,6 +3,8 @@ import * as Font from 'expo-font';
 import * as SecureStore from 'expo-secure-store';
 import AppLoading from 'expo-app-loading';
 import Navigation from './routes/Navigation';
+import { Provider } from 'react-redux';
+import store from './redux/store/store';
 
 const loadFonts = () => {
     return Font.loadAsync({
@@ -49,5 +51,9 @@ export default function App() {
         );
     }
 
-    return <Navigation initialRoute={initialRoute} user={loggedInUser} />;
+    return (
+        <Provider store={store}>
+            <Navigation initialRoute={initialRoute} user={loggedInUser} />
+        </Provider>
+    );
 }
