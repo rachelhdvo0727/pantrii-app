@@ -30,7 +30,6 @@ export const mongoDbConfig = (collection: string) => {
 
 // SIGN UP
 const newUserAccountData = (document: User) => {
-    console.log('hi', document);
     return JSON.stringify({
         collection: 'users',
         dataSource: 'PantriiApp',
@@ -201,5 +200,28 @@ export const findUserRole = (data: User) => {
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
         headers: headers,
         data: findUserRoleConfig(data),
+    };
+};
+
+const producerProductConfig = (config?: any) => {
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            producerId: {
+                $oid: config?.producerId,
+            },
+        },
+        limit: config?.limit,
+    });
+};
+
+export const findProducerProducts = (config?: Object) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        headers: headers,
+        data: producerProductConfig(config),
     };
 };
