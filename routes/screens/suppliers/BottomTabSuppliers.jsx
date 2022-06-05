@@ -11,7 +11,7 @@ import UserProfileStack from '../UserProfileStack';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
-    console.log('bottom tab', props?.route);
+    // console.log('bottom tab', props?.route);
     return (
         <Tab.Navigator
             screenOptions={{
