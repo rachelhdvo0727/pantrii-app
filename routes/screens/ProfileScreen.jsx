@@ -2,7 +2,7 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 // Components
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
@@ -10,54 +10,44 @@ import HeroCard from '../../components/buyers/HeroCard';
 import InformationCard from '../../components/InformationCard';
 import SectionInInformationCard from '../../components/SectionInInformationCard';
 // API
-import axios from 'axios';
-import { findUser } from '../../utils/api';
+import { useSelector } from 'react-redux';
 
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
-    const [user, setUser] = React.useState({});
-    const userRole = props?.route?.params?.user?.roleTitle;
-    const userId = props?.route?.params?.user?._id;
-
-    const isMounted = React.useRef(null);
-    const fetchCurrentUser = React.useCallback(() => {
-        axios(findUser(userId, true))
-            .then((response) => setUser(response?.data?.document))
-            .catch((error) => console.error(error));
-    }, []);
-
-    React.useEffect(() => {
-        isMounted.current = true;
-        const timer = setTimeout(() => {
-            fetchCurrentUser();
-        }, 800);
-
-        const willFocusSubscription = props.navigation.addListener(
-            'focus',
-            () => {
-                fetchCurrentUser();
-            },
-        );
-
-        return () =>
-            (isMounted.current = false) &&
-            willFocusSubscription &&
-            clearTimeout(timer) &&
-            setUser({ ...user });
-    }, []);
+    const { user } = useSelector((state) => state.user);
+    const loggedInUser = props?.route?.params.loggedInUser;
+    const userRole = props?.route?.params?.currentRole;
 
     const onEdit = (information) => {
         navigation.navigate('ProfileEditScreen', {
-            user: user,
+            user: user || loggedInUser,
             informationType: information,
         });
     };
 
     const handleLogOut = () => {
         SecureStore.setItemAsync('user', '');
-        navigation.navigate('LogInScreen');
     };
+
+    // const handleLogOut = async function () {
+    //     return await SecureStore.setItemAsync('user', '')
+    //         .then(async () => {
+    //             // To verify that current user is now empty, currentAsync can be used
+    //             const currentUser = await SecureStore.getItemAsync('user');
+    //             if (currentUser === null) {
+    //                 console.log('Success!', 'No user is logged in anymore!');
+    //             }
+    //             // Navigation dispatch calls a navigation action, and popToTop will take
+    //             // the user back to the very first screen of the stack
+    //             // navigation.dispatch(StackActions.popToTop());
+    //             return true;
+    //         })
+    //         .catch((error) => {
+    //             console.log('Error!', error.message);
+    //             return false;
+    //         });
+    // };
 
     const ProfileInformation = () => (
         <SectionInInformationCard
@@ -66,13 +56,18 @@ export default function ProfileScreen(props) {
             sectionContent={
                 <React.Fragment>
                     <Text style={styles.highlightText}>
-                        {user?.firstName} {user?.lastName}
+                        {(user || loggedInUser)?.firstName}{' '}
+                        {(user || loggedInUser)?.lastName}
                     </Text>
-                    {user?.email && (
-                        <Text style={styles.text}>{user?.email}</Text>
+                    {(user || loggedInUser)?.email && (
+                        <Text style={styles.text}>
+                            {(user || loggedInUser)?.email}
+                        </Text>
                     )}
-                    {user?.phone && (
-                        <Text style={styles.text}>{user?.phone}</Text>
+                    {(user || loggedInUser)?.phone && (
+                        <Text style={styles.text}>
+                            {(user || loggedInUser)?.phone}
+                        </Text>
                     )}
                 </React.Fragment>
             }
@@ -89,16 +84,20 @@ export default function ProfileScreen(props) {
             sectionContent={
                 <React.Fragment>
                     <Text style={styles.text}>
-                        {user?.address?.line1} {user?.address?.line2}
+                        {(user || loggedInUser)?.address?.line1}
+                        {(user || loggedInUser)?.address?.line2}
                     </Text>
                     <View style={styles.cityWrapper}>
                         <Text style={styles.text}>
-                            {user?.address?.zipCode}
+                            {(user || loggedInUser)?.address?.zipCode}
                         </Text>
-                        <Text style={styles.text}>{user?.address?.city}</Text>
+                        <Text style={styles.text}>
+                            {(user || loggedInUser)?.address?.city}
+                        </Text>
                     </View>
-
-                    <Text style={styles.text}>{user?.address?.country}</Text>
+                    <Text style={styles.text}>
+                        {(user || loggedInUser)?.address?.country}
+                    </Text>
                 </React.Fragment>
             }
             isEditable

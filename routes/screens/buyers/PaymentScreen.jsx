@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     },
     header: {
         ...generalStyles.mediumText,
-        color: '#000000',
+        paddingLeft: 11,
     },
     image: {
         width: 150,

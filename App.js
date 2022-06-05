@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import AppLoading from 'expo-app-loading';
 import Navigation from './routes/Navigation';
 import { Provider } from 'react-redux';
-import store from './redux/store/store';
+import { store } from './redux/store';
 
 const loadFonts = () => {
     return Font.loadAsync({
@@ -16,44 +16,40 @@ const loadFonts = () => {
 };
 export default function App() {
     const [fontLoaded, setFontLoaded] = React.useState(false);
-    const [loggedInUser, setLoggedInUser] = React.useState({});
-    const [initialRoute, setInitialRoute] = React.useState(null || '');
 
     React.useEffect(() => {
-        (async function () {
-            try {
-                const user = await SecureStore.getItemAsync('user');
-                if (user?.length !== 0) {
-                    const parsedUser = JSON.parse(user);
-                    setLoggedInUser(parsedUser);
-                    // console.log('found user', parsedUser);
-                    parsedUser?.roleTitle === 'producer' &&
-                        setInitialRoute('BottomTabSuppliers');
-                    parsedUser?.roleTitle === 'buyer' &&
-                        setInitialRoute('BottomTabBuyers');
-                } else {
-                    setLoggedInUser({});
-                    setInitialRoute('LogInScreen');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        })();
+        // (async function () {
+        //     try {
+        //         const user = await SecureStore.getItemAsync('user');
+        //         if (user?.length !== 0) {
+        //             const parsedUser = JSON.parse(user);
+        //             setLoggedInUser(parsedUser);
+        //             // console.log('found user', parsedUser);
+        //             parsedUser?.roleTitle === 'producer' &&
+        //                 setInitialRoute('BottomTabSuppliers');
+        //             parsedUser?.roleTitle === 'buyer' &&
+        //                 setInitialRoute('BottomTabBuyers');
+        //         } else {
+        //             setLoggedInUser({});
+        //             setInitialRoute('LogInScreen');
+        //         }
+        //     } catch (error) {
+        //         console.error(error);
+        //     }
+        // })();
     }, []);
-
-    if (!fontLoaded) {
-        return (
-            <AppLoading
-                startAsync={loadFonts}
-                onFinish={() => setFontLoaded(true)}
-                onError={(error) => console.error(error)}
-            />
-        );
-    }
 
     return (
         <Provider store={store}>
-            <Navigation initialRoute={initialRoute} user={loggedInUser} />
+            {!fontLoaded ? (
+                <AppLoading
+                    startAsync={loadFonts}
+                    onFinish={() => setFontLoaded(true)}
+                    onError={(error) => console.error(error)}
+                />
+            ) : (
+                <Navigation />
+            )}
         </Provider>
     );
 }

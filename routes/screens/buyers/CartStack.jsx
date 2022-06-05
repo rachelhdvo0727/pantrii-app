@@ -52,6 +52,7 @@ const CartStack = (props) => {
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     }}
+                    initialParams={props?.route?.params}
                 />
             ) : null}
             {total > 0 ? (
@@ -63,6 +64,7 @@ const CartStack = (props) => {
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     }}
+                    initialParams={props?.route?.params}
                 />
             ) : null}
         </Stack.Navigator>

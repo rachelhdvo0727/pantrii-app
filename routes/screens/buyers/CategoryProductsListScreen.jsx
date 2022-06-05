@@ -54,7 +54,7 @@ const CategoryProductsListScreen = (props) => {
                 const data = response.data?.documents;
                 setTimeout(() => {
                     setCategoryProducts(data);
-                }, 2000);
+                }, 500);
             })
             .catch((error) => {
                 console.error(error);

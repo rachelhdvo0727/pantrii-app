@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Modal, Text } from 'react-native';
+import { StyleSheet, View, Modal, Text, Dimensions } from 'react-native';
 import generalStyles from '../styles/General';
 // Components
 import { Ionicons } from '@expo/vector-icons';
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     modalView: {
         margin: 20,
         backgroundColor: '#FFFFFF',
-        width: '80%',
+        width: Dimensions.get('window').width - 100,
         borderRadius: 20,
         padding: 35,
         alignItems: 'center',
