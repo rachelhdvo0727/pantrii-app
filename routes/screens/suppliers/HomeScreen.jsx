@@ -1,14 +1,24 @@
 import React from 'react';
 import generalStyles from '../../../styles/General';
 import { useNavigation } from '@react-navigation/native';
+import dictionary from '../../../dictionary/products.json';
+import { productImages } from '../../../dictionary/images';
+import { numberFormat } from '../../../utils/functions';
 // Component
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    SafeAreaView,
+    ScrollView,
+    FlatList,
+} from 'react-native';
 import HeroCard from '../../../components/buyers/HeroCard';
 import SystemMessageBanner from '../../../components/SystemMessageBanner';
 import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 import Button from '../../../components/actions/Button';
 import ViewButton from '../../../components/actions/ViewButton';
-import ProducerProductList from '../../../components/suppliers/ProducerProductList';
+import ProductCard from '../../../components/suppliers/ProductCard';
 import { Entypo } from '@expo/vector-icons';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,11 +26,18 @@ import { getProductsForProducer } from '../../../redux/slice/producerProducts';
 
 export default function HomeSuppliersScreen(props) {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const loggedInUser = props.route?.params?.loggedInUser;
     const { user } = useSelector((state) => state?.user);
+    const { producerProducts } = useSelector(
+        (state) => state?.producerProducts,
+    );
+    const listConfig = { producerId: (user || loggedInUser)?._id, limit: 3 };
+    const content = dictionary?.products;
 
     React.useEffect(() => {
         console.log('home-supplier');
+        dispatch(getProductsForProducer(listConfig));
     }, []);
 
     const handleCreateProduct = () => {
@@ -69,10 +86,24 @@ export default function HomeSuppliersScreen(props) {
                         />
                     </View>
                     <View style={styles.sectionContent}>
-                        <ProducerProductList
-                            producerId={loggedInUser?._id}
-                            limit={2}
-                        />
+                        {producerProducts?.map((item) => (
+                            <ProductCard
+                                key={item?._id}
+                                productTitle={
+                                    content?.productTitle[item?.productTitle]
+                                }
+                                productDesc={
+                                    content?.productDesc[item?.productDesc]
+                                }
+                                productUnit={item?.productUnit}
+                                bulkPrice={numberFormat(item?.bulkPrice)}
+                                singlePrice={numberFormat(item?.singlePrice)}
+                                imageSrc={productImages[item?.imageSrc]}
+                                amount={item?.amount}
+                                isLowOnStock={item?.amount < 10}
+                                isSoldOut={item?.amount === 0}
+                            ></ProductCard>
+                        ))}
                     </View>
                 </View>
                 <CampaignCardSlider />

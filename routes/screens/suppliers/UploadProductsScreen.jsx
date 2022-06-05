@@ -24,8 +24,9 @@ import FrozenIcon from '../../../components/svgs/FrozenIcon';
 // API
 import axios from 'axios';
 
-export default function UploadProductsScreen() {
+export default function UploadProductsScreen(props) {
     const content = dictionary?.tags;
+    const userId = props.route?.params?.loggedInUser?._id;
     const [selectedUnit, setSelectedUnit] = React.useState(unitOptions);
     const onSelectedUnit = (item) => {
         setSelectedUnit(item);
@@ -35,6 +36,7 @@ export default function UploadProductsScreen() {
     const { control, handleSubmit } = useForm({
         defaultValues: {
             productTitle: '',
+            producerId: '',
             productDesc: '',
             amount: '',
             weight: '',
@@ -44,6 +46,10 @@ export default function UploadProductsScreen() {
         },
     });
     const onSubmit = (data) => {};
+
+    React.useEffect(() => {
+        console.log('create screen', userId);
+    });
 
     return (
         <SafeAreaView style={styles.container}>
