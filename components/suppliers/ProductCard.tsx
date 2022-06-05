@@ -7,9 +7,9 @@ import InformationCard from '../InformationCard';
 
 export interface Props {
     productTitle: Product['productTitle'];
-    amount: Product['amount'];
     productDesc: Product['productDesc'];
     productUnit: Product['productUnit'];
+    amount: Product['amount'];
     bulkPrice: Product['bulkPrice'];
     singlePrice: Product['singlePrice'];
     isLowOnStock?: boolean;
@@ -20,9 +20,9 @@ export interface Props {
 
 const ProductCard = ({
     productTitle,
-    amount,
     productDesc,
     productUnit,
+    amount,
     bulkPrice,
     singlePrice,
     imageSrc,
@@ -30,13 +30,23 @@ const ProductCard = ({
     isSoldOut,
     isLowOnStock,
 }: Props) => {
+    // const amount = productUnit.slice(0, productUnit.indexOf('x'));
+
     return (
         <InformationCard style={[styles.container, cardStyle]}>
             <Image style={styles.image} source={imageSrc} />
 
             <View style={styles.productContent}>
                 <View style={styles.topSection}>
-                    <Text style={styles.productTitle}>{productTitle}</Text>
+                    <Text
+                        style={styles.productTitle}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                    >
+                        {productTitle.length > 19
+                            ? productTitle.substring(0, 19 - 3) + '...'
+                            : productTitle}
+                    </Text>
                     <Text style={styles.amountText}>
                         Antal:&ensp;
                         <Text
@@ -92,10 +102,11 @@ export default ProductCard;
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
+        marginBottom: 10,
     },
     image: {
         resizeMode: 'cover',
-        width: '30%',
+        width: '28%',
         height: '106.5%',
         marginRight: 10,
         borderTopLeftRadius: 10,
@@ -103,7 +114,7 @@ const styles = StyleSheet.create({
     },
     productContent: {
         paddingVertical: 5,
-        flexShrink: 1,
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
     },
