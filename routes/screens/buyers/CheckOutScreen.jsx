@@ -18,13 +18,12 @@ import { productImages } from '../../../dictionary/images';
 
 export default function CheckOutScreen(props) {
     const navigation = useNavigation();
-    const user = props?.route?.params?.user;
+    const loggedInUser = props?.route?.params?.loggedInUser;
+    const { user } = useSelector((state) => state.user);
     const content = dictionary?.products;
 
     const cart = useSelector((state) => state.cart);
-    React.useEffect(() => {
-        console.log(cart);
-    });
+
     React.useEffect(() => {
         // Update Screen's headerTitle
         props?.navigation?.setOptions({
@@ -57,26 +56,36 @@ export default function CheckOutScreen(props) {
             isTopSection
             sectionContent={
                 <React.Fragment>
-                    <Text style={styles.text}>
-                        {user?.firstName} {user?.lastName}
+                    <Text style={styles.highlightText}>
+                        {(user || loggedInUser)?.firstName}{' '}
+                        {(user || loggedInUser)?.lastName}
                     </Text>
-                    {user?.email && (
-                        <Text style={styles.text}>{user?.email}</Text>
+                    {(user || loggedInUser)?.email && (
+                        <Text style={styles.text}>
+                            {(user || loggedInUser)?.email}
+                        </Text>
                     )}
-                    {user?.phone && (
-                        <Text style={styles.text}>{user?.phone}</Text>
+                    {(user || loggedInUser)?.phone && (
+                        <Text style={[styles.text, styles.endSection]}>
+                            {(user || loggedInUser)?.phone}
+                        </Text>
                     )}
                     <Text style={styles.text}>
-                        {user?.address?.line1} {user?.address?.line2}
+                        {(user || loggedInUser)?.address?.line1}{' '}
+                        {(user || loggedInUser)?.address?.line2}
                     </Text>
                     <View style={styles.cityWrapper}>
                         <Text style={styles.text}>
-                            {user?.address?.zipCode}
+                            {(user || loggedInUser)?.address?.zipCode}
                         </Text>
-                        <Text style={styles.text}>{user?.address?.city}</Text>
+                        <Text style={styles.text}>
+                            {(user || loggedInUser)?.address?.city}
+                        </Text>
                     </View>
 
-                    <Text style={styles.text}>{user?.address?.country}</Text>
+                    <Text style={styles.text}>
+                        {(user || loggedInUser)?.address?.country}
+                    </Text>
                 </React.Fragment>
             }
         ></SectionInInformationCard>
@@ -245,7 +254,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
     },
     highlightText: {
-        ...generalStyles.boldText,
+        ...generalStyles.mediumText,
     },
     H1: {
         ...generalStyles.boldText,
@@ -253,6 +262,14 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
     },
     text: { ...generalStyles.paragraphText },
+    cityWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 110, // adjust space-between in flex
+    },
+    endSection: {
+        marginBottom: 5,
+    },
     bottomWrapper: {
         backgroundColor: 'white',
         paddingHorizontal: 15,

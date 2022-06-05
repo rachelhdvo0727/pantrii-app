@@ -24,18 +24,17 @@ import { addToCart } from '../../../redux/reducer/CartReducer';
 
 export default function CategoryScreen(props) {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const categoryContent = categoryDictionary?.categories;
     const productContent = productDictionary?.products;
-    const dispatch = useDispatch();
     // Clean up
-    const categories = props?.route?.params?.categories;
+    const { categories } = useSelector((state) => state.categories);
     const categoryId = props?.route?.params?.category?._id;
     const categoryName = props?.route?.params?.category?.name;
     const filteredCategories = categories?.filter(
         (t) => t?.name !== categoryName,
     );
     const isAllProductsView = filteredCategories[0]?.name !== 'allProducts'; // For hiding category slider
-
     const [categoryProducts, setCategoryProducts] = React.useState(null);
     const [selectedSort, setSelectedSort] = React.useState(sortOptions[0]);
     const onSelectedSort = (item) => {
@@ -67,7 +66,7 @@ export default function CategoryScreen(props) {
                 const data = response.data?.documents;
                 setTimeout(() => {
                     setCategoryProducts(data);
-                }, 2000);
+                }, 500);
             })
             .catch((error) => {
                 console.error(error);
