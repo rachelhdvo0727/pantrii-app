@@ -123,6 +123,12 @@ const CategoryProductsListScreen = (props) => {
                                 (tag) => tag === 'frozen',
                             )}
                             cardStyle={styles.cardStyle}
+                            onPress={() =>
+                                navigation.navigate('ProductScreen', {
+                                    products: categoryProducts,
+                                    product: item,
+                                })
+                            }
                             onPressAdd={() => {
                                 dispatch(addToCart(item));
                             }}
