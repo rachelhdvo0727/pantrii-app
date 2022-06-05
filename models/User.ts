@@ -1,3 +1,5 @@
+import ObjectId from './ObjectId';
+
 type Address = {
     line1: string;
     line2: string;
@@ -15,7 +17,7 @@ export default class User {
         public password: string,
         public phone: string,
         public address: Address,
-        public roleId: string,
+        public roleId: ObjectId,
         public roleTitle: string,
     ) {
         this._id = _id;
