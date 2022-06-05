@@ -12,5 +12,8 @@
       "isCold": "kold",
       "isFrozen": "frost",
       "isOrganic": "økologisk"
+   },
+   "producer": {
+      "noProductsFound": "Der findes ikke produkter"
    }
 }

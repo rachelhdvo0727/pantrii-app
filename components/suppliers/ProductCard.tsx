@@ -43,21 +43,27 @@ const ProductCard = ({
                         numberOfLines={1}
                         ellipsizeMode="tail"
                     >
-                        {productTitle.length > 19
-                            ? productTitle.substring(0, 19 - 3) + '...'
+                        {productTitle?.length > 19
+                            ? productTitle?.substring(0, 19 - 3) + '...'
                             : productTitle}
                     </Text>
                     <Text style={styles.amountText}>
-                        Antal:&ensp;
-                        <Text
-                            style={
-                                isLowOnStock
-                                    ? styles.amountNegative
-                                    : styles.amountPositive
-                            }
-                        >
-                            {amount}
-                        </Text>
+                        {isSoldOut ? (
+                            <Text style={styles.amountNegative}>UDSOLGT</Text>
+                        ) : (
+                            <Text>
+                                Antal:&ensp;
+                                <Text
+                                    style={
+                                        isLowOnStock
+                                            ? styles.amountNegative
+                                            : styles.amountPositive
+                                    }
+                                >
+                                    {amount}
+                                </Text>
+                            </Text>
+                        )}
                     </Text>
                 </View>
 
@@ -69,7 +75,7 @@ const ProductCard = ({
 
                 <View style={styles.bottomSection}>
                     <Text style={styles.unitText}>{productUnit}</Text>
-                    <View>
+                    <View style={styles.priceWrapper}>
                         <Text style={styles.bulkPrice}>
                             {bulkPrice}
                             <Text
@@ -138,6 +144,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'baseline',
+    },
+    priceWrapper: {
+        alignItems: 'flex-end',
     },
     productTitle: {
         fontSize: 16,
