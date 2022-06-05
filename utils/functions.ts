@@ -10,3 +10,10 @@ export async function saveData(key: string, value: string) {
 export const capitalize = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+// Format string price to number
+export const numberFormat = (total: string | any) =>
+    new Intl.NumberFormat('en-DK', {
+        style: 'currency',
+        currency: 'DKK',
+    }).format(total);
