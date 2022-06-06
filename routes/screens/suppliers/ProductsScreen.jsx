@@ -33,7 +33,8 @@ export default function ProductsSuppliersScreen(props) {
         setSelectedSort(item);
     };
 
-    const listConfig = { producerId: userId || user?._id, limit: 100 };
+    const producerId = userId || user?._id;
+    const listConfig = { producerId: producerId, limit: 100 };
     React.useEffect(() => {
         axios(findProducerProducts(listConfig))
             .then((response) => {
@@ -44,11 +45,13 @@ export default function ProductsSuppliersScreen(props) {
     }, []);
 
     const filteredData = filterInStock
-        ? products?.filter((item) => item?.amount > 10)
+        ? products?.filter((item) => item?.amountInStock > 10)
         : filterLowOnStock
-        ? products?.filter((item) => item?.amount < 10)
+        ? products?.filter(
+              (item) => item?.amountInStock < 10 && item?.amountInStock !== 0,
+          )
         : filterSoldOut
-        ? products?.filter((item) => item?.amount === 0)
+        ? products?.filter((item) => item?.amountInStock === 0)
         : products;
 
     return (
@@ -147,9 +150,12 @@ export default function ProductsSuppliersScreen(props) {
                             bulkPrice={numberFormat(item?.bulkPrice)}
                             singlePrice={numberFormat(item?.singlePrice)}
                             imageSrc={productImages[item?.imageSrc]}
-                            amount={item?.amount}
-                            isLowOnStock={item?.amount < 10}
-                            isSoldOut={item?.amount === 0}
+                            amountInStock={item?.amountInStock}
+                            isLowOnStock={
+                                item?.amountInStock < 10 ||
+                                item?.amountInStock === 10
+                            }
+                            isSoldOut={item?.amountInStock === 0}
                         />
                     )}
                     contentContainerStyle={styles.listContainer}
@@ -166,16 +172,7 @@ const styles = StyleSheet.create({
     filtersContainer: {
         alignSelf: 'flex-end',
         flexDirection: 'row',
+        marginTop: 0,
     },
-    filterButtons: {
-        // marginVertical: 0,
-    },
-    listContainer: { marginVertical: 10 },
+    listContainer: { marginVertical: 7 },
 });
-
-//  if (filter === 'isSoldOut')
-//      setProducts(products?.filter((item) => item?.amount === 0));
-//  if (filter === 'isLowOnStock')
-//      setProducts(products?.filter((item) => item?.amount < 10));
-//  if (filter === 'isInStock')
-//      setProducts(products?.filter((item) => item?.amount > 10));
