@@ -4,15 +4,16 @@ export default class Product {
     constructor(
         public productTitle: string,
         public producerTitle: string,
+        public producerId: Object,
         public imageSrc: string,
         public productDesc: string,
-        public amount: number,
+        public amountInStock: number,
         public bulkPrice: string,
         public singlePrice: string,
         public expiryDuration: string,
         public productStory: string,
         public productUnique: string,
-        public categoryId: string,
+        public categoryId: Object,
         public dateTime: Date,
         public isFeatured: boolean,
         public tags: Tags[],
@@ -20,9 +21,10 @@ export default class Product {
     ) {
         this.productTitle = productTitle;
         this.producerTitle = producerTitle;
+        this.producerId = producerId;
         this.imageSrc = imageSrc;
         this.productDesc = productDesc;
-        this.amount = amount;
+        this.amountInStock = amountInStock;
         this.bulkPrice = bulkPrice;
         this.singlePrice = singlePrice;
         this.expiryDuration = expiryDuration;
