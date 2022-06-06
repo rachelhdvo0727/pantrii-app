@@ -1,99 +1,226 @@
 import React from 'react';
 import generalStyles from '../../../styles/General';
-import { unitOptions, categoriesOptions } from '../../../utils/variables';
+import { categoriesOptions } from '../../../utils/variables';
 import dictionary from '../../../dictionary/general.json';
-import categoryDic from '../../../dictionary/categories.json';
 // Components
-import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    LogBox,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import InputField from '../../../components/InputField';
 import InputFieldSelect from '../../../components/InputFieldSelect';
-import SelectDropDown from '../../../components/SelectDropDown';
 import Button from '../../../components/actions/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
-import { RadioButton } from 'react-native-paper';
+import { RadioButton, Checkbox } from 'react-native-paper';
 import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
-// API
+// API & Redux
+import axios from 'axios';
+import { createProduct } from '../../../utils/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
+import { createProductForProducer } from '../../../redux/slice/product';
 
 export default function UploadProductsScreen(props) {
     const dispatch = useDispatch();
     const content = dictionary;
-    // const [selectedUnit, setSelectedUnit] = React.useState(unitOptions);
-    // const onSelectedUnit = (item) => {
-    //     setSelectedUnit(item);
-    // };
+    const { categories } = useSelector((state) => state?.categories);
+    const { user } = useSelector((state) => state.user);
+    const loggedInUser = props?.route?.params.loggedInUser;
+
     const [selectedCategory, setSelectedCategory] = React.useState();
     const onSelectCategory = (item) => {
         setSelectedCategory(item);
     };
-    const [value, setValue] = React.useState('');
 
-    const { control, handleSubmit } = useForm({
+    const [checkedCold, setCheckedCold] = React.useState('');
+    const [isCold, setIsCold] = React.useState(false);
+
+    const [checkedFrozen, setCheckedFrozen] = React.useState('');
+    const [isFrozen, setIsFrozen] = React.useState(false);
+
+    const [checkedOrganic, setCheckOrganic] = React.useState('');
+    const [isOrganic, setIsOrganic] = React.useState(false);
+
+    React.useEffect(() => {
+        dispatch(getCategories(false));
+    }, []);
+
+    const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             productTitle: '',
             producerId: '',
             productDesc: '',
-            amount: '',
+            productUnique: '',
+            productStory: '',
+            amountPerPack: '',
+            amountInStock: '',
             weight: '',
             bulkPrice: '',
             singlePrice: '',
-            category: '',
+            categoryId: '',
+            dateTime: new Date(),
+            tags: ['', '', ''],
         },
     });
-    const onSubmit = (data) => {};
 
-    React.useEffect(() => {
-        dispatch(getCategories(true));
-    }, []);
+    const onSubmit = (data) => {
+        // Find matched categoryId
+        const category = categories?.find(
+            (item) => item?.name === selectedCategory.value,
+        );
+        data.categoryId = category?._id;
+        // Attach producerId
+        data.producerId = loggedInUser?._id || user?._id;
+        // Find productUnit
+        data.productUnit = data.amountPerPack + ' x ' + data.weight;
+        data.amountInStock = parseInt(data.amountInStock); // Change amountInStock to number
+        data.tags = [checkedCold, checkedFrozen, checkedOrganic];
+        delete data.amountPerPack;
+        delete data.weight;
+
+        dispatch(createProductForProducer(data));
+        reset();
+    };
 
     return (
         <SafeAreaView style={styles.container}>
-            <Controller
-                name="productTitle"
-                control={control}
-                rules={{
-                    required: 'Produktnavn er påkrævet',
-                }}
-                render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                }) => (
-                    <InputField
-                        label="produktnavn"
-                        placeholder="Eksempel"
-                        value={value}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        autoComplete={false}
-                        autoCapitalize="words"
-                        errorMessage={error}
-                    />
-                )}
-            />
-            <View style={styles.fieldset}>
+            <ScrollView style={{ paddingVertical: 10 }}>
                 <Controller
-                    name="amount"
+                    name="productTitle"
                     control={control}
                     rules={{
-                        required: 'Angive antal',
+                        required: 'Produktnavn er påkrævet',
                     }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="antal"
+                            label="produktnavn *"
+                            placeholder="Eksempel"
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            autoComplete={false}
+                            autoCapitalize="words"
+                            errorMessage={error}
+                        />
+                    )}
+                />
+                <View style={styles.fieldset}>
+                    <Controller
+                        name="amountPerPack"
+                        control={control}
+                        rules={{
+                            required:
+                                'Venligst angiv antal af produkt i én pakke/enhed',
+                        }}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="antal *"
+                                inputStyle={styles.fieldsetCell}
+                                placeholder="eks. 10"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                            />
+                        )}
+                    />
+                    <Text style={styles.multiplySign}>x</Text>
+                    <Controller
+                        name="weight"
+                        control={control}
+                        rules={{
+                            required: 'Produktvægt er påkrævet',
+                        }}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="vægt *"
+                                inputStyle={styles.fieldsetCell}
+                                placeholder="eks. 10g"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                            />
+                        )}
+                    />
+                </View>
+                <View style={styles.fieldset}>
+                    <Controller
+                        name="bulkPrice"
+                        control={control}
+                        rules={{
+                            required: 'Pris/kolli er påkrævet',
+                            pattern: {
+                                value: /^\d+$/,
+                                message: 'Kun nummer',
+                            },
+                        }}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="pris /kolli *"
+                                inputStyle={styles.fieldsetCell}
+                                placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="singlePrice"
+                        control={control}
+                        rules={{
+                            required: 'Pris/ enhed er påkrævet',
+                        }}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="pris /enhed *"
+                                inputStyle={styles.fieldsetCell}
+                                placeholder="&emsp;&emsp;&ensp;/enhed"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                            />
+                        )}
+                    />
+                </View>
+                <Controller
+                    name="amountInStock"
+                    control={control}
+                    rules={{
+                        required: 'Venligst angiv antal af produkt på lager',
+                    }}
+                    render={({
+                        field: { onChange, onBlur, value },
+                        fieldState: { error },
+                    }) => (
+                        <InputField
+                            label="hvor mange på lager? *"
                             inputStyle={styles.fieldsetCell}
                             placeholder="eks. 10"
                             value={value}
@@ -102,213 +229,152 @@ export default function UploadProductsScreen(props) {
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
+                            keyboardType="numeric"
                         />
                     )}
                 />
+                <Button
+                    title="Upload billeder fra arkiv"
+                    secondary
+                    buttonStyle={[styles.buttons, styles.uploadButton]}
+                    children={
+                        <MaterialIcons
+                            name="photo-library"
+                            size={18}
+                            color="#FFFFFF"
+                        />
+                    }
+                />
+                <InputFieldSelect
+                    label="kategorie *"
+                    placeholder="Vælge en kategorie"
+                    data={categoriesOptions?.sort((a, b) =>
+                        a.label.normalize().localeCompare(b.label.normalize()),
+                    )}
+                    onSelect={onSelectCategory}
+                    selectedItem={selectedCategory}
+                />
                 <Controller
-                    name="weight"
+                    name="productDesc"
                     control={control}
-                    rules={{
-                        required: 'Produktvægt er påkrævet',
-                    }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="vægt"
-                            inputStyle={styles.fieldsetCell}
-                            placeholder="eks. 10g"
+                            label="produktbeskrivelse"
+                            placeholder="Eksempel"
+                            multiline
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
+                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
-                {/* <Controller
-                    name="unitOption"
-                    control={control}
-                    render={({
-                        field: { onChange, onBlur, value },
-                        fieldState: { error },
-                    }) => (
-                        <SelectDropDown
-                            label="Enhed"
-                            data={unitOptions}
-                            onSelect={onSelectedUnit}
-                            selectedItem={selectedUnit}
-                        />
-                    )}
-                /> */}
-            </View>
-
-            <View style={styles.fieldset}>
                 <Controller
-                    name="bulkPrice"
+                    name="productStory"
                     control={control}
-                    rules={{
-                        required: 'Pris/kolli er påkrævet',
-                    }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="pris /kolli"
-                            inputStyle={styles.fieldsetCell}
-                            placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
+                            label="produkthistorie"
+                            placeholder="Eksempel"
+                            multiline
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
+                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
                 <Controller
-                    name="singlePrice"
+                    name="productUnique"
                     control={control}
-                    rules={{
-                        required: 'Pris/ enhed er påkrævet',
-                    }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="pris /enhed"
-                            inputStyle={styles.fieldsetCell}
-                            placeholder="&emsp;&emsp;&ensp;/enhed"
+                            label="produktkendetegnelse"
+                            placeholder="Eksempel"
+                            multiline
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
+                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
-            </View>
-            <Button
-                title="Upload billeder fra arkiv"
-                secondary
-                buttonStyle={[styles.buttons, styles.uploadButton]}
-                children={
-                    <MaterialIcons
-                        name="photo-library"
-                        size={18}
-                        color="#FFFFFF"
-                    />
-                }
-            />
-
-            <Controller
-                name="categoryOption"
-                control={control}
-                render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                }) => (
-                    <InputFieldSelect
-                        label="Kategorie"
-                        placeholder="Vælge en kategorie"
-                        data={categoriesOptions?.sort((a, b) =>
-                            a.label
-                                .normalize()
-                                .localeCompare(b.label.normalize()),
-                        )}
-                        onSelect={onSelectCategory}
-                        selectedItem={selectedCategory}
-                    />
-                )}
-            />
-            <Controller
-                name="productDesc"
-                control={control}
-                render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                }) => (
-                    <InputField
-                        label="Beskrivelse"
-                        placeholder="Eksempel"
-                        multiline
-                        value={value}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        autoComplete={false}
-                        autoCapitalize="words"
-                        errorMessage={error}
-                        inputStyle={styles.productDesc}
-                    />
-                )}
-            />
-            <RadioButton.Group
-                onValueChange={(newValue) => setValue(newValue)}
-                value={value}
-            >
                 <Text style={styles.fieldLabel}>Tags</Text>
-                <View style={styles.radioButtonGroup}>
+                <View style={styles.checkboxGroup}>
                     <View style={styles.tagOption}>
                         <ThermoIcon style={styles.icon} />
-                        <RadioButton.Item
+                        <Checkbox.Item
                             label={'    ' + content?.tags?.isCold}
-                            value="isCold"
-                            status={
-                                value === content?.customer
-                                    ? 'checked'
-                                    : 'unchecked'
-                            }
+                            value="cold"
+                            status={isCold ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setIsCold(!isCold);
+                                setCheckedCold('cold');
+                            }}
                             color="#000000"
                             mode="android"
                             position="leading"
-                            labelStyle={styles.radioButtonLabel}
+                            labelStyle={styles.checkBoxLabel}
                         />
                     </View>
                     <View style={styles.tagOption}>
                         <FrozenIcon style={styles.icon} />
-                        <RadioButton.Item
+                        <Checkbox.Item
                             label={'    ' + content?.tags?.isFrozen}
-                            status={
-                                value === content?.producer
-                                    ? 'checked'
-                                    : 'unchecked'
-                            }
-                            value="isFrozen"
+                            status={isFrozen ? 'checked' : 'unchecked'}
+                            onPress={(value) => {
+                                setIsFrozen(!isFrozen);
+                                setCheckedFrozen('frozen');
+                            }}
+                            value="frozen"
                             color="#000000"
-                            labelStyle={styles.radioButtonLabel}
+                            labelStyle={styles.checkBoxLabel}
                             mode="android"
                             position="leading"
                         />
                     </View>
                     <View style={styles.tagOption}>
                         <OrganicIcon style={styles.icon} />
-                        <RadioButton.Item
+                        <Checkbox.Item
                             label={'    ' + content?.tags?.isOrganic}
-                            status={
-                                value === content?.producer
-                                    ? 'checked'
-                                    : 'unchecked'
-                            }
-                            value="isOrganic"
+                            status={isOrganic ? 'checked' : 'unchecked'}
+                            value="organic"
+                            onPress={() => {
+                                setIsOrganic(!isOrganic);
+                                setCheckOrganic('organic');
+                            }}
                             color="#000000"
-                            labelStyle={styles.radioButtonLabel}
+                            labelStyle={styles.checkBoxLabel}
                             mode="android"
                             position="leading"
                         />
                     </View>
                 </View>
-            </RadioButton.Group>
-
-            <Button
-                title="Opret"
-                primary
-                buttonStyle={[styles.buttons, styles.createButton]}
-            />
+                <Button
+                    title="Opret"
+                    primary
+                    buttonStyle={[styles.buttons, styles.createButton]}
+                    onPress={handleSubmit(onSubmit)}
+                />
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -318,12 +384,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         ...generalStyles.container,
         flexDirection: 'column',
-        marginTop: 15,
+        paddingTop: 20,
         width: '95%',
     },
     fieldset: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
+        alignItems: 'center',
     },
     fieldsetCell: { flex: 1 },
     fieldLabel: {
@@ -334,19 +401,20 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
     },
     buttons: { alignSelf: 'center', marginVertical: 10 },
+    multiplySign: { ...generalStyles.boldText },
     uploadButton: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
         alignItems: 'center',
         width: '80%',
     },
-    radioButtonGroup: {
+    checkboxGroup: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         // flex: 1,
     },
-    radioButtonLabel: {
+    checkBoxLabel: {
         fontFamily: 'TT-Commons-DemiBold',
         fontSize: 14,
         letterSpacing: 1,
