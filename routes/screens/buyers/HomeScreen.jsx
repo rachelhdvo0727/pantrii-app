@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { StyleSheet, SafeAreaView, View, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
 import HeroCardSlider from '../../../components/buyers/HeroCardSlider';
 import NewProductsSlider from '../../../components/buyers/NewProductsSlider';
@@ -8,13 +8,19 @@ import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 
 export default function HomeScreen() {
     return (
-        <View style={generalStyles.homeContainer}>
-            <ScrollView>
+        <SafeAreaView style={styles.container}>
+            <ScrollView style={{ paddingVertical: 20 }}>
                 <HeroCardSlider />
                 <NewProductsSlider />
                 <HighLightProductsSlider />
                 <CampaignCardSlider />
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        ...generalStyles.homeContainer,
+    },
+});
