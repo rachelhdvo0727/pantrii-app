@@ -36,5 +36,5 @@ export const categoriesOptions = [
     { label: 'drikkevarer', value: 'drinks' },
     { label: 'plantebaseret', value: 'plantbased' },
     { label: 'frugt & grønt', value: 'fruitsAndVeggies' },
-    { label: 'bread', value: 'fishAndSeafood' },
+    { label: 'fisk & skaldyr', value: 'fishAndSeafood' },
 ];
