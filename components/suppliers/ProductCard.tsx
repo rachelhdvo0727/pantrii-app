@@ -2,14 +2,22 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import Product from '../../models/Product';
 // Components
-import { StyleSheet, Text, View, Image } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    Pressable,
+    TouchableOpacity,
+} from 'react-native';
 import InformationCard from '../InformationCard';
 
 export interface Props {
+    onPress?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
     productTitle: Product['productTitle'];
     productDesc: Product['productDesc'];
     productUnit: Product['productUnit'];
-    amount: Product['amount'];
+    amountInStock: Product['amountInStock'];
     bulkPrice: Product['bulkPrice'];
     singlePrice: Product['singlePrice'];
     isLowOnStock?: boolean;
@@ -19,10 +27,11 @@ export interface Props {
 }
 
 const ProductCard = ({
+    onPress,
     productTitle,
     productDesc,
     productUnit,
-    amount,
+    amountInStock,
     bulkPrice,
     singlePrice,
     imageSrc,
@@ -30,9 +39,8 @@ const ProductCard = ({
     isSoldOut,
     isLowOnStock,
 }: Props) => {
-    // const amount = productUnit.slice(0, productUnit.indexOf('x'));
-
     return (
+        // <TouchableOpacity onPress={onPress}>
         <InformationCard style={[styles.container, cardStyle]}>
             <Image style={styles.image} source={imageSrc} />
 
@@ -43,8 +51,8 @@ const ProductCard = ({
                         numberOfLines={1}
                         ellipsizeMode="tail"
                     >
-                        {productTitle?.length > 19
-                            ? productTitle?.substring(0, 19 - 3) + '...'
+                        {productTitle?.length > 18
+                            ? productTitle?.substring(0, 18 - 3) + '...'
                             : productTitle}
                     </Text>
                     <Text style={styles.amountText}>
@@ -56,11 +64,11 @@ const ProductCard = ({
                                 <Text
                                     style={
                                         isLowOnStock
-                                            ? styles.amountNegative
+                                            ? styles.amountLow
                                             : styles.amountPositive
                                     }
                                 >
-                                    {amount}
+                                    {amountInStock}
                                 </Text>
                             </Text>
                         )}
@@ -100,6 +108,7 @@ const ProductCard = ({
                 </View>
             </View>
         </InformationCard>
+        // </TouchableOpacity>
     );
 };
 
@@ -167,6 +176,7 @@ const styles = StyleSheet.create({
         ...generalStyles.mediumText,
     },
     amountPositive: { color: '#9DB76E' },
+    amountLow: { color: '#EA6F2D' },
     amountNegative: { color: '#FF0000' },
     bulkPrice: {
         fontSize: 14,
