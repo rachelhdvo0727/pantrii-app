@@ -46,7 +46,7 @@ export default function HomeSuppliersScreen(props) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
+            <ScrollView style={{ paddingTop: 10 }}>
                 <View style={styles.section}>
                     <HeroCard
                         title={`Velkommen tilbage \n ${
@@ -99,9 +99,12 @@ export default function HomeSuppliersScreen(props) {
                                 bulkPrice={numberFormat(item?.bulkPrice)}
                                 singlePrice={numberFormat(item?.singlePrice)}
                                 imageSrc={productImages[item?.imageSrc]}
-                                amount={item?.amount}
-                                isLowOnStock={item?.amount < 10}
-                                isSoldOut={item?.amount === 0}
+                                amountInStock={item?.amountInStock}
+                                isLowOnStock={
+                                    item?.amountInStock < 10 ||
+                                    item?.amountInStock === 10
+                                }
+                                isSoldOut={item?.amountInStock === 0}
                             ></ProductCard>
                         ))}
                     </View>
@@ -113,7 +116,7 @@ export default function HomeSuppliersScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    container: { ...generalStyles.homeContainer, marginTop: 10 },
+    container: { ...generalStyles.homeContainer, paddingTop: 20 },
     section: {
         marginHorizontal: 15,
         marginVertical: 10,
