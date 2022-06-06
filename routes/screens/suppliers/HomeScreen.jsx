@@ -113,7 +113,7 @@ export default function HomeSuppliersScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    container: { ...generalStyles.homeContainer },
+    container: { ...generalStyles.homeContainer, marginTop: 10 },
     section: {
         marginHorizontal: 15,
         marginVertical: 10,

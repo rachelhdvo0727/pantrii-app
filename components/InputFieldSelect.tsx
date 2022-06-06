@@ -1,5 +1,7 @@
 import React from 'react';
 import generalStyles from '../styles/General';
+import categoryDic from '../dictionary/categories.json';
+import { capitalize } from '../utils/functions';
 // Components
 import {
     StyleSheet,
@@ -7,19 +9,22 @@ import {
     Text,
     View,
     SafeAreaView,
-    VirtualizedList,
     FlatList,
+    ScrollView,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { capitalize } from '@material-ui/core';
 
 export interface Option {
+    // _id: string;
+    // name: string;
+    // imageSrc?: string;
     label: string;
     value: string;
 }
 
 export interface Props {
     label: string;
+    neutralLabel: string;
     placeholder?: string;
     data: Array<Option>;
     onSelect(item: Option): void;
@@ -33,16 +38,12 @@ export default function InputFieldSelect({
     onSelect,
     selectedItem,
 }: Props) {
-    const getItem = (data: Array<any>, index: number) => ({
-        id: Math.random().toString(12).substring(0),
-        title: `Item ${index + 1}`,
-    });
-
-    const getItemCount = (data: Array<any>) => data?.length;
-
     const [visible, setVisible] = React.useState(false);
-    const [seletedOption, setSelectedItem] = React.useState(selectedItem);
+    const [selectedOption, setSelectedItem] = React.useState(selectedItem);
 
+    React.useEffect(() => {
+        console.log();
+    });
     const toggleDropdown = () => {
         setVisible(!visible);
     };
@@ -52,8 +53,9 @@ export default function InputFieldSelect({
         setSelectedItem(item);
     };
 
-    const renderItem = (item: Option) => (
+    const renderItem = (item: Option, index: number | string) => (
         <TouchableOpacity
+            key={index}
             style={[
                 styles.dropdownItem,
                 item === data.slice(-1)[0] && styles.lastItem,
@@ -63,23 +65,21 @@ export default function InputFieldSelect({
             <Text
                 style={[
                     styles.dropdownText,
-                    seletedOption?.label === item?.label &&
+                    selectedOption?.label === item?.label &&
                         styles.currentOption,
                 ]}
             >
-                {item?.label}&emsp;&emsp;
+                {capitalize(item?.label)}
             </Text>
         </TouchableOpacity>
     );
     const renderDropdown = () => {
         if (visible) {
             return (
-                <SafeAreaView style={styles.dropdown}>
-                    <FlatList
-                        data={data}
-                        renderItem={({ item }) => renderItem(item)}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
+                <SafeAreaView>
+                    <ScrollView style={styles.dropdown}>
+                        {data?.map((item, index) => renderItem(item, index))}
+                    </ScrollView>
                 </SafeAreaView>
             );
         }
@@ -90,9 +90,20 @@ export default function InputFieldSelect({
             {renderDropdown()}
             <Text style={[styles.label]}>{capitalize(label)}</Text>
             <View style={styles.inputInnerWrapper}>
-                <Text style={[styles.valueText]}>
-                    {seletedOption?.label ? seletedOption?.label : placeholder}
-                </Text>
+                {selectedOption?.label ? (
+                    <Text
+                        style={[
+                            styles.valueText,
+                            selectedOption?.label === selectedOption?.label &&
+                                styles.currentOption,
+                        ]}
+                    >
+                        {capitalize(selectedOption?.label)}
+                    </Text>
+                ) : (
+                    <Text style={[styles.placeholder]}>{placeholder}</Text>
+                )}
+
                 <MaterialIcons
                     name={visible ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
                     size={20}
@@ -115,6 +126,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderStyle: 'solid',
         borderWidth: 1,
+        zIndex: 2,
     },
     label: {
         fontFamily: 'TT-Commons-DemiBold',
@@ -141,6 +153,13 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-Regular',
         fontSize: 16,
         letterSpacing: 1,
+        marginTop: 2.5
+        ,
+    },
+    placeholder: {
+        fontFamily: 'TT-Commons-Regular',
+        fontSize: 16,
+        letterSpacing: 1,
         marginTop: 2,
         opacity: 0.2,
     },
@@ -149,28 +168,27 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     dropdown: {
-        zIndex: 9999,
         position: 'absolute',
+        top: 35,
+        right: 0,
         backgroundColor: '#FFFFFF',
-
+        width: '100%',
         borderColor: '#000000',
         borderWidth: 1,
         borderRadius: 10,
-
-        top: 28,
-        right: 0,
     },
     dropdownItem: {
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
-        paddingVertical: 3.5,
-        paddingHorizontal: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
     },
     lastItem: {
         borderBottomWidth: 0,
     },
-    dropdownText: { ...generalStyles.paragraphText, fontSize: 12 },
+    dropdownText: { ...generalStyles.paragraphText, fontSize: 16 },
     currentOption: {
+        fontFamily: 'TT-Commons-DemiBold',
         opacity: 1,
     },
 });

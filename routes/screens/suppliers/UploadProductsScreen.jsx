@@ -1,7 +1,8 @@
 import React from 'react';
 import generalStyles from '../../../styles/General';
-import { unitOptions } from '../../../utils/variables';
+import { unitOptions, categoriesOptions } from '../../../utils/variables';
 import dictionary from '../../../dictionary/general.json';
+import categoryDic from '../../../dictionary/categories.json';
 // Components
 import {
     SafeAreaView,
@@ -9,7 +10,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Virtuali,
+    LogBox,
 } from 'react-native';
 import InputField from '../../../components/InputField';
 import InputFieldSelect from '../../../components/InputFieldSelect';
@@ -22,14 +23,19 @@ import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
 // API
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../../../redux/slice/categories';
 
 export default function UploadProductsScreen(props) {
-    const content = dictionary?.tags;
-    const userId = props.route?.params?.loggedInUser?._id;
-    const [selectedUnit, setSelectedUnit] = React.useState(unitOptions);
-    const onSelectedUnit = (item) => {
-        setSelectedUnit(item);
+    const dispatch = useDispatch();
+    const content = dictionary;
+    // const [selectedUnit, setSelectedUnit] = React.useState(unitOptions);
+    // const onSelectedUnit = (item) => {
+    //     setSelectedUnit(item);
+    // };
+    const [selectedCategory, setSelectedCategory] = React.useState();
+    const onSelectCategory = (item) => {
+        setSelectedCategory(item);
     };
     const [value, setValue] = React.useState('');
 
@@ -48,12 +54,11 @@ export default function UploadProductsScreen(props) {
     const onSubmit = (data) => {};
 
     React.useEffect(() => {
-        console.log('create screen', userId);
-    });
+        dispatch(getCategories(true));
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* <ScrollView> */}
             <Controller
                 name="productTitle"
                 control={control}
@@ -81,7 +86,7 @@ export default function UploadProductsScreen(props) {
                     name="amount"
                     control={control}
                     rules={{
-                        required: 'Produktnavn er påkrævet',
+                        required: 'Angive antal',
                     }}
                     render={({
                         field: { onChange, onBlur, value },
@@ -90,7 +95,7 @@ export default function UploadProductsScreen(props) {
                         <InputField
                             label="antal"
                             inputStyle={styles.fieldsetCell}
-                            placeholder="Eksempel"
+                            placeholder="eks. 10"
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -104,7 +109,7 @@ export default function UploadProductsScreen(props) {
                     name="weight"
                     control={control}
                     rules={{
-                        required: 'Produktnavn er påkrævet',
+                        required: 'Produktvægt er påkrævet',
                     }}
                     render={({
                         field: { onChange, onBlur, value },
@@ -113,7 +118,7 @@ export default function UploadProductsScreen(props) {
                         <InputField
                             label="vægt"
                             inputStyle={styles.fieldsetCell}
-                            placeholder="Eksempel"
+                            placeholder="eks. 10g"
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -123,7 +128,7 @@ export default function UploadProductsScreen(props) {
                         />
                     )}
                 />
-                <Controller
+                {/* <Controller
                     name="unitOption"
                     control={control}
                     render={({
@@ -137,7 +142,7 @@ export default function UploadProductsScreen(props) {
                             selectedItem={selectedUnit}
                         />
                     )}
-                />
+                /> */}
             </View>
 
             <View style={styles.fieldset}>
@@ -145,7 +150,7 @@ export default function UploadProductsScreen(props) {
                     name="bulkPrice"
                     control={control}
                     rules={{
-                        required: 'Produktnavn er påkrævet',
+                        required: 'Pris/kolli er påkrævet',
                     }}
                     render={({
                         field: { onChange, onBlur, value },
@@ -154,7 +159,7 @@ export default function UploadProductsScreen(props) {
                         <InputField
                             label="pris /kolli"
                             inputStyle={styles.fieldsetCell}
-                            placeholder="Eksempel"
+                            placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -168,7 +173,7 @@ export default function UploadProductsScreen(props) {
                     name="singlePrice"
                     control={control}
                     rules={{
-                        required: 'Produktnavn er påkrævet',
+                        required: 'Pris/ enhed er påkrævet',
                     }}
                     render={({
                         field: { onChange, onBlur, value },
@@ -177,7 +182,7 @@ export default function UploadProductsScreen(props) {
                         <InputField
                             label="pris /enhed"
                             inputStyle={styles.fieldsetCell}
-                            placeholder="Eksempel"
+                            placeholder="&emsp;&emsp;&ensp;/enhed"
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -200,6 +205,27 @@ export default function UploadProductsScreen(props) {
                     />
                 }
             />
+
+            <Controller
+                name="categoryOption"
+                control={control}
+                render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                }) => (
+                    <InputFieldSelect
+                        label="Kategorie"
+                        placeholder="Vælge en kategorie"
+                        data={categoriesOptions?.sort((a, b) =>
+                            a.label
+                                .normalize()
+                                .localeCompare(b.label.normalize()),
+                        )}
+                        onSelect={onSelectCategory}
+                        selectedItem={selectedCategory}
+                    />
+                )}
+            />
             <Controller
                 name="productDesc"
                 control={control}
@@ -211,7 +237,6 @@ export default function UploadProductsScreen(props) {
                         label="Beskrivelse"
                         placeholder="Eksempel"
                         multiline
-                        numberOfLines={10}
                         value={value}
                         onChangeText={onChange}
                         onBlur={onBlur}
@@ -219,19 +244,6 @@ export default function UploadProductsScreen(props) {
                         autoCapitalize="words"
                         errorMessage={error}
                         inputStyle={styles.productDesc}
-                    />
-                )}
-            />
-            <Controller
-                name="categoryOption"
-                control={control}
-                render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                }) => (
-                    <InputFieldSelect
-                        label="Kategorie"
-                        placeholder="Vælge en kategorie"
                     />
                 )}
             />
@@ -244,7 +256,7 @@ export default function UploadProductsScreen(props) {
                     <View style={styles.tagOption}>
                         <ThermoIcon style={styles.icon} />
                         <RadioButton.Item
-                            label={'    ' + content.isCold}
+                            label={'    ' + content?.tags?.isCold}
                             value="isCold"
                             status={
                                 value === content?.customer
@@ -260,7 +272,7 @@ export default function UploadProductsScreen(props) {
                     <View style={styles.tagOption}>
                         <FrozenIcon style={styles.icon} />
                         <RadioButton.Item
-                            label={'    ' + content.isFrozen}
+                            label={'    ' + content?.tags?.isFrozen}
                             status={
                                 value === content?.producer
                                     ? 'checked'
@@ -276,7 +288,7 @@ export default function UploadProductsScreen(props) {
                     <View style={styles.tagOption}>
                         <OrganicIcon style={styles.icon} />
                         <RadioButton.Item
-                            label={'    ' + content.isOrganic}
+                            label={'    ' + content?.tags?.isOrganic}
                             status={
                                 value === content?.producer
                                     ? 'checked'
@@ -297,7 +309,6 @@ export default function UploadProductsScreen(props) {
                 primary
                 buttonStyle={[styles.buttons, styles.createButton]}
             />
-            {/* </ScrollView> */}
         </SafeAreaView>
     );
 }
@@ -307,9 +318,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         ...generalStyles.container,
         flexDirection: 'column',
-        marginTop: 20,
+        marginTop: 15,
         width: '95%',
-        overflow: 'scroll',
     },
     fieldset: {
         flexDirection: 'row',

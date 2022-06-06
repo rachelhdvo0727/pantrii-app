@@ -24,3 +24,17 @@ export const unitOptions = [
     { label: 'dl', value: 'dl' },
     { label: 'l', value: 'l' },
 ];
+
+// Category dropdown
+export const categoriesOptions = [
+    { label: 'andre', value: 'other' },
+    { label: 'brød', value: 'bread' },
+    { label: 'mejeri', value: 'dairy' },
+    { label: 'kage', value: 'dessert' },
+    { label: 'kød', value: 'meat' },
+    { label: 'kolonial', value: 'colonial' },
+    { label: 'drikkevarer', value: 'drinks' },
+    { label: 'plantebaseret', value: 'plantbased' },
+    { label: 'frugt & grønt', value: 'fruitsAndVeggies' },
+    { label: 'bread', value: 'fishAndSeafood' },
+];

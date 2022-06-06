@@ -11,7 +11,7 @@ import {
     View,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { capitalize } from '@material-ui/core';
+import { capitalize } from '../utils/functions';
 
 export interface Option {
     label: string;
@@ -31,13 +31,6 @@ export default function SelectDropDown({
     onSelect,
     selectedItem,
 }: Props) {
-    const getItem = (data: Array<any>, index: number) => ({
-        id: Math.random().toString(12).substring(0),
-        title: `Item ${index + 1}`,
-    });
-
-    const getItemCount = (data: Array<any>) => data?.length;
-
     const [visible, setVisible] = React.useState(false);
     const [seletedOption, setSelectedItem] = React.useState(selectedItem);
 
@@ -64,7 +57,7 @@ export default function SelectDropDown({
                     seletedOption?.label === item?.label && styles.currentSort,
                 ]}
             >
-                {item?.label}&emsp;&emsp;
+                {capitalize(item?.label)}&emsp;&emsp;
             </Text>
         </TouchableOpacity>
     );
@@ -108,6 +101,7 @@ export default function SelectDropDown({
 
 const styles = StyleSheet.create({
     container: {
+        zIndex: 2,
         backgroundColor: '#EFF2EE',
         borderColor: '#000000',
         borderWidth: 1,
@@ -116,7 +110,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 10,
         marginHorizontal: 10,
-        zIndex: 1,
 
         alignSelf: 'flex-end',
 
@@ -129,7 +122,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     dropdown: {
-        zIndex: 9999,
         position: 'absolute',
         backgroundColor: '#FFFFFF',
 
@@ -137,7 +129,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
 
-        top: 28,
+        top: 27,
         right: 0,
     },
     dropdownItem: {
