@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { categoriesSlice } from './slice/categories';
 import { userSlice } from './slice/user';
 import { rolesSlice } from './slice/roles';
-import { productsSlice } from './slice/products';
+import { productSlice } from './slice/product';
 import cartReducer from './reducer/CartReducer';
 import { producerProductsSlice } from './slice/producerProducts';
 
@@ -12,7 +12,7 @@ export const store = configureStore({
         roles: rolesSlice.reducer,
         categories: categoriesSlice.reducer,
         cart: cartReducer,
-        products: productsSlice.reducer,
+        product: productSlice.reducer,
         producerProducts: producerProductsSlice.reducer,
     },
 });
