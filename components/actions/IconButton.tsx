@@ -1,12 +1,12 @@
 import React from 'react';
 import {
     StyleSheet,
-    Pressable,
     View,
     Text,
     StyleProp,
-    PressableProps,
     TextProps,
+    TouchableOpacity,
+    TouchableOpacityProps,
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '../../utils/functions';
@@ -16,10 +16,10 @@ export interface Props {
     onPressOut?: () => void;
     title: string;
     children?: React.ReactChild;
-    iconButtonStyle?: StyleProp<PressableProps>;
+    iconButtonStyle?: StyleProp<TouchableOpacityProps>;
     titleStyle?: StyleProp<TextProps>;
     isActive?: boolean;
-    disabled?: React.ComponentProps<typeof Pressable>['disabled'];
+    disabled?: React.ComponentProps<typeof TouchableOpacity>['disabled'];
     outlined?: boolean;
     arrowRight?: boolean;
     arrowDown?: boolean;
@@ -39,7 +39,7 @@ const IconButton: React.FC<Props> = ({
     onPressOut,
 }) => {
     return (
-        <Pressable
+        <TouchableOpacity
             onPress={onPress}
             style={[
                 styles.container,
@@ -72,7 +72,7 @@ const IconButton: React.FC<Props> = ({
                     />
                 ) : null}
             </View>
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 

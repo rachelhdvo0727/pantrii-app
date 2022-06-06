@@ -2,6 +2,8 @@ import React from 'react';
 import {
     StyleSheet,
     Pressable,
+    TouchableOpacity,
+    TouchableOpacityProps,
     View,
     Text,
     StyleProp,
@@ -9,15 +11,15 @@ import {
 } from 'react-native';
 
 export interface Props {
-    onPress: () => void;
-    style?: StyleProp<PressableProps>;
+    onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
+    style?: StyleProp<TouchableOpacityProps>;
 }
 
 const ViewButton: React.FC<Props> = ({ style, onPress }) => {
     return (
-        <Pressable onPress={onPress} style={[styles.container, style]}>
+        <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
             <Text style={styles.title}>Se alle</Text>
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 

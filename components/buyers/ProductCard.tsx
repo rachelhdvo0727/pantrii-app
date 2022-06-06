@@ -4,10 +4,10 @@ import {
     Text,
     StyleSheet,
     Image,
-    Pressable,
     Dimensions,
-    PressableProps,
     StyleProp,
+    TouchableOpacity,
+    TouchableOpacityProps,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 // Components
@@ -23,8 +23,7 @@ import Product from '../../models/Product';
 import AddToCart from '../actions/AddToCart';
 
 export interface Props {
-    // onPress: React.ComponentProps<typeof Pressable>['onPress'];
-    cardStyle: StyleProp<PressableProps>;
+    cardStyle: StyleProp<TouchableOpacityProps>;
     imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: Product['productTitle'];
     producerTitle: Product['producerTitle'];
@@ -38,7 +37,7 @@ export interface Props {
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
-    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressAdd?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
 }
 
 const ProductCard = ({
@@ -213,7 +212,7 @@ const ProductCard = ({
                 </View>
             </Modal>
             {/* product card */}
-            <Pressable
+            <TouchableOpacity
                 style={[
                     styles.productWrapper,
                     secondary && styles.secondary,
@@ -291,7 +290,7 @@ const ProductCard = ({
                         </View>
                     </View>
                 </View>
-            </Pressable>
+            </TouchableOpacity>
         </View>
     );
 };
