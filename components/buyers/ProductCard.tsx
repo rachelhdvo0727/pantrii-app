@@ -200,6 +200,7 @@ const ProductCard = ({
                                         }
                                         onPressIn={() =>
                                             setTimeout(() => {
+                                                toggleModal();
                                                 setAddItem(true);
                                             }, 100)
                                         }
