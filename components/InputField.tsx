@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, View, TextInput, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { capitalize } from '../utils/functions';
 
 export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
@@ -44,7 +45,7 @@ export default function InputField({
     return (
         <View style={[inputStyle]}>
             <View style={styles.container}>
-                <Text style={styles.label}>{label}</Text>
+                <Text style={styles.label}>{capitalize(label)}</Text>
                 <TextInput
                     value={value}
                     onChangeText={onChangeText}
@@ -101,7 +102,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 1,
-        textTransform: 'capitalize',
         paddingHorizontal: 5,
 
         position: 'absolute',
