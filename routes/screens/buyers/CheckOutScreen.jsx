@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
-import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { numberFormat } from '../../../utils/functions';
 import { useNavigation } from '@react-navigation/native';
 // Component
+import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import InformationCard from '../../../components/InformationCard';
 import SectionInInformationCard from '../../../components/SectionInInformationCard';
 import Button from '../../../components/actions/Button';
@@ -32,12 +33,6 @@ export default function CheckOutScreen(props) {
             ),
         });
     });
-
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     const totalPrice = useSelector(cartTotalPriceSelector);
     // Delivery cost

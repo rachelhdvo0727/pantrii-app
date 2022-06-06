@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { numberFormat } from '../../utils/functions';
 import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
@@ -20,12 +21,6 @@ const NewProductsSlider = () => {
     const navigation = useNavigation();
 
     const content = dictionary?.products; // DA dictionary
-
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     const [products, setProducts] = React.useState([]);
 

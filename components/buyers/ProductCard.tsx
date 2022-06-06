@@ -1,16 +1,15 @@
-import React, { useState, useMemo, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
     StyleSheet,
     Image,
-    Pressable,
     Dimensions,
-    PressableProps,
-    ViewProps,
     StyleProp,
+    TouchableOpacity,
+    TouchableOpacityProps,
 } from 'react-native';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 // Components
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
@@ -24,8 +23,7 @@ import Product from '../../models/Product';
 import AddToCart from '../actions/AddToCart';
 
 export interface Props {
-    // onPress: React.ComponentProps<typeof Pressable>['onPress'];
-    cardStyle: StyleProp<PressableProps>;
+    cardStyle: StyleProp<TouchableOpacityProps>;
     imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: Product['productTitle'];
     producerTitle: Product['producerTitle'];
@@ -39,7 +37,7 @@ export interface Props {
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
-    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressAdd?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
 }
 
 const ProductCard = ({
@@ -202,6 +200,7 @@ const ProductCard = ({
                                         }
                                         onPressIn={() =>
                                             setTimeout(() => {
+                                                toggleModal();
                                                 setAddItem(true);
                                             }, 100)
                                         }
@@ -214,7 +213,7 @@ const ProductCard = ({
                 </View>
             </Modal>
             {/* product card */}
-            <Pressable
+            <TouchableOpacity
                 style={[
                     styles.productWrapper,
                     secondary && styles.secondary,
@@ -292,7 +291,7 @@ const ProductCard = ({
                         </View>
                     </View>
                 </View>
-            </Pressable>
+            </TouchableOpacity>
         </View>
     );
 };

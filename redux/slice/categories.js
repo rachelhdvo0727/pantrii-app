@@ -16,14 +16,18 @@ const allProducts = {
 
 export const getCategories = createAsyncThunk(
     'categories/getCategories',
-    () => {
+    (withEmptyObject) => {
         return axios(mongoDbConfig('categories'))
             .then((response) => {
                 const categories = response?.data?.documents;
-                if (categories?.length > 0)
-                    categories
-                        ?.sort((a, b) => a.name.localeCompare(b.name))
-                        .unshift(allProducts);
+                if (withEmptyObject) {
+                    if (categories?.length > 0)
+                        categories
+                            ?.sort((a, b) => a.name.localeCompare(b.name))
+                            .unshift(allProducts);
+                } else {
+                    categories?.sort((a, b) => a.name.localeCompare(b.name));
+                }
 
                 return categories;
             })

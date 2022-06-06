@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import Svg, { ClipPath, Path, Defs, G, Circle } from 'react-native-svg';
+import React from 'react';
+import Svg, { Path, Circle } from 'react-native-svg';
 
 function ThermoIcon(props) {
     return (
@@ -10,7 +9,7 @@ function ThermoIcon(props) {
             viewBox="0 0 15 15"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            styles={styles.general}
+            style={props.style}
             {...props}
         >
             <Circle cx="7.5" cy="7.5" r="7.5" fill="#04B3EA" />
@@ -21,7 +20,5 @@ function ThermoIcon(props) {
         </Svg>
     );
 }
-
-const styles = StyleSheet.create({});
 
 export default ThermoIcon;

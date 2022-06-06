@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
-import axios from 'axios';
+import { numberFormat } from '../../../utils/functions';
 import { useNavigation } from '@react-navigation/native';
+// API & Redux
+import axios from 'axios';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
-// API
 import { fetchLatestProducts } from '../../../utils/api';
 // Components
+import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import ProductCard from '../../../components/buyers/ProductCard';
 // Dictionary
 import dictionary from '../../../dictionary/products';
@@ -18,12 +19,6 @@ export default function NewProductsScreen() {
     const content = dictionary?.products; // DA dictionary
 
     const dispatch = useDispatch();
-
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {

@@ -5,10 +5,13 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    View,
+    SafeAreaView,
+    VirtualizedList,
     FlatList,
+    View,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { capitalize } from '../utils/functions';
 
 export interface Option {
     label: string;
@@ -29,7 +32,7 @@ export default function SelectDropDown({
     selectedItem,
 }: Props) {
     const [visible, setVisible] = React.useState(false);
-    const [seletedItem, setSelectedItem] = React.useState(selectedItem);
+    const [seletedOption, setSelectedItem] = React.useState(selectedItem);
 
     const toggleDropdown = () => {
         setVisible(!visible);
@@ -51,23 +54,23 @@ export default function SelectDropDown({
             <Text
                 style={[
                     styles.dropdownText,
-                    seletedItem?.label === item?.label && styles.currentSort,
+                    seletedOption?.label === item?.label && styles.currentSort,
                 ]}
             >
-                {item?.label}&emsp;&emsp;
+                {capitalize(item?.label)}&emsp;&emsp;
             </Text>
         </TouchableOpacity>
     );
     const renderDropdown = () => {
         if (visible) {
             return (
-                <View style={styles.dropdown}>
+                <SafeAreaView style={styles.dropdown}>
                     <FlatList
                         data={data}
                         renderItem={({ item }) => renderItem(item)}
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </View>
+                </SafeAreaView>
             );
         }
     };
@@ -75,15 +78,15 @@ export default function SelectDropDown({
     return (
         <TouchableOpacity style={styles.container} onPress={toggleDropdown}>
             {renderDropdown()}
-            <Text style={[styles.buttonText]}>{label}</Text>
+            <Text style={[styles.buttonText]}>{capitalize(label)}</Text>
             {selectedItem ? (
                 <Text
                     style={[
                         styles.buttonText,
-                        seletedItem?.label !== '' && styles.currentSort,
+                        seletedOption?.label !== '' && styles.currentSort,
                     ]}
                 >
-                    : {seletedItem?.label}
+                    {seletedOption?.label ? ': ' + seletedOption?.label : ''}
                 </Text>
             ) : null}
 
@@ -98,6 +101,7 @@ export default function SelectDropDown({
 
 const styles = StyleSheet.create({
     container: {
+        zIndex: 2,
         backgroundColor: '#EFF2EE',
         borderColor: '#000000',
         borderWidth: 1,
@@ -106,7 +110,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 10,
         marginHorizontal: 10,
-        zIndex: 1,
 
         alignSelf: 'flex-end',
 
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
 
-        top: 28,
+        top: 27,
         right: 0,
     },
     dropdownItem: {

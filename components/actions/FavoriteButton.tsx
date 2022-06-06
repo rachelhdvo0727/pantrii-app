@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export interface Props {
     onPress: () => void;
-    isActive: boolean;
+    isActive?: boolean;
 }
 
 const FavoriteButton: React.FC<Props> = ({ isActive, onPress }) => {

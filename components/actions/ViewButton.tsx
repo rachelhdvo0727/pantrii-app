@@ -1,15 +1,25 @@
 import React from 'react';
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import {
+    StyleSheet,
+    Pressable,
+    TouchableOpacity,
+    TouchableOpacityProps,
+    View,
+    Text,
+    StyleProp,
+    PressableProps,
+} from 'react-native';
 
 export interface Props {
-    onPress: () => void;
+    onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
+    style?: StyleProp<TouchableOpacityProps>;
 }
 
-const ViewButton: React.FC<Props> = ({ onPress }) => {
+const ViewButton: React.FC<Props> = ({ style, onPress }) => {
     return (
-        <Pressable onPress={onPress} style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
             <Text style={styles.title}>Se alle</Text>
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 
