@@ -1,5 +1,6 @@
 import User from '../models/User';
 import ObjectId from '../models/ObjectId';
+import Product from '../models/Product';
 const CryptoJS = require('crypto-js');
 import * as Crypto from 'expo-crypto';
 
@@ -223,5 +224,46 @@ export const findProducerProducts = (config?: Object) => {
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
         headers: headers,
         data: producerProductConfig(config),
+    };
+};
+
+// Upload & Create a product
+
+const productDataConfig = (data: Product) => {
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        document: {
+            productTitle: data.productTitle,
+            imageSrc: '',
+            productDesc: data.productDesc,
+            expiryDuration: data.expiryDuration,
+            productStory: data.productStory,
+            productUnique: data.productUnique,
+            bulkPrice: data.bulkPrice,
+            singlePrice: data.singlePrice,
+            categoryId: {
+                $oid: data.categoryId,
+            },
+            dateTime: {
+                $date: data.dateTime,
+            },
+            productUnit: data.productUnit,
+            amountInStock: data.amountInStock,
+            producerId: {
+                $oid: data.producerId,
+            },
+            tags: data.tags,
+        },
+    });
+};
+
+export const createProduct = (data: Product) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/insertOne',
+        headers: headers,
+        data: productDataConfig(data),
     };
 };
