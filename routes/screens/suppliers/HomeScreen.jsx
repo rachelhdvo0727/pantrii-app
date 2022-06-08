@@ -36,7 +36,6 @@ export default function HomeSuppliersScreen(props) {
     const content = dictionary?.products;
 
     React.useEffect(() => {
-        console.log('home-supplier');
         dispatch(getProductsForProducer(listConfig));
     }, []);
 
@@ -46,7 +45,7 @@ export default function HomeSuppliersScreen(props) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={{ paddingTop: 10 }}>
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
                         title={`Velkommen tilbage \n ${
@@ -116,7 +115,10 @@ export default function HomeSuppliersScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    container: { ...generalStyles.homeContainer, paddingTop: 20 },
+    container: { ...generalStyles.container },
+    scrollViewContainer: {
+        paddingVertical: 10,
+    },
     section: {
         marginHorizontal: 15,
         marginVertical: 10,

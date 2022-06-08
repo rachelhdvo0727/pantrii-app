@@ -30,25 +30,6 @@ export default function ProfileScreen(props) {
         SecureStore.setItemAsync('user', '');
     };
 
-    // const handleLogOut = async function () {
-    //     return await SecureStore.setItemAsync('user', '')
-    //         .then(async () => {
-    //             // To verify that current user is now empty, currentAsync can be used
-    //             const currentUser = await SecureStore.getItemAsync('user');
-    //             if (currentUser === null) {
-    //                 console.log('Success!', 'No user is logged in anymore!');
-    //             }
-    //             // Navigation dispatch calls a navigation action, and popToTop will take
-    //             // the user back to the very first screen of the stack
-    //             // navigation.dispatch(StackActions.popToTop());
-    //             return true;
-    //         })
-    //         .catch((error) => {
-    //             console.log('Error!', error.message);
-    //             return false;
-    //         });
-    // };
-
     const ProfileInformation = () => (
         <SectionInInformationCard
             isTopSection
