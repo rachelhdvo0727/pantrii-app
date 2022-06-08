@@ -9,7 +9,7 @@ import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
 export default function HomeScreen() {
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={{ paddingVertical: 20 }}>
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <HeroCardSlider />
                 <NewProductsSlider />
                 <HighLightProductsSlider />
@@ -22,5 +22,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         ...generalStyles.homeContainer,
+    },
+    scrollViewContainer: {
+        paddingVertical: 15,
     },
 });

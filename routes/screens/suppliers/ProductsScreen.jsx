@@ -6,7 +6,7 @@ import productDictionary from '../../../dictionary/products.json';
 import { numberFormat } from '../../../utils/functions';
 import { productImages } from '../../../dictionary/images';
 // Components
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native';
 import SelectDropDown from '../../../components/SelectDropDown';
 import IconButton from '../../../components/actions/IconButton';
 import ProductCard from '../../../components/suppliers/ProductCard';
@@ -55,7 +55,7 @@ export default function ProductsSuppliersScreen(props) {
         : products;
 
     return (
-        <View style={generalStyles.container}>
+        <View style={styles.container}>
             <SelectDropDown
                 label="Sortér efter"
                 data={sortOptions}
@@ -110,56 +110,64 @@ export default function ProductsSuppliersScreen(props) {
                 <NotFound text={dictionary?.producer?.noProductsFound} />
             )}
             {products?.length > 0 && (
-                <FlatList
-                    data={
-                        (selectedSort?.value === 'A-AA' &&
-                            filteredData?.sort((a, b) =>
-                                a.productTitle
-                                    .normalize()
-                                    .localeCompare(b.productTitle.normalize()),
-                            )) ||
-                        (selectedSort?.value === 'AA-A' &&
-                            filteredData?.reverse(
-                                (a, b) =>
-                                    a.productTitle.toLowerCase() <
-                                        b.productTitle.toLowerCase() && -1,
-                            )) ||
-                        (selectedSort?.value === 'lowest' &&
-                            filteredData?.sort(
-                                (a, b) =>
-                                    parseInt(a.bulkPrice) >
-                                    parseInt(b.bulkPrice),
-                            )) ||
-                        (selectedSort?.value === 'highest' &&
-                            filteredData?.sort(
-                                (a, b) =>
-                                    parseInt(a.bulkPrice) <
-                                    parseInt(b.bulkPrice),
-                            ))
-                    }
-                    keyExtractor={(item) => item?._id}
-                    renderItem={({ item }) => (
-                        <ProductCard
-                            productTitle={
-                                productContent?.productTitle[item?.productTitle]
-                            }
-                            productDesc={
-                                productContent?.productDesc[item?.productDesc]
-                            }
-                            productUnit={item?.productUnit}
-                            bulkPrice={numberFormat(item?.bulkPrice)}
-                            singlePrice={numberFormat(item?.singlePrice)}
-                            imageSrc={productImages[item?.imageSrc]}
-                            amountInStock={item?.amountInStock}
-                            isLowOnStock={
-                                item?.amountInStock < 10 ||
-                                item?.amountInStock === 10
-                            }
-                            isSoldOut={item?.amountInStock === 0}
-                        />
-                    )}
-                    contentContainerStyle={styles.listContainer}
-                />
+                <SafeAreaView>
+                    <FlatList
+                        data={
+                            (selectedSort?.value === 'A-AA' &&
+                                filteredData?.sort((a, b) =>
+                                    a.productTitle
+                                        .normalize()
+                                        .localeCompare(
+                                            b.productTitle.normalize(),
+                                        ),
+                                )) ||
+                            (selectedSort?.value === 'AA-A' &&
+                                filteredData?.reverse(
+                                    (a, b) =>
+                                        a.productTitle.toLowerCase() <
+                                            b.productTitle.toLowerCase() && -1,
+                                )) ||
+                            (selectedSort?.value === 'lowest' &&
+                                filteredData?.sort(
+                                    (a, b) =>
+                                        parseInt(a.bulkPrice) >
+                                        parseInt(b.bulkPrice),
+                                )) ||
+                            (selectedSort?.value === 'highest' &&
+                                filteredData?.sort(
+                                    (a, b) =>
+                                        parseInt(a.bulkPrice) <
+                                        parseInt(b.bulkPrice),
+                                ))
+                        }
+                        keyExtractor={(item) => item?._id}
+                        renderItem={({ item }) => (
+                            <ProductCard
+                                productTitle={
+                                    productContent?.productTitle[
+                                        item?.productTitle
+                                    ]
+                                }
+                                productDesc={
+                                    productContent?.productDesc[
+                                        item?.productDesc
+                                    ]
+                                }
+                                productUnit={item?.productUnit}
+                                bulkPrice={numberFormat(item?.bulkPrice)}
+                                singlePrice={numberFormat(item?.singlePrice)}
+                                imageSrc={productImages[item?.imageSrc]}
+                                amountInStock={item?.amountInStock}
+                                isLowOnStock={
+                                    item?.amountInStock < 10 ||
+                                    item?.amountInStock === 10
+                                }
+                                isSoldOut={item?.amountInStock === 0}
+                            />
+                        )}
+                        contentContainerStyle={styles.listContainer}
+                    />
+                </SafeAreaView>
             )}
         </View>
     );
