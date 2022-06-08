@@ -66,6 +66,7 @@ export const createUserAccount = (document: User) => {
 
 // LOG IN
 const userData = (data: User, byId?: boolean) => {
+    // Fetch by using ID or by email and password
     return byId === false
         ? JSON.stringify({
               collection: 'users',
@@ -75,6 +76,9 @@ const userData = (data: User, byId?: boolean) => {
                   email: data?.email,
                   password: data?.password,
               },
+              projection: {
+                  password: 0,
+              },
           })
         : JSON.stringify({
               collection: 'users',
@@ -82,6 +86,9 @@ const userData = (data: User, byId?: boolean) => {
               database: 'pantriiapp',
               filter: {
                   _id: { $oid: data },
+              },
+              projection: {
+                  password: 0,
               },
           });
 };
