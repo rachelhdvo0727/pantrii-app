@@ -9,13 +9,15 @@ import Button from '../../components/actions/Button';
 import HeroCard from '../../components/buyers/HeroCard';
 import InformationCard from '../../components/InformationCard';
 import SectionInInformationCard from '../../components/SectionInInformationCard';
-// API
+// API & Redux
+import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { findUser } from '../../utils/api';
 
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
-    const { user } = useSelector((state) => state.user);
+    const [user, setUser] = React.useState({});
     const loggedInUser = props?.route?.params.loggedInUser;
     const userRole = props?.route?.params?.currentRole;
 
@@ -29,6 +31,24 @@ export default function ProfileScreen(props) {
     const handleLogOut = () => {
         SecureStore.setItemAsync('user', '');
     };
+
+    const isMounted = React.useRef(null);
+    const fetchCurrentUser = React.useCallback(() => {
+        axios(findUser((user || loggedInUser)?._id, true))
+            .then((response) => setUser(response?.data?.document))
+            .catch((error) => console.error(error));
+    }, []);
+
+    React.useEffect(() => {
+        isMounted.current = true;
+        fetchCurrentUser();
+
+        props.navigation.addListener('focus', () => {
+            fetchCurrentUser();
+        });
+
+        return () => (isMounted.current = false) && setUser({});
+    }, []);
 
     const ProfileInformation = () => (
         <SectionInInformationCard
