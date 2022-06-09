@@ -243,6 +243,7 @@ const productDataConfig = (data: Product) => {
         database: 'pantriiapp',
         document: {
             productTitle: data.productTitle,
+            producerTitle: data.producerTitle,
             imageSrc: '',
             productDesc: data.productDesc,
             expiryDuration: data.expiryDuration,

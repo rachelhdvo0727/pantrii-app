@@ -49,6 +49,7 @@ export default function UploadProductsScreen(props) {
         defaultValues: {
             productTitle: '',
             producerId: '',
+            producerTitle: '',
             productDesc: '',
             productUnique: '',
             productStory: '',
@@ -103,6 +104,24 @@ export default function UploadProductsScreen(props) {
                             onBlur={onBlur}
                             autoComplete={false}
                             autoCapitalize="words"
+                            errorMessage={error}
+                        />
+                    )}
+                />
+                <Controller
+                    name="producerTitle"
+                    control={control}
+                    render={({
+                        field: { onChange, onBlur, value },
+                        fieldState: { error },
+                    }) => (
+                        <InputField
+                            label="navn på brand"
+                            placeholder="Eksempel"
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            autoComplete={false}
                             errorMessage={error}
                         />
                     )}
