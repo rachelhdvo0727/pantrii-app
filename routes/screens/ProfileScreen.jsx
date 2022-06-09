@@ -17,6 +17,7 @@ import { findUser } from '../../utils/api';
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
+    // const { user } = useSelector((state) => state.user);
     const [user, setUser] = React.useState({});
     const loggedInUser = props?.route?.params.loggedInUser;
     const userRole = props?.route?.params?.currentRole;
@@ -57,18 +58,13 @@ export default function ProfileScreen(props) {
             sectionContent={
                 <React.Fragment>
                     <Text style={styles.highlightText}>
-                        {(user || loggedInUser)?.firstName}{' '}
-                        {(user || loggedInUser)?.lastName}
+                        {user?.firstName} {user?.lastName}
                     </Text>
-                    {(user || loggedInUser)?.email && (
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.email}
-                        </Text>
+                    {user?.email && (
+                        <Text style={styles.text}>{user?.email}</Text>
                     )}
-                    {(user || loggedInUser)?.phone && (
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.phone}
-                        </Text>
+                    {user?.phone && (
+                        <Text style={styles.text}>{user?.phone}</Text>
                     )}
                 </React.Fragment>
             }

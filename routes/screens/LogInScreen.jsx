@@ -26,7 +26,12 @@ export default function LogInScreen(props) {
     });
     const onSubmit = (data) => {
         reset();
-        dispatch(getUser(data));
+        axios(findUser(data, false))
+            .then((response) => {
+                const data = response?.data?.document;
+                saveData('user', objectToString(data));
+            })
+            .catch((error) => console.error(error, response));
     };
 
     const showSignUp = () => {

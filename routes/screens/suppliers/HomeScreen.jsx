@@ -20,7 +20,9 @@ import Button from '../../../components/actions/Button';
 import ViewButton from '../../../components/actions/ViewButton';
 import ProductCard from '../../../components/suppliers/ProductCard';
 import { Entypo } from '@expo/vector-icons';
-// Redux
+// API & Redux
+import axios from 'axios';
+import { findUser } from '../../../utils/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsForProducer } from '../../../redux/slice/producerProducts';
 
@@ -28,14 +30,34 @@ export default function HomeSuppliersScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const loggedInUser = props.route?.params?.loggedInUser;
-    const { user } = useSelector((state) => state?.user);
+    // const { user } = useSelector((state) => state?.user);
+    const [user, setUser] = React.useState({});
     const { producerProducts } = useSelector(
         (state) => state?.producerProducts,
     );
     const listConfig = { producerId: (user || loggedInUser)?._id, limit: 3 };
     const content = dictionary?.products;
 
+    const isMounted = React.useRef(null);
+    const fetchCurrentUser = React.useCallback(() => {
+        axios(findUser((user || loggedInUser)?._id, true))
+            .then((response) => setUser(response?.data?.document))
+            .catch((error) => console.error(error));
+    }, []);
+
     React.useEffect(() => {
+        isMounted.current = true;
+        fetchCurrentUser();
+
+        props.navigation.addListener('focus', () => {
+            fetchCurrentUser();
+        });
+
+        return () => (isMounted.current = false) && setUser({});
+    }, []);
+
+    React.useEffect(() => {
+        console.log(user, loggedInUser);
         dispatch(getProductsForProducer(listConfig));
     }, []);
 
@@ -48,9 +70,7 @@ export default function HomeSuppliersScreen(props) {
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
-                        title={`Velkommen tilbage \n ${
-                            (user || loggedInUser)?.firstName
-                        }`}
+                        title={`Velkommen tilbage \n ${user?.firstName}`}
                         secondary
                         imageSrc={require('../../../assets/banners/producer-banner-home.png')}
                     />
