@@ -26,6 +26,11 @@ const favouriteSlice = createSlice({
                     favourited: true,
                 });
             }
+
+            // state.push({
+            //     ...payload,
+            //     favourited: true,
+            // });
         },
         removeFavourite: (state, action) => {
             const itemId = action.payload;

@@ -75,4 +75,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 15,
     },
+    display: {
+        display: 'none',
+    },
 });

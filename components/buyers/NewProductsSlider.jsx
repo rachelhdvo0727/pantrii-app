@@ -42,6 +42,8 @@ const NewProductsSlider = () => {
 
     const dispatch = useDispatch();
     const favourite = useSelector((state) => state.favourite);
+    const favourite_id = favourite.map((i) => i);
+    const fav = favourite_id._id;
 
     React.useEffect(() => {
         // Fetch all categories from MongoDB api
@@ -55,6 +57,9 @@ const NewProductsSlider = () => {
     }, []);
     const slicedProducts = products?.slice(0, 6);
 
+    React.useEffect(() => {
+        console.log(favourite_id);
+    });
     return (
         <View style={styles.container}>
             <View style={generalStyles.flexHeading}>
@@ -75,7 +80,10 @@ const NewProductsSlider = () => {
                         productTitle={content.productTitle[item?.productTitle]}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={content.productDesc[item?.productDesc]}
+                        productDesc={
+                            content.productDesc[item?.productDesc] +
+                            item.favourited
+                        }
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}
@@ -92,11 +100,11 @@ const NewProductsSlider = () => {
                             dispatch(addToCart(item));
                         }}
                         // Favourite
-                        isActive={isFavourited ? false : true}
+                        // isActive={item.favourited === true ? true : false}
                         onPressFavourite={() => {
                             dispatch(addToFavourite(item));
                         }}
-                        toggleFavourite={toggleFavourite}
+                        // toggleFavourite={toggleFavourite}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

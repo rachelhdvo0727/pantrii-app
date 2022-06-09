@@ -24,7 +24,6 @@ import Product from '../../models/Product';
 import AddToCart from '../actions/AddToCart';
 
 export interface Props {
-    // onPress: React.ComponentProps<typeof Pressable>['onPress'];
     cardStyle: StyleProp<PressableProps>;
     imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: Product['productTitle'];
