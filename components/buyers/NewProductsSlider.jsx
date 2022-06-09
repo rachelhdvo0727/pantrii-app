@@ -27,6 +27,7 @@ const NewProductsSlider = () => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
+        console.log(products);
         // Fetch all categories from MongoDB api
         axios(fetchLatestProducts('products'))
             .then(function (response) {
@@ -55,7 +56,10 @@ const NewProductsSlider = () => {
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <ProductCard
-                        productTitle={content.productTitle[item?.productTitle]}
+                        productTitle={
+                            content.productTitle[item?.productTitle] ||
+                            item?.productTitle
+                        }
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
                         productDesc={content.productDesc[item?.productDesc]}
