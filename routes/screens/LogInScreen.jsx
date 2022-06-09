@@ -13,6 +13,7 @@ import AppLogo from '../../components/svgs/AppLogo';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../redux/slice/user';
 import axios from 'axios';
+import { findUser } from '../../utils/api';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
