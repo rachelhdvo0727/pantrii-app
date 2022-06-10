@@ -9,16 +9,17 @@
     - _Optional_: installing expo-cli globally if you don't have it on your machine
         - `npm install --global expo-cli`
 3. Run `npm start` or `npm start --reset-cache`
-    - This is to minimise issues with simulator, avoid cache from prvious sessions
+    - This is to minimise issues with simulator, avoid cache from previous sessions
       <!-- 4. The result should look like this:
          ![This is an image] (../assets/images/login-snap-readme.png)-->
-
-## Containerisation
+        
 
 ## Logins for test and development
 
-### Admin
-
 ### Producer
+Test account: mrickasse4@phpbb.com
+Password: testpantrii123
 
 ### Customer
+Test account: ledgeler@nbcnews.com
+Password: testpantrii123
