@@ -17,8 +17,10 @@
 
 ## Logins for test and development
 
-### Admin
-
 ### Producer
+Test account: mrickasse4@phpbb.com
+Password: testpantrii123
 
 ### Customer
+Test account: ledgeler@nbcnews.com
+Password: testpantrii123
