@@ -3,14 +3,17 @@ import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 export interface Props {
-    onPress: () => void;
+    onPress: React.ComponentProps<typeof Pressable>['onPress'];
     isActive?: boolean;
+    onPressOut?: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
-const FavoriteButton: React.FC<Props> = ({ isActive, onPress }) => {
+const FavoriteButton: React.FC<Props> = ({ isActive, onPress, onPressOut }) => {
     return (
         <Pressable
             style={[styles.container, isActive ? styles.isActive : null]}
+            onPress={onPress}
+            onPressOut={onPressOut}
         >
             <View style={styles.wrapper}>
                 <Text style={[styles.title, isActive ? styles.isActive : null]}>

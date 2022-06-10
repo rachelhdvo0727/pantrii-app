@@ -3,15 +3,22 @@ import { numberFormat } from '../../utils/functions';
 import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
-import ProductCard from './ProductCard';
 import dictionary from '../../dictionary/products';
 import generalStyles from '../../styles/General';
+// Components
 import ViewButton from '../actions/ViewButton';
+import ProductCard from './ProductCard';
+// API
 import { fetchLatestProducts } from '../../utils/api';
 import { productImages } from '../../dictionary/images';
 import axios from 'axios';
+// Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../redux/reducer/CartReducer';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../redux/reducer/FavouriteReducer';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 
@@ -25,9 +32,10 @@ const NewProductsSlider = () => {
     const [products, setProducts] = React.useState([]);
 
     const dispatch = useDispatch();
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
 
     React.useEffect(() => {
-        console.log(products);
         // Fetch all categories from MongoDB api
         axios(fetchLatestProducts('products'))
             .then(function (response) {
@@ -56,13 +64,17 @@ const NewProductsSlider = () => {
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <ProductCard
+                        productID={favouriteId?.filter((i) => i == item?._id)}
                         productTitle={
                             content.productTitle[item?.productTitle] ||
                             item?.productTitle
                         }
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={content.productDesc[item?.productDesc]}
+                        productDesc={
+                            content.productDesc[item?.productDesc] ||
+                            item?.productDesc
+                        }
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}
@@ -77,6 +89,12 @@ const NewProductsSlider = () => {
                         }
                         onPressAdd={() => {
                             dispatch(addToCart(item));
+                        }}
+                        onPressFavourite={() => {
+                            dispatch(addToFavourite(item));
+                        }}
+                        onPressUnFavourite={() => {
+                            dispatch(removeFavourite(item._id));
                         }}
                     />
                 )}

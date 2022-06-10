@@ -13,6 +13,10 @@ import ProductInfoCard from '../../../components/buyers/ProductInfoCard';
 // Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../../redux/reducer/FavouriteReducer';
 
 export default function ProductScreen(props) {
     const navigation = useNavigation();
@@ -22,6 +26,8 @@ export default function ProductScreen(props) {
     const [productInfo, setProductInfo] = React.useState([]);
 
     const dispatch = useDispatch();
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -45,21 +51,40 @@ export default function ProductScreen(props) {
 
     return (
         <ProductInfoCard
+            productID={favouriteId?.filter((i) => i == product?._id)}
             imageSrc={productImages[product?.imageSrc]}
-            productTitle={content?.productTitle[product?.productTitle]}
+            productTitle={
+                content.productTitle[product?.productTitle] ||
+                product?.productTitle
+            }
             producerTitle={product?.producerTitle}
-            productDesc={content?.productDesc[product?.productDesc]}
+            productDesc={
+                content.productTitle[product?.productDesc] ||
+                product?.productDesc
+            }
             productUnit={product?.productUnit}
             bulkPrice={numberFormat(product?.bulkPrice)}
             singlePrice={numberFormat(product?.singlePrice)}
-            productStory={content?.productStory[product?.productStory]}
-            productUnique={content?.productUnique[product?.productUnique]}
+            productStory={
+                content.productTitle[product?.productStory] ||
+                product?.productStory
+            }
+            productUnique={
+                content.productTitle[product?.productUnique] ||
+                product?.productUnique
+            }
             isCold={product.tags?.find((tag) => tag == 'cold')}
             isOrganic={product.tags?.find((tag) => tag == 'organic')}
             isFrozen={product.tags?.find((tag) => tag == 'frozen')}
             expiryDuration={product?.expiryDuration}
             onPressAdd={() => {
                 dispatch(addToCart(product));
+            }}
+            onPressFavourite={() => {
+                dispatch(addToFavourite(product));
+            }}
+            onPressUnFavourite={() => {
+                dispatch(removeFavourite(product._id));
             }}
         />
     );

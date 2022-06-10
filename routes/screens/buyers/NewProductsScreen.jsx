@@ -7,6 +7,10 @@ import axios from 'axios';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
 import { fetchLatestProducts } from '../../../utils/api';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../../redux/reducer/FavouriteReducer';
 // Components
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import ProductCard from '../../../components/buyers/ProductCard';
@@ -19,6 +23,8 @@ export default function NewProductsScreen() {
     const content = dictionary?.products; // DA dictionary
 
     const dispatch = useDispatch();
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
@@ -39,10 +45,17 @@ export default function NewProductsScreen() {
                 renderItem={({ item }) => (
                     <ProductCard
                         secondary
-                        productTitle={content.productTitle[item?.productTitle]}
+                        productID={favouriteId?.filter((i) => i == item?._id)}
+                        productTitle={
+                            content.productTitle[item?.productTitle] ||
+                            item?.productTitle
+                        }
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={content.productDesc[item?.productDesc]}
+                        productDesc={
+                            content.productDesc[item?.productDesc] ||
+                            item?.productDesc
+                        }
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}
@@ -57,6 +70,12 @@ export default function NewProductsScreen() {
                         }
                         onPressAdd={() => {
                             dispatch(addToCart(item));
+                        }}
+                        onPressFavourite={() => {
+                            dispatch(addToFavourite(item));
+                        }}
+                        onPressUnFavourite={() => {
+                            dispatch(removeFavourite(item._id));
                         }}
                     />
                 )}

@@ -8,6 +8,8 @@ import {
     StyleProp,
     TouchableOpacity,
     TouchableOpacityProps,
+    Pressable,
+    PressableProps,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 // Components
@@ -37,7 +39,11 @@ export interface Props {
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
     onPress: () => void;
-    onPressAdd?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
+    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
+    isActive?: boolean;
+    onPressUnFavourite: React.ComponentProps<typeof Pressable>['onPress'];
+    productID: string;
 }
 
 const ProductCard = ({
@@ -56,12 +62,17 @@ const ProductCard = ({
     isOrganic,
     onPress,
     onPressAdd,
+    onPressFavourite,
+    isActive,
+    onPressUnFavourite,
+    productID,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [addItem, setAddItem] = React.useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+
     return (
         <View>
             {/* Slide up modal */}
@@ -176,7 +187,16 @@ const ProductCard = ({
                                         styles.modalBottomRightWrapper,
                                     ]}
                                 >
-                                    <FavoriteButton />
+                                    <FavoriteButton
+                                        isActive={
+                                            productID == '' ? false : true
+                                        }
+                                        onPress={
+                                            productID == ''
+                                                ? onPressFavourite
+                                                : onPressUnFavourite
+                                        }
+                                    />
                                     <IconButton
                                         arrowRight
                                         title="Detaljer"
@@ -248,7 +268,14 @@ const ProductCard = ({
                     ) : null}
                 </View>
                 <View style={styles.favouriteIcon}>
-                    <FavoriteIcon />
+                    <FavoriteIcon
+                        isActive={productID == '' ? false : true}
+                        onPress={
+                            productID == ''
+                                ? onPressFavourite
+                                : onPressUnFavourite
+                        }
+                    />
                 </View>
                 <Image style={styles.image} source={imageSrc}></Image>
                 <Text style={styles.productTitle} numberOfLines={1}>
@@ -260,6 +287,9 @@ const ProductCard = ({
                     </Text>
                     <Text style={styles.productDesc} numberOfLines={1}>
                         {productDesc}
+                    </Text>
+                    <Text style={styles.productID} numberOfLines={1}>
+                        {productID}
                     </Text>
                 </View>
                 <View style={styles.dottedLine}></View>
@@ -385,6 +415,9 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-DemiBold',
         letterSpacing: 0.2,
         paddingBottom: 1.5,
+    },
+    productID: {
+        display: 'none',
     },
     singularPrice: {
         fontSize: 12,
