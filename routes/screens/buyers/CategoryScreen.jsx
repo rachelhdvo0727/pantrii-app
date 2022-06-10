@@ -22,12 +22,18 @@ import { fetchCategoryProducts, mongoDbConfig } from '../../../utils/api';
 // Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../../redux/reducer/FavouriteReducer';
 
 export default function CategoryScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const categoryContent = categoryDictionary?.categories;
     const productContent = productDictionary?.products;
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
     // Clean up
     const { categories } = useSelector((state) => state.categories);
     const categoryId = props?.route?.params?.category?._id;
@@ -153,14 +159,18 @@ export default function CategoryScreen(props) {
                     keyExtractor={(item) => item?._id}
                     renderItem={({ item }) => (
                         <ProductCard
+                            productID={favouriteId?.filter(
+                                (i) => i == item?._id,
+                            )}
                             productTitle={
-                                content.productTitle[item?.productTitle] ||
-                                item?.productTitle
+                                productContent.productTitle[
+                                    item?.productTitle
+                                ] || item?.productTitle
                             }
                             imageSrc={productImages[item?.imageSrc]}
                             producerTitle={item?.producerTitle}
                             productDesc={
-                                content.productDesc[item?.productDesc] ||
+                                productContent.productDesc[item?.productDesc] ||
                                 item?.productDesc
                             }
                             productUnit={item?.productUnit}

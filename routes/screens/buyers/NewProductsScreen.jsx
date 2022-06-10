@@ -7,6 +7,10 @@ import axios from 'axios';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
 import { fetchLatestProducts } from '../../../utils/api';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../../redux/reducer/FavouriteReducer';
 // Components
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import ProductCard from '../../../components/buyers/ProductCard';
@@ -19,6 +23,8 @@ export default function NewProductsScreen() {
     const content = dictionary?.products; // DA dictionary
 
     const dispatch = useDispatch();
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
 
     const [products, setProducts] = React.useState([]);
     React.useEffect(() => {
@@ -39,6 +45,7 @@ export default function NewProductsScreen() {
                 renderItem={({ item }) => (
                     <ProductCard
                         secondary
+                        productID={favouriteId?.filter((i) => i == item?._id)}
                         productTitle={
                             content.productTitle[item?.productTitle] ||
                             item?.productTitle

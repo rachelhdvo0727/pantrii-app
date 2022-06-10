@@ -14,6 +14,10 @@ import { productImages } from '../../../dictionary/images';
 // Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../../redux/reducer/FavouriteReducer';
 
 export default function HighlightProductsScreen() {
     const navigation = useNavigation();
@@ -22,6 +26,8 @@ export default function HighlightProductsScreen() {
     const [products, setProducts] = React.useState([]);
 
     const dispatch = useDispatch();
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
 
     React.useEffect(() => {
         axios(fetchFeaturedProducts('products'))
@@ -41,6 +47,7 @@ export default function HighlightProductsScreen() {
                 renderItem={({ item }) => (
                     <ProductCard
                         secondary
+                        productID={favouriteId?.filter((i) => i == item?._id)}
                         productTitle={
                             content.productTitle[item?.productTitle] ||
                             item?.productTitle

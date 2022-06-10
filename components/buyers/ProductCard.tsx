@@ -69,12 +69,8 @@ const ProductCard = ({
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [addItem, setAddItem] = React.useState(false);
-    const [isFavourited, setIsFavourited] = React.useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
-    };
-    const toggleFavourite = () => {
-        setIsFavourited(!isFavourited);
     };
 
     return (

@@ -8,22 +8,21 @@ import {
     Image,
     Dimensions,
     ScrollView,
+    Pressable,
 } from 'react-native';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
-import FavoriteIcon from '../actions/FavouriteIcon';
 import FavoriteButton from '../actions/FavoriteButton';
-import IconButton from '../actions/IconButton';
-import Button from '../actions/Button';
 import Product from '../../models/Product';
 import AddToCart from '../actions/AddToCart';
 // Dictionary
 import dictionary from '../../dictionary/products.json';
 
 export interface Props {
+    productID: string;
     imageSrc: React.ComponentProps<typeof Image>['source'];
     productTitle: Product['productTitle'];
     producerTitle: Product['producerTitle'];
@@ -41,9 +40,12 @@ export interface Props {
     productUnique: string;
     expiryDuration: string;
     onPressAdd?: () => void;
+    onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressUnFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
 }
 
 const ProductInfoCard = ({
+    productID,
     imageSrc,
     productTitle,
     producerTitle,
@@ -54,11 +56,12 @@ const ProductInfoCard = ({
     isCold,
     isFrozen,
     isOrganic,
-    onPress,
     productStory,
     productUnique,
     expiryDuration,
     onPressAdd,
+    onPressFavourite,
+    onPressUnFavourite,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
@@ -113,6 +116,7 @@ const ProductInfoCard = ({
                             <Text style={styles.productDesc}>
                                 {productDesc}
                             </Text>
+                            <Text style={styles.productID}>{productID}</Text>
                             <Text style={styles.unit}>{productUnit}</Text>
                         </View>
                         <View style={styles.priceWrapper}>
@@ -168,7 +172,13 @@ const ProductInfoCard = ({
                 </View>
             </ScrollView>
             <View style={styles.bottomWrapper}>
-                <FavoriteButton />
+                <FavoriteButton
+                    isActive={productID == '' ? false : true}
+                    onPress={
+                        productID == '' ? onPressFavourite : onPressUnFavourite
+                    }
+                />
+
                 <AddToCart
                     title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
                     secondary={addItem ? false : true}
@@ -246,6 +256,9 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         paddingVertical: 5,
         paddingHorizontal: 12,
+    },
+    productID: {
+        display: 'none',
     },
     infoWrapper: {
         paddingVertical: 5,

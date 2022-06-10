@@ -30,10 +30,6 @@ const NewProductsSlider = () => {
     const content = dictionary?.products; // DA dictionary
 
     const [products, setProducts] = React.useState([]);
-    const [isFavourited, setIsFavourited] = React.useState(true);
-    const toggleFavourite = () => {
-        setIsFavourited(!isFavourited);
-    };
 
     const dispatch = useDispatch();
     const favourite = useSelector((state) => state.favourite);

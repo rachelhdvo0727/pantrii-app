@@ -19,6 +19,10 @@ import { fetchCategoryProducts } from '../../../utils/api';
 // Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../../redux/reducer/FavouriteReducer';
 
 const CategoryProductsListScreen = (props) => {
     const dispatch = useDispatch();
@@ -26,6 +30,8 @@ const CategoryProductsListScreen = (props) => {
     const category = props?.route?.params?.category;
     const categoryContent = categoryDictionary?.categories;
     const productContent = productDictionary?.products;
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
 
     const [categoryProducts, setCategoryProducts] = React.useState(null);
     const [selectedSort, setSelectedSort] = React.useState(sortOptions[0]);
@@ -98,14 +104,18 @@ const CategoryProductsListScreen = (props) => {
                     keyExtractor={(item) => item?._id}
                     renderItem={({ item }) => (
                         <ProductCard
+                            productID={favouriteId?.filter(
+                                (i) => i == item?._id,
+                            )}
                             productTitle={
-                                content.productTitle[item?.productTitle] ||
-                                item?.productTitle
+                                productContent.productTitle[
+                                    item?.productTitle
+                                ] || item?.productTitle
                             }
                             imageSrc={productImages[item?.imageSrc]}
                             producerTitle={item?.producerTitle}
                             productDesc={
-                                content.productDesc[item?.productDesc] ||
+                                productContent.productDesc[item?.productDesc] ||
                                 item?.productDesc
                             }
                             productUnit={item?.productUnit}

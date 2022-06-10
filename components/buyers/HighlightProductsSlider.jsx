@@ -16,6 +16,10 @@ import axios from 'axios';
 // Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../redux/reducer/CartReducer';
+import {
+    addToFavourite,
+    removeFavourite,
+} from '../../redux/reducer/FavouriteReducer';
 
 const HighLightProductsSlider = () => {
     const [index, setIndex] = React.useState(0);
@@ -27,6 +31,8 @@ const HighLightProductsSlider = () => {
     const [products, setProducts] = React.useState([]);
 
     const dispatch = useDispatch();
+    const favourite = useSelector((state) => state.favourite);
+    const favouriteId = favourite.map((i) => i?._id);
 
     React.useEffect(() => {
         axios(fetchFeaturedProducts('products'))
@@ -56,6 +62,7 @@ const HighLightProductsSlider = () => {
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <ProductCard
+                        productID={favouriteId?.filter((i) => i == item?._id)}
                         productTitle={
                             content.productTitle[item?.productTitle] ||
                             item?.productTitle
