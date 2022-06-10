@@ -37,11 +37,9 @@ const NewProductsSlider = () => {
 
     const dispatch = useDispatch();
     const favourite = useSelector((state) => state.favourite);
-    const favourite_id = favourite.map((i) => i);
-    const fav = favourite_id._id;
+    const favouriteId = favourite.map((i) => i?._id);
 
     React.useEffect(() => {
-        console.log(products);
         // Fetch all categories from MongoDB api
         axios(fetchLatestProducts('products'))
             .then(function (response) {
@@ -53,9 +51,6 @@ const NewProductsSlider = () => {
     }, []);
     const slicedProducts = products?.slice(0, 6);
 
-    React.useEffect(() => {
-        console.log(favourite_id);
-    });
     return (
         <View style={styles.container}>
             <View style={generalStyles.flexHeading}>
@@ -73,6 +68,7 @@ const NewProductsSlider = () => {
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <ProductCard
+                        productID={favouriteId?.filter((i) => i == item?._id)}
                         productTitle={
                             content.productTitle[item?.productTitle] ||
                             item?.productTitle
@@ -98,12 +94,12 @@ const NewProductsSlider = () => {
                         onPressAdd={() => {
                             dispatch(addToCart(item));
                         }}
-                        // Favourite
-                        // isActive={item.favourited === true ? true : false}
                         onPressFavourite={() => {
                             dispatch(addToFavourite(item));
                         }}
-                        // toggleFavourite={toggleFavourite}
+                        onPressUnFavourite={() => {
+                            dispatch(removeFavourite(item._id));
+                        }}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

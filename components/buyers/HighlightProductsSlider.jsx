@@ -82,6 +82,12 @@ const HighLightProductsSlider = () => {
                         onPressAdd={() => {
                             dispatch(addToCart(item));
                         }}
+                        onPressFavourite={() => {
+                            dispatch(addToFavourite(item));
+                        }}
+                        onPressUnFavourite={() => {
+                            dispatch(removeFavourite(item._id));
+                        }}
                     />
                 )}
                 sliderWidth={SLIDER_WIDTH}

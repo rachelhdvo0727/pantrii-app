@@ -19,10 +19,7 @@ export default function FavouritesScreen() {
     const dispatch = useDispatch();
 
     const favourite = useSelector((state) => state.favourite);
-    React.useEffect(() => {
-        console.log(favourite);
-        // console.log('Favourite', favourite);
-    });
+
     return (
         <SafeAreaView style={[generalStyles.container]}>
             <FlatList
@@ -56,9 +53,10 @@ export default function FavouritesScreen() {
                         onPressAdd={() => {
                             dispatch(addToCart(item));
                         }}
-                        // Favourite
-                        isActive
                         onPressFavourite={() => {
+                            dispatch(addToFavourite(item));
+                        }}
+                        onPressUnFavourite={() => {
                             dispatch(removeFavourite(item._id));
                         }}
                     />

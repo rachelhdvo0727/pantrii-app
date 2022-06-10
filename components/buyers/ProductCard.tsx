@@ -42,7 +42,8 @@ export interface Props {
     onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
     onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
     isActive?: boolean;
-    toggleFavourite: React.ComponentProps<typeof Pressable>['onPress'];
+    onPressUnFavourite: React.ComponentProps<typeof Pressable>['onPress'];
+    productID: string;
 }
 
 const ProductCard = ({
@@ -63,13 +64,17 @@ const ProductCard = ({
     onPressAdd,
     onPressFavourite,
     isActive,
-    toggleFavourite,
+    onPressUnFavourite,
+    productID,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [addItem, setAddItem] = React.useState(false);
     const [isFavourited, setIsFavourited] = React.useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
+    };
+    const toggleFavourite = () => {
+        setIsFavourited(!isFavourited);
     };
 
     return (
@@ -187,9 +192,14 @@ const ProductCard = ({
                                     ]}
                                 >
                                     <FavoriteButton
-                                        isActive={isActive}
-                                        onPress={onPressFavourite}
-                                        onPressOut={toggleFavourite}
+                                        isActive={
+                                            productID == '' ? false : true
+                                        }
+                                        onPress={
+                                            productID == ''
+                                                ? onPressFavourite
+                                                : onPressUnFavourite
+                                        }
                                     />
                                     <IconButton
                                         arrowRight
@@ -263,9 +273,12 @@ const ProductCard = ({
                 </View>
                 <View style={styles.favouriteIcon}>
                     <FavoriteIcon
-                        isActive={isActive}
-                        onPress={onPressFavourite}
-                        onPressOut={toggleFavourite}
+                        isActive={productID == '' ? false : true}
+                        onPress={
+                            productID == ''
+                                ? onPressFavourite
+                                : onPressUnFavourite
+                        }
                     />
                 </View>
                 <Image style={styles.image} source={imageSrc}></Image>
@@ -278,6 +291,9 @@ const ProductCard = ({
                     </Text>
                     <Text style={styles.productDesc} numberOfLines={1}>
                         {productDesc}
+                    </Text>
+                    <Text style={styles.productID} numberOfLines={1}>
+                        {productID}
                     </Text>
                 </View>
                 <View style={styles.dottedLine}></View>
@@ -403,6 +419,9 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-DemiBold',
         letterSpacing: 0.2,
         paddingBottom: 1.5,
+    },
+    productID: {
+        display: 'none',
     },
     singularPrice: {
         fontSize: 12,

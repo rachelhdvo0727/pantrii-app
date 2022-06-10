@@ -64,6 +64,12 @@ export default function NewProductsScreen() {
                         onPressAdd={() => {
                             dispatch(addToCart(item));
                         }}
+                        onPressFavourite={() => {
+                            dispatch(addToFavourite(item));
+                        }}
+                        onPressUnFavourite={() => {
+                            dispatch(removeFavourite(item._id));
+                        }}
                     />
                 )}
                 numColumns={2}
