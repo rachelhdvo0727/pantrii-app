@@ -56,10 +56,16 @@ const HighLightProductsSlider = () => {
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <ProductCard
-                        productTitle={content.productTitle[item?.productTitle]}
+                        productTitle={
+                            content.productTitle[item?.productTitle] ||
+                            item?.productTitle
+                        }
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={content.productDesc[item?.productDesc]}
+                        productDesc={
+                            content.productDesc[item?.productDesc] ||
+                            item?.productDesc
+                        }
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

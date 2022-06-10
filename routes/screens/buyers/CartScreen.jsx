@@ -41,7 +41,9 @@ export default function CartScreen() {
                             renderItem={({ item }) => (
                                 <ProductCardList
                                     productTitle={
-                                        content.productTitle[item?.productTitle]
+                                        content.productTitle[
+                                            item?.productTitle
+                                        ] || item?.productTitle
                                     }
                                     imageSrc={productImages[item?.imageSrc]}
                                     producerTitle={item?.producerTitle}

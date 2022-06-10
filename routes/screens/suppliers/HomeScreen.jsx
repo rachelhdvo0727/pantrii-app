@@ -89,10 +89,12 @@ export default function HomeSuppliersScreen(props) {
                             <ProductCard
                                 key={item?._id}
                                 productTitle={
-                                    content?.productTitle[item?.productTitle]
+                                    content.productTitle[item?.productTitle] ||
+                                    item?.productTitle
                                 }
                                 productDesc={
-                                    content?.productDesc[item?.productDesc]
+                                    content.productDesc[item?.productDesc] ||
+                                    item?.productDesc
                                 }
                                 productUnit={item?.productUnit}
                                 bulkPrice={numberFormat(item?.bulkPrice)}

@@ -46,14 +46,22 @@ export default function ProductScreen(props) {
     return (
         <ProductInfoCard
             imageSrc={productImages[product?.imageSrc]}
-            productTitle={content?.productTitle[product?.productTitle]}
+            productTitle={
+                content.productTitle[item?.productTitle] || item?.productTitle
+            }
             producerTitle={product?.producerTitle}
-            productDesc={content?.productDesc[product?.productDesc]}
+            productDesc={
+                content.productTitle[item?.productDesc] || item?.productDesc
+            }
             productUnit={product?.productUnit}
             bulkPrice={numberFormat(product?.bulkPrice)}
             singlePrice={numberFormat(product?.singlePrice)}
-            productStory={content?.productStory[product?.productStory]}
-            productUnique={content?.productUnique[product?.productUnique]}
+            productStory={
+                content.productTitle[item?.productStory] || item?.productStory
+            }
+            productUnique={
+                content.productTitle[item?.productUnique] || item?.productUnique
+            }
             isCold={product.tags?.find((tag) => tag == 'cold')}
             isOrganic={product.tags?.find((tag) => tag == 'organic')}
             isFrozen={product.tags?.find((tag) => tag == 'frozen')}

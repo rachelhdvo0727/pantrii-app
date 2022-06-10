@@ -141,7 +141,9 @@ export default function CheckOutScreen(props) {
                                     key={item._id}
                                     secondary
                                     productTitle={
-                                        content.productTitle[item?.productTitle]
+                                        content.productTitle[
+                                            item?.productTitle
+                                        ] || item?.productTitle
                                     }
                                     imageSrc={productImages[item?.imageSrc]}
                                     producerTitle={item?.producerTitle}

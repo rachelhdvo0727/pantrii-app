@@ -13,8 +13,6 @@ export const store = configureStore({
         roles: rolesSlice.reducer,
         categories: categoriesSlice.reducer,
         cart: cartReducer,
-        categoryProducts: categoryProductsSlice.reducer,
-        products: productsSlice.reducer,
         favourite: favouriteReducer,
         product: productSlice.reducer,
         producerProducts: producerProductsSlice.reducer,

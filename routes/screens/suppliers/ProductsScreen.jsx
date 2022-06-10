@@ -144,19 +144,18 @@ export default function ProductsSuppliersScreen(props) {
                         renderItem={({ item }) => (
                             <ProductCard
                                 productTitle={
-                                    productContent?.productTitle[
-                                        item?.productTitle
-                                    ]
+                                    content.productTitle[item?.productTitle] ||
+                                    item?.productTitle
                                 }
+                                imageSrc={productImages[item?.imageSrc]}
+                                producerTitle={item?.producerTitle}
                                 productDesc={
-                                    productContent?.productDesc[
-                                        item?.productDesc
-                                    ]
+                                    content.productDesc[item?.productDesc] ||
+                                    item?.productDesc
                                 }
                                 productUnit={item?.productUnit}
                                 bulkPrice={numberFormat(item?.bulkPrice)}
                                 singlePrice={numberFormat(item?.singlePrice)}
-                                imageSrc={productImages[item?.imageSrc]}
                                 amountInStock={item?.amountInStock}
                                 isLowOnStock={
                                     item?.amountInStock < 10 ||
