@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import generalStyles from '../../../styles/General';
 import { useNavigation } from '@react-navigation/native';
 import { mongoDbConfig } from '../../../utils/api';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
+import { numberFormat } from '../../../utils/functions';
 // Dictionary
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
@@ -24,12 +23,6 @@ export default function ProductScreen(props) {
 
     const dispatch = useDispatch();
 
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
-
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
@@ -49,6 +42,7 @@ export default function ProductScreen(props) {
                 console.log(error);
             });
     }, []);
+
     return (
         <ProductInfoCard
             imageSrc={productImages[product?.imageSrc]}

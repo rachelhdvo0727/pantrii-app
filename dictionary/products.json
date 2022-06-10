@@ -18,7 +18,7 @@
             "Vegan Banana Cake": "Vegansk Banankage",
             "Love Spring": "Love Spring",
             "Whole Smoked Rolled Sausage": "Røget Rullepølse hel",
-            "MOSHgifler":"Dadel Gifler"
+            "MOSHgifler": "Dadel Gifler"
         },
         "productDesc": {
             "Tofu with lemongrass and chili": "Tofu med citrongræs og chili",
@@ -31,7 +31,7 @@
             "Red and white": "Røde og hvide",
             "Danish grilled sausage": "Dansk grillpølse",
             "Tapas on the go!": "Tapas on the go!",
-            "Rinsed": "Skyllede",
+            "Rinsed": "Skyllet",
             "from Denmark": "fra Danmark",
             "Seaweed from Denmark": "Tang fra Danmark",
             "Produced in Denmark": "Produceret i Danmark",
@@ -56,7 +56,7 @@
             "Directly for cooking": "Direkte til madlavningen",
             "Vegan Banana Cake which is produced from surplus bananas in Denmark.": "Vegansk Banankage som er produceret af overskudsbananer i Danmark.",
             "Organic and vegan soft fruit gum, flavored with juicy berries. We are at a source of love and the wine gums have the shape of hearts, fish and water drops. Does not contain gelatin, gluten or lactose.": "Økologisk og vegansk blød frugtvingummi, smagt til med saftige bær. Vi befinder os ved en kærlighedskilde og vingummierne har form som hjerter, fisk og vanddråber. Indeholder ikke gelatine, gluten eller laktose.",
-            "Smoked Rolled Sausage 1-1.2kg":"Røget Rullepølse 1-1,2kg",
+            "Smoked Rolled Sausage 1-1.2kg": "Røget Rullepølse 1-1,2kg",
             "MOSHgifler consists of a bag of 160 g. MOSHgifler is made on a cookie dough, filled with dates, cinnamon and vanilla.": "MOSHgifler består af en pose på 160 g. MOSHgifler er lavet på en småkagedej, fyldt med dadler, kanel og vanilje."
         },
         "productUnique": {
@@ -70,7 +70,7 @@
             "The seaweed is harvested sustainably and is CO2 neutral.": "Tangen er høstet bæredygtigt og er CO2 neutral.",
             "Produced on the bananas that are in surplus in the retail trade due to the bananas' visual challenges.": "Produceret på de bananer som er i overskud i detailhandlen grundet bananernes visuelle udfordringer.",
             "The wine gums have a soft consistency and are shaped like small fish, hearts and drops flavored with red berries and other fruits. In addition, they are vaginal as well as gluten free.": "Vingummierne har en blød konsistens og er formet som små fisk, hjerter og dråber tilsmagt røde bær og andre frugter. Derudover er de vaganske samt glutenfri.",
-            "Our date forks consist of a delicious cookie dough with fillings made from dates, cinnamon and vanilla.":"Vores daddelgifler består af en lækker småkagedej med fyld lavet af dadler, kanel og vanilje."
+            "Our date forks consist of a delicious cookie dough with fillings made from dates, cinnamon and vanilla.": "Vores daddelgifler består af en lækker småkagedej med fyld lavet af dadler, kanel og vanilje."
         },
         "expiryDate": {
             "allProducts": "alle produkter"
@@ -78,12 +78,12 @@
         "currency": {
             "DKK": "kr."
         },
-        "description":{
+        "description": {
             "Product is unique because": "Varens produktion adskiller sig fra lignende varer fordi...",
-            "Product description":"Produktbeskrivelse",
+            "Product description": "Produktbeskrivelse",
             "Expires in": "Forventet holdbarhed..."
         },
-        "delivery":{
+        "delivery": {
             "deliveryDate": " Forventes leveret:",
             "standardShipping": " Standard shipping:",
             "deliveryCost": " Fri fragt på alle ordrer over "

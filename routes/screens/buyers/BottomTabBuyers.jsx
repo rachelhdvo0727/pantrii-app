@@ -46,6 +46,7 @@ export default function BottomTabBuyers(props) {
                     backgroundColor: '#1B463C',
                 },
                 tabBarStyle: {
+                    height: 80,
                     shadowOffset: {
                         width: 0,
                         height: 18,

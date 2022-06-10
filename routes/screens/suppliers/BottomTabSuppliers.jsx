@@ -4,19 +4,19 @@ import { StyleSheet, View } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import HomeSuppliersScreen from './HomeScreen';
 import ProductsSuppliersScreen from './ProductsScreen';
-import UploadProductsScreen from './UploadProducts';
-import ProfileScreen from '../ProfileScreen';
+import UploadProductsScreen from './UploadProductsScreen';
 import TopNavSuppliers from './TopNavSuppliers';
 import UserProfileStack from '../UserProfileStack';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
+    // console.log('bottom tab', props?.route);
     return (
         <Tab.Navigator
             screenOptions={{
                 headerTitleStyle: {
-                    color: '#000000',
+                    color: '#EFF2EE',
                     fontFamily: 'TT-Commons-Bold',
                     textTransform: 'uppercase',
                     letterSpacing: 1,
@@ -30,6 +30,13 @@ export default function BottomTabSuppliers(props) {
                 tabBarShowIcon: true,
                 tabBarStyle: {
                     height: 80,
+                    shadowOffset: {
+                        width: 0,
+                        height: 18,
+                    },
+                    shadowOpacity: 0.58,
+                    shadowRadius: 16.0,
+                    elevation: 10,
                 },
                 headerStyle: {
                     backgroundColor: '#1B463C',
@@ -40,6 +47,7 @@ export default function BottomTabSuppliers(props) {
             <Tab.Screen
                 name="Hjem"
                 component={HomeSuppliersScreen}
+                initialParams={props?.route?.params}
                 options={{
                     headerTitle: (props) => <TopNavSuppliers {...props} />,
                     tabBarIcon: ({ focused, color }) => (
@@ -56,8 +64,9 @@ export default function BottomTabSuppliers(props) {
             <Tab.Screen
                 name="Produkter"
                 component={ProductsSuppliersScreen}
+                initialParams={props?.route?.params}
                 options={{
-                    headerTitle: (props) => <TopNavSuppliers {...props} />,
+                    headerTitle: 'alle produkter',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
@@ -74,8 +83,9 @@ export default function BottomTabSuppliers(props) {
             <Tab.Screen
                 name="Opret"
                 component={UploadProductsScreen}
+                initialParams={props?.route?.params}
                 options={{
-                    headerTitle: (props) => <TopNavSuppliers {...props} />,
+                    headerTitle: 'opret et produkt',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <AntDesign

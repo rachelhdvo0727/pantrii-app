@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, View, TextInput, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { capitalize } from '../utils/functions';
 
 export interface Props {
     value: React.ComponentProps<typeof TextInput>['value'];
@@ -12,6 +13,7 @@ export interface Props {
     placeholder: React.ComponentProps<typeof TextInput>['placeholder'];
     keyboardType?: React.ComponentProps<typeof TextInput>['keyboardType'];
     multiline?: React.ComponentProps<typeof TextInput>['multiline'];
+    numberOfLines?: React.ComponentProps<typeof TextInput>['numberOfLines'];
     autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
     autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
     secureTextEntry?: React.ComponentProps<typeof TextInput>['secureTextEntry'];
@@ -43,7 +45,7 @@ export default function InputField({
     return (
         <View style={[inputStyle]}>
             <View style={styles.container}>
-                <Text style={styles.label}>{label}</Text>
+                <Text style={styles.label}>{capitalize(label)}</Text>
                 <TextInput
                     value={value}
                     onChangeText={onChangeText}
@@ -60,6 +62,7 @@ export default function InputField({
                         styles.textValue,
                         hasDefaultValue && styles.hasDefaultValue,
                         focused && { opacity: 1 },
+                        multiline && styles.multilineStyle,
                     ]}
                     onFocus={onFocus}
                 ></TextInput>
@@ -90,9 +93,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
         backgroundColor: '#EFF2EE',
 
-        borderRadius: 1000,
+        borderRadius: 20,
         borderStyle: 'solid',
-        // borderColor: '#1B463C',
         borderWidth: 1,
     },
     label: {
@@ -100,7 +102,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 1,
-        textTransform: 'capitalize',
         paddingHorizontal: 5,
 
         position: 'absolute',
@@ -128,6 +129,9 @@ const styles = StyleSheet.create({
         marginTop: 1,
     },
     hasDefaultValue: { opacity: 0.2 },
+    multilineStyle: {
+        height: 85,
+    },
     errorContainer: {
         flexDirection: 'row',
 

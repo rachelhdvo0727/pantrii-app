@@ -13,3 +13,28 @@ export const sortOptions = [
     { label: 'Laveste pris', value: 'lowest' },
     { label: 'Højeste pris', value: 'highest' },
 ];
+
+// Unit options
+export const unitOptions = [
+    { label: 'mg', value: 'mg' },
+    { label: 'g', value: 'g' },
+    { label: 'kg', value: 'kg' },
+    { label: 'ml', value: 'ml' },
+    { label: 'cl', value: 'cl' },
+    { label: 'dl', value: 'dl' },
+    { label: 'l', value: 'l' },
+];
+
+// Category dropdown
+export const categoriesOptions = [
+    { label: 'andre', value: 'other' },
+    { label: 'brød', value: 'bread' },
+    { label: 'mejeri', value: 'dairy' },
+    { label: 'kage', value: 'dessert' },
+    { label: 'kød', value: 'meat' },
+    { label: 'kolonial', value: 'colonial' },
+    { label: 'drikkevarer', value: 'drinks' },
+    { label: 'plantebaseret', value: 'plantbased' },
+    { label: 'frugt & grønt', value: 'fruitsAndVeggies' },
+    { label: 'fisk & skaldyr', value: 'fishAndSeafood' },
+];

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { numberFormat } from '../../utils/functions';
+import { useNavigation } from '@react-navigation/core';
+import { SLIDER_WIDTH } from '../../utils/variables';
+// Components
 import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { useNavigation } from '@react-navigation/core';
-// Components
 import ProductCard from './ProductCard';
 import dictionary from '../../dictionary/products';
 import generalStyles from '../../styles/General';
@@ -15,8 +17,6 @@ import axios from 'axios';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../redux/reducer/CartReducer';
 
-export const SLIDER_WIDTH = Dimensions.get('window').width;
-
 const HighLightProductsSlider = () => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
@@ -27,12 +27,6 @@ const HighLightProductsSlider = () => {
     const [products, setProducts] = React.useState([]);
 
     const dispatch = useDispatch();
-
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     React.useEffect(() => {
         axios(fetchFeaturedProducts('products'))

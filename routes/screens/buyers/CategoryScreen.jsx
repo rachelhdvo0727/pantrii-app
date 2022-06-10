@@ -5,6 +5,7 @@ import productDictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
 import { categoryImages } from '../../../dictionary/images';
 import { SLIDER_WIDTH, sortOptions } from '../../../utils/variables';
+import { numberFormat } from '../../../utils/functions';
 import { useNavigation } from '@react-navigation/native';
 // Components
 import { StyleSheet, View, FlatList } from 'react-native';
@@ -40,12 +41,6 @@ export default function CategoryScreen(props) {
     const onSelectedSort = (item) => {
         setSelectedSort(item);
     };
-
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
 
     React.useEffect(() => {
         // Update Screen's headerTitle

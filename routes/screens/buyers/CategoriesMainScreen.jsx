@@ -17,7 +17,7 @@ export default function CategoriesMainScreen() {
 
     React.useEffect(() => {
         // Fetch all categories
-        dispatch(getCategories());
+        dispatch(getCategories(true));
     }, []);
 
     return (

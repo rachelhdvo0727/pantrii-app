@@ -10,11 +10,7 @@ import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
 // API
-import axios from 'axios';
-import { findUser, mongoDbConfig } from '../../utils/api';
-import * as SecureStore from 'expo-secure-store';
 import { useSelector, useDispatch } from 'react-redux';
-import { getRoles } from '../../redux/slice/roles';
 import { getUser } from '../../redux/slice/user';
 
 export default function LogInScreen(props) {
@@ -28,11 +24,9 @@ export default function LogInScreen(props) {
             password: '',
         },
     });
-
     const onSubmit = (data) => {
-        // POST
-        dispatch(getUser(data));
         reset();
+        dispatch(getUser(data));
     };
 
     const showSignUp = () => {

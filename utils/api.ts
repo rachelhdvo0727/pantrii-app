@@ -1,5 +1,6 @@
 import User from '../models/User';
 import ObjectId from '../models/ObjectId';
+import Product from '../models/Product';
 const CryptoJS = require('crypto-js');
 import * as Crypto from 'expo-crypto';
 
@@ -30,7 +31,6 @@ export const mongoDbConfig = (collection: string) => {
 
 // SIGN UP
 const newUserAccountData = (document: User) => {
-    console.log('hi', document);
     return JSON.stringify({
         collection: 'users',
         dataSource: 'PantriiApp',
@@ -66,6 +66,7 @@ export const createUserAccount = (document: User) => {
 
 // LOG IN
 const userData = (data: User, byId?: boolean) => {
+    // Fetch by using ID or by email and password
     return byId === false
         ? JSON.stringify({
               collection: 'users',
@@ -75,6 +76,9 @@ const userData = (data: User, byId?: boolean) => {
                   email: data?.email,
                   password: data?.password,
               },
+              projection: {
+                  password: 0,
+              },
           })
         : JSON.stringify({
               collection: 'users',
@@ -82,6 +86,9 @@ const userData = (data: User, byId?: boolean) => {
               database: 'pantriiapp',
               filter: {
                   _id: { $oid: data },
+              },
+              projection: {
+                  password: 0,
               },
           });
 };
@@ -201,5 +208,70 @@ export const findUserRole = (data: User) => {
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
         headers: headers,
         data: findUserRoleConfig(data),
+    };
+};
+
+const producerProductConfig = (config?: any) => {
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            producerId: {
+                $oid: config?.producerId,
+            },
+        },
+        limit: config?.limit,
+    });
+};
+
+export const findProducerProducts = (config?: Object) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        headers: headers,
+        data: producerProductConfig(config),
+    };
+};
+
+// Upload & Create a product
+
+const productDataConfig = (data: Product) => {
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        document: {
+            productTitle: data.productTitle,
+            producerTitle: data.producerTitle,
+            imageSrc: '',
+            productDesc: data.productDesc,
+            expiryDuration: data.expiryDuration,
+            productStory: data.productStory,
+            productUnique: data.productUnique,
+            bulkPrice: data.bulkPrice,
+            singlePrice: data.singlePrice,
+            categoryId: {
+                $oid: data.categoryId,
+            },
+            dateTime: {
+                $date: data.dateTime,
+            },
+            productUnit: data.productUnit,
+            amountInStock: data.amountInStock,
+            producerId: {
+                $oid: data.producerId,
+            },
+            tags: data.tags,
+        },
+    });
+};
+
+export const createProduct = (data: Product) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/insertOne',
+        headers: headers,
+        data: productDataConfig(data),
     };
 };

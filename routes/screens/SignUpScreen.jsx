@@ -13,7 +13,7 @@ import { RadioButton } from 'react-native-paper';
 import ApprovedModal from '../../components/ApprovedModal';
 // API
 import { createUser } from '../../redux/slice/createUser';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { mongoDbConfig } from '../../utils/api';
 import * as Crypto from 'expo-crypto';
@@ -23,7 +23,8 @@ export default function LogInScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const content = dictionary?.customerTypes; // DA dictionary
-    const roles = props?.route.params?.roles;
+    const savedRoles = props?.route.params?.roles;
+    const { roles } = useSelector((state) => state?.roles);
     const [value, setValue] = React.useState('');
 
     const { control, handleSubmit, reset } = useForm({
@@ -63,8 +64,11 @@ export default function LogInScreen(props) {
         navigation?.navigate('LogInScreen');
     };
 
+    // React.useEffect(() => {
+    //     // console.log(savedRoles, roles);
+    // });
     return (
-        <SafeAreaView style={{ flex: 1, marginTop: 70 }}>
+        <SafeAreaView style={{ flex: 1, paddingTop: 70 }}>
             <ScrollView>
                 <View style={styles.container}>
                     <AppLogo style={styles.icon}></AppLogo>
@@ -78,8 +82,10 @@ export default function LogInScreen(props) {
                         >
                             <View style={styles.radioButtonGroup}>
                                 <RadioButton.Item
-                                    label={content[roles[0]?.role]}
-                                    value={roles[0]?._id}
+                                    label={
+                                        content[(savedRoles || roles)[0]?.role]
+                                    }
+                                    value={(savedRoles || roles)[0]?._id}
                                     status={
                                         value === content?.customer
                                             ? 'checked'
@@ -91,13 +97,15 @@ export default function LogInScreen(props) {
                                     labelStyle={styles.radioButtonLabel}
                                 />
                                 <RadioButton.Item
-                                    label={content[roles[1]?.role]}
+                                    label={
+                                        content[(savedRoles || roles)[1]?.role]
+                                    }
                                     status={
                                         value === content?.producer
                                             ? 'checked'
                                             : 'unchecked'
                                     }
-                                    value={roles[1]?._id}
+                                    value={(savedRoles || roles)[1]?._id}
                                     color="#000000"
                                     labelStyle={styles.radioButtonLabel}
                                     mode="android"

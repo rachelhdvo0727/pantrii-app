@@ -14,6 +14,7 @@ import { Feather } from '@expo/vector-icons';
 // API
 import axios from 'axios';
 import { updateUserInformation } from '../../utils/api';
+import { useSelector } from 'react-redux';
 
 export default function ProfileEditScreen(props) {
     const navigation = useNavigation();
@@ -246,6 +247,7 @@ export default function ProfileEditScreen(props) {
                                     errorMessage={error}
                                     autoComplete={false}
                                     autoCapitalize="sentences"
+                                    hasDefaultValue
                                     onFocus={onFocus}
                                     focused={focused}
                                 ></InputField>
@@ -272,7 +274,7 @@ export default function ProfileEditScreen(props) {
                                         autoComplete={false}
                                         keyboardType="numbers-and-punctuation"
                                         inputStyle={styles.fieldsetCell}
-                                        hasUserInformation
+                                        hasDefaultValue
                                         onFocus={onFocus}
                                         focused={focused}
                                     ></InputField>
@@ -297,7 +299,7 @@ export default function ProfileEditScreen(props) {
                                         onBlur={onBlur}
                                         errorMessage={error}
                                         inputStyle={styles.fieldsetCell}
-                                        hasUserInformation
+                                        hasDefaultValue
                                         onFocus={onFocus}
                                         focused={focused}
                                     ></InputField>
@@ -322,7 +324,7 @@ export default function ProfileEditScreen(props) {
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     errorMessage={error}
-                                    hasUserInformation
+                                    hasDefaultValue
                                     onFocus={onFocus}
                                     focused={focused}
                                 ></InputField>

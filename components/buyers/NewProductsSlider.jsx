@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { numberFormat } from '../../utils/functions';
 import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
@@ -28,12 +29,6 @@ const NewProductsSlider = () => {
 
     const content = dictionary?.products; // DA dictionary
 
-    const numberFormat = (total) =>
-        new Intl.NumberFormat('en-DK', {
-            style: 'currency',
-            currency: 'DKK',
-        }).format(total);
-
     const [products, setProducts] = React.useState([]);
     const [isFavourited, setIsFavourited] = React.useState(true);
     const toggleFavourite = () => {
@@ -46,6 +41,7 @@ const NewProductsSlider = () => {
     const fav = favourite_id._id;
 
     React.useEffect(() => {
+        console.log(products);
         // Fetch all categories from MongoDB api
         axios(fetchLatestProducts('products'))
             .then(function (response) {
@@ -77,7 +73,10 @@ const NewProductsSlider = () => {
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <ProductCard
-                        productTitle={content.productTitle[item?.productTitle]}
+                        productTitle={
+                            content.productTitle[item?.productTitle] ||
+                            item?.productTitle
+                        }
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
                         productDesc={
