@@ -12,8 +12,7 @@
     - This is to minimise issues with simulator, avoid cache from prvious sessions
       <!-- 4. The result should look like this:
          ![This is an image] (../assets/images/login-snap-readme.png)-->
-
-## Containerisation
+        
 
 ## Logins for test and development
 
