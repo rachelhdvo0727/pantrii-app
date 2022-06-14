@@ -33,7 +33,6 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         logOut(state, { payload }) {
-            console.log('logOut', payload);
             return { user: payload };
         },
     },
