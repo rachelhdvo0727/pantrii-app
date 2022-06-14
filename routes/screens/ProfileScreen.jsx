@@ -16,7 +16,6 @@ export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
     const { user } = useSelector((state) => state?.user);
-    const loggedInUser = props?.route?.params.loggedInUser;
     const userRole = props?.route?.params?.currentRole;
 
     const onEdit = (information) => {

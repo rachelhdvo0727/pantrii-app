@@ -67,7 +67,7 @@ export default function ProfileEditScreen(props) {
         }
         dispatch(editUser({ data })); // update user's state
         dispatch(updateUser({ user: data, information: dataDifferences })); // POST to database
-        navigation?.goBack();
+        navigation?.goBack(); // Back to display screen
     };
 
     const onFocus = () => {
