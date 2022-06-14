@@ -31,6 +31,7 @@ export default function Navigation(props) {
                 let savedUser = JSON.parse(
                     await SecureStore.getItemAsync('user'),
                 );
+                // Route to the right Stack.Navigator
                 if (savedUser) {
                     setCurrentRole(
                         roles?.filter(

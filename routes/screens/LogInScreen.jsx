@@ -41,6 +41,7 @@ export default function LogInScreen(props) {
                 let savedUser = JSON.parse(
                     await SecureStore.getItemAsync('user'),
                 );
+                // Fetch user with Id if there's a saved user from SecureStore
                 if (savedUser) {
                     dispatch(getUser({ data: savedUser?._id, byId: true }));
                 }
