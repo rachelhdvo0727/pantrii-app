@@ -32,7 +32,7 @@ export default function HomeSuppliersScreen(props) {
     const { producerProducts } = useSelector(
         (state) => state?.producerProducts,
     );
-    const listConfig = { producerId: (user || loggedInUser)?._id, limit: 3 };
+    const listConfig = { producerId: user?._id, limit: 3 };
     const content = dictionary?.products;
 
     React.useEffect(() => {
@@ -48,9 +48,7 @@ export default function HomeSuppliersScreen(props) {
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
-                        title={`Velkommen tilbage \n ${
-                            (user || loggedInUser)?.firstName
-                        }`}
+                        title={`Velkommen tilbage \n ${user?.firstName}`}
                         secondary
                         imageSrc={require('../../../assets/banners/producer-banner-home.png')}
                     />
@@ -89,11 +87,11 @@ export default function HomeSuppliersScreen(props) {
                             <ProductCard
                                 key={item?._id}
                                 productTitle={
-                                    content.productTitle[item?.productTitle] ||
+                                    content?.productTitle[item?.productTitle] ||
                                     item?.productTitle
                                 }
                                 productDesc={
-                                    content.productDesc[item?.productDesc] ||
+                                    content?.productDesc[item?.productDesc] ||
                                     item?.productDesc
                                 }
                                 productUnit={item?.productUnit}
