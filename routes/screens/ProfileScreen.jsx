@@ -2,7 +2,7 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
-import { useNavigation, StackActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
@@ -10,82 +10,27 @@ import HeroCard from '../../components/buyers/HeroCard';
 import InformationCard from '../../components/InformationCard';
 import SectionInInformationCard from '../../components/SectionInInformationCard';
 // API
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logOut } from '../../redux/slice/user';
 
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
-    const { user } = useSelector((state) => state.user);
-    const loggedInUser = props?.route?.params.loggedInUser;
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state?.user);
     const userRole = props?.route?.params?.currentRole;
 
     const onEdit = (information) => {
         navigation.navigate('ProfileEditScreen', {
-            user: user || loggedInUser,
             informationType: information,
+            userRole: userRole,
         });
     };
 
     const handleLogOut = () => {
         SecureStore.setItemAsync('user', '');
+        dispatch(logOut(undefined));
     };
-
-    const ProfileInformation = () => (
-        <SectionInInformationCard
-            isTopSection
-            sectionTitle="Profil information"
-            sectionContent={
-                <React.Fragment>
-                    <Text style={styles.highlightText}>
-                        {(user || loggedInUser)?.firstName}{' '}
-                        {(user || loggedInUser)?.lastName}
-                    </Text>
-                    {(user || loggedInUser)?.email && (
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.email}
-                        </Text>
-                    )}
-                    {(user || loggedInUser)?.phone && (
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.phone}
-                        </Text>
-                    )}
-                </React.Fragment>
-            }
-            isEditable
-            iconButtonStyle={styles.iconButton}
-            onEdit={() => onEdit('profile')}
-        ></SectionInInformationCard>
-    );
-
-    const Address = () => (
-        <SectionInInformationCard
-            sectionTitle="Adresse"
-            isLastSection
-            sectionContent={
-                <React.Fragment>
-                    <Text style={styles.text}>
-                        {(user || loggedInUser)?.address?.line1}
-                        {(user || loggedInUser)?.address?.line2}
-                    </Text>
-                    <View style={styles.cityWrapper}>
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.address?.zipCode}
-                        </Text>
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.address?.city}
-                        </Text>
-                    </View>
-                    <Text style={styles.text}>
-                        {(user || loggedInUser)?.address?.country}
-                    </Text>
-                </React.Fragment>
-            }
-            isEditable
-            iconButtonStyle={styles.iconButton}
-            onEdit={() => onEdit('address')}
-        ></SectionInInformationCard>
-    );
 
     return (
         <View style={generalStyles.container}>
@@ -95,8 +40,51 @@ export default function ProfileScreen(props) {
                 imageSrc={require('../../assets/banners/profile-hero.png')}
             />
             <InformationCard style={styles.informationCard}>
-                <ProfileInformation />
-                <Address />
+                <SectionInInformationCard
+                    isTopSection
+                    sectionTitle="Profil information"
+                    sectionContent={
+                        <React.Fragment>
+                            <Text style={styles.highlightText}>
+                                {user?.firstName} {user?.lastName}
+                            </Text>
+                            {user?.email && (
+                                <Text style={styles.text}>{user?.email}</Text>
+                            )}
+                            {user?.phone && (
+                                <Text style={styles.text}>{user?.phone}</Text>
+                            )}
+                        </React.Fragment>
+                    }
+                    isEditable
+                    iconButtonStyle={styles.iconButton}
+                    onEdit={() => onEdit('profile')}
+                ></SectionInInformationCard>
+                <SectionInInformationCard
+                    sectionTitle="Adresse"
+                    isLastSection
+                    sectionContent={
+                        <React.Fragment>
+                            <Text style={styles.text}>
+                                {user?.address?.line1} {user?.address?.line2}
+                            </Text>
+                            <View style={styles.cityWrapper}>
+                                <Text style={styles.text}>
+                                    {user?.address?.zipCode}{' '}
+                                </Text>
+                                <Text style={styles.text}>
+                                    {user?.address?.city}
+                                </Text>
+                            </View>
+                            <Text style={styles.text}>
+                                {user?.address?.country}
+                            </Text>
+                        </React.Fragment>
+                    }
+                    isEditable
+                    iconButtonStyle={styles.iconButton}
+                    onEdit={() => onEdit('address')}
+                ></SectionInInformationCard>
             </InformationCard>
             <Button
                 outlined

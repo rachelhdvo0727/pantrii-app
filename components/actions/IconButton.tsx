@@ -12,8 +12,8 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '../../utils/functions';
 
 export interface Props {
-    onPress: () => void;
-    onPressOut?: () => void;
+    onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
+    onPressOut?: React.ComponentProps<typeof TouchableOpacity>['onPressOut'];
     title: string;
     children?: React.ReactChild;
     iconButtonStyle?: StyleProp<TouchableOpacityProps>;
