@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { findUser } from '../../utils/api';
+import { findUser, updateUserInformation } from '../../utils/api';
 import { objectToString, saveData } from '../../utils/functions';
 
 const initialState = {
@@ -9,8 +9,8 @@ const initialState = {
     loading: false,
 };
 
-export const getUser = createAsyncThunk('user/getUser', (data, byId) => {
-    return axios(findUser(data, false))
+export const getUser = createAsyncThunk('user/getUser', (data) => {
+    return axios(findUser(data.data, data.byId))
         .then((response) => {
             const data = response?.data?.document;
             saveData('user', objectToString(data));
@@ -19,9 +19,22 @@ export const getUser = createAsyncThunk('user/getUser', (data, byId) => {
         .catch((error) => console.error(error, response));
 });
 
+export const updateUser = createAsyncThunk('user/updateUser', (data) => {
+    return axios(updateUserInformation(data.user, data.information))
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => console.error(error));
+});
+
 export const userSlice = createSlice({
     name: 'user',
     initialState,
+    reducers: {
+        editUser(state, { payload }) {
+            state.user = payload.data;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUser.pending, (state, action) => {
@@ -39,3 +52,5 @@ export const userSlice = createSlice({
             });
     },
 });
+
+export const { editUser } = userSlice.actions;
