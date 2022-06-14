@@ -26,7 +26,7 @@ export default function LogInScreen(props) {
     });
     const onSubmit = (data) => {
         reset();
-        dispatch(getUser(data));
+        dispatch(getUser({ data: data, byId: false }));
     };
 
     const showSignUp = () => {
