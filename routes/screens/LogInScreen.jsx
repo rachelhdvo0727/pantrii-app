@@ -10,13 +10,15 @@ import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
 // API
+import * as SecureStore from 'expo-secure-store';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../../redux/slice/user';
+import { getUser, logOut } from '../../redux/slice/user';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const { roles } = useSelector((state) => state.roles);
+    const { user } = useSelector((state) => state.user);
 
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -32,6 +34,23 @@ export default function LogInScreen(props) {
     const showSignUp = () => {
         navigation?.navigate('SignUpScreen', { roles: roles });
     };
+
+    React.useEffect(() => {
+        const persistLogIn = async () => {
+            try {
+                let savedUser = JSON.parse(
+                    await SecureStore.getItemAsync('user'),
+                );
+                if (savedUser) {
+                    dispatch(getUser({ data: savedUser?._id, byId: true }));
+                }
+            } catch {
+                console.error;
+                dispatch(logOut(undefined));
+            }
+        };
+        persistLogIn();
+    }, [user]);
 
     return (
         <View style={[styles.container]}>

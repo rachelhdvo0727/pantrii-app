@@ -22,6 +22,7 @@ import ProductCard from '../../../components/suppliers/ProductCard';
 import { Entypo } from '@expo/vector-icons';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../../../redux/slice/user';
 import { getProductsForProducer } from '../../../redux/slice/producerProducts';
 
 export default function HomeSuppliersScreen(props) {

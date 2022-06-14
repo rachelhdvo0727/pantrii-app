@@ -10,17 +10,18 @@ const initialState = {
 };
 
 export const getUser = createAsyncThunk('user/getUser', (data) => {
+    // console.log('slice', data);
     return axios(findUser(data.data, data.byId))
         .then((response) => {
             const data = response?.data?.document;
-            saveData('user', objectToString(data));
+            if (!data.byId) saveData('user', objectToString(data));
             return data;
         })
         .catch((error) => console.error(error, response));
 });
 
 export const updateUser = createAsyncThunk('user/updateUser', (data) => {
-    return axios(updateUserInformation(data.user, data.information))
+    return axios(updateUserInformation(data?.user, data?.information))
         .then((response) => {
             console.log(response.data);
         })
@@ -31,8 +32,9 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        editUser(state, { payload }) {
-            state.user = payload.data;
+        logOut(state, { payload }) {
+            console.log('logOut', payload);
+            return { user: payload };
         },
     },
     extraReducers: (builder) => {
@@ -49,8 +51,21 @@ export const userSlice = createSlice({
             .addCase(getUser.rejected, (state, action) => {
                 state.status = 'Rejected';
                 state.loading = false;
+            })
+            .addCase(updateUser.pending, (state, action) => {
+                state.status = 'Pending';
+                state.loading = true;
+            })
+            .addCase(updateUser.fulfilled, (state, action) => {
+                state.status = 'Fulfilled';
+                state.loading = false;
+                state.user = action.meta.arg.user;
+            })
+            .addCase(updateUser.rejected, (state, action) => {
+                state.status = 'Rejected';
+                state.loading = false;
             });
     },
 });
 
-export const { editUser } = userSlice.actions;
+export const { logOut, persistLogIn } = userSlice.actions;

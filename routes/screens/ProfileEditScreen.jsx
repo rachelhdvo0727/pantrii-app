@@ -12,9 +12,7 @@ import BackIconButton from '../../components/actions/BackIconButton';
 import Button from '../../components/actions/Button';
 import { Feather } from '@expo/vector-icons';
 // API
-import axios from 'axios';
-import { updateUserInformation } from '../../utils/api';
-import { editUser, updateUser } from '../../redux/slice/user';
+import { updateUser } from '../../redux/slice/user';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function ProfileEditScreen(props) {
@@ -47,7 +45,7 @@ export default function ProfileEditScreen(props) {
             reset(user);
             setHasUserInformation(true);
         }
-    }, [informationType, user]);
+    }, [informationType]);
 
     const { control, handleSubmit, reset } = useForm({});
 
@@ -65,8 +63,8 @@ export default function ProfileEditScreen(props) {
         if (informationType === 'profile') {
             delete dataDifferences?.address;
         }
-        dispatch(editUser({ data })); // update user's state
         dispatch(updateUser({ user: data, information: dataDifferences })); // POST to database
+        // // dispatch(editUser({ data })); // update user's state
         navigation?.goBack(); // Back to display screen
     };
 
