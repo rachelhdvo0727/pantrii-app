@@ -2,7 +2,7 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
-import { useNavigation, StackActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
@@ -15,14 +15,14 @@ import { useSelector } from 'react-redux';
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
     const navigation = useNavigation();
-    const { user } = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state?.user);
     const loggedInUser = props?.route?.params.loggedInUser;
     const userRole = props?.route?.params?.currentRole;
 
     const onEdit = (information) => {
         navigation.navigate('ProfileEditScreen', {
-            user: user || loggedInUser,
             informationType: information,
+            userRole: userRole,
         });
     };
 
@@ -37,18 +37,13 @@ export default function ProfileScreen(props) {
             sectionContent={
                 <React.Fragment>
                     <Text style={styles.highlightText}>
-                        {(user || loggedInUser)?.firstName}{' '}
-                        {(user || loggedInUser)?.lastName}
+                        {user?.firstName} {user?.lastName}
                     </Text>
-                    {(user || loggedInUser)?.email && (
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.email}
-                        </Text>
+                    {user?.email && (
+                        <Text style={styles.text}>{user?.email}</Text>
                     )}
-                    {(user || loggedInUser)?.phone && (
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.phone}
-                        </Text>
+                    {user?.phone && (
+                        <Text style={styles.text}>{user?.phone}</Text>
                     )}
                 </React.Fragment>
             }
@@ -65,20 +60,16 @@ export default function ProfileScreen(props) {
             sectionContent={
                 <React.Fragment>
                     <Text style={styles.text}>
-                        {(user || loggedInUser)?.address?.line1}
-                        {(user || loggedInUser)?.address?.line2}
+                        {user?.address?.line1}
+                        {user?.address?.line2}
                     </Text>
                     <View style={styles.cityWrapper}>
                         <Text style={styles.text}>
-                            {(user || loggedInUser)?.address?.zipCode}
+                            {user?.address?.zipCode}
                         </Text>
-                        <Text style={styles.text}>
-                            {(user || loggedInUser)?.address?.city}
-                        </Text>
+                        <Text style={styles.text}>{user?.address?.city}</Text>
                     </View>
-                    <Text style={styles.text}>
-                        {(user || loggedInUser)?.address?.country}
-                    </Text>
+                    <Text style={styles.text}>{user?.address?.country}</Text>
                 </React.Fragment>
             }
             isEditable

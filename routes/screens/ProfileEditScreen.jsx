@@ -14,12 +14,16 @@ import { Feather } from '@expo/vector-icons';
 // API
 import axios from 'axios';
 import { updateUserInformation } from '../../utils/api';
-import { useSelector } from 'react-redux';
+import { editUser, updateUser } from '../../redux/slice/user';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function ProfileEditScreen(props) {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const content = dictionary?.customerTypes;
-    const user = props.route?.params?.user;
+    const userRole = props.route?.params?.userRole;
+    const { user } = useSelector((state) => state?.user);
+
     const informationType = props.route?.params?.informationType;
     const information =
         informationType === 'profile'
@@ -61,14 +65,9 @@ export default function ProfileEditScreen(props) {
         if (informationType === 'profile') {
             delete dataDifferences?.address;
         }
-
-        // POST
-        axios(updateUserInformation(data, dataDifferences))
-            .then((response) => {
-                // console.log(response?.data);
-                navigation?.goBack();
-            })
-            .catch((error) => console.error(error));
+        dispatch(editUser({ data })); // update user's state
+        dispatch(updateUser({ user: data, information: dataDifferences })); // POST to database
+        navigation?.goBack();
     };
 
     const onFocus = () => {
@@ -79,7 +78,7 @@ export default function ProfileEditScreen(props) {
     return (
         <View style={styles.container}>
             <HeroCard
-                title={content[user?.roleTitle]}
+                title={content[userRole]}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
             />
