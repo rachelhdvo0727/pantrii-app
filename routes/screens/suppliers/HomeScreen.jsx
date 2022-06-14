@@ -22,7 +22,6 @@ import ProductCard from '../../../components/suppliers/ProductCard';
 import { Entypo } from '@expo/vector-icons';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../../../redux/slice/user';
 import { getProductsForProducer } from '../../../redux/slice/producerProducts';
 
 export default function HomeSuppliersScreen(props) {
@@ -33,7 +32,7 @@ export default function HomeSuppliersScreen(props) {
     const { producerProducts } = useSelector(
         (state) => state?.producerProducts,
     );
-    const listConfig = { producerId: user?._id, limit: 3 };
+    const listConfig = { producerId: (user || loggedInUser)?._id, limit: 3 };
     const content = dictionary?.products;
 
     React.useEffect(() => {
@@ -49,7 +48,9 @@ export default function HomeSuppliersScreen(props) {
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
-                        title={`Velkommen tilbage \n ${user?.firstName}`}
+                        title={`Velkommen tilbage \n ${
+                            (user || loggedInUser)?.firstName
+                        }`}
                         secondary
                         imageSrc={require('../../../assets/banners/producer-banner-home.png')}
                     />
@@ -88,11 +89,11 @@ export default function HomeSuppliersScreen(props) {
                             <ProductCard
                                 key={item?._id}
                                 productTitle={
-                                    content?.productTitle[item?.productTitle] ||
+                                    content.productTitle[item?.productTitle] ||
                                     item?.productTitle
                                 }
                                 productDesc={
-                                    content?.productDesc[item?.productDesc] ||
+                                    content.productDesc[item?.productDesc] ||
                                     item?.productDesc
                                 }
                                 productUnit={item?.productUnit}

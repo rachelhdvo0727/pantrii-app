@@ -80,7 +80,7 @@ const ProductCard = ({
                         {productDesc}
                     </Text>
                 </View>
-                <View style={styles.dottedLine}></View>
+
                 <View style={styles.bottomSection}>
                     <Text style={styles.unitText}>{productUnit}</Text>
                     <View style={styles.priceWrapper}>
@@ -143,15 +143,9 @@ const styles = StyleSheet.create({
     },
     middleSection: {
         paddingRight: 10,
-        paddingVertical: 3,
         borderBottomWidth: 1,
         borderColor: 'rgba(189, 189, 189, 0.5)',
         borderStyle: 'dashed',
-    },
-    dottedLine: {
-        borderColor: 'rgba(189, 189, 189, 0.5)',
-        borderStyle: 'dashed',
-        borderWidth: 0.5,
     },
     bottomSection: {
         paddingRight: 10,

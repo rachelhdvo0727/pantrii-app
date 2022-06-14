@@ -174,7 +174,7 @@ const currentUser = (data: User, information: Object) => {
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
         filter: {
-            _id: { $oid: data?._id },
+            _id: { $oid: data._id },
         },
         update: {
             $set: information,

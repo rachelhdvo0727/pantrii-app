@@ -39,7 +39,7 @@ export default function ProductsSuppliersScreen(props) {
         axios(findProducerProducts(listConfig))
             .then((response) => {
                 const data = response?.data?.documents;
-                setProducts(data);
+                setTimeout(() => setProducts(data), 500);
             })
             .catch((error) => console.error(error));
     }, []);
@@ -144,16 +144,14 @@ export default function ProductsSuppliersScreen(props) {
                         renderItem={({ item }) => (
                             <ProductCard
                                 productTitle={
-                                    productContent?.productTitle[
-                                        item?.productTitle
-                                    ] || item?.productTitle
+                                    content.productTitle[item?.productTitle] ||
+                                    item?.productTitle
                                 }
                                 imageSrc={productImages[item?.imageSrc]}
                                 producerTitle={item?.producerTitle}
                                 productDesc={
-                                    productContent?.productDesc[
-                                        item?.productDesc
-                                    ] || item?.productDesc
+                                    content.productDesc[item?.productDesc] ||
+                                    item?.productDesc
                                 }
                                 productUnit={item?.productUnit}
                                 bulkPrice={numberFormat(item?.bulkPrice)}
