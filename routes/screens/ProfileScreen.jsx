@@ -66,8 +66,7 @@ export default function ProfileScreen(props) {
                     sectionContent={
                         <React.Fragment>
                             <Text style={styles.text}>
-                                {user?.address?.line1}
-                                {user?.address?.line2}
+                                {user?.address?.line1} {user?.address?.line2}
                             </Text>
                             <View style={styles.cityWrapper}>
                                 <Text style={styles.text}>
