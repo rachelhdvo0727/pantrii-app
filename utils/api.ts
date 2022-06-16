@@ -8,7 +8,7 @@ import * as Crypto from 'expo-crypto';
 const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Request-Headers': '*',
-    'Api-key':
+    'api-key':
         '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
 };
 
@@ -23,7 +23,7 @@ const mongoDbData = (collection: string) => {
 export const mongoDbConfig = (collection: string) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
         headers: headers,
         data: mongoDbData(collection),
     };
@@ -58,7 +58,7 @@ const newUserAccountData = (document: User) => {
 export const createUserAccount = (document: User) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/insertOne',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/insertOne',
         headers: headers,
         data: newUserAccountData(document),
     };
@@ -96,7 +96,7 @@ const userData = (data: User, byId?: boolean) => {
 export const findUser = (data: User, byId?: boolean) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/findOne',
         headers: headers,
         data: userData(data, byId),
     };
@@ -118,7 +118,7 @@ const fetchLatestData = (collection: string) => {
 export const fetchLatestProducts = (collection: string) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
         headers: headers,
         data: fetchLatestData(collection),
     };
@@ -137,7 +137,7 @@ const fetchFeaturedData = (collection: string) => {
 export const fetchFeaturedProducts = (collection: string) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
         headers: headers,
         data: fetchFeaturedData(collection),
     };
@@ -161,7 +161,7 @@ const categoryProductsData = (categoryId: string, sort?: number) => {
 export const fetchCategoryProducts = (categoryId: string, sort?: number) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
         headers: headers,
         data: categoryProductsData(categoryId, sort),
     };
@@ -185,7 +185,7 @@ const currentUser = (data: User, information: Object) => {
 export const updateUserInformation = (data: User, information: Object) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/updateOne',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/updateOne',
         headers: headers,
         data: currentUser(data, information),
     };
@@ -205,7 +205,7 @@ const findUserRoleConfig = (data: User) => {
 export const findUserRole = (data: User) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/findOne',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/findOne',
         headers: headers,
         data: findUserRoleConfig(data),
     };
@@ -228,7 +228,7 @@ const producerProductConfig = (config?: any) => {
 export const findProducerProducts = (config?: Object) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/find',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
         headers: headers,
         data: producerProductConfig(config),
     };
@@ -270,7 +270,7 @@ const productDataConfig = (data: Product) => {
 export const createProduct = (data: Product) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/beta/action/insertOne',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/insertOne',
         headers: headers,
         data: productDataConfig(data),
     };
