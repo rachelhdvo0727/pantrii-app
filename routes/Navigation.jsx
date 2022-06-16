@@ -18,7 +18,6 @@ export default function Navigation(props) {
     const dispatch = useDispatch();
     const { roles } = useSelector((state) => state.roles);
     const { user } = useSelector((state) => state?.user);
-    const [loggedInUser, setLoggedInUser] = React.useState(null);
     const [currentRole, setCurrentRole] = React.useState('');
 
     React.useEffect(() => {
