@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { mongoDbConfig, createProduct } from '../../utils/api';
+import { findProductById, createProduct } from '../../utils/api';
 
 const initialState = {
     product: undefined,
@@ -20,6 +20,16 @@ export const createProductForProducer = createAsyncThunk(
             .catch((error) => console.error(error));
     },
 );
+
+export const findProduct = createAsyncThunk('product/findProduct', (data) => {
+    return axios(findProductById(data))
+        .then((response) => {
+            const product = response?.data?.document;
+            console.log('slice', response);
+            return product;
+        })
+        .catch((error) => console.error(error));
+});
 
 export const productSlice = createSlice({
     name: 'product',

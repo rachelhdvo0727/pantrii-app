@@ -274,3 +274,25 @@ export const createProduct = (data: Product) => {
         data: productDataConfig(data),
     };
 };
+
+// Find one product
+const productData = (id: Product['_id']) => {
+    // Fetch by using ID or by email and password
+    return JSON.stringify({
+        collection: 'users',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            _id: id,
+        },
+    });
+};
+
+export const findProductById = (id: Product['_id']) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/findOne',
+        headers: headers,
+        data: productData(id),
+    };
+};

@@ -22,13 +22,11 @@ import ProductCard from '../../../components/suppliers/ProductCard';
 import { Entypo } from '@expo/vector-icons';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../../../redux/slice/user';
 import { getProductsForProducer } from '../../../redux/slice/producerProducts';
 
-export default function HomeSuppliersScreen(props) {
+export default function HomeScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const loggedInUser = props.route?.params?.loggedInUser;
     const { user } = useSelector((state) => state?.user);
     const { producerProducts } = useSelector(
         (state) => state?.producerProducts,
@@ -105,6 +103,15 @@ export default function HomeSuppliersScreen(props) {
                                     item?.amountInStock === 10
                                 }
                                 isSoldOut={item?.amountInStock === 0}
+                                onPress={() => {
+                                    navigation.navigate('ProductInfoScreen', {
+                                        productId: item?._id,
+                                        productTitle:
+                                            content?.productTitle[
+                                                item?.productTitle
+                                            ] || item?.productTitle,
+                                    });
+                                }}
                             ></ProductCard>
                         ))}
                     </View>

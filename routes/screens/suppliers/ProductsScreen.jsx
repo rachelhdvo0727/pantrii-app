@@ -5,6 +5,7 @@ import dictionary from '../../../dictionary/general.json';
 import productDictionary from '../../../dictionary/products.json';
 import { numberFormat } from '../../../utils/functions';
 import { productImages } from '../../../dictionary/images';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native';
 import SelectDropDown from '../../../components/SelectDropDown';
@@ -17,7 +18,8 @@ import axios from 'axios';
 import { findProducerProducts } from '../../../utils/api';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function ProductsSuppliersScreen(props) {
+export default function ProductsScreen(props) {
+    const navigation = useNavigation();
     const content = dictionary?.inventoryStatus;
     const productContent = productDictionary?.products;
     const { user } = useSelector((state) => state?.user);
@@ -164,6 +166,15 @@ export default function ProductsSuppliersScreen(props) {
                                     item?.amountInStock === 10
                                 }
                                 isSoldOut={item?.amountInStock === 0}
+                                onPress={() => {
+                                    navigation.navigate('ProductInfoScreen', {
+                                        productId: item?._id,
+                                        productTitle:
+                                            productContent?.productTitle[
+                                                item?.productTitle
+                                            ] || item?.productTitle,
+                                    });
+                                }}
                             />
                         )}
                         contentContainerStyle={styles.listContainer}

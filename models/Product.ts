@@ -2,6 +2,7 @@ type Tags = [];
 
 export default class Product {
     constructor(
+        public _id: string,
         public productTitle: string,
         public producerTitle: string,
         public producerId: Object,
@@ -19,6 +20,7 @@ export default class Product {
         public tags: Tags[],
         public productUnit: string,
     ) {
+        this._id = _id;
         this.productTitle = productTitle;
         this.producerTitle = producerTitle;
         this.producerId = producerId;

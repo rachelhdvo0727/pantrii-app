@@ -40,75 +40,77 @@ const ProductCard = ({
     isLowOnStock,
 }: Props) => {
     return (
-        // <TouchableOpacity onPress={onPress}>
-        <InformationCard style={[styles.container, cardStyle]}>
-            <Image style={styles.image} source={imageSrc} />
+        <TouchableOpacity onPress={onPress}>
+            <InformationCard style={[styles.container, cardStyle]}>
+                <Image style={styles.image} source={imageSrc} />
 
-            <View style={styles.productContent}>
-                <View style={styles.topSection}>
-                    <Text
-                        style={styles.productTitle}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                    >
-                        {productTitle?.length > 18
-                            ? productTitle?.substring(0, 18 - 3) + '...'
-                            : productTitle}
-                    </Text>
-                    <Text style={styles.amountText}>
-                        {isSoldOut ? (
-                            <Text style={styles.amountNegative}>UDSOLGT</Text>
-                        ) : (
-                            <Text>
-                                Antal:&ensp;
-                                <Text
-                                    style={
-                                        isLowOnStock
-                                            ? styles.amountLow
-                                            : styles.amountPositive
-                                    }
-                                >
-                                    {amountInStock}
-                                </Text>
-                            </Text>
-                        )}
-                    </Text>
-                </View>
-
-                <View style={styles.middleSection}>
-                    <Text style={styles.productDesc} numberOfLines={1}>
-                        {productDesc}
-                    </Text>
-                </View>
-                <View style={styles.dottedLine}></View>
-                <View style={styles.bottomSection}>
-                    <Text style={styles.unitText}>{productUnit}</Text>
-                    <View style={styles.priceWrapper}>
-                        <Text style={styles.bulkPrice}>
-                            {bulkPrice}
-                            <Text
-                                style={{
-                                    fontSize: 11,
-                                }}
-                            >
-                                &thinsp; /kolli
-                            </Text>
+                <View style={styles.productContent}>
+                    <View style={styles.topSection}>
+                        <Text
+                            style={styles.productTitle}
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                        >
+                            {productTitle?.length > 18
+                                ? productTitle?.substring(0, 18 - 3) + '...'
+                                : productTitle}
                         </Text>
-                        <Text style={styles.singularPrice}>
-                            {singlePrice}
-                            <Text
-                                style={{
-                                    fontSize: 11,
-                                }}
-                            >
-                                &thinsp; /enhed
-                            </Text>
+                        <Text style={styles.amountText}>
+                            {isSoldOut ? (
+                                <Text style={styles.amountNegative}>
+                                    UDSOLGT
+                                </Text>
+                            ) : (
+                                <Text>
+                                    Antal:&ensp;
+                                    <Text
+                                        style={
+                                            isLowOnStock
+                                                ? styles.amountLow
+                                                : styles.amountPositive
+                                        }
+                                    >
+                                        {amountInStock}
+                                    </Text>
+                                </Text>
+                            )}
                         </Text>
                     </View>
+
+                    <View style={styles.middleSection}>
+                        <Text style={styles.productDesc} numberOfLines={1}>
+                            {productDesc}
+                        </Text>
+                    </View>
+                    <View style={styles.dottedLine}></View>
+                    <View style={styles.bottomSection}>
+                        <Text style={styles.unitText}>{productUnit}</Text>
+                        <View style={styles.priceWrapper}>
+                            <Text style={styles.bulkPrice}>
+                                {bulkPrice}
+                                <Text
+                                    style={{
+                                        fontSize: 11,
+                                    }}
+                                >
+                                    &thinsp; /kolli
+                                </Text>
+                            </Text>
+                            <Text style={styles.singularPrice}>
+                                {singlePrice}
+                                <Text
+                                    style={{
+                                        fontSize: 11,
+                                    }}
+                                >
+                                    &thinsp; /enhed
+                                </Text>
+                            </Text>
+                        </View>
+                    </View>
                 </View>
-            </View>
-        </InformationCard>
-        // </TouchableOpacity>
+            </InformationCard>
+        </TouchableOpacity>
     );
 };
 
