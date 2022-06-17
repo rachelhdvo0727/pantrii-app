@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import generalStyles from '../../styles/General';
-import { AntDesign } from '@expo/vector-icons';
 // Components
 import Button from './Button';
 
