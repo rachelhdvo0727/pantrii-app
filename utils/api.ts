@@ -1,5 +1,6 @@
 import User from '../models/User';
 import Product from '../models/Product';
+import Category from '../models/Category';
 const CryptoJS = require('crypto-js');
 import * as Crypto from 'expo-crypto';
 
@@ -233,7 +234,7 @@ export const findProducerProducts = (config?: Object) => {
     };
 };
 
-// Upload & Create a product
+// UPLOAD/CREATE PRODUCT
 
 const productDataConfig = (data: Product) => {
     return JSON.stringify({
@@ -294,5 +295,54 @@ export const findProductById = (id: Product['_id']) => {
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/findOne',
         headers: headers,
         data: productData(id),
+    };
+};
+
+// FIND ONE CATEGORY
+const categoryData = (id: Category['_id']) => {
+    // Fetch by using ID or by email and password
+    return JSON.stringify({
+        collection: 'categories',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            _id: { $oid: id },
+        },
+    });
+};
+
+export const findCategoryById = (id: Category['_id']) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/findOne',
+        headers: headers,
+        data: categoryData(id),
+    };
+};
+
+// EDITING PRODUCT INFORMATION
+const currentProduct = (data: Product, information: Object) => {
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            _id: { $oid: data?._id },
+        },
+        update: {
+            $set: information,
+        },
+    });
+};
+
+export const updateProductInformation = (
+    data: Product,
+    information: Object,
+) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/updateOne',
+        headers: headers,
+        data: currentProduct(data, information),
     };
 };
