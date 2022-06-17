@@ -105,11 +105,7 @@ export default function HomeScreen(props) {
                                 isSoldOut={item?.amountInStock === 0}
                                 onPress={() => {
                                     navigation.navigate('ProductInfoScreen', {
-                                        productId: item?._id,
-                                        productTitle:
-                                            content?.productTitle[
-                                                item?.productTitle
-                                            ] || item?.productTitle,
+                                        product: item,
                                     });
                                 }}
                             ></ProductCard>
