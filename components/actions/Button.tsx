@@ -4,23 +4,23 @@ import {
     TouchableOpacity,
     View,
     Text,
-    PressableProps,
     StyleProp,
+    TouchableOpacityProps,
 } from 'react-native';
 import { capitalize } from '@material-ui/core';
 
 export interface Props {
-    onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
+    onPress?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
     title: string | React.ComponentProps<typeof Text>['children'];
-    buttonStyle?: StyleProp<PressableProps>;
+    buttonStyle?: StyleProp<TouchableOpacityProps>;
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
     confirmed?: boolean;
     children?: React.ReactChild;
-    disabled?: React.ComponentProps<typeof Pressable>['disabled'];
-    onPressOut?: React.ComponentProps<typeof Pressable>['onPressOut'];
-    onPressIn?: React.ComponentProps<typeof Pressable>['onPressIn'];
+    disabled?: React.ComponentProps<typeof TouchableOpacity>['disabled'];
+    onPressOut?: React.ComponentProps<typeof TouchableOpacity>['onPressOut'];
+    onPressIn?: React.ComponentProps<typeof TouchableOpacity>['onPressIn'];
 }
 
 const Button: React.FC<Props> = ({
