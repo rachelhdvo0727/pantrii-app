@@ -9,13 +9,11 @@ import InputFieldSelect from '../../../components/InputFieldSelect';
 import Button from '../../../components/actions/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
-import { RadioButton, Checkbox } from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
 import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
 // API & Redux
-import axios from 'axios';
-import { createProduct } from '../../../utils/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
 import { createProductForProducer } from '../../../redux/slice/product';
@@ -61,6 +59,7 @@ export default function UploadProductsScreen(props) {
             categoryId: '',
             dateTime: new Date(),
             tags: ['', '', ''],
+            expiryDuration: '',
         },
     });
 
@@ -333,6 +332,25 @@ export default function UploadProductsScreen(props) {
                             autoCapitalize="words"
                             errorMessage={error}
                             inputStyle={styles.productDesc}
+                        />
+                    )}
+                />
+                <Controller
+                    name="expiryDuration"
+                    control={control}
+                    render={({
+                        field: { onChange, onBlur, value },
+                        fieldState: { error },
+                    }) => (
+                        <InputField
+                            label="forventet holdbarhed"
+                            placeholder="x dage/måned/år"
+                            multiline
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            autoComplete={false}
+                            errorMessage={error}
                         />
                     )}
                 />
