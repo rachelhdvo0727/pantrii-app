@@ -379,6 +379,7 @@ export default function LogInScreen(props) {
                     setModalVisible(!modalVisible);
                 }}
                 onPress={onSignUpSuccess}
+                modalAsScreen
             ></ApprovedModal>
         </SafeAreaView>
     );
