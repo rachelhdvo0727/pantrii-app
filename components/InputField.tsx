@@ -69,7 +69,7 @@ export default function InputField({
             </View>
             {/* Error message */}
             {errorMessage && errorMessage?.message !== '' ? (
-                <SafeAreaView style={styles.errorContainer}>
+                <View style={styles.errorContainer}>
                     <MaterialIcons
                         name="error"
                         size={17}
@@ -79,7 +79,7 @@ export default function InputField({
                     <Text style={styles.errorMessage}>
                         {errorMessage?.message}
                     </Text>
-                </SafeAreaView>
+                </View>
             ) : null}
         </View>
     );
