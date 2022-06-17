@@ -168,11 +168,7 @@ export default function ProductsScreen(props) {
                                 isSoldOut={item?.amountInStock === 0}
                                 onPress={() => {
                                     navigation.navigate('ProductInfoScreen', {
-                                        productId: item?._id,
-                                        productTitle:
-                                            productContent?.productTitle[
-                                                item?.productTitle
-                                            ] || item?.productTitle,
+                                        product: item,
                                     });
                                 }}
                             />
