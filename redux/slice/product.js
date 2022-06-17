@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { findProductById, createProduct } from '../../utils/api';
+import {
+    findProductById,
+    createProduct,
+    updateProductInformation,
+} from '../../utils/api';
 
 const initialState = {
     product: undefined,
@@ -31,6 +35,18 @@ export const findProduct = createAsyncThunk('product/findProduct', (data) => {
         .catch((error) => console.error(error));
 });
 
+export const updateProduct = createAsyncThunk(
+    'product/updateProduct',
+    (data) => {
+        return axios(updateProductInformation(data?.product, data?.information))
+            .then((response) => {
+                const product = response?.data;
+                console.log('slice', product);
+            })
+            .catch((error) => console.error(error));
+    },
+);
+
 export const productSlice = createSlice({
     name: 'product',
     initialState,
@@ -49,7 +65,8 @@ export const productSlice = createSlice({
             .addCase(createProductForProducer.rejected, (state, action) => {
                 state.status = 'Rejected';
                 state.loading = false;
-            })
+            });
+        builder
             .addCase(findProduct.pending, (state, action) => {
                 state.status = 'Pending';
                 state.loading = true;
@@ -60,6 +77,20 @@ export const productSlice = createSlice({
                 state.product = action.payload;
             })
             .addCase(findProduct.rejected, (state, action) => {
+                state.status = 'Rejected';
+                state.loading = false;
+            });
+        builder
+            .addCase(updateProduct.pending, (state, action) => {
+                state.status = 'Peding';
+                state.loading = false;
+            })
+            .addCase(updateProduct.fulfilled, (state, action) => {
+                state.status = 'Fulfilled';
+                state.loading = false;
+                state.product = action.payload;
+            })
+            .addCase(updateProduct.rejected, (state, action) => {
                 state.status = 'Rejected';
                 state.loading = false;
             });
