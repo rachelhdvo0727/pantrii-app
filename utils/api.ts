@@ -274,3 +274,27 @@ export const createProduct = (data: Product) => {
         data: productDataConfig(data),
     };
 };
+
+// FILTERING DATA
+
+const fetchFiltereddData = (collection: string, campaign: string) => {
+    return JSON.stringify({
+        collection: collection,
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            tags: {
+                $all: [campaign] 
+            },
+        },
+    });
+};
+
+export const fetchFilteredProducts = (collection: string, campaign: string) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
+        headers: headers,
+        data: fetchFiltereddData(collection, campaign),
+    };
+};

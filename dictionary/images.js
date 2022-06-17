@@ -34,3 +34,8 @@ export const productImages = {
     '627fc4457a0fa962a5cb745b-2.png': require('../assets/products/627fc4457a0fa962a5cb745b-2.png'),
     '627fc4457a0fa962a5cb745b-3.png': require('../assets/products/627fc4457a0fa962a5cb745b-3.png'),
 };
+
+export const campaignImages = {
+    '62864cca212c889524bc8f83.png': require('../assets/products/62864cca212c889524bc8f83.png'),
+    '62864b82212c889524bc8f7f.png': require('../assets/products/62864b82212c889524bc8f7f.png'),
+};
