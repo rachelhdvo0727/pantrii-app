@@ -275,15 +275,15 @@ export const createProduct = (data: Product) => {
     };
 };
 
-// Find one product
+// FIND ONE PRODUCT
 const productData = (id: Product['_id']) => {
     // Fetch by using ID or by email and password
     return JSON.stringify({
-        collection: 'users',
+        collection: 'products',
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
         filter: {
-            _id: id,
+            _id: { $oid: id },
         },
     });
 };

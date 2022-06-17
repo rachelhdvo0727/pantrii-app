@@ -14,7 +14,7 @@ export const createProductForProducer = createAsyncThunk(
         return axios(createProduct(data))
             .then((response) => {
                 const product = response?.data?.document;
-                console.log('slice', response);
+                // console.log('slice', response);
                 return product;
             })
             .catch((error) => console.error(error));
@@ -25,7 +25,7 @@ export const findProduct = createAsyncThunk('product/findProduct', (data) => {
     return axios(findProductById(data))
         .then((response) => {
             const product = response?.data?.document;
-            console.log('slice', response);
+            // console.log('slice', product);
             return product;
         })
         .catch((error) => console.error(error));
@@ -47,6 +47,19 @@ export const productSlice = createSlice({
                 state.product = action.payload;
             })
             .addCase(createProductForProducer.rejected, (state, action) => {
+                state.status = 'Rejected';
+                state.loading = false;
+            })
+            .addCase(findProduct.pending, (state, action) => {
+                state.status = 'Pending';
+                state.loading = true;
+            })
+            .addCase(findProduct.fulfilled, (state, action) => {
+                state.status = 'Fulfilled';
+                state.loading = false;
+                state.product = action.payload;
+            })
+            .addCase(findProduct.rejected, (state, action) => {
                 state.status = 'Rejected';
                 state.loading = false;
             });
