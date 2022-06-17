@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { fetchFilteredProducts } from '../../../utils/api';
 import { numberFormat } from '../../../utils/functions';
-import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 // Dictionary
 import dictionary from '../../../dictionary/campaigns';

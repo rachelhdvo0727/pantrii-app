@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { numberFormat } from '../../utils/functions';
-import { View, Dimensions, StyleSheet, Text } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { View, StyleSheet, Text } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
 import dictionary from '../../dictionary/campaigns';
 import generalStyles from '../../styles/General';
@@ -20,7 +19,6 @@ const CampaignCardSlider = () => {
 
     const content = dictionary?.campaigns; // DA dictionary
 
-    // const [products, setProducts] = useState([] as any[]);
     const [products, setProducts] = React.useState([]);
 
     React.useEffect(() => {
