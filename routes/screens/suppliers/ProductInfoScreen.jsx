@@ -1,71 +1,94 @@
 import React from 'react';
-import dictionary from '../../../dictionary/products.json';
-import { numberFormat } from '../../../utils/functions';
+import generalStyles from '../../../styles/General';
+import productDictionary from '../../../dictionary/products.json';
+import categoryDictionary from '../../../dictionary/categories.json';
+import { numberFormat, capitalize } from '../../../utils/functions';
 import { productImages } from '../../../dictionary/images';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 // Components
-import { StyleSheet, Text, View } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    ScrollView,
+    SafeAreaView,
+    Image,
+    Dimensions,
+} from 'react-native';
+import InputField from '../../../components/InputField';
+import InputFieldSelect from '../../../components/InputFieldSelect';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import ProductInfoCard from '../../../components/buyers/ProductInfoCard';
 // API & Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { findProduct } from '../../../redux/slice/product';
+import { findCategory } from '../../../redux/slice/categories';
 
 export default function ProductInfoScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const content = dictionary?.products;
-    const productId = props?.route?.params?.productId;
-    const productTitle = props?.route?.params?.productTitle;
-
-    const { product } = useSelector((state) => state.product);
+    const productContent = productDictionary?.products;
+    const categoryContent = categoryDictionary?.categories;
+    const product = props?.route?.params?.product;
+    const category = useSelector((state) => state.categories?.category);
 
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle: productTitle,
+            headerTitle: product?.productTitle,
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
         });
-        //   console.log(productId, product);
-
-        // Fetch data of the current product
-        dispatch(findProduct(productId));
+        // Find product's category
+        dispatch(findCategory(product?.categoryId));
     }, []);
 
+    const onEditProduct = (information) => {
+        navigation.navigate('ProductEditScreen', {
+            productId: product?._id,
+            informationSection: information,
+        });
+    };
+
     return (
-        <View>
-            <ProductInfoCard
-                productID={product?._id}
-                imageSrc={productImages[product?.imageSrc]}
-                productTitle={
-                    content.productTitle[product?.productTitle] ||
-                    product?.productTitle
-                }
-                producerTitle={product?.producerTitle}
-                productDesc={
-                    content.productTitle[product?.productDesc] ||
-                    product?.productDesc
-                }
-                productUnit={product?.productUnit}
-                bulkPrice={numberFormat(product?.bulkPrice)}
-                singlePrice={numberFormat(product?.singlePrice)}
-                productStory={
-                    content.productTitle[product?.productStory] ||
-                    product?.productStory
-                }
-                productUnique={
-                    content.productTitle[product?.productUnique] ||
-                    product?.productUnique
-                }
-                isCold={product.tags?.find((tag) => tag == 'cold')}
-                isOrganic={product.tags?.find((tag) => tag == 'organic')}
-                isFrozen={product.tags?.find((tag) => tag == 'frozen')}
-                expiryDuration={product?.expiryDuration}
-                isProducerView
-            />
-        </View>
+        <ProductInfoCard
+            isProducerView
+            onEditBottomSection={() => onEditProduct('bottom')}
+            onEditTopSection={() => onEditProduct('top')}
+            category={capitalize(categoryContent.name[category?.name])}
+            amountInStock={product?.amountInStock}
+            isSoldOut={product?.amountInStock === 0}
+            isLowOnStock={
+                product?.amountInStock < 10 || product?.amountInStock === 10
+            }
+            productID={product?._id}
+            imageSrc={productImages[product?.imageSrc]}
+            productTitle={
+                productContent?.productTitle[product?.productTitle] ||
+                product?.productTitle
+            }
+            producerTitle={product?.producerTitle}
+            productDesc={
+                productContent?.productDesc[product?.productDesc] ||
+                product?.productDesc
+            }
+            productUnit={product?.productUnit}
+            bulkPrice={numberFormat(product?.bulkPrice)}
+            singlePrice={numberFormat(product?.singlePrice)}
+            productStory={
+                productContent.productStory[product?.productStory] ||
+                product?.productStory
+            }
+            productUnique={
+                productContent.productUnique[product?.productUnique] ||
+                product?.productUnique
+            }
+            isCold={product?.tags?.find((tag) => tag == 'cold')}
+            isOrganic={product?.tags?.find((tag) => tag == 'organic')}
+            isFrozen={product?.tags?.find((tag) => tag == 'frozen')}
+            expiryDuration={product?.expiryDuration}
+        />
     );
 }
 
