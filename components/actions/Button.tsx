@@ -12,7 +12,7 @@ import { capitalize } from '@material-ui/core';
 export interface Props {
     onPress?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
     title: string | React.ComponentProps<typeof Text>['children'];
-    buttonStyle?: StyleProp<TouchableOpacityProps>;
+    buttonStyle?: React.ComponentProps<typeof TouchableOpacity>['style'];
     primary?: boolean;
     secondary?: boolean;
     outlined?: boolean;
