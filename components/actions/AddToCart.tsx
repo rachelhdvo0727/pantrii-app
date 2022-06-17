@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, Pressable, View, Dimensions } from 'react-native';
+import React from 'react';
+import { StyleSheet, Dimensions } from 'react-native';
 import generalStyles from '../../styles/General';
 import { AntDesign } from '@expo/vector-icons';
 // Components
 import Button from './Button';
 
 export interface Props {
-    onPress?: React.ComponentProps<typeof Pressable>['onPress'];
-    onPressOut?: React.ComponentProps<typeof Pressable>['onPress'];
-    onPressIn?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPress?: React.ComponentProps<typeof Button>['onPress'];
+    onPressOut?: React.ComponentProps<typeof Button>['onPressOut'];
+    onPressIn?: React.ComponentProps<typeof Button>['onPressIn'];
     secondary?: boolean;
     confirmed?: boolean;
     title?: string;
