@@ -17,7 +17,7 @@ import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import FavoriteButton from '../actions/FavoriteButton';
 import Product from '../../models/Product';
-import AddToCart from '../actions/AddToCart';
+import Button from '../actions/Button';
 // Dictionary
 import dictionary from '../../dictionary/products.json';
 
@@ -42,6 +42,8 @@ export interface Props {
     onPressAdd?: () => void;
     onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
     onPressUnFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
+    onEditProduct?: React.ComponentProps<typeof Button>['onPress'];
+    isProducerView?: boolean;
 }
 
 const ProductInfoCard = ({
@@ -62,6 +64,8 @@ const ProductInfoCard = ({
     onPressAdd,
     onPressFavourite,
     onPressUnFavourite,
+    onEditProduct,
+    isProducerView,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
@@ -171,30 +175,44 @@ const ProductInfoCard = ({
                     </Text>
                 </View>
             </ScrollView>
-            <View style={styles.bottomWrapper}>
-                <FavoriteButton
-                    isActive={productID == '' ? false : true}
-                    onPress={
-                        productID == '' ? onPressFavourite : onPressUnFavourite
-                    }
-                />
 
-                <AddToCart
-                    title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
-                    secondary={addItem ? false : true}
-                    confirmed={addItem ? true : false}
-                    onPressOut={() =>
-                        setTimeout(() => {
-                            setAddItem(false);
-                        }, 400)
-                    }
-                    onPressIn={() =>
-                        setTimeout(() => {
-                            setAddItem(true);
-                        }, 100)
-                    }
-                    onPress={onPressAdd}
-                />
+            <View style={styles.bottomWrapper}>
+                {!isProducerView ? (
+                    <React.Fragment>
+                        <FavoriteButton
+                            isActive={productID == '' ? false : true}
+                            onPress={
+                                productID == ''
+                                    ? onPressFavourite
+                                    : onPressUnFavourite
+                            }
+                        />
+                        <Button
+                            title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
+                            secondary={addItem ? false : true}
+                            confirmed={addItem ? true : false}
+                            onPressOut={() =>
+                                setTimeout(() => {
+                                    setAddItem(false);
+                                }, 500)
+                            }
+                            onPressIn={() =>
+                                setTimeout(() => {
+                                    setAddItem(true);
+                                }, 200)
+                            }
+                            onPress={onPressAdd}
+                        />
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        <Button
+                            title="Rediger"
+                            secondary
+                            onPress={onEditProduct}
+                        />
+                    </React.Fragment>
+                )}
             </View>
         </View>
     );
