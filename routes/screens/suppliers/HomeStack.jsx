@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import ProductInfoScreen from './ProductInfoScreen';
+import ProductEditScreen from './ProductEditScreen';
 import TopNavSuppliers from './TopNavSuppliers';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import { useNavigation } from '@react-navigation/native';
@@ -39,6 +40,13 @@ const HomeStack = () => {
             <Stack.Screen
                 name="ProductInfoScreen"
                 component={ProductInfoScreen}
+            />
+            <Stack.Screen
+                name="ProductEditScreen"
+                component={ProductEditScreen}
+                options={{
+                    headerTitle: 'REDIGER PRODUKT',
+                }}
             />
         </Stack.Navigator>
     );
