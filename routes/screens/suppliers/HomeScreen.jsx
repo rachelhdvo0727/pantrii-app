@@ -5,14 +5,7 @@ import dictionary from '../../../dictionary/products.json';
 import { productImages } from '../../../dictionary/images';
 import { numberFormat } from '../../../utils/functions';
 // Component
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    ScrollView,
-    FlatList,
-} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import HeroCard from '../../../components/buyers/HeroCard';
 import SystemMessageBanner from '../../../components/SystemMessageBanner';
 import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
@@ -20,6 +13,7 @@ import Button from '../../../components/actions/Button';
 import ViewButton from '../../../components/actions/ViewButton';
 import ProductCard from '../../../components/suppliers/ProductCard';
 import { Entypo } from '@expo/vector-icons';
+import Spinner from '../../../components/Spinner';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsForProducer } from '../../../redux/slice/producerProducts';
@@ -44,6 +38,7 @@ export default function HomeScreen(props) {
 
     return (
         <SafeAreaView style={styles.container}>
+            {!producerProducts.length === 0 && <Spinner />}
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
