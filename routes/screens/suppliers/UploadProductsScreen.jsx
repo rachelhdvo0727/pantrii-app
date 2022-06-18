@@ -3,7 +3,14 @@ import generalStyles from '../../../styles/General';
 import { categoriesOptions } from '../../../utils/variables';
 import dictionary from '../../../dictionary/general.json';
 // Components
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+} from 'react-native';
 import InputField from '../../../components/InputField';
 import InputFieldSelect from '../../../components/InputFieldSelect';
 import Button from '../../../components/actions/Button';
@@ -14,6 +21,8 @@ import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
 import ApprovedModal from '../../../components/ApprovedModal';
+import * as ImagePicker from 'expo-image-picker';
+import { ImagePickerMultipleResult } from 'expo-image-picker';
 // API & Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
@@ -85,6 +94,7 @@ export default function UploadProductsScreen(props) {
 
         dispatch(createProductForProducer(data));
         reset();
+        setModalVisible(!isModalVisible);
     };
 
     return (
@@ -269,7 +279,7 @@ export default function UploadProductsScreen(props) {
                         />
                     )}
                 />
-                <Button
+                {/* <Button
                     title="Upload billeder fra arkiv"
                     secondary
                     buttonStyle={[styles.buttons, styles.uploadButton]}
@@ -281,6 +291,13 @@ export default function UploadProductsScreen(props) {
                         />
                     }
                 />
+                 {image && (
+                    <Image
+                        source={{ uri: image }}
+                        style={{ width: 150, height: 150 }}
+                    />
+                )} */}
+
                 <Controller
                     name="expiryDuration"
                     control={control}
@@ -368,7 +385,6 @@ export default function UploadProductsScreen(props) {
                         />
                     )}
                 />
-
                 <Text style={styles.fieldLabel}>Tags</Text>
                 <View style={styles.checkboxGroup}>
                     <View style={styles.tagOption}>
