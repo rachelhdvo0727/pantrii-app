@@ -6,6 +6,8 @@ import NewProductsScreen from './NewProductsScreen';
 import HighLightProductsScreen from './HighlightProductsScreen';
 import CategoryScreen from './CategoryScreen';
 import ProductScreen from './ProductScreen';
+import CampaignScreen from './CampaignScreen';
+import AdvertisementScreen from './AdvertisementScreen';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import { useNavigation } from '@react-navigation/native';
 
@@ -72,6 +74,24 @@ const HomeStack = () => {
             <Stack.Screen
                 name="ProductScreen"
                 component={ProductScreen}
+                options={{
+                    headerTitle: '',
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                }}
+            />
+            <Stack.Screen
+                name="CampaignScreen"
+                component={CampaignScreen}
+                options={{
+                    headerTitle: '',
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                }}
+            />
+            <Stack.Screen
+                name="AdvertisementScreen"
+                component={AdvertisementScreen}
                 options={{
                     headerTitle: '',
                     headerBackTitleVisible: false,

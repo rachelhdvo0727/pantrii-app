@@ -17,6 +17,7 @@ const mongoDbData = (collection: string) => {
         collection: collection,
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
+        filter: { status: collection === 'products' ? 'approved' : null },
     });
 };
 
@@ -112,6 +113,7 @@ const fetchLatestData = (collection: string) => {
         sort: {
             dateTime: -1,
         },
+        filter: { status: 'approved' },
     });
 };
 
@@ -130,7 +132,7 @@ const fetchFeaturedData = (collection: string) => {
         collection: collection,
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
-        filter: { isFeatured: true },
+        filter: { isFeatured: true, status: 'approved' },
     });
 };
 
@@ -153,6 +155,7 @@ const categoryProductsData = (categoryId: string, sort?: number) => {
             categoryId: {
                 $oid: categoryId,
             },
+            status: 'approved',
         },
         sort: { completedAt: sort },
     });
@@ -235,7 +238,6 @@ export const findProducerProducts = (config?: Object) => {
 };
 
 // UPLOAD/CREATE PRODUCT
-
 const productDataConfig = (data: Product) => {
     return JSON.stringify({
         collection: 'products',
@@ -344,5 +346,54 @@ export const updateProductInformation = (
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/updateOne',
         headers: headers,
         data: currentProduct(data, information),
+    };
+};
+
+// FILTERING CAMPAIGNS
+const fetchFilteredData = (collection: string, campaign: string) => {
+    return JSON.stringify({
+        collection: collection,
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            tags: {
+                $all: [campaign],
+            },
+            status: 'approved',
+        },
+    });
+};
+
+export const fetchFilteredProducts = (collection: string, campaign: string) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
+        headers: headers,
+        data: fetchFilteredData(collection, campaign),
+    };
+};
+
+// FILTERING ADVERTISEMENTS
+const fetchAdvertData = (collection: string, producerTitle: string) => {
+    return JSON.stringify({
+        collection: collection,
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            producerTitle: producerTitle,
+            status: 'approved',
+        },
+    });
+};
+
+export const fetchAdvertProducts = (
+    collection: string,
+    producerTitle: string,
+) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
+        headers: headers,
+        data: fetchAdvertData(collection, producerTitle),
     };
 };
