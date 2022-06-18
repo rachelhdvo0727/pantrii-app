@@ -1,38 +1,38 @@
 import React from 'react';
 import {
-    View,
     Text,
     StyleSheet,
-    Dimensions,
-    Image,
     Pressable,
     ImageBackground,
+    TouchableOpacity,
 } from 'react-native';
 import { SLIDER_WIDTH } from '../../utils/variables';
 
 export const ITEM_WIDTH = SLIDER_WIDTH - 30;
 
 export interface Props {
-    onPress?: () => void;
+    onPress?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
     title: string;
-    imageSrc: { uri: string };
+    imageSrc: React.ComponentProps<typeof ImageBackground>['source'];
     secondary?: boolean;
+    banner?: boolean;
 }
 
-const HeroCard = ({ title, imageSrc, onPress, secondary }: Props) => {
+const HeroCard = ({ title, imageSrc, onPress, secondary, banner }: Props) => {
     return (
-        <Pressable
+        <TouchableOpacity
             style={[styles.featuredWrapper, secondary && styles.secondary]}
+            onPress={onPress}
         >
             <ImageBackground
                 source={imageSrc}
                 style={styles.imageBg}
                 resizeMode="cover"
-                imageStyle={{ borderRadius: 10 }}
+                imageStyle={{ borderRadius: banner ? 0 : 10 }}
             >
                 <Text style={styles.featuredTitle}>{title}</Text>
             </ImageBackground>
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 

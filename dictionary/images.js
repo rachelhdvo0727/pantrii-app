@@ -33,4 +33,17 @@ export const productImages = {
     '627fc4457a0fa962a5cb745b-1.png': require('../assets/products/627fc4457a0fa962a5cb745b-1.png'),
     '627fc4457a0fa962a5cb745b-2.png': require('../assets/products/627fc4457a0fa962a5cb745b-2.png'),
     '627fc4457a0fa962a5cb745b-3.png': require('../assets/products/627fc4457a0fa962a5cb745b-3.png'),
+    '62adb7ef3e3f201ba2a0a9e3.png': require('../assets/products/62adb7ef3e3f201ba2a0a9e3.png'),
+    '62a8f8ec20563b8fd395da4a.png': require('../assets/products/62a8f8ec20563b8fd395da4a.png'),
+};
+
+export const campaignImages = {
+    '62864cca212c889524bc8f83.png': require('../assets/products/62864cca212c889524bc8f83.png'),
+    '62864b82212c889524bc8f7f.png': require('../assets/products/62864b82212c889524bc8f7f.png'),
+};
+
+export const adImages = {
+    '62864b82212c889524bc8f7f.png': require('../assets/banners/62864b82212c889524bc8f7f.png'),
+    '62865146212c889524bc8f87.png': require('../assets/banners/62865146212c889524bc8f87.png'),
+    '62865197212c889524bc8f88.png': require('../assets/banners/62865197212c889524bc8f88.png'),
 };
