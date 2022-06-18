@@ -2,8 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import HomeSuppliersScreen from './HomeScreen';
-import ProductsSuppliersScreen from './ProductsScreen';
+import HomeStack from './HomeStack';
+import ProductsScreen from './ProductsScreen';
+import ProductsStack from './ProductsStack';
 import UploadProductsScreen from './UploadProductsScreen';
 import TopNavSuppliers from './TopNavSuppliers';
 import UserProfileStack from '../UserProfileStack';
@@ -46,10 +47,10 @@ export default function BottomTabSuppliers(props) {
         >
             <Tab.Screen
                 name="Hjem"
-                component={HomeSuppliersScreen}
+                component={HomeStack}
                 initialParams={props?.route?.params}
                 options={{
-                    headerTitle: (props) => <TopNavSuppliers {...props} />,
+                    headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
@@ -63,10 +64,10 @@ export default function BottomTabSuppliers(props) {
             />
             <Tab.Screen
                 name="Produkter"
-                component={ProductsSuppliersScreen}
+                component={ProductsStack}
                 initialParams={props?.route?.params}
                 options={{
-                    headerTitle: 'alle produkter',
+                    headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons

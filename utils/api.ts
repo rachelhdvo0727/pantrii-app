@@ -1,5 +1,6 @@
 import User from '../models/User';
 import Product from '../models/Product';
+import Category from '../models/Category';
 const CryptoJS = require('crypto-js');
 import * as Crypto from 'expo-crypto';
 
@@ -16,7 +17,7 @@ const mongoDbData = (collection: string) => {
         collection: collection,
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
-        filter: {status: collection === 'products' ? 'approved': null}
+        filter: { status: collection === 'products' ? 'approved' : null },
     });
 };
 
@@ -112,7 +113,7 @@ const fetchLatestData = (collection: string) => {
         sort: {
             dateTime: -1,
         },
-        filter: { status: 'approved' }
+        filter: { status: 'approved' },
     });
 };
 
@@ -236,8 +237,7 @@ export const findProducerProducts = (config?: Object) => {
     };
 };
 
-// Upload & Create a product
-
+// UPLOAD/CREATE PRODUCT
 const productDataConfig = (data: Product) => {
     return JSON.stringify({
         collection: 'products',
@@ -278,8 +278,78 @@ export const createProduct = (data: Product) => {
     };
 };
 
-// FILTERING CAMPAIGNS
+// FIND ONE PRODUCT
+const productData = (id: Product['_id']) => {
+    // Fetch by using ID or by email and password
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            _id: { $oid: id },
+        },
+    });
+};
 
+export const findProductById = (id: Product['_id']) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/findOne',
+        headers: headers,
+        data: productData(id),
+    };
+};
+
+// FIND ONE CATEGORY
+const categoryData = (id: Category['_id']) => {
+    // Fetch by using ID or by email and password
+    return JSON.stringify({
+        collection: 'categories',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            _id: { $oid: id },
+        },
+    });
+};
+
+export const findCategoryById = (id: Category['_id']) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/findOne',
+        headers: headers,
+        data: categoryData(id),
+    };
+};
+
+// EDITING PRODUCT INFORMATION
+const currentProduct = (data: Product, information: Object) => {
+    return JSON.stringify({
+        collection: 'products',
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: {
+            _id: { $oid: data?._id },
+        },
+        update: {
+            $set: information,
+        },
+    });
+};
+
+export const updateProductInformation = (
+    data: Product,
+    information: Object,
+) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/updateOne',
+        headers: headers,
+        data: currentProduct(data, information),
+    };
+};
+
+// FILTERING CAMPAIGNS
 const fetchFilteredData = (collection: string, campaign: string) => {
     return JSON.stringify({
         collection: collection,
@@ -287,9 +357,9 @@ const fetchFilteredData = (collection: string, campaign: string) => {
         database: 'pantriiapp',
         filter: {
             tags: {
-                $all: [campaign] 
+                $all: [campaign],
             },
-            status: 'approved'
+            status: 'approved',
         },
     });
 };
@@ -304,20 +374,22 @@ export const fetchFilteredProducts = (collection: string, campaign: string) => {
 };
 
 // FILTERING ADVERTISEMENTS
-
 const fetchAdvertData = (collection: string, producerTitle: string) => {
     return JSON.stringify({
         collection: collection,
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
         filter: {
-           producerTitle: producerTitle,
-           status: 'approved'
+            producerTitle: producerTitle,
+            status: 'approved',
         },
     });
 };
 
-export const fetchAdvertProducts = (collection: string, producerTitle: string) => {
+export const fetchAdvertProducts = (
+    collection: string,
+    producerTitle: string,
+) => {
     return {
         method: 'post',
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
