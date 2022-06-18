@@ -15,9 +15,10 @@ export interface Props {
     title: string;
     imageSrc: React.ComponentProps<typeof ImageBackground>['source'];
     secondary?: boolean;
+    banner?: boolean;
 }
 
-const HeroCard = ({ title, imageSrc, onPress, secondary }: Props) => {
+const HeroCard = ({ title, imageSrc, onPress, secondary, banner }: Props) => {
     return (
         <TouchableOpacity
             style={[styles.featuredWrapper, secondary && styles.secondary]}
@@ -27,7 +28,7 @@ const HeroCard = ({ title, imageSrc, onPress, secondary }: Props) => {
                 source={imageSrc}
                 style={styles.imageBg}
                 resizeMode="cover"
-                imageStyle={{ borderRadius: 10 }}
+                imageStyle={{ borderRadius: banner ? 0 : 10 }}
             >
                 <Text style={styles.featuredTitle}>{title}</Text>
             </ImageBackground>

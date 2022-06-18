@@ -312,6 +312,7 @@ const fetchAdvertData = (collection: string, producerTitle: string) => {
         database: 'pantriiapp',
         filter: {
            producerTitle: producerTitle,
+           status: 'approved'
         },
     });
 };

@@ -6,13 +6,13 @@ import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 // Dictionary
 import productDictionary from '../../../dictionary/products';
-
-import { productImages } from '../../../dictionary/images';
+import { productImages, adImages } from '../../../dictionary/images';
 // Api
 import axios from 'axios';
 // Components
 import BackIconButton from '../../../components/actions/BackIconButton';
 import ProductCard from '../../../components/buyers/ProductCard';
+import HeroCard from '../../../components/buyers/HeroCard';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
@@ -25,7 +25,7 @@ export default function AdvertisementScreen(props) {
     const navigation = useNavigation();
     const productContent = productDictionary?.products;
 
-    const adTitle = props?.route?.params?.product;
+    const advert = props?.route?.params?.product;
     const [products, setProducts] = React.useState([]);
 
     const dispatch = useDispatch();
@@ -35,14 +35,14 @@ export default function AdvertisementScreen(props) {
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle: adTitle?.title?.toUpperCase(),
+            headerTitle: advert?.title?.toUpperCase(),
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
         });
 
         // Fetch this category's products
-        axios(fetchAdvertProducts('products', adTitle?.title))
+        axios(fetchAdvertProducts('products', advert?.title))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })
@@ -53,6 +53,11 @@ export default function AdvertisementScreen(props) {
 
     return (
         <SafeAreaView style={[generalStyles.container]}>
+            <HeroCard
+                title={advert?.title}
+                imageSrc={adImages[advert?.imageSrc]}
+                banner
+            />
             <FlatList
                 data={products}
                 keyExtractor={(item) => item?._id}

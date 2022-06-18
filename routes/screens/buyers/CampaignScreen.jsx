@@ -7,13 +7,13 @@ import generalStyles from '../../../styles/General';
 // Dictionary
 import dictionary from '../../../dictionary/campaigns';
 import productDictionary from '../../../dictionary/products';
-
-import { productImages } from '../../../dictionary/images';
+import { productImages, campaignImages } from '../../../dictionary/images';
 // Api
 import axios from 'axios';
 // Components
 import BackIconButton from '../../../components/actions/BackIconButton';
 import ProductCard from '../../../components/buyers/ProductCard';
+import HeroCard from '../../../components/buyers/HeroCard';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
@@ -56,6 +56,11 @@ export default function CampaignScreen(props) {
 
     return (
         <SafeAreaView style={[generalStyles.container]}>
+            <HeroCard
+                title={campaignTitle?.title}
+                imageSrc={campaignImages[campaignTitle?.imageSrc]}
+                banner
+            />
             <FlatList
                 data={products}
                 keyExtractor={(item) => item?._id}
