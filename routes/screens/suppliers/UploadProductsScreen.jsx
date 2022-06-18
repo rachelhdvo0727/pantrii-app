@@ -13,6 +13,7 @@ import { Checkbox } from 'react-native-paper';
 import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
+import ApprovedModal from '../../../components/ApprovedModal';
 // API & Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
@@ -38,6 +39,8 @@ export default function UploadProductsScreen(props) {
 
     const [checkedOrganic, setCheckOrganic] = React.useState('');
     const [isOrganic, setIsOrganic] = React.useState(false);
+
+    const [isModalVisible, setModalVisible] = React.useState(false);
 
     React.useEffect(() => {
         dispatch(getCategories(false));
@@ -84,6 +87,19 @@ export default function UploadProductsScreen(props) {
 
     return (
         <SafeAreaView style={styles.container}>
+            {isModalVisible && (
+                <ApprovedModal
+                    isModalVisible={isModalVisible}
+                    waitingIcon
+                    messageTitle="Afvente godkend"
+                    messageText="Vi vil gennemgå varesoplysningers og vende tilbage med et status. Tak for din tålmodighed"
+                    hasButton
+                    buttonTitle="glæder mig"
+                    onPress={() => {
+                        navigation.goBack();
+                    }}
+                />
+            )}
             <ScrollView style={{ paddingVertical: 10 }}>
                 <Controller
                     name="productTitle"
@@ -263,9 +279,27 @@ export default function UploadProductsScreen(props) {
                         />
                     }
                 />
+                <Controller
+                    name="expiryDuration"
+                    control={control}
+                    render={({
+                        field: { onChange, onBlur, value },
+                        fieldState: { error },
+                    }) => (
+                        <InputField
+                            label="forventet holdbarhed"
+                            placeholder="x dage/måned/år"
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            autoComplete={false}
+                            errorMessage={error}
+                        />
+                    )}
+                />
                 <InputFieldSelect
-                    label="kategorie *"
-                    placeholder="Vælge en kategorie"
+                    label="kategorier *"
+                    placeholder="Vælge en kategori"
                     data={categoriesOptions?.sort((a, b) =>
                         a.label.normalize().localeCompare(b.label.normalize()),
                     )}
@@ -289,7 +323,6 @@ export default function UploadProductsScreen(props) {
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
-                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
@@ -310,7 +343,6 @@ export default function UploadProductsScreen(props) {
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
-                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
@@ -331,29 +363,10 @@ export default function UploadProductsScreen(props) {
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
-                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
-                <Controller
-                    name="expiryDuration"
-                    control={control}
-                    render={({
-                        field: { onChange, onBlur, value },
-                        fieldState: { error },
-                    }) => (
-                        <InputField
-                            label="forventet holdbarhed"
-                            placeholder="x dage/måned/år"
-                            multiline
-                            value={value}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            autoComplete={false}
-                            errorMessage={error}
-                        />
-                    )}
-                />
+
                 <Text style={styles.fieldLabel}>Tags</Text>
                 <View style={styles.checkboxGroup}>
                     <View style={styles.tagOption}>
