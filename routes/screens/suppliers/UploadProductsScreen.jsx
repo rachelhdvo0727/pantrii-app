@@ -429,7 +429,8 @@ const styles = StyleSheet.create({
     fieldset: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingBottom: 15,
+        paddingBottom: 5,
+        paddingTop: 5,
     },
     fieldsetCell: { flex: 1 },
     fieldLabel: {
@@ -466,6 +467,6 @@ const styles = StyleSheet.create({
     icon: { position: 'absolute', left: 50 },
     createButton: { width: '50%', marginBottom: 25 },
     selectDropdown: {
-        marginBottom: 30,
+        // ma: 30,
     },
 });
