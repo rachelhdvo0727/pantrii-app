@@ -33,7 +33,7 @@ export interface Props {
     bulkPrice: Product['bulkPrice'];
     singlePrice: Product['singlePrice'];
     amountInStock?: Product['amountInStock'];
-    status?: Product['status'] | undefined;
+    status?: Product['status'] | any;
     isLowOnStock?: boolean;
     isSoldOut?: boolean;
     category?: string | undefined;

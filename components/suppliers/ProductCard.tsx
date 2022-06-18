@@ -14,7 +14,7 @@ export interface Props {
     amountInStock: Product['amountInStock'];
     bulkPrice: Product['bulkPrice'];
     singlePrice: Product['singlePrice'];
-    status?: Product['status'] | undefined;
+    status?: Product['status'] | any;
     isLowOnStock?: boolean;
     isSoldOut?: boolean;
     imageSrc?: React.ComponentProps<typeof Image>['source'];
