@@ -48,6 +48,7 @@ export default function BottomTabSuppliers(props) {
                 component={HomeStack}
                 initialParams={props?.route?.params}
                 options={{
+                    unmountOnBlur: true,
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -65,6 +66,7 @@ export default function BottomTabSuppliers(props) {
                 component={ProductsStack}
                 initialParams={props?.route?.params}
                 options={{
+                    unmountOnBlur: true,
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -84,6 +86,7 @@ export default function BottomTabSuppliers(props) {
                 component={UploadProductsScreen}
                 initialParams={props?.route?.params}
                 options={{
+                    unmountOnBlur: true,
                     headerTitle: 'opret et produkt',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -101,6 +104,7 @@ export default function BottomTabSuppliers(props) {
                 component={UserProfileStack}
                 initialParams={props?.route?.params}
                 options={{
+                    unmountOnBlur: true,
                     headerShown: false,
                     headerTitle: (props) => <TopNavSuppliers {...props} />,
                     tabBarIcon: ({ focused, color }) => (
