@@ -10,7 +10,6 @@ const initialState = {
 };
 
 export const getUser = createAsyncThunk('user/getUser', (data) => {
-    // console.log('slice', data);
     return axios(findUser(data.data, data.byId))
         .then((response) => {
             const data = response?.data?.document;
