@@ -3,19 +3,27 @@ import generalStyles from '../../../styles/General';
 import { categoriesOptions } from '../../../utils/variables';
 import dictionary from '../../../dictionary/general.json';
 // Components
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+} from 'react-native';
 import InputField from '../../../components/InputField';
 import InputFieldSelect from '../../../components/InputFieldSelect';
 import Button from '../../../components/actions/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
-import { RadioButton, Checkbox } from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
 import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
+import ApprovedModal from '../../../components/ApprovedModal';
+import * as ImagePicker from 'expo-image-picker';
+import { ImagePickerMultipleResult } from 'expo-image-picker';
 // API & Redux
-import axios from 'axios';
-import { createProduct } from '../../../utils/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
 import { createProductForProducer } from '../../../redux/slice/product';
@@ -41,6 +49,8 @@ export default function UploadProductsScreen(props) {
     const [checkedOrganic, setCheckOrganic] = React.useState('');
     const [isOrganic, setIsOrganic] = React.useState(false);
 
+    const [isModalVisible, setModalVisible] = React.useState(false);
+
     React.useEffect(() => {
         dispatch(getCategories(false));
     }, []);
@@ -61,6 +71,8 @@ export default function UploadProductsScreen(props) {
             categoryId: '',
             dateTime: new Date(),
             tags: ['', '', ''],
+            expiryDuration: '',
+            status: '',
         },
     });
 
@@ -76,15 +88,30 @@ export default function UploadProductsScreen(props) {
         data.productUnit = data.amountPerPack + ' x ' + data.weight;
         data.amountInStock = parseInt(data.amountInStock); // Change amountInStock to number
         data.tags = [checkedCold, checkedFrozen, checkedOrganic];
+        data.status = 'pending';
         delete data.amountPerPack;
         delete data.weight;
 
         dispatch(createProductForProducer(data));
         reset();
+        setModalVisible(!isModalVisible);
     };
 
     return (
         <SafeAreaView style={styles.container}>
+            {isModalVisible && (
+                <ApprovedModal
+                    isModalVisible={isModalVisible}
+                    waitingIcon
+                    messageTitle="Afvente godkend"
+                    messageText="Vi vil gennemgå varesoplysningers og vende tilbage med et status. Tak for din tålmodighed"
+                    hasButton
+                    buttonTitle="glæder mig"
+                    onPress={() => {
+                        navigation.goBack();
+                    }}
+                />
+            )}
             <ScrollView style={{ paddingVertical: 10 }}>
                 <Controller
                     name="productTitle"
@@ -252,7 +279,7 @@ export default function UploadProductsScreen(props) {
                         />
                     )}
                 />
-                <Button
+                {/* <Button
                     title="Upload billeder fra arkiv"
                     secondary
                     buttonStyle={[styles.buttons, styles.uploadButton]}
@@ -264,9 +291,34 @@ export default function UploadProductsScreen(props) {
                         />
                     }
                 />
+                 {image && (
+                    <Image
+                        source={{ uri: image }}
+                        style={{ width: 150, height: 150 }}
+                    />
+                )} */}
+
+                <Controller
+                    name="expiryDuration"
+                    control={control}
+                    render={({
+                        field: { onChange, onBlur, value },
+                        fieldState: { error },
+                    }) => (
+                        <InputField
+                            label="forventet holdbarhed"
+                            placeholder="x dage/måned/år"
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            autoComplete={false}
+                            errorMessage={error}
+                        />
+                    )}
+                />
                 <InputFieldSelect
-                    label="kategorie *"
-                    placeholder="Vælge en kategorie"
+                    label="kategorier *"
+                    placeholder="Vælge en kategori"
                     data={categoriesOptions?.sort((a, b) =>
                         a.label.normalize().localeCompare(b.label.normalize()),
                     )}
@@ -290,7 +342,6 @@ export default function UploadProductsScreen(props) {
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
-                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
@@ -311,7 +362,6 @@ export default function UploadProductsScreen(props) {
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
-                            inputStyle={styles.productDesc}
                         />
                     )}
                 />
@@ -332,7 +382,6 @@ export default function UploadProductsScreen(props) {
                             autoComplete={false}
                             autoCapitalize="words"
                             errorMessage={error}
-                            inputStyle={styles.productDesc}
                         />
                     )}
                 />

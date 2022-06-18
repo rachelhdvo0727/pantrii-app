@@ -61,14 +61,14 @@ const HomeStack = () => {
                     ),
                 }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="CategoryScreen"
                 component={CategoryScreen}
                 options={{
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}
-            />
+            /> */}
             <Stack.Screen
                 name="ProductScreen"
                 component={ProductScreen}

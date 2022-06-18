@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useCallback } from 'react';
-import { numberFormat } from '../../utils/functions';
+import generalStyles from '../../styles/General';
+import { numberFormat, capitalize } from '../../utils/functions';
 // Components
 import {
     View,
@@ -12,12 +13,13 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import IconButton from '../actions/IconButton';
 import ThermoIcon from '../svgs/ThermoIcon';
 import OrganicIcon from '../svgs/OrganicIcon';
 import FrozenIcon from '../svgs/FrozenIcon';
 import FavoriteButton from '../actions/FavoriteButton';
 import Product from '../../models/Product';
-import AddToCart from '../actions/AddToCart';
+import Button from '../actions/Button';
 // Dictionary
 import dictionary from '../../dictionary/products.json';
 
@@ -30,6 +32,11 @@ export interface Props {
     productUnit: Product['productUnit'];
     bulkPrice: Product['bulkPrice'];
     singlePrice: Product['singlePrice'];
+    amountInStock?: Product['amountInStock'];
+    status?: Product['status'] | any;
+    isLowOnStock?: boolean;
+    isSoldOut?: boolean;
+    category?: string | undefined;
     secondary?: boolean;
     isCold?: string;
     isFrozen?: string;
@@ -42,6 +49,9 @@ export interface Props {
     onPressAdd?: () => void;
     onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
     onPressUnFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
+    onEditBottomSection?: React.ComponentProps<typeof IconButton>['onPress'];
+    onEditTopSection?: React.ComponentProps<typeof IconButton>['onPress'];
+    isProducerView?: boolean;
 }
 
 const ProductInfoCard = ({
@@ -51,6 +61,8 @@ const ProductInfoCard = ({
     producerTitle,
     productDesc,
     productUnit,
+    amountInStock,
+    category,
     bulkPrice,
     singlePrice,
     isCold,
@@ -62,6 +74,12 @@ const ProductInfoCard = ({
     onPressAdd,
     onPressFavourite,
     onPressUnFavourite,
+    onEditBottomSection,
+    onEditTopSection,
+    isProducerView,
+    isLowOnStock,
+    isSoldOut,
+    status,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
@@ -126,40 +144,103 @@ const ProductInfoCard = ({
                             <Text style={styles.singularPrice}>
                                 {singlePrice}/enhed
                             </Text>
+                            <Text
+                                style={[
+                                    styles.singularPrice,
+                                    { fontSize: 14 },
+                                    status === 'approved' &&
+                                        styles.amountPositive,
+                                    status === 'rejected' &&
+                                        styles.amountNegative,
+                                    status === 'pending' && styles.amountLow,
+                                ]}
+                            >
+                                {capitalize(status)}
+                            </Text>
                         </View>
                     </View>
+                    {isProducerView && (
+                        <IconButton
+                            arrowRight
+                            title="Redigér"
+                            onPress={onEditTopSection}
+                            isActive={isProducerView}
+                            iconButtonStyle={styles.editButton}
+                        ></IconButton>
+                    )}
                 </View>
-                <View style={styles.wrapper}>
-                    <Text style={styles.headerH1}>Levering</Text>
-                    <Text style={styles.flexText}>
-                        <Feather
-                            name="box"
-                            size={14}
-                            color="black"
-                            iconStyle={{ marginRight: 10 }}
-                        />
-                        {content.delivery.deliveryCost}
-                        {numberFormat(deliveryPrice)}
-                    </Text>
-                    <Text style={styles.flexText}>
-                        <MaterialCommunityIcons
-                            name="truck-outline"
-                            size={14}
-                            color="black"
-                        />
-                        {content.delivery.deliveryDate} &nbsp;
-                        {deliveryDate}
-                    </Text>
-                </View>
+
+                {!isProducerView ? (
+                    <View style={styles.wrapper}>
+                        <Text style={styles.headerH1}>Levering</Text>
+                        <Text style={styles.flexText}>
+                            <Feather
+                                name="box"
+                                size={14}
+                                color="black"
+                                iconStyle={{ marginRight: 10 }}
+                            />
+                            {content.delivery.deliveryCost}
+                            {numberFormat(deliveryPrice)}
+                        </Text>
+                        <Text style={styles.flexText}>
+                            <MaterialCommunityIcons
+                                name="truck-outline"
+                                size={14}
+                                color="black"
+                            />
+                            {content.delivery.deliveryDate} &nbsp;
+                            {deliveryDate}
+                        </Text>
+                    </View>
+                ) : null}
+
                 <View style={styles.wrapperBottom}>
+                    {isProducerView ? (
+                        <View style={styles.producerMidSection}>
+                            <View>
+                                <Text style={styles.headerH1}>Kategori</Text>
+                                <Text style={styles.p}>{category}</Text>
+                            </View>
+                            <View>
+                                <Text
+                                    style={[
+                                        styles.headerH1,
+                                        { textAlign: 'right' },
+                                    ]}
+                                >
+                                    Antal
+                                </Text>
+                                {isSoldOut ? (
+                                    <Text
+                                        style={[
+                                            styles.amountNumber,
+                                            styles.amountNegative,
+                                        ]}
+                                    >
+                                        UDSOLGT
+                                    </Text>
+                                ) : (
+                                    <Text
+                                        style={[
+                                            styles.amountNumber,
+                                            isLowOnStock
+                                                ? styles.amountLow
+                                                : styles.amountPositive,
+                                        ]}
+                                    >
+                                        {amountInStock}
+                                    </Text>
+                                )}
+                            </View>
+                        </View>
+                    ) : null}
+
                     <Text style={styles.headerH1}>Produktbeskrivelse</Text>
                     <Text style={styles.p}>{productStory}</Text>
-                    <Text style={styles.headerH1}>
-                        Varens produktion adskiller sig fra lignende varer
-                        fordi...
-                    </Text>
+                    <Text style={styles.headerH1}>Produktkendetegnelse</Text>
                     <Text style={styles.p}>{productUnique}</Text>
-                    <Text style={styles.headerH1}>Forventet holdbarhed...</Text>
+                    <Text style={styles.headerH1}>Forventet holdbarhed</Text>
                     <Text style={styles.flexText}>
                         <MaterialCommunityIcons
                             name="clock-time-two-outline"
@@ -169,33 +250,46 @@ const ProductInfoCard = ({
                         &nbsp;
                         {expiryDuration}
                     </Text>
+                    {isProducerView && (
+                        <IconButton
+                            arrowRight
+                            title="Redigér"
+                            onPress={onEditBottomSection}
+                            isActive={isProducerView}
+                            iconButtonStyle={styles.editButton}
+                        ></IconButton>
+                    )}
                 </View>
             </ScrollView>
-            <View style={styles.bottomWrapper}>
-                <FavoriteButton
-                    isActive={productID == '' ? false : true}
-                    onPress={
-                        productID == '' ? onPressFavourite : onPressUnFavourite
-                    }
-                />
-
-                <AddToCart
-                    title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
-                    secondary={addItem ? false : true}
-                    confirmed={addItem ? true : false}
-                    onPressOut={() =>
-                        setTimeout(() => {
-                            setAddItem(false);
-                        }, 400)
-                    }
-                    onPressIn={() =>
-                        setTimeout(() => {
-                            setAddItem(true);
-                        }, 100)
-                    }
-                    onPress={onPressAdd}
-                />
-            </View>
+            {/* Controlpanel */}
+            {!isProducerView ? (
+                <View style={styles.bottomWrapper}>
+                    <FavoriteButton
+                        isActive={productID == '' ? false : true}
+                        onPress={
+                            productID == ''
+                                ? onPressFavourite
+                                : onPressUnFavourite
+                        }
+                    />
+                    <Button
+                        title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
+                        secondary={addItem ? false : true}
+                        confirmed={addItem ? true : false}
+                        onPressOut={() =>
+                            setTimeout(() => {
+                                setAddItem(false);
+                            }, 500)
+                        }
+                        onPressIn={() =>
+                            setTimeout(() => {
+                                setAddItem(true);
+                            }, 200)
+                        }
+                        onPress={onPressAdd}
+                    />
+                </View>
+            ) : null}
         </View>
     );
 };
@@ -218,7 +312,8 @@ const styles = StyleSheet.create({
         color: 'black',
         fontFamily: 'TT-Commons-Bold',
         letterSpacing: 0.6,
-        paddingVertical: 8,
+        paddingTop: 10,
+        paddingBottom: 2,
         paddingHorizontal: 20,
         lineHeight: 20,
     },
@@ -227,9 +322,16 @@ const styles = StyleSheet.create({
         color: 'black',
         fontFamily: 'TT-Commons-Regular',
         letterSpacing: 0.6,
-        paddingVertical: 5,
+        paddingVertical: 3,
         paddingHorizontal: 20,
         lineHeight: 20,
+    },
+    amountNumber: {
+        ...generalStyles.mediumText,
+        lineHeight: 20,
+        paddingVertical: 3,
+        paddingHorizontal: 20,
+        textAlign: 'right',
     },
     favouriteWrapper: {
         alignItems: 'center',
@@ -349,4 +451,12 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(189, 189, 189, 0.5)',
         alignItems: 'center',
     },
+    editButton: { alignSelf: 'flex-end' },
+    producerMidSection: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    amountPositive: { color: '#9DB76E' },
+    amountLow: { color: '#EA6F2D' },
+    amountNegative: { color: '#FF0000' },
 });

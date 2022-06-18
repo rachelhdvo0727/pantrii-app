@@ -1,7 +1,6 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
-import User from '../../models/User';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 // Components
@@ -63,8 +62,10 @@ export default function ProfileEditScreen(props) {
         if (informationType === 'profile') {
             delete dataDifferences?.address;
         }
-        dispatch(updateUser({ user: data, information: dataDifferences })); // POST to database
-        // // dispatch(editUser({ data })); // update user's state
+
+        Object.keys(dataDifferences).length !== 0 &&
+            dispatch(updateUser({ user: data, information: dataDifferences })); // POST to database
+
         navigation?.goBack(); // Back to display screen
     };
 

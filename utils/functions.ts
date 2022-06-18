@@ -8,7 +8,7 @@ export async function saveData(key: string, value: string) {
 
 // Capitalize 1st letter in a sentence/string
 export const capitalize = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string?.charAt(0).toUpperCase() + string?.slice(1);
 };
 
 // Format string price to number

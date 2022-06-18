@@ -22,7 +22,7 @@ import FavoriteButton from '../actions/FavoriteButton';
 import IconButton from '../actions/IconButton';
 import CloseButton from '../actions/CloseButton';
 import Product from '../../models/Product';
-import AddToCart from '../actions/AddToCart';
+import Button from '../actions/Button';
 
 export interface Props {
     cardStyle: StyleProp<TouchableOpacityProps>;
@@ -205,7 +205,7 @@ const ProductCard = ({
                                     />
                                 </View>
                                 <View style={styles.paddingRight}>
-                                    <AddToCart
+                                    <Button
                                         title={
                                             !addItem
                                                 ? 'Tilføj til kurv'
@@ -216,13 +216,12 @@ const ProductCard = ({
                                         onPressOut={() =>
                                             setTimeout(() => {
                                                 setAddItem(false);
-                                            }, 400)
+                                            }, 500)
                                         }
                                         onPressIn={() =>
                                             setTimeout(() => {
-                                                toggleModal();
                                                 setAddItem(true);
-                                            }, 100)
+                                            }, 200)
                                         }
                                         onPress={onPressAdd}
                                     />

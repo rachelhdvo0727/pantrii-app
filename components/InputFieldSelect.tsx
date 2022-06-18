@@ -28,7 +28,10 @@ export interface Props {
     placeholder?: string;
     data: Array<Option>;
     onSelect(item: Option): void;
+    onFocus?: React.ComponentProps<typeof TouchableOpacity>['onFocus'];
+    focused?: boolean;
     selectedItem?: Option;
+    hasDefaultValue?: boolean;
 }
 
 export default function InputFieldSelect({
@@ -36,21 +39,24 @@ export default function InputFieldSelect({
     placeholder,
     data,
     onSelect,
+    onFocus,
+    focused,
+    hasDefaultValue,
     selectedItem,
 }: Props) {
     const [visible, setVisible] = React.useState(false);
     const [selectedOption, setSelectedItem] = React.useState(selectedItem);
+    const [isValueChanged, setIsValueChanged] = React.useState(false);
 
-    React.useEffect(() => {
-        console.log();
-    });
     const toggleDropdown = () => {
         setVisible(!visible);
+        setIsValueChanged(true);
     };
     const handleOnSelect = (item: Option) => {
         onSelect(item);
         setVisible(false);
         setSelectedItem(item);
+        setIsValueChanged(true);
     };
 
     const renderItem = (item: Option, index: number | string) => (
@@ -86,7 +92,11 @@ export default function InputFieldSelect({
     };
 
     return (
-        <TouchableOpacity style={styles.container} onPress={toggleDropdown}>
+        <TouchableOpacity
+            style={[styles.container, focused && { opacity: 1 }]}
+            onPress={toggleDropdown}
+            onFocus={onFocus}
+        >
             {renderDropdown()}
             <Text style={[styles.label]}>{capitalize(label)}</Text>
             <View style={styles.inputInnerWrapper}>
@@ -94,14 +104,23 @@ export default function InputFieldSelect({
                     <Text
                         style={[
                             styles.valueText,
+                            hasDefaultValue && styles.hasDefaultValue,
                             selectedOption?.label === selectedOption?.label &&
+                                isValueChanged &&
                                 styles.currentOption,
                         ]}
                     >
                         {capitalize(selectedOption?.label)}
                     </Text>
                 ) : (
-                    <Text style={[styles.placeholder]}>{placeholder}</Text>
+                    <Text
+                        style={[
+                            styles.placeholder,
+                            hasDefaultValue && styles.hasDefaultValue,
+                        ]}
+                    >
+                        {placeholder}
+                    </Text>
                 )}
 
                 <MaterialIcons
@@ -153,8 +172,7 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-Regular',
         fontSize: 16,
         letterSpacing: 1,
-        marginTop: 2.5
-        ,
+        marginTop: 2.5,
     },
     placeholder: {
         fontFamily: 'TT-Commons-Regular',
@@ -191,4 +209,5 @@ const styles = StyleSheet.create({
         fontFamily: 'TT-Commons-DemiBold',
         opacity: 1,
     },
+    hasDefaultValue: { opacity: 0.2 },
 });

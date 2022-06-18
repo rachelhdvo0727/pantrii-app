@@ -2,6 +2,7 @@ type Tags = [];
 
 export default class Product {
     constructor(
+        public _id: string,
         public productTitle: string,
         public producerTitle: string,
         public producerId: Object,
@@ -18,7 +19,9 @@ export default class Product {
         public isFeatured: boolean,
         public tags: Tags[],
         public productUnit: string,
+        public status: string,
     ) {
+        this._id = _id;
         this.productTitle = productTitle;
         this.producerTitle = producerTitle;
         this.producerId = producerId;
@@ -35,5 +38,6 @@ export default class Product {
         this.isFeatured = isFeatured;
         this.tags = tags;
         this.productUnit = productUnit;
+        this.status = status;
     }
 }
