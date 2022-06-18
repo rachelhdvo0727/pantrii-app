@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Path, Circle } from 'react-native-svg';
 
-const HourglassIcon = () => {
+const HourglassIcon = (props) => {
     return (
         <Svg
             width="80"
@@ -9,6 +9,7 @@ const HourglassIcon = () => {
             viewBox="0 0 80 80"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={props.style}
         >
             <Circle cx="40" cy="40" r="40" fill="#AEC0AB" />
             <Path
