@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import HomeStack from './HomeStack';
-import ProductsScreen from './ProductsScreen';
 import ProductsStack from './ProductsStack';
 import UploadProductsScreen from './UploadProductsScreen';
 import TopNavSuppliers from './TopNavSuppliers';
@@ -12,7 +11,6 @@ import UserProfileStack from '../UserProfileStack';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
-    // console.log('bottom tab', props?.route);
     return (
         <Tab.Navigator
             screenOptions={{
