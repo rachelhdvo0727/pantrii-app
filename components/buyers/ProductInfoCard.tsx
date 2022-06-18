@@ -181,43 +181,46 @@ const ProductInfoCard = ({
                 ) : null}
 
                 <View style={styles.wrapperBottom}>
-                    <View style={styles.producerMidSection}>
-                        <View>
-                            <Text style={styles.headerH1}>Kategori</Text>
-                            <Text style={styles.p}>{category}</Text>
-                        </View>
-                        <View>
-                            <Text
-                                style={[
-                                    styles.headerH1,
-                                    { textAlign: 'right' },
-                                ]}
-                            >
-                                Antal
-                            </Text>
-                            {isSoldOut ? (
+                    {isProducerView ? (
+                        <View style={styles.producerMidSection}>
+                            <View>
+                                <Text style={styles.headerH1}>Kategori</Text>
+                                <Text style={styles.p}>{category}</Text>
+                            </View>
+                            <View>
                                 <Text
                                     style={[
-                                        styles.amountNumber,
-                                        styles.amountNegative,
+                                        styles.headerH1,
+                                        { textAlign: 'right' },
                                     ]}
                                 >
-                                    UDSOLGT
+                                    Antal
                                 </Text>
-                            ) : (
-                                <Text
-                                    style={[
-                                        styles.amountNumber,
-                                        isLowOnStock
-                                            ? styles.amountLow
-                                            : styles.amountPositive,
-                                    ]}
-                                >
-                                    {amountInStock}
-                                </Text>
-                            )}
+                                {isSoldOut ? (
+                                    <Text
+                                        style={[
+                                            styles.amountNumber,
+                                            styles.amountNegative,
+                                        ]}
+                                    >
+                                        UDSOLGT
+                                    </Text>
+                                ) : (
+                                    <Text
+                                        style={[
+                                            styles.amountNumber,
+                                            isLowOnStock
+                                                ? styles.amountLow
+                                                : styles.amountPositive,
+                                        ]}
+                                    >
+                                        {amountInStock}
+                                    </Text>
+                                )}
+                            </View>
                         </View>
-                    </View>
+                    ) : null}
+
                     <Text style={styles.headerH1}>Produktbeskrivelse</Text>
                     <Text style={styles.p}>{productStory}</Text>
                     <Text style={styles.headerH1}>Produktkendetegnelse</Text>
