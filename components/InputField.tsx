@@ -101,10 +101,10 @@ export default function InputField({
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height / 10,
+        // height: Dimensions.get('window').height / 10,
     },
     textInputContainer: {
-        marginTop: 10,
+        marginVertical: 20,
         marginBottom: 5,
         marginHorizontal: 18,
         paddingVertical: 10,

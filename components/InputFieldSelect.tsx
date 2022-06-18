@@ -138,7 +138,7 @@ export default function InputFieldSelect({
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10,
+        marginVertical: 20,
         marginHorizontal: 18,
         paddingVertical: 10,
         paddingHorizontal: 25,
