@@ -58,6 +58,7 @@ export default function InputField({
                     secureTextEntry={secureTextEntry}
                     maxLength={maxLength}
                     blurOnSubmit
+                    underlineColorAndroid="transparent"
                     style={[
                         styles.textValue,
                         hasDefaultValue && styles.hasDefaultValue,
