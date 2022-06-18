@@ -9,6 +9,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
+import Spinner from '../../components/Spinner';
+import SplashScreen from './SplashScreen';
 // API
 import * as SecureStore from 'expo-secure-store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,86 +56,97 @@ export default function LogInScreen(props) {
     }, [user]);
 
     return (
-        <View style={[styles.container]}>
-            <AppLogo style={styles.icon}></AppLogo>
-            <View style={styles.formWrapper}>
-                <Text style={styles.header}>log ind</Text>
-                <Controller
-                    name="email"
-                    control={control}
-                    rules={{
-                        required: 'Email er påkrævet',
-                        pattern: {
-                            value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                            message: 'Din email er ugyldig',
-                        },
-                    }}
-                    render={({
-                        field: { onChange, onBlur, value },
-                        fieldState: { error },
-                    }) => (
-                        <InputField
-                            label="email"
-                            placeholder="john@mail.com"
-                            value={value}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            autoCapitalize="none"
-                            autoComplete={false}
-                            errorMessage={error}
-                        ></InputField>
-                    )}
-                ></Controller>
+        <View
+            style={[styles.container, !user && { backgroundColor: '#1B463C' }]}
+        >
+            {!user ? (
+                <SplashScreen />
+            ) : (
+                <React.Fragment>
+                    <AppLogo style={styles.icon}></AppLogo>
+                    <View style={styles.formWrapper}>
+                        <Text style={styles.header}>log ind</Text>
+                        <Controller
+                            name="email"
+                            control={control}
+                            rules={{
+                                required: 'Email er påkrævet',
+                                pattern: {
+                                    value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                    message: 'Din email er ugyldig',
+                                },
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="email"
+                                    placeholder="john@mail.com"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoCapitalize="none"
+                                    autoComplete={false}
+                                    errorMessage={error}
+                                ></InputField>
+                            )}
+                        ></Controller>
 
-                <Controller
-                    name="password"
-                    control={control}
-                    rules={{
-                        required: 'Adgangskode er påkrævet',
-                        minLength: {
-                            value: 12,
-                            message:
-                                'Adgangskode skal være mellem 12-20 karakterer',
-                        },
-                        maxLength: {
-                            value: 20,
-                            message:
-                                'Adgangskode skal være mellem 12-20 karakterer',
-                        },
-                    }}
-                    render={({
-                        field: { onChange, onBlur, value },
-                        fieldState: { error },
-                    }) => (
-                        <InputField
-                            label="adgangskode"
-                            placeholder="**********"
-                            value={value}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            autoComplete={false}
-                            errorMessage={error}
-                            maxLength={20}
-                            secureTextEntry
-                        ></InputField>
-                    )}
-                ></Controller>
-                <Button
-                    title="log ind"
-                    primary
-                    buttonStyle={[styles.buttonStyle, { marginTop: 20 }]}
-                    onPress={handleSubmit(onSubmit)}
-                ></Button>
-                <Text style={styles.mediumText}>
-                    Jeg er ny hér. Registrer mig.
-                </Text>
-                <Button
-                    title="bliv kunde"
-                    outlined
-                    buttonStyle={styles.buttonStyle}
-                    onPress={showSignUp}
-                ></Button>
-            </View>
+                        <Controller
+                            name="password"
+                            control={control}
+                            rules={{
+                                required: 'Adgangskode er påkrævet',
+                                minLength: {
+                                    value: 12,
+                                    message:
+                                        'Adgangskode skal være mellem 12-20 karakterer',
+                                },
+                                maxLength: {
+                                    value: 20,
+                                    message:
+                                        'Adgangskode skal være mellem 12-20 karakterer',
+                                },
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="adgangskode"
+                                    placeholder="**********"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoComplete={false}
+                                    errorMessage={error}
+                                    maxLength={20}
+                                    secureTextEntry
+                                ></InputField>
+                            )}
+                        ></Controller>
+                        <Button
+                            title="log ind"
+                            primary
+                            buttonStyle={[
+                                styles.buttonStyle,
+                                { marginTop: 20 },
+                            ]}
+                            onPress={handleSubmit(onSubmit)}
+                        ></Button>
+                        <Text style={styles.mediumText}>
+                            Jeg er ny hér. Registrer mig.
+                        </Text>
+                        <Button
+                            title="bliv kunde"
+                            outlined
+                            buttonStyle={styles.buttonStyle}
+                            onPress={showSignUp}
+                        ></Button>
+                    </View>
+                </React.Fragment>
+            )}
         </View>
     );
 }
