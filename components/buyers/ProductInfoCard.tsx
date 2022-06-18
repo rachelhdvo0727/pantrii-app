@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useCallback } from 'react';
 import generalStyles from '../../styles/General';
-import { numberFormat } from '../../utils/functions';
+import { numberFormat, capitalize } from '../../utils/functions';
 // Components
 import {
     View,
@@ -33,6 +33,7 @@ export interface Props {
     bulkPrice: Product['bulkPrice'];
     singlePrice: Product['singlePrice'];
     amountInStock?: Product['amountInStock'];
+    status?: Product['status'] | undefined;
     isLowOnStock?: boolean;
     isSoldOut?: boolean;
     category?: string | undefined;
@@ -78,6 +79,7 @@ const ProductInfoCard = ({
     isProducerView,
     isLowOnStock,
     isSoldOut,
+    status,
 }: Props) => {
     const [index, setIndex] = React.useState(0);
     const carouselRef = React.useRef(null);
@@ -141,6 +143,19 @@ const ProductInfoCard = ({
                             </Text>
                             <Text style={styles.singularPrice}>
                                 {singlePrice}/enhed
+                            </Text>
+                            <Text
+                                style={[
+                                    styles.singularPrice,
+                                    { fontSize: 14 },
+                                    status === 'approved' &&
+                                        styles.amountPositive,
+                                    status === 'rejected' &&
+                                        styles.amountNegative,
+                                    status === 'pending' && styles.amountLow,
+                                ]}
+                            >
+                                {capitalize(status)}
                             </Text>
                         </View>
                     </View>

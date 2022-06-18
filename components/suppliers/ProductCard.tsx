@@ -1,15 +1,9 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
 import Product from '../../models/Product';
+import { capitalize } from '../../utils/functions';
 // Components
-import {
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    Pressable,
-    TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import InformationCard from '../InformationCard';
 
 export interface Props {
@@ -20,6 +14,7 @@ export interface Props {
     amountInStock: Product['amountInStock'];
     bulkPrice: Product['bulkPrice'];
     singlePrice: Product['singlePrice'];
+    status?: Product['status'] | undefined;
     isLowOnStock?: boolean;
     isSoldOut?: boolean;
     imageSrc?: React.ComponentProps<typeof Image>['source'];
@@ -38,6 +33,7 @@ const ProductCard = ({
     cardStyle,
     isSoldOut,
     isLowOnStock,
+    status,
 }: Props) => {
     return (
         <TouchableOpacity onPress={onPress}>
@@ -57,11 +53,16 @@ const ProductCard = ({
                         </Text>
                         <Text style={styles.amountText}>
                             {isSoldOut ? (
-                                <Text style={styles.amountNegative}>
+                                <Text
+                                    style={[
+                                        styles.amountText,
+                                        styles.amountNegative,
+                                    ]}
+                                >
                                     UDSOLGT
                                 </Text>
                             ) : (
-                                <Text>
+                                <Text style={styles.amountText}>
                                     Antal:&ensp;
                                     <Text
                                         style={
@@ -84,7 +85,22 @@ const ProductCard = ({
                     </View>
                     <View style={styles.dottedLine}></View>
                     <View style={styles.bottomSection}>
-                        <Text style={styles.unitText}>{productUnit}</Text>
+                        <View>
+                            <Text style={styles.unitText}>{productUnit}</Text>
+                            <Text
+                                style={[
+                                    styles.unitText,
+                                    status === 'approved' &&
+                                        styles.amountPositive,
+                                    status === 'rejected' &&
+                                        styles.amountNegative,
+                                    status === 'pending' && styles.amountLow,
+                                ]}
+                            >
+                                {capitalize(status)}
+                            </Text>
+                        </View>
+
                         <View style={styles.priceWrapper}>
                             <Text style={styles.bulkPrice}>
                                 {bulkPrice}
