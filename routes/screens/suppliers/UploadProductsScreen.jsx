@@ -63,6 +63,7 @@ export default function UploadProductsScreen(props) {
             dateTime: new Date(),
             tags: ['', '', ''],
             expiryDuration: '',
+            status: '',
         },
     });
 
@@ -78,6 +79,7 @@ export default function UploadProductsScreen(props) {
         data.productUnit = data.amountPerPack + ' x ' + data.weight;
         data.amountInStock = parseInt(data.amountInStock); // Change amountInStock to number
         data.tags = [checkedCold, checkedFrozen, checkedOrganic];
+        data.status = 'pending';
         delete data.amountPerPack;
         delete data.weight;
 

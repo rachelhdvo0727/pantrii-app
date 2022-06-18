@@ -19,6 +19,7 @@ export default class Product {
         public isFeatured: boolean,
         public tags: Tags[],
         public productUnit: string,
+        public status: string,
     ) {
         this._id = _id;
         this.productTitle = productTitle;
@@ -37,5 +38,6 @@ export default class Product {
         this.isFeatured = isFeatured;
         this.tags = tags;
         this.productUnit = productUnit;
+        this.status = status;
     }
 }

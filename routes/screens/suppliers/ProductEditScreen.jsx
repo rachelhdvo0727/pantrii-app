@@ -140,7 +140,6 @@ const ProductEditScreen = (props) => {
             product?.tags?.includes('organic') && setIsOrganic(true);
         }
     }, [informationSection]);
-    console.log(product);
 
     const onFocus = () => {
         setFocused(true);
