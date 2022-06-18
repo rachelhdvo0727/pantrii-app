@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/core';
-import dictionary from '../../dictionary/campaigns';
-import generalStyles from '../../styles/General';
 import { SLIDER_WIDTH } from '../../utils/variables';
 // Components
 import HeroCard, { ITEM_WIDTH } from './HeroCard';
@@ -39,12 +37,12 @@ const HeroCardSlider = () => {
                 inactiveSlideOpacity={1}
                 renderItem={({ item }) => (
                     <HeroCard
-                        // onPress={() =>
-                        //     navigation.navigate('CampaignScreen', {
-                        //         products: products,
-                        //         product: item,
-                        //     })
-                        // }
+                        onPress={() =>
+                            navigation.navigate('AdvertisementScreen', {
+                                products: adverts,
+                                product: item,
+                            })
+                        }
                         title={item?.title}
                         imageSrc={adImages[item?.imageSrc]}
                     />

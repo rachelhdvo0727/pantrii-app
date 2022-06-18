@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { fetchFilteredProducts } from '../../../utils/api';
+import { fetchAdvertProducts } from '../../../utils/api';
 import { numberFormat } from '../../../utils/functions';
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import generalStyles from '../../../styles/General';
 // Dictionary
-import dictionary from '../../../dictionary/campaigns';
 import productDictionary from '../../../dictionary/products';
 
 import { productImages } from '../../../dictionary/images';
@@ -22,12 +21,11 @@ import {
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
 
-export default function CampaignScreen(props) {
+export default function AdvertisementScreen(props) {
     const navigation = useNavigation();
-    const campaignContent = dictionary?.campaigns; // DA dictionary
     const productContent = productDictionary?.products;
 
-    const campaignTitle = props?.route?.params?.product;
+    const adTitle = props?.route?.params?.product;
     const [products, setProducts] = React.useState([]);
 
     const dispatch = useDispatch();
@@ -37,15 +35,14 @@ export default function CampaignScreen(props) {
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle:
-                campaignContent?.title[campaignTitle?.title]?.toUpperCase(),
+            headerTitle: adTitle?.title?.toUpperCase(),
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
         });
 
         // Fetch this category's products
-        axios(fetchFilteredProducts('products', campaignTitle?.title))
+        axios(fetchAdvertProducts('products', adTitle?.title))
             .then(function (response) {
                 setProducts(response.data?.documents);
             })
