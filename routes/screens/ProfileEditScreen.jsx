@@ -62,8 +62,10 @@ export default function ProfileEditScreen(props) {
         if (informationType === 'profile') {
             delete dataDifferences?.address;
         }
-        dispatch(updateUser({ user: data, information: dataDifferences })); // POST to database
-        // // dispatch(editUser({ data })); // update user's state
+
+        Object.keys(dataDifferences).length !== 0 &&
+            dispatch(updateUser({ user: data, information: dataDifferences })); // POST to database
+
         navigation?.goBack(); // Back to display screen
     };
 
