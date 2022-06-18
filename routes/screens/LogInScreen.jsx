@@ -21,6 +21,7 @@ export default function LogInScreen(props) {
     const dispatch = useDispatch();
     const { roles } = useSelector((state) => state.roles);
     const { user } = useSelector((state) => state.user);
+    const [showLoading, setShowLoading] = React.useState(true);
 
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -29,8 +30,9 @@ export default function LogInScreen(props) {
         },
     });
     const onSubmit = (data) => {
-        reset();
         dispatch(getUser({ data: data, byId: false }));
+        reset();
+        // setShowLoading(true);
     };
 
     const showSignUp = () => {
@@ -53,19 +55,30 @@ export default function LogInScreen(props) {
             }
         };
         persistLogIn();
+
+        const timer = setTimeout(() => {
+            setShowLoading(false);
+        }, 890);
+
+        showLoading && timer;
+        return () => clearTimeout(timer);
     }, [user]);
 
     return (
         <View
-            style={[styles.container, !user && { backgroundColor: '#1B463C' }]}
+            style={[
+                styles.container,
+                showLoading && { backgroundColor: '#1B463C' },
+            ]}
         >
-            {!user ? (
+            {showLoading ? (
                 <SplashScreen />
             ) : (
                 <React.Fragment>
                     <AppLogo style={styles.icon}></AppLogo>
                     <View style={styles.formWrapper}>
                         <Text style={styles.header}>log ind</Text>
+
                         <Controller
                             name="email"
                             control={control}
@@ -126,14 +139,15 @@ export default function LogInScreen(props) {
                                 ></InputField>
                             )}
                         ></Controller>
+
                         <Button
                             title="log ind"
+                            onPress={handleSubmit(onSubmit)}
                             primary
                             buttonStyle={[
                                 styles.buttonStyle,
-                                { marginTop: 20 },
+                                { marginTop: 15 },
                             ]}
-                            onPress={handleSubmit(onSubmit)}
                         ></Button>
                         <Text style={styles.mediumText}>
                             Jeg er ny hér. Registrer mig.
@@ -169,6 +183,7 @@ const styles = StyleSheet.create({
     formWrapper: {
         width: '95%',
     },
+
     buttonStyle: {
         alignSelf: 'center',
     },
