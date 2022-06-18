@@ -13,6 +13,7 @@ import ProductCard from '../../../components/buyers/ProductCard';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import NotFound from '../../../components/NotFound';
 import Spinner from '../../../components/Spinner';
+import SearchBar from '../../../components/SearchBar';
 // API
 import axios from 'axios';
 import { fetchCategoryProducts } from '../../../utils/api';
@@ -61,30 +62,69 @@ const CategoryProductsListScreen = (props) => {
             });
     }, []);
 
+    const [searchValue, setSearchValue] = React.useState('');
+    const [filteredDataSource, setFilteredDataSource] = React.useState([]);
+
+    const searchFilterFunction = (text) => {
+        // Check if searched text is not blank
+        if (text) {
+            // Filter the categoryProducts
+            const newData = categoryProducts.filter((item) => {
+                const searchedProductNames = productContent.productTitle[
+                    item?.productTitle
+                ]
+                    ? productContent.productTitle[
+                          item?.productTitle
+                      ].toLowerCase()
+                    : ''.toLowerCase();
+
+                const searchedProducerNames = item?.producerTitle
+                    ? item?.producerTitle.toLowerCase()
+                    : ''.toLowerCase();
+
+                const textData = text.toLowerCase();
+
+                return (
+                    searchedProductNames.indexOf(textData) > -1 ||
+                    searchedProducerNames.indexOf(textData) > -1
+                );
+            });
+            setFilteredDataSource(newData); // Update FilteredDataSource
+            setSearchValue(text);
+        } else {
+            setFilteredDataSource(categoryProducts); // Update FilteredDataSource with categoryProducts
+            setSearchValue(text);
+        }
+    };
     const sortedList =
         (selectedSort?.value === 'A-AA' &&
-            categoryProducts?.sort((a, b) =>
+            filteredDataSource?.sort((a, b) =>
                 a?.productTitle
                     .normalize()
                     .localeCompare(b?.productTitle.normalize()),
             )) ||
         (selectedSort?.value === 'AA-A' &&
-            categoryProducts?.reverse(
+            filteredDataSource?.reverse(
                 (a, b) =>
                     a?.productTitle.toLowerCase() <
                         b?.productTitle.toLowerCase() && -1,
             )) ||
         (selectedSort?.value === 'lowest' &&
-            categoryProducts?.sort(
+            filteredDataSource?.sort(
                 (a, b) => parseInt(a?.bulkPrice) > parseInt(b?.bulkPrice),
             )) ||
         (selectedSort?.value === 'highest' &&
-            categoryProducts?.sort(
+            filteredDataSource?.sort(
                 (a, b) => parseInt(a?.bulkPrice) < parseInt(b?.bulkPrice),
             ));
 
     return (
         <View style={styles.container}>
+            <SearchBar
+                onChangeText={(text) => searchFilterFunction(text)}
+                value={searchValue}
+            />
+
             <SelectDropDown
                 label="Sortér efter"
                 data={sortOptions}
@@ -172,4 +212,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     shortListStyle: { alignItems: 'flex-start', marginHorizontal: 10 },
+    searchBar: {
+        marginBottom: 15,
+    },
 });
