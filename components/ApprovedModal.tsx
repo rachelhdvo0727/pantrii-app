@@ -12,13 +12,15 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import Button from './actions/Button';
 import Modal from 'react-native-modal';
-import Checkmark from './svgs/Checkmark';
+import CheckmarkIcon from './svgs/CheckmarkIcon';
+import HourglassIcon from './svgs/HourglassIcon';
 
 export interface Props {
     messageTitle: string;
     messageText: string;
     isModalVisible: boolean;
     hasConfirmedIcon?: boolean;
+    waitingIcon?: boolean;
     buttonTitle?: React.ComponentProps<typeof Button>['title'];
     children?: React.ReactNode;
     hasButton?: boolean;
@@ -45,6 +47,7 @@ export default function ApprovedModal({
     swipeDirection,
     animationInTiming,
     animationOutTiming,
+    waitingIcon,
 }: Props) {
     const [isBackdropPressed, setIsBackdropPressed] = React.useState(false);
     const onBackdropPress = () => {
@@ -70,6 +73,7 @@ export default function ApprovedModal({
                                         style={styles.icon}
                                     />
                                 ) : null}
+                                {waitingIcon && <HourglassIcon />}
 
                                 <Text style={styles.messageTitle}>
                                     {messageTitle}
@@ -101,7 +105,7 @@ export default function ApprovedModal({
                     <View style={styles.floatModalWrapper}>
                         <View style={styles.modalView}>
                             {hasConfirmedIcon ? (
-                                <Checkmark style={styles.icon} />
+                                <CheckmarkIcon style={styles.icon} />
                             ) : null}
 
                             <Text style={styles.messageTitle}>
