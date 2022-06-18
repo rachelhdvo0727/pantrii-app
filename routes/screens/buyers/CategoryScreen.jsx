@@ -8,7 +8,8 @@ import { SLIDER_WIDTH, sortOptions } from '../../../utils/variables';
 import { numberFormat } from '../../../utils/functions';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, TextInput, Text } from 'react-native';
+import SearchBar from '../../../components/SearchBar';
 import CategoryCard from '../../../components/buyers/CategoryCard';
 import ProductCard from '../../../components/buyers/ProductCard';
 import Slider from '../../../components/Slider';
@@ -67,6 +68,7 @@ export default function CategoryScreen(props) {
                 const data = response.data?.documents;
                 setTimeout(() => {
                     setCategoryProducts(data);
+                    setFilteredDataSource(data);
                 }, 500);
             })
             .catch((error) => {
@@ -74,8 +76,48 @@ export default function CategoryScreen(props) {
             });
     }, [categoryId, categoryName]);
 
+    const [searchValue, setSearchValue] = React.useState('');
+    const [filteredDataSource, setFilteredDataSource] = React.useState([]);
+
+    const searchFilterFunction = (text) => {
+        // Check if searched text is not blank
+        if (text) {
+            // Filter the categoryProducts
+            const newData = categoryProducts.filter((item) => {
+                const searchedProductNames = productContent.productTitle[
+                    item?.productTitle
+                ]
+                    ? productContent.productTitle[
+                          item?.productTitle
+                      ].toLowerCase()
+                    : ''.toLowerCase();
+
+                const searchedProducerNames = item?.producerTitle
+                    ? item?.producerTitle.toLowerCase()
+                    : ''.toLowerCase();
+
+                const textData = text.toLowerCase();
+
+                return (
+                    searchedProductNames.indexOf(textData) > -1 ||
+                    searchedProducerNames.indexOf(textData) > -1
+                );
+            });
+            setFilteredDataSource(newData); // Update FilteredDataSource
+            setSearchValue(text);
+        } else {
+            setFilteredDataSource(categoryProducts); // Update FilteredDataSource with categoryProducts
+            setSearchValue(text);
+        }
+    };
+
     return (
         <View style={styles.container}>
+            <SearchBar
+                onChangeText={(text) => searchFilterFunction(text)}
+                value={searchValue}
+            ></SearchBar>
+
             {/* Categories slider - show on ALL Products view*/}
             {isAllProductsView ? (
                 <Slider
@@ -132,31 +174,32 @@ export default function CategoryScreen(props) {
                 <FlatList
                     data={
                         (selectedSort?.value === 'A-AA' &&
-                            categoryProducts?.sort((a, b) =>
+                            filteredDataSource?.sort((a, b) =>
                                 a.productTitle
                                     .normalize()
                                     .localeCompare(b.productTitle.normalize()),
                             )) ||
                         (selectedSort?.value === 'AA-A' &&
-                            categoryProducts?.reverse(
+                            filteredDataSource?.reverse(
                                 (a, b) =>
                                     a.productTitle.toLowerCase() <
                                         b.productTitle.toLowerCase() && -1,
                             )) ||
                         (selectedSort?.value === 'lowest' &&
-                            categoryProducts?.sort(
+                            filteredDataSource?.sort(
                                 (a, b) =>
                                     parseInt(a.bulkPrice) >
                                     parseInt(b.bulkPrice),
                             )) ||
                         (selectedSort?.value === 'highest' &&
-                            categoryProducts?.sort(
+                            filteredDataSource?.sort(
                                 (a, b) =>
                                     parseInt(a.bulkPrice) <
                                     parseInt(b.bulkPrice),
                             ))
                     }
-                    keyExtractor={(item) => item?._id}
+                    // data={filteredDataSource}
+                    keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
                         <ProductCard
                             productID={favouriteId?.filter(
@@ -214,8 +257,8 @@ export default function CategoryScreen(props) {
 const styles = StyleSheet.create({
     container: {
         ...generalStyles.container,
-        paddingBottom: 0,
-        paddingHorizontal: 0,
+
+        padding: 0,
     },
     sliderContainer: {
         paddingVertical: 2,
@@ -228,7 +271,7 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 14,
         textTransform: 'capitalize',
-        marginBottom: 10,
+        marginVertical: 10,
     },
     productListContainer: {
         alignItems: 'center',
