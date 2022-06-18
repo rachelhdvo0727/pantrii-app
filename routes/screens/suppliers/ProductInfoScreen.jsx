@@ -54,6 +54,7 @@ export default function ProductInfoScreen(props) {
     return (
         <ProductInfoCard
             isProducerView
+            status={product?.status}
             onEditBottomSection={() => onEditProduct('bottom')}
             onEditTopSection={() => onEditProduct('top')}
             category={capitalize(categoryContent.name[category?.name])}

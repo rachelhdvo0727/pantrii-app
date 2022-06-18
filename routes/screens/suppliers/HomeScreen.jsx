@@ -85,6 +85,7 @@ export default function HomeScreen(props) {
                         {producerProducts?.map((item) => (
                             <ProductCard
                                 key={item?._id}
+                                status={item?.status}
                                 productTitle={
                                     content?.productTitle[item?.productTitle] ||
                                     item?.productTitle
