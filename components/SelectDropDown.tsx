@@ -6,9 +6,7 @@ import {
     TouchableOpacity,
     Text,
     SafeAreaView,
-    VirtualizedList,
     FlatList,
-    View,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '../utils/functions';
@@ -32,7 +30,7 @@ export default function SelectDropDown({
     selectedItem,
 }: Props) {
     const [visible, setVisible] = React.useState(false);
-    const [seletedOption, setSelectedItem] = React.useState(selectedItem);
+    const [selectedOption, setSelectedItem] = React.useState(selectedItem);
 
     const toggleDropdown = () => {
         setVisible(!visible);
@@ -54,7 +52,7 @@ export default function SelectDropDown({
             <Text
                 style={[
                     styles.dropdownText,
-                    seletedOption?.label === item?.label && styles.currentSort,
+                    selectedOption?.label === item?.label && styles.currentSort,
                 ]}
             >
                 {capitalize(item?.label)}&emsp;&emsp;
@@ -83,10 +81,10 @@ export default function SelectDropDown({
                 <Text
                     style={[
                         styles.buttonText,
-                        seletedOption?.label !== '' && styles.currentSort,
+                        selectedOption?.label !== '' && styles.currentSort,
                     ]}
                 >
-                    {seletedOption?.label ? ': ' + seletedOption?.label : ''}
+                    {selectedOption?.label ? ': ' + selectedOption?.label : ''}
                 </Text>
             ) : null}
 
