@@ -256,11 +256,8 @@ export default function CategoryScreen(props) {
                         )}
                         numColumns={2}
                         scrollEnabled={true}
-                        contentContainerStyle={[
-                            styles.productListContainer,
-                            categoryProducts?.length === 1 &&
-                                styles.shortListStyle,
-                        ]}
+                        contentContainerStyle={styles.productListContainer}
+                        columnWrapperStyle={styles.columnWrapperStyle}
                     ></FlatList>
                 )}
             </React.Fragment>
@@ -288,13 +285,16 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     productListContainer: {
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        width: '100%',
         marginTop: 0,
-        paddingHorizontal: 5,
+        paddingHorizontal: 15,
     },
     shortListStyle: { alignItems: 'flex-start', marginHorizontal: 10 },
     cardStyle: {
         margin: 5,
+    },
+    columnWrapperStyle: {
+        justifyContent: 'space-between',
+        marginBottom: 15,
     },
 });

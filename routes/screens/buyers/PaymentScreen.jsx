@@ -162,7 +162,7 @@ export default function PaymentScreen(props) {
                     setModalVisible(!modalVisible);
                 }}
                 animationType="slide"
-                backdropOpacity={0.4}
+                backdropOpacity={0.6}
                 animationOutTiming={600}
             >
                 <View style={styles.centeredView}>
@@ -179,7 +179,7 @@ export default function PaymentScreen(props) {
                         </Text>
                         <Button
                             primary
-                            title="TIL HJEM"
+                            title="GÅ TIL HJEM"
                             onPress={() => {
                                 dispatch(clear());
                                 navigation.navigate('HomeScreen');
