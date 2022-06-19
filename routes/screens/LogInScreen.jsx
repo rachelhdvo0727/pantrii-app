@@ -1,9 +1,8 @@
 import React from 'react';
 import generalStyles from '../../styles/General';
-import User from '../../models/User';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
-import { saveData, objectToString } from '../../utils/functions';
+import { CONSTANTS, JSHash } from 'react-native-hash';
 // Components
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
@@ -29,10 +28,17 @@ export default function LogInScreen(props) {
             password: '',
         },
     });
+
     const onSubmit = (data) => {
-        dispatch(getUser({ data: data, byId: false }));
-        reset();
-        // setShowLoading(true);
+        // Hash password
+        JSHash(data.password, CONSTANTS.HashAlgorithms.sha256)
+            .then((hash) => {
+                data.password = hash; // replace password with the hash
+
+                dispatch(getUser({ data: data, byId: false }));
+                reset();
+            })
+            .catch((e) => console.log(e));
     };
 
     const showSignUp = () => {
