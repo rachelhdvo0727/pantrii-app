@@ -9,6 +9,7 @@ import Button from '../../components/actions/Button';
 import HeroCard from '../../components/buyers/HeroCard';
 import InformationCard from '../../components/InformationCard';
 import SectionInInformationCard from '../../components/SectionInInformationCard';
+import LanguageSelector from '../../components/actions/LanguageSelector';
 // API
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/slice/user';
@@ -92,6 +93,7 @@ export default function ProfileScreen(props) {
                 buttonStyle={styles.buttonStyle}
                 onPress={handleLogOut}
             ></Button>
+            <LanguageSelector />
         </View>
     );
 }

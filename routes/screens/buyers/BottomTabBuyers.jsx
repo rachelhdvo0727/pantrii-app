@@ -11,12 +11,13 @@ import CartStack from './CartStack';
 import HomeStack from './HomeStack';
 import { useSelector } from 'react-redux';
 import { cartTotalSelector } from '../../../redux/reducer/selector';
+import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
     const total = useSelector(cartTotalSelector);
-
+    const { t } = useTranslation();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -58,6 +59,7 @@ export default function BottomTabBuyers(props) {
                 name="Hjem"
                 component={HomeStack}
                 options={{
+                    tabBarLabel: t('navigate:home'),
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons
@@ -75,6 +77,7 @@ export default function BottomTabBuyers(props) {
                 name="Kategorier"
                 component={CategoriesStack}
                 options={{
+                    tabBarLabel: t('navigate:categories'),
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -91,6 +94,7 @@ export default function BottomTabBuyers(props) {
                 name="Favoritter"
                 component={FavouritesScreen}
                 options={{
+                    tabBarLabel: t('navigate:favourites'),
                     headerTitle: 'Favoritter',
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
@@ -109,6 +113,7 @@ export default function BottomTabBuyers(props) {
                 component={CartStack}
                 initialParams={props?.route?.params}
                 options={{
+                    tabBarLabel: t('navigate:cart'),
                     unmountOnBlur: true,
                     headerShown: false,
                     tabBarBadge: <Text>{total}</Text>,
@@ -134,6 +139,7 @@ export default function BottomTabBuyers(props) {
                 component={UserProfileStack}
                 initialParams={props?.route?.params}
                 options={{
+                    tabBarLabel: t('navigate:profile'),
                     unmountOnBlur: true,
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
