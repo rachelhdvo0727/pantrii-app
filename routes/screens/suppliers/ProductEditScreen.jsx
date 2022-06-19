@@ -3,6 +3,7 @@ import generalStyles from '../../../styles/General';
 import { categoriesOptions } from '../../../utils/variables';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
+import { numberFormat } from '../../../utils/functions';
 import dictionary from '../../../dictionary/general.json';
 import productDictionary from '../../../dictionary/products.json';
 // Component
@@ -77,6 +78,7 @@ const ProductEditScreen = (props) => {
             (item) => item?.name === selectedCategory.value,
         );
         data.categoryId = categoryId?._id;
+        data.dateTime = new Date();
 
         // Find differences between input value and local data
         const dataDifferences = Object.keys(data).reduce((diff, key) => {
@@ -132,7 +134,25 @@ const ProductEditScreen = (props) => {
         dispatch(getCategories(false));
 
         if (product) {
-            reset(product);
+            reset({
+                productTitle:
+                    productContent?.productTitle[product?.productTitle] ||
+                    product?.productTitle,
+                producerTitle: product?.producerTitle,
+                productDesc:
+                    productContent?.productDesc[product?.productDesc] ||
+                    product?.productDesc,
+                productStory:
+                    productContent.productStory[product?.productStory] ||
+                    product?.productStory,
+                productUnique:
+                    productContent.productUnique[product?.productUnique],
+                productUnit: product?.productUnit,
+                amountInStock: product?.amountInStock,
+                bulkPrice: numberFormat(product?.bulkPrice),
+                singlePrice: numberFormat(product?.singlePrice),
+                expiryDuration: product?.expiryDuration,
+            });
             setHasProductInformation(true);
 
             product?.tags?.includes('cold') && setIsCold(true);
@@ -148,349 +168,335 @@ const ProductEditScreen = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {!product || product === null ? (
-                <Spinner />
-            ) : (
-                <React.Fragment>
-                    {informationSection === 'top' && (
-                        <View style={{ paddingVertical: 10 }}>
-                            <Controller
-                                name="productTitle"
-                                control={control}
-                                rules={{
-                                    required: 'Produktnavn er påkrævet',
-                                }}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="produktnavn"
-                                        placeholder="Eksempel"
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        autoCapitalize="words"
-                                        errorMessage={error}
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name="producerTitle"
-                                control={control}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="navn på brand"
-                                        placeholder="Eksempel"
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        errorMessage={error}
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name="productUnit"
-                                control={control}
-                                rules={{
-                                    required:
-                                        'Venligst angiv antal af produkt i én pakke/enhed',
-                                }}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="enhed"
-                                        placeholder="eks. 10"
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        autoCapitalize="words"
-                                        errorMessage={error}
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
-                            />
-
-                            <View style={styles.fieldset}>
-                                <Controller
-                                    name="bulkPrice"
-                                    control={control}
-                                    rules={{
-                                        required: 'Pris/kolli er påkrævet',
-                                    }}
-                                    render={({
-                                        field: { onChange, onBlur, value },
-                                        fieldState: { error },
-                                    }) => (
-                                        <InputField
-                                            label="pris /kolli"
-                                            inputStyle={styles.fieldsetCell}
-                                            placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
-                                            value={value}
-                                            onChangeText={onChange}
-                                            onBlur={onBlur}
-                                            autoComplete={false}
-                                            autoCapitalize="words"
-                                            errorMessage={error}
-                                            hasDefaultValue
-                                            onFocus={onFocus}
-                                            focused={focused}
-                                        />
-                                    )}
-                                />
-                                <Controller
-                                    name="singlePrice"
-                                    control={control}
-                                    rules={{
-                                        required: 'Pris/ enhed er påkrævet',
-                                    }}
-                                    render={({
-                                        field: { onChange, onBlur, value },
-                                        fieldState: { error },
-                                    }) => (
-                                        <InputField
-                                            label="pris /enhed *"
-                                            inputStyle={styles.fieldsetCell}
-                                            placeholder="&emsp;&emsp;&ensp;/enhed"
-                                            value={value}
-                                            onChangeText={onChange}
-                                            onBlur={onBlur}
-                                            autoComplete={false}
-                                            autoCapitalize="words"
-                                            errorMessage={error}
-                                            hasDefaultValue
-                                            onFocus={onFocus}
-                                            focused={focused}
-                                        />
-                                    )}
-                                />
-                            </View>
-                            <Controller
-                                name="productDesc"
-                                control={control}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="produktbeskrivelse"
-                                        placeholder="Eksempel"
-                                        multiline
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        autoCapitalize="words"
-                                        errorMessage={error}
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
-                            />
-                            <Text style={styles.fieldLabel}>Tags</Text>
-                            <View style={styles.checkboxGroup}>
-                                <View style={styles.tagOption}>
-                                    <ThermoIcon style={styles.icon} />
-                                    <Checkbox.Item
-                                        label={'    ' + content?.tags?.isCold}
-                                        value="cold"
-                                        status={
-                                            isCold ? 'checked' : 'unchecked'
-                                        }
-                                        onPress={() => {
-                                            setIsCold(!isCold);
-                                            setCheckedCold('cold');
-                                            setHasProductInformation(false);
-                                        }}
-                                        color="#000000"
-                                        mode="android"
-                                        position="leading"
-                                        labelStyle={[styles.checkBoxLabel]}
-                                    />
-                                </View>
-                                <View style={styles.tagOption}>
-                                    <FrozenIcon style={styles.icon} />
-                                    <Checkbox.Item
-                                        label={'    ' + content?.tags?.isFrozen}
-                                        status={
-                                            isFrozen ? 'checked' : 'unchecked'
-                                        }
-                                        onPress={() => {
-                                            setIsFrozen(!isFrozen);
-                                            setCheckedFrozen('frozen');
-                                            setHasProductInformation(false);
-                                        }}
-                                        value="frozen"
-                                        color="#000000"
-                                        labelStyle={[styles.checkBoxLabel]}
-                                        mode="android"
-                                        position="leading"
-                                    />
-                                </View>
-                                <View style={styles.tagOption}>
-                                    <OrganicIcon style={styles.icon} />
-                                    <Checkbox.Item
-                                        label={
-                                            '    ' + content?.tags?.isOrganic
-                                        }
-                                        status={
-                                            isOrganic ? 'checked' : 'unchecked'
-                                        }
-                                        value="organic"
-                                        onPress={() => {
-                                            setIsOrganic(!isOrganic);
-                                            setCheckOrganic('organic');
-                                            setHasProductInformation(false);
-                                        }}
-                                        color="#000000"
-                                        labelStyle={[styles.checkBoxLabel]}
-                                        mode="android"
-                                        position="leading"
-                                        onFocus={onFocus}
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                    )}
-                    {informationSection === 'bottom' && (
-                        <View style={{ paddingVertical: 10 }}>
-                            <InputFieldSelect
-                                label="kategorier"
-                                placeholder="Vælge en kategorie"
-                                data={categoriesOptions?.sort((a, b) =>
-                                    a.label
-                                        .normalize()
-                                        .localeCompare(b.label.normalize()),
-                                )}
-                                onSelect={onSelectCategory}
-                                selectedItem={selectedCategory}
+            {informationSection === 'top' && (
+                <View style={{ paddingVertical: 10 }}>
+                    <Controller
+                        name="productTitle"
+                        control={control}
+                        rules={{
+                            required: 'Produktnavn er påkrævet',
+                        }}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="produktnavn"
+                                placeholder="Eksempel"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
                                 hasDefaultValue
                                 onFocus={onFocus}
                                 focused={focused}
                             />
+                        )}
+                    />
+                    <Controller
+                        name="producerTitle"
+                        control={control}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="navn på brand"
+                                placeholder="Eksempel"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                errorMessage={error}
+                                hasDefaultValue
+                                onFocus={onFocus}
+                                focused={focused}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="productUnit"
+                        control={control}
+                        rules={{
+                            required:
+                                'Venligst angiv antal af produkt i én pakke/enhed',
+                        }}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="enhed"
+                                placeholder="eks. 10"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                                hasDefaultValue
+                                onFocus={onFocus}
+                                focused={focused}
+                            />
+                        )}
+                    />
 
-                            <Controller
-                                name="amountInStock"
-                                control={control}
-                                rules={{
-                                    required:
-                                        'Venligst angiv antal af produkt på lager',
+                    <View style={styles.fieldset}>
+                        <Controller
+                            name="bulkPrice"
+                            control={control}
+                            rules={{
+                                required: 'Pris/kolli er påkrævet',
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="pris /kolli"
+                                    inputStyle={styles.fieldsetCell}
+                                    placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoComplete={false}
+                                    autoCapitalize="words"
+                                    errorMessage={error}
+                                    hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="singlePrice"
+                            control={control}
+                            rules={{
+                                required: 'Pris/ enhed er påkrævet',
+                            }}
+                            render={({
+                                field: { onChange, onBlur, value },
+                                fieldState: { error },
+                            }) => (
+                                <InputField
+                                    label="pris /enhed *"
+                                    inputStyle={styles.fieldsetCell}
+                                    placeholder="&emsp;&emsp;&ensp;/enhed"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    autoComplete={false}
+                                    autoCapitalize="words"
+                                    errorMessage={error}
+                                    hasDefaultValue
+                                    onFocus={onFocus}
+                                    focused={focused}
+                                />
+                            )}
+                        />
+                    </View>
+                    <Controller
+                        name="productDesc"
+                        control={control}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="produktbeskrivelse"
+                                placeholder="Eksempel"
+                                multiline
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                                hasDefaultValue
+                                onFocus={onFocus}
+                                focused={focused}
+                            />
+                        )}
+                    />
+                    <Text style={styles.fieldLabel}>Tags</Text>
+                    <View style={styles.checkboxGroup}>
+                        <View style={styles.tagOption}>
+                            <ThermoIcon style={styles.icon} />
+                            <Checkbox.Item
+                                label={'    ' + content?.tags?.isCold}
+                                value="cold"
+                                status={isCold ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setIsCold(!isCold);
+                                    setCheckedCold('cold');
+                                    setHasProductInformation(false);
                                 }}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="Antal på lager"
-                                        placeholder="eks. 10"
-                                        value={value?.toString()}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        errorMessage={error}
-                                        keyboardType="numeric"
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name="expiryDuration"
-                                control={control}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="forventet holdbarhed"
-                                        placeholder="x dage/måned/år"
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        errorMessage={error}
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
-                            />
-
-                            <Controller
-                                name="productStory"
-                                control={control}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="produkthistorie"
-                                        placeholder="Eksempel"
-                                        multiline
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        autoCapitalize="words"
-                                        errorMessage={error}
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name="productUnique"
-                                control={control}
-                                render={({
-                                    field: { onChange, onBlur, value },
-                                    fieldState: { error },
-                                }) => (
-                                    <InputField
-                                        label="produktkendetegnelse"
-                                        placeholder="Eksempel"
-                                        multiline
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        autoComplete={false}
-                                        autoCapitalize="words"
-                                        errorMessage={error}
-                                        hasDefaultValue
-                                        onFocus={onFocus}
-                                        focused={focused}
-                                    />
-                                )}
+                                color="#000000"
+                                mode="android"
+                                position="leading"
+                                labelStyle={[styles.checkBoxLabel]}
                             />
                         </View>
-                    )}
-                    <Button
-                        primary
-                        buttonStyle={styles.buttonStyle}
-                        title="Gem"
-                        disabled={hasProductInformation}
-                        onPress={handleSubmit(onSubmit)}
-                    ></Button>
-                </React.Fragment>
+                        <View style={styles.tagOption}>
+                            <FrozenIcon style={styles.icon} />
+                            <Checkbox.Item
+                                label={'    ' + content?.tags?.isFrozen}
+                                status={isFrozen ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setIsFrozen(!isFrozen);
+                                    setCheckedFrozen('frozen');
+                                    setHasProductInformation(false);
+                                }}
+                                value="frozen"
+                                color="#000000"
+                                labelStyle={[styles.checkBoxLabel]}
+                                mode="android"
+                                position="leading"
+                            />
+                        </View>
+                        <View style={styles.tagOption}>
+                            <OrganicIcon style={styles.icon} />
+                            <Checkbox.Item
+                                label={'    ' + content?.tags?.isOrganic}
+                                status={isOrganic ? 'checked' : 'unchecked'}
+                                value="organic"
+                                onPress={() => {
+                                    setIsOrganic(!isOrganic);
+                                    setCheckOrganic('organic');
+                                    setHasProductInformation(false);
+                                }}
+                                color="#000000"
+                                labelStyle={[styles.checkBoxLabel]}
+                                mode="android"
+                                position="leading"
+                                onFocus={onFocus}
+                            />
+                        </View>
+                    </View>
+                </View>
             )}
+            {informationSection === 'bottom' && (
+                <View style={{ paddingVertical: 10 }}>
+                    <InputFieldSelect
+                        label="kategorier"
+                        placeholder="Vælge en kategorie"
+                        data={categoriesOptions?.sort((a, b) =>
+                            a.label
+                                .normalize()
+                                .localeCompare(b.label.normalize()),
+                        )}
+                        onSelect={onSelectCategory}
+                        selectedItem={selectedCategory}
+                        hasDefaultValue
+                        onFocus={onFocus}
+                        focused={focused}
+                    />
+
+                    <Controller
+                        name="amountInStock"
+                        control={control}
+                        rules={{
+                            required:
+                                'Venligst angiv antal af produkt på lager',
+                        }}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="Antal på lager"
+                                placeholder="eks. 10"
+                                value={value?.toString()}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                errorMessage={error}
+                                keyboardType="numeric"
+                                hasDefaultValue
+                                onFocus={onFocus}
+                                focused={focused}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="expiryDuration"
+                        control={control}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="forventet holdbarhed"
+                                placeholder="x dage/måned/år"
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                errorMessage={error}
+                                hasDefaultValue
+                                onFocus={onFocus}
+                                focused={focused}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        name="productStory"
+                        control={control}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="produkthistorie"
+                                placeholder="Eksempel"
+                                multiline
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                                hasDefaultValue
+                                onFocus={onFocus}
+                                focused={focused}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="productUnique"
+                        control={control}
+                        render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                        }) => (
+                            <InputField
+                                label="produktkendetegnelse"
+                                placeholder="Eksempel"
+                                multiline
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                autoComplete={false}
+                                autoCapitalize="words"
+                                errorMessage={error}
+                                hasDefaultValue
+                                onFocus={onFocus}
+                                focused={focused}
+                            />
+                        )}
+                    />
+                </View>
+            )}
+            <Button
+                primary
+                buttonStyle={styles.buttonStyle}
+                title="Gem"
+                disabled={hasProductInformation}
+                onPress={handleSubmit(onSubmit)}
+            ></Button>
         </SafeAreaView>
     );
 };
