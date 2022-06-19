@@ -22,50 +22,58 @@ export default function FavouritesScreen() {
 
     return (
         <SafeAreaView style={[generalStyles.container]}>
-            <FlatList
-                data={favourite}
-                keyExtractor={(item) => item?._id}
-                renderItem={({ item }) => (
-                    <ProductCard
-                        secondary
-                        productTitle={
-                            content.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
-                        imageSrc={productImages[item?.imageSrc]}
-                        producerTitle={item?.producerTitle}
-                        productDesc={
-                            content.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
-                        productUnit={item?.productUnit}
-                        bulkPrice={numberFormat(item?.bulkPrice)}
-                        singlePrice={numberFormat(item?.singlePrice)}
-                        isCold={item.tags?.find((tag) => tag == 'cold')}
-                        isOrganic={item.tags?.find((tag) => tag == 'organic')}
-                        isFrozen={item.tags?.find((tag) => tag == 'frozen')}
-                        onPress={() =>
-                            navigation.navigate('ProductScreen', {
-                                products: products,
-                                product: item,
-                            })
-                        }
-                        onPressAdd={() => {
-                            dispatch(addToCart(item));
-                        }}
-                        onPressFavourite={() => {
-                            dispatch(addToFavourite(item));
-                        }}
-                        onPressUnFavourite={() => {
-                            dispatch(removeFavourite(item._id));
-                        }}
-                    />
-                )}
-                numColumns={2}
-                scrollEnabled={true}
-                contentContainerStyle={[styles.contentContainerStyle]}
-                columnWrapperStyle={styles.columnWrapperStyle}
-            ></FlatList>
+            {favourite.length === 0 ? (
+                <View style={styles.wrapperCenter}>
+                    <Text style={styles.emptyText}>Dine favoritter er tom</Text>
+                </View>
+            ) : (
+                <FlatList
+                    data={favourite}
+                    keyExtractor={(item) => item?._id}
+                    renderItem={({ item }) => (
+                        <ProductCard
+                            secondary
+                            productTitle={
+                                content.productTitle[item?.productTitle] ||
+                                item?.productTitle
+                            }
+                            imageSrc={productImages[item?.imageSrc]}
+                            producerTitle={item?.producerTitle}
+                            productDesc={
+                                content.productDesc[item?.productDesc] ||
+                                item?.productDesc
+                            }
+                            productUnit={item?.productUnit}
+                            bulkPrice={numberFormat(item?.bulkPrice)}
+                            singlePrice={numberFormat(item?.singlePrice)}
+                            isCold={item.tags?.find((tag) => tag == 'cold')}
+                            isOrganic={item.tags?.find(
+                                (tag) => tag == 'organic',
+                            )}
+                            isFrozen={item.tags?.find((tag) => tag == 'frozen')}
+                            onPress={() =>
+                                navigation.navigate('ProductScreen', {
+                                    products: products,
+                                    product: item,
+                                })
+                            }
+                            onPressAdd={() => {
+                                dispatch(addToCart(item));
+                            }}
+                            onPressFavourite={() => {
+                                dispatch(addToFavourite(item));
+                            }}
+                            onPressUnFavourite={() => {
+                                dispatch(removeFavourite(item._id));
+                            }}
+                        />
+                    )}
+                    numColumns={2}
+                    scrollEnabled={true}
+                    contentContainerStyle={[styles.contentContainerStyle]}
+                    columnWrapperStyle={styles.columnWrapperStyle}
+                ></FlatList>
+            )}
         </SafeAreaView>
     );
 }
@@ -81,5 +89,17 @@ const styles = StyleSheet.create({
     },
     display: {
         display: 'none',
+    },
+    wrapperCenter: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#EFF2EE',
+    },
+    emptyText: {
+        justifyContent: 'center',
+        fontSize: 18,
+        fontFamily: 'TT-Commons-Medium',
+        letterSpacing: 0.5,
     },
 });

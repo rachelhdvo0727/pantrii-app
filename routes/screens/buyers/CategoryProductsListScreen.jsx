@@ -190,10 +190,8 @@ const CategoryProductsListScreen = (props) => {
                     )}
                     numColumns={2}
                     scrollEnabled={true}
-                    contentContainerStyle={[
-                        styles.productListContainer,
-                        categoryProducts?.length === 1 && styles.shortListStyle,
-                    ]}
+                    contentContainerStyle={styles.productListContainer}
+                    columnWrapperStyle={styles.columnWrapperStyle}
                 ></FlatList>
             )}
         </View>
@@ -205,16 +203,19 @@ export default CategoryProductsListScreen;
 const styles = StyleSheet.create({
     container: { ...generalStyles.container, padding: 0 },
     productListContainer: {
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        width: '100%',
         marginTop: 0,
-        marginHorizontal: 10,
+        paddingHorizontal: 15,
     },
     cardStyle: {
         margin: 5,
     },
     shortListStyle: { alignItems: 'flex-start', marginHorizontal: 10 },
     searchBar: {
+        marginBottom: 15,
+    },
+    columnWrapperStyle: {
+        justifyContent: 'space-between',
         marginBottom: 15,
     },
 });

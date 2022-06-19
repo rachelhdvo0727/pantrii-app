@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         borderColor: '#000000',
         borderWidth: 1,
         borderRadius: 50,
-        paddingVertical: 3,
+        paddingVertical: 8,
         paddingHorizontal: 10,
         marginVertical: 10,
         marginHorizontal: 10,
@@ -127,13 +127,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
 
-        top: 27,
+        top: 38,
         right: 0,
     },
     dropdownItem: {
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
-        paddingVertical: 3.5,
+        paddingVertical: 8,
         paddingHorizontal: 10,
     },
     lastItem: {
