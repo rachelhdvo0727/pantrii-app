@@ -1,7 +1,7 @@
 import React from 'react';
+import generalStyles from '../styles/General';
 import {
     StyleSheet,
-    SafeAreaView,
     View,
     TextInput,
     Text,
@@ -29,6 +29,9 @@ export interface Props {
     inputStyle?: React.ComponentProps<typeof View>['style'];
     hasDefaultValue?: boolean;
     focused?: boolean;
+    withWarning?: boolean;
+    warningText?: React.ComponentProps<typeof Text>['children'];
+    warningTitle?: React.ComponentProps<typeof Text>['children'];
 }
 
 export default function InputField({
@@ -48,6 +51,9 @@ export default function InputField({
     inputStyle,
     hasDefaultValue,
     focused,
+    withWarning,
+    warningText,
+    warningTitle,
 }: Props) {
     return (
         <View
@@ -55,6 +61,10 @@ export default function InputField({
                 inputStyle,
                 styles.container,
                 multiline && { height: Dimensions.get('window').height / 5.5 },
+                withWarning &&
+                    multiline && {
+                        height: Dimensions.get('window').height / 4.3,
+                    },
             ]}
         >
             <View style={styles.textInputContainer}>
@@ -81,6 +91,12 @@ export default function InputField({
                     onFocus={onFocus}
                 ></TextInput>
             </View>
+            {withWarning && (
+                <Text style={styles.warning}>
+                    <Text style={styles.warningTitle}>{warningTitle}</Text>
+                    <Text style={styles.warningText}>{warningText}</Text>
+                </Text>
+            )}
             {/* Error message */}
             {errorMessage && errorMessage?.message !== '' ? (
                 <View style={styles.errorContainer}>
@@ -141,9 +157,8 @@ const styles = StyleSheet.create({
         top: '62%',
     },
     textValue: {
-        fontFamily: 'TT-Commons-Regular',
-        fontSize: 16,
-        letterSpacing: 1,
+        ...generalStyles.paragraphText,
+        fontSize: 15.5,
         marginTop: 1,
     },
     hasDefaultValue: { opacity: 0.2 },
@@ -158,13 +173,26 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         paddingHorizontal: 14,
     },
-    errorMessage: {
-        fontFamily: 'TT-Commons-Regular',
-        fontSize: 13,
+    errorMessage: {´
+        ...generalStyles.paragraphText,
+        fontSize: 13,´
         letterSpacing: 1,
         color: '#FF0000',
     },
     errorIcon: {
         marginRight: 5,
+    },
+    warning: {
+        alignSelf: 'center',
+        paddingHorizontal: 20,
+    },
+    warningTitle: {
+        ...generalStyles.mediumText,
+        color: '#CBA51E',
+    },
+    warningText: {
+        ...generalStyles.paragraphText,
+        fontSize: 13,
+        color: '#CBA51E',
     },
 });

@@ -6,35 +6,40 @@ import { numberFormat, capitalize } from '../../../utils/functions';
 import { productImages } from '../../../dictionary/images';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import {
-    StyleSheet,
-
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import ProductInfoCard from '../../../components/buyers/ProductInfoCard';
+import Spinner from '../../../components/Spinner';
 // API & Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { findCategory } from '../../../redux/slice/categories';
+import { findProduct } from '../../../redux/slice/product';
 
 export default function ProductInfoScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const productContent = productDictionary?.products;
     const categoryContent = categoryDictionary?.categories;
-    const product = props?.route?.params?.product;
+    const productId = props?.route?.params?.productId;
+    const { product } = useSelector((state) => state?.product);
     const category = useSelector((state) => state.categories?.category);
 
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle: product?.productTitle,
+            headerTitle:
+                productContent?.productTitle[product?.productTitle] ||
+                product?.productTitle,
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
         });
+
         // Find product's category
         dispatch(findCategory(product?.categoryId));
-    }, []);
+        // Fetch data of the current product
+        dispatch(findProduct(productId));
+    }, [product]);
 
     const onEditProduct = (information) => {
         navigation.navigate('ProductEditScreen', {

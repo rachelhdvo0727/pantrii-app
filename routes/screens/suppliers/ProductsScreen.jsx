@@ -44,7 +44,7 @@ export default function ProductsScreen(props) {
                 setProducts(data);
             })
             .catch((error) => console.error(error));
-    }, []);
+    }, [products]);
 
     const filteredData = filterInStock
         ? products?.filter((item) => item?.amountInStock > 10)
@@ -169,7 +169,7 @@ export default function ProductsScreen(props) {
                                 isSoldOut={item?.amountInStock === 0}
                                 onPress={() => {
                                     navigation.navigate('ProductInfoScreen', {
-                                        product: item,
+                                        productId: item?._id,
                                     });
                                 }}
                             />
