@@ -7,7 +7,6 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import InputField from '../../../components/InputField';
 import InputFieldSelect from '../../../components/InputFieldSelect';
 import Button from '../../../components/actions/Button';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
 import { Checkbox } from 'react-native-paper';
 import ThermoIcon from '../../../components/svgs/ThermoIcon';
