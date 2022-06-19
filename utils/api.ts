@@ -1,8 +1,6 @@
 import User from '../models/User';
 import Product from '../models/Product';
 import Category from '../models/Category';
-const CryptoJS = require('crypto-js');
-import * as Crypto from 'expo-crypto';
 
 // GENERAL
 const headers = {
@@ -59,7 +57,7 @@ const newUserAccountData = (document: User) => {
 export const createUserAccount = (document: User) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/insertOne',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/insertOne',
         headers: headers,
         data: newUserAccountData(document),
     };
