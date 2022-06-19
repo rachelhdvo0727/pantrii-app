@@ -21,8 +21,8 @@ import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
 import ApprovedModal from '../../../components/ApprovedModal';
-import * as ImagePicker from 'expo-image-picker';
-import { ImagePickerMultipleResult } from 'expo-image-picker';
+// import * as ImagePicker from 'expo-image-picker';
+// import { ImagePickerMultipleResult } from 'expo-image-picker';
 // API & Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
