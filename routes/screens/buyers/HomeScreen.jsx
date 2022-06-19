@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, View, ScrollView } from 'react-native';
 import generalStyles from '../../../styles/General';
+// Components
+import { StyleSheet, SafeAreaView, View, ScrollView } from 'react-native';
 import HeroCardSlider from '../../../components/buyers/HeroCardSlider';
 import NewProductsSlider from '../../../components/buyers/NewProductsSlider';
 import HighLightProductsSlider from '../../../components/buyers/HighlightProductsSlider';

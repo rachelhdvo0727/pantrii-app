@@ -145,6 +145,7 @@ export default function ProductsScreen(props) {
                         keyExtractor={(item) => item?._id}
                         renderItem={({ item }) => (
                             <ProductCard
+                                status={item?.status}
                                 productTitle={
                                     productContent?.productTitle[
                                         item?.productTitle

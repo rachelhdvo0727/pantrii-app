@@ -73,7 +73,9 @@ export default function ApprovedModal({
                                         style={styles.icon}
                                     />
                                 ) : null}
-                                {waitingIcon && <HourglassIcon />}
+                                {waitingIcon ? (
+                                    <HourglassIcon style={styles.icon} />
+                                ) : null}
 
                                 <Text style={styles.messageTitle}>
                                     {messageTitle}
@@ -106,6 +108,9 @@ export default function ApprovedModal({
                         <View style={styles.modalView}>
                             {hasConfirmedIcon ? (
                                 <CheckmarkIcon style={styles.icon} />
+                            ) : null}
+                            {waitingIcon ? (
+                                <HourglassIcon style={styles.icon} />
                             ) : null}
 
                             <Text style={styles.messageTitle}>
@@ -146,9 +151,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     modalView: {
-        margin: 20,
+        margin: 15,
         backgroundColor: '#FFFFFF',
-        width: Dimensions.get('window').width - 100,
+        width: Dimensions.get('window').width - 70,
         borderRadius: 20,
         padding: 35,
         alignItems: 'center',
@@ -170,5 +175,4 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
     },
-    buttonStyle: {},
 });

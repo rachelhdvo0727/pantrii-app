@@ -139,16 +139,24 @@ const ProductEditScreen = (props) => {
             product?.tags?.includes('frozen') && setIsFrozen(true);
             product?.tags?.includes('organic') && setIsOrganic(true);
         }
+
+        const timer = setTimeout(() => {
+            setShowLoading(false);
+        }, 890);
+
+        showLoading && timer;
+        return () => clearTimeout(timer);
     }, [informationSection]);
 
     const onFocus = () => {
         setFocused(true);
         setHasProductInformation(false);
     };
+    const [showLoading, setShowLoading] = React.useState(true);
 
     return (
         <SafeAreaView style={styles.container}>
-            {!product || product === null ? (
+            {showLoading ? (
                 <Spinner />
             ) : (
                 <React.Fragment>
