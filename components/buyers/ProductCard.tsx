@@ -38,8 +38,8 @@ export interface Props {
     isFrozen?: string;
     isOrganic?: string;
     isFeatured?: Product['isFeatured'];
-    onPress: () => void;
-    onPressAdd?: React.ComponentProps<typeof Pressable>['onPress'];
+    onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
+    onPressAdd?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
     onPressFavourite?: React.ComponentProps<typeof Pressable>['onPress'];
     isActive?: boolean;
     onPressUnFavourite: React.ComponentProps<typeof Pressable>['onPress'];

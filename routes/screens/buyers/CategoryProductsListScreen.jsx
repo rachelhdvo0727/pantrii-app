@@ -13,6 +13,7 @@ import ProductCard from '../../../components/buyers/ProductCard';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import NotFound from '../../../components/NotFound';
 import Spinner from '../../../components/Spinner';
+import SearchBar from '../../../components/SearchBar';
 // API
 import axios from 'axios';
 import { fetchCategoryProducts } from '../../../utils/api';
@@ -54,6 +55,7 @@ const CategoryProductsListScreen = (props) => {
                 const data = response.data?.documents;
                 setTimeout(() => {
                     setCategoryProducts(data);
+                    setFilteredDataSource(data);
                 }, 500);
             })
             .catch((error) => {
@@ -61,30 +63,69 @@ const CategoryProductsListScreen = (props) => {
             });
     }, []);
 
+    const [searchValue, setSearchValue] = React.useState('');
+    const [filteredDataSource, setFilteredDataSource] = React.useState([]);
+
+    const searchFilterFunction = (text) => {
+        // Check if searched text is not blank
+        if (text) {
+            // Filter the categoryProducts
+            const newData = categoryProducts.filter((item) => {
+                const searchedProductNames = productContent.productTitle[
+                    item?.productTitle
+                ]
+                    ? productContent.productTitle[
+                          item?.productTitle
+                      ].toLowerCase()
+                    : ''.toLowerCase();
+
+                const searchedProducerNames = item?.producerTitle
+                    ? item?.producerTitle.toLowerCase()
+                    : ''.toLowerCase();
+
+                const textData = text.toLowerCase();
+
+                return (
+                    searchedProductNames.indexOf(textData) > -1 ||
+                    searchedProducerNames.indexOf(textData) > -1
+                );
+            });
+            setFilteredDataSource(newData); // Update FilteredDataSource
+            setSearchValue(text);
+        } else {
+            setFilteredDataSource(categoryProducts); // Update FilteredDataSource with categoryProducts
+            setSearchValue(text);
+        }
+    };
     const sortedList =
         (selectedSort?.value === 'A-AA' &&
-            categoryProducts?.sort((a, b) =>
+            filteredDataSource?.sort((a, b) =>
                 a?.productTitle
                     .normalize()
                     .localeCompare(b?.productTitle.normalize()),
             )) ||
         (selectedSort?.value === 'AA-A' &&
-            categoryProducts?.reverse(
-                (a, b) =>
-                    a?.productTitle.toLowerCase() <
-                        b?.productTitle.toLowerCase() && -1,
+            filteredDataSource?.sort((a, b) =>
+                b.productTitle
+                    .normalize()
+                    .localeCompare(a.productTitle.normalize()),
             )) ||
         (selectedSort?.value === 'lowest' &&
-            categoryProducts?.sort(
+            filteredDataSource?.sort(
                 (a, b) => parseInt(a?.bulkPrice) > parseInt(b?.bulkPrice),
             )) ||
         (selectedSort?.value === 'highest' &&
-            categoryProducts?.sort(
+            filteredDataSource?.sort(
                 (a, b) => parseInt(a?.bulkPrice) < parseInt(b?.bulkPrice),
             ));
 
     return (
         <View style={styles.container}>
+            <SearchBar
+                onChangeText={(text) => searchFilterFunction(text)}
+                value={searchValue}
+            />
+
             <SelectDropDown
                 label="Sortér efter"
                 data={sortOptions}
@@ -92,13 +133,14 @@ const CategoryProductsListScreen = (props) => {
                 selectedItem={selectedSort}
             />
             {categoryProducts === null && <Spinner />}
-            {categoryProducts?.length === 0 ? (
+            {categoryProducts?.length === 0 && (
                 <NotFound
                     text={`Der findes ikke produkter i ${
                         categoryContent?.name[category?.name]
                     } kategorien`}
                 />
-            ) : (
+            )}
+            {categoryProducts?.length > 0 && (
                 <FlatList
                     data={sortedList}
                     keyExtractor={(item) => item?._id}
@@ -148,10 +190,8 @@ const CategoryProductsListScreen = (props) => {
                     )}
                     numColumns={2}
                     scrollEnabled={true}
-                    contentContainerStyle={[
-                        styles.productListContainer,
-                        categoryProducts?.length === 1 && styles.shortListStyle,
-                    ]}
+                    contentContainerStyle={styles.productListContainer}
+                    columnWrapperStyle={styles.columnWrapperStyle}
                 ></FlatList>
             )}
         </View>
@@ -161,15 +201,21 @@ const CategoryProductsListScreen = (props) => {
 export default CategoryProductsListScreen;
 
 const styles = StyleSheet.create({
-    container: { ...generalStyles.container },
+    container: { ...generalStyles.container, padding: 0 },
     productListContainer: {
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        width: '100%',
         marginTop: 0,
-        marginHorizontal: 10,
+        paddingHorizontal: 15,
     },
     cardStyle: {
         margin: 5,
     },
     shortListStyle: { alignItems: 'flex-start', marginHorizontal: 10 },
+    searchBar: {
+        marginBottom: 15,
+    },
+    columnWrapperStyle: {
+        justifyContent: 'space-between',
+        marginBottom: 15,
+    },
 });

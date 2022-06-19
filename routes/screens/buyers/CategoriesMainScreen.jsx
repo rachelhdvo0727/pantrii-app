@@ -5,6 +5,7 @@ import CategoryCard from '../../../components/buyers/CategoryCard';
 import dictionary from '../../../dictionary/categories';
 import { categoryImages } from '../../../dictionary/images';
 import { useNavigation } from '@react-navigation/native';
+import Spinner from '../../../components/Spinner';
 // API
 import { getCategories } from '../../../redux/slice/categories';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,12 +17,14 @@ export default function CategoriesMainScreen() {
     const { categories } = useSelector((state) => state.categories);
 
     React.useEffect(() => {
+        // console.log(categories);
         // Fetch all categories
         dispatch(getCategories(true));
-    }, []);
+    }, [categories]);
 
     return (
         <SafeAreaView style={[generalStyles.container]}>
+            {categories.length === 0 && <Spinner />}
             <FlatList
                 data={categories}
                 keyExtractor={(item) => item?._id}

@@ -14,8 +14,6 @@ import ApprovedModal from '../../components/ApprovedModal';
 // API
 import { createUser } from '../../redux/slice/createUser';
 import { useDispatch, useSelector } from 'react-redux';
-import * as Crypto from 'expo-crypto';
-const CryptoJS = require('crypto-js');
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
@@ -370,7 +368,7 @@ export default function LogInScreen(props) {
             {/* Success sign uo modal */}
             <ApprovedModal
                 messageTitle="godkendt"
-                messageText="Din konto er oprette. Fortsæt med at logge ind"
+                messageText="Din konto er oprettet. Fortsæt med at logge ind"
                 isModalVisible={modalVisible}
                 buttonTitle="log ind"
                 hasConfirmedIcon={true}

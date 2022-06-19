@@ -6,9 +6,7 @@ import {
     TouchableOpacity,
     Text,
     SafeAreaView,
-    VirtualizedList,
     FlatList,
-    View,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '../utils/functions';
@@ -32,7 +30,7 @@ export default function SelectDropDown({
     selectedItem,
 }: Props) {
     const [visible, setVisible] = React.useState(false);
-    const [seletedOption, setSelectedItem] = React.useState(selectedItem);
+    const [selectedOption, setSelectedItem] = React.useState(selectedItem);
 
     const toggleDropdown = () => {
         setVisible(!visible);
@@ -54,7 +52,7 @@ export default function SelectDropDown({
             <Text
                 style={[
                     styles.dropdownText,
-                    seletedOption?.label === item?.label && styles.currentSort,
+                    selectedOption?.label === item?.label && styles.currentSort,
                 ]}
             >
                 {capitalize(item?.label)}&emsp;&emsp;
@@ -83,10 +81,10 @@ export default function SelectDropDown({
                 <Text
                     style={[
                         styles.buttonText,
-                        seletedOption?.label !== '' && styles.currentSort,
+                        selectedOption?.label !== '' && styles.currentSort,
                     ]}
                 >
-                    {seletedOption?.label ? ': ' + seletedOption?.label : ''}
+                    {selectedOption?.label ? ': ' + selectedOption?.label : ''}
                 </Text>
             ) : null}
 
@@ -106,7 +104,7 @@ const styles = StyleSheet.create({
         borderColor: '#000000',
         borderWidth: 1,
         borderRadius: 50,
-        paddingVertical: 3,
+        paddingVertical: 8,
         paddingHorizontal: 10,
         marginVertical: 10,
         marginHorizontal: 10,
@@ -129,13 +127,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
 
-        top: 27,
+        top: 38,
         right: 0,
     },
     dropdownItem: {
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
-        paddingVertical: 3.5,
+        paddingVertical: 8,
         paddingHorizontal: 10,
     },
     lastItem: {

@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Text,
     StyleSheet,
-    View,
+    Dimensions,
     ImageBackground,
     TouchableOpacity,
 } from 'react-native';
@@ -16,10 +16,7 @@ export interface Props {
 
 const CampaignCard: React.FC<Props> = ({ title, imageSrc, onPress }) => {
     return (
-        <TouchableOpacity
-            style={[generalStyles.cardContainer, styles.container]}
-            onPress={onPress}
-        >
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <ImageBackground
                 source={imageSrc}
                 style={generalStyles?.imageBg}
@@ -35,15 +32,10 @@ const CampaignCard: React.FC<Props> = ({ title, imageSrc, onPress }) => {
 export default CampaignCard;
 
 const styles = StyleSheet.create({
-    secondary: {
-        width: 122,
-        height: 50,
-    },
-    secondaryTitle: {
-        fontSize: 12,
-    },
     container: {
         marginBottom: 15,
+        marginRight: 15,
+        height: 120,
     },
     overlay: {
         backgroundColor: '#000000',
@@ -55,10 +47,6 @@ const styles = StyleSheet.create({
         right: 0,
         zIndex: 888,
         opacity: 0.28,
-    },
-    overlaySecondary: {
-        borderRadius: 5,
-        height: 50,
     },
     title: {
         textAlign: 'center',
