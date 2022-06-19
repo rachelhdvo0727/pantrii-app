@@ -21,6 +21,7 @@ import Button from '../../../components/actions/Button';
 import ViewButton from '../../../components/actions/ViewButton';
 import ProductCard from '../../../components/suppliers/ProductCard';
 import { Entypo } from '@expo/vector-icons';
+import Spinner from '../../../components/Spinner';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsForProducer } from '../../../redux/slice/producerProducts';
@@ -84,6 +85,7 @@ export default function HomeScreen(props) {
                         />
                     </View>
                     <View style={styles.sectionContent}>
+                        {producerProducts === null && <Spinner />}
                         {producerProducts?.length === 0 && (
                             <Text style={styles.noProductsText}>
                                 {content?.noProductsFound}
