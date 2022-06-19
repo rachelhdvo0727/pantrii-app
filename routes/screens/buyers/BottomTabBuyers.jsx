@@ -69,14 +69,12 @@ export default function BottomTabBuyers(props) {
                     ),
                     headerTitle: (props) => <TopNavBuyers {...props} />,
                     headerShown: false,
-                    unmountOnBlur: true,
                 }}
             />
             <Tab.Screen
                 name="Kategorier"
                 component={CategoriesStack}
                 options={{
-                    unmountOnBlur: true,
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
