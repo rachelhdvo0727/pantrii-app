@@ -9,20 +9,18 @@ import {
     Text,
     View,
     SafeAreaView,
-    FlatList,
     ScrollView,
+    Dimensions,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export interface Option {
-    // _id: string;
-    // name: string;
-    // imageSrc?: string;
     label: string;
     value: string;
 }
 
 export interface Props {
+    style?: React.ComponentProps<typeof TouchableOpacity>['style'];
     label: string;
     neutralLabel: string;
     placeholder?: string;
@@ -43,6 +41,7 @@ export default function InputFieldSelect({
     focused,
     hasDefaultValue,
     selectedItem,
+    style,
 }: Props) {
     const [visible, setVisible] = React.useState(false);
     const [selectedOption, setSelectedItem] = React.useState(selectedItem);
@@ -93,7 +92,7 @@ export default function InputFieldSelect({
 
     return (
         <TouchableOpacity
-            style={[styles.container, focused && { opacity: 1 }]}
+            style={[styles.container, focused && { opacity: 1 }, style]}
             onPress={toggleDropdown}
             onFocus={onFocus}
         >
@@ -136,7 +135,7 @@ export default function InputFieldSelect({
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10,
+        marginVertical: 20,
         marginHorizontal: 18,
         paddingVertical: 10,
         paddingHorizontal: 25,

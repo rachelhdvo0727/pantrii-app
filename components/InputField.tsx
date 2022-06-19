@@ -1,5 +1,13 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, View, TextInput, Text } from 'react-native';
+import generalStyles from '../styles/General';
+import {
+    StyleSheet,
+    SafeAreaView,
+    View,
+    TextInput,
+    Text,
+    Dimensions,
+} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '../utils/functions';
 
@@ -22,6 +30,9 @@ export interface Props {
     inputStyle?: React.ComponentProps<typeof View>['style'];
     hasDefaultValue?: boolean;
     focused?: boolean;
+    withWarning?: boolean;
+    warningText?: React.ComponentProps<typeof Text>['children'];
+    warningTitle?: React.ComponentProps<typeof Text>['children'];
 }
 
 export default function InputField({
@@ -41,10 +52,23 @@ export default function InputField({
     inputStyle,
     hasDefaultValue,
     focused,
+    withWarning,
+    warningText,
+    warningTitle,
 }: Props) {
     return (
-        <View style={[inputStyle]}>
-            <View style={styles.container}>
+        <View
+            style={[
+                inputStyle,
+                styles.container,
+                multiline && { height: Dimensions.get('window').height / 5.5 },
+                withWarning &&
+                    multiline && {
+                        height: Dimensions.get('window').height / 4.3,
+                    },
+            ]}
+        >
+            <View style={styles.textInputContainer}>
                 <Text style={styles.label}>{capitalize(label)}</Text>
                 <TextInput
                     value={value}
@@ -58,6 +82,7 @@ export default function InputField({
                     secureTextEntry={secureTextEntry}
                     maxLength={maxLength}
                     blurOnSubmit
+                    underlineColorAndroid="transparent"
                     style={[
                         styles.textValue,
                         hasDefaultValue && styles.hasDefaultValue,
@@ -67,6 +92,12 @@ export default function InputField({
                     onFocus={onFocus}
                 ></TextInput>
             </View>
+            {withWarning && (
+                <Text style={styles.warning}>
+                    <Text style={styles.warningTitle}>{warningTitle}</Text>
+                    <Text style={styles.warningText}>{warningText}</Text>
+                </Text>
+            )}
             {/* Error message */}
             {errorMessage && errorMessage?.message !== '' ? (
                 <View style={styles.errorContainer}>
@@ -87,7 +118,11 @@ export default function InputField({
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10,
+        // height: Dimensions.get('window').height / 10,
+    },
+    textInputContainer: {
+        marginVertical: 20,
+        marginBottom: 5,
         marginHorizontal: 18,
         paddingVertical: 10,
         paddingHorizontal: 25,
@@ -123,9 +158,8 @@ const styles = StyleSheet.create({
         top: '62%',
     },
     textValue: {
-        fontFamily: 'TT-Commons-Regular',
-        fontSize: 16,
-        letterSpacing: 1,
+        ...generalStyles.paragraphText,
+        fontSize: 15.5,
         marginTop: 1,
     },
     hasDefaultValue: { opacity: 0.2 },
@@ -141,14 +175,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
     },
     errorMessage: {
-        fontFamily: 'TT-Commons-Regular',
-        fontSize: 14,
-        letterSpacing: 1,
-        lineHeight: 17.5,
-        // marginTop: 1,
-        color: 'red',
+        ...generalStyles.paragraphText,
+        fontSize: 13,
+        color: '#FF0000',
     },
     errorIcon: {
         marginRight: 5,
+    },
+    warning: {
+        alignSelf: 'center',
+        paddingHorizontal: 20,
+    },
+    warningTitle: {
+        ...generalStyles.mediumText,
+        color: '#CBA51E',
+    },
+    warningText: {
+        ...generalStyles.paragraphText,
+        fontSize: 13,
+        color: '#CBA51E',
     },
 });
