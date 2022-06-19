@@ -144,19 +144,22 @@ const ProductInfoCard = ({
                             <Text style={styles.singularPrice}>
                                 {singlePrice}/enhed
                             </Text>
-                            <Text
-                                style={[
-                                    styles.singularPrice,
-                                    { fontSize: 14 },
-                                    status === 'approved' &&
-                                        styles.amountPositive,
-                                    status === 'rejected' &&
-                                        styles.amountNegative,
-                                    status === 'pending' && styles.amountLow,
-                                ]}
-                            >
-                                {capitalize(status)}
-                            </Text>
+                            {isProducerView && (
+                                <Text
+                                    style={[
+                                        styles.singularPrice,
+                                        { fontSize: 14 },
+                                        status === 'approved' &&
+                                            styles.amountPositive,
+                                        status === 'rejected' &&
+                                            styles.amountNegative,
+                                        status === 'pending' &&
+                                            styles.amountLow,
+                                    ]}
+                                >
+                                    {capitalize(status)}
+                                </Text>
+                            )}
                         </View>
                     </View>
                     {isProducerView && (

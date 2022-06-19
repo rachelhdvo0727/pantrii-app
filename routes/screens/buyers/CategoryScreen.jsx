@@ -19,7 +19,10 @@ import NotFound from '../../../components/NotFound';
 import Spinner from '../../../components/Spinner';
 // API
 import axios from 'axios';
-import { fetchCategoryProducts, mongoDbConfig } from '../../../utils/api';
+import {
+    fetchCategoryProducts,
+    fetchAvailableProducts,
+} from '../../../utils/api';
 // Redux
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addToCart } from '../../../redux/reducer/CartReducer';
@@ -65,7 +68,7 @@ export default function CategoryScreen(props) {
         // Fetch this category's products
         axios(
             isAllProductsView
-                ? mongoDbConfig('products')
+                ? fetchAvailableProducts('products')
                 : fetchCategoryProducts(categoryId),
         )
             .then((response) => {

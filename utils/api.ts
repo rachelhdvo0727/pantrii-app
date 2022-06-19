@@ -12,12 +12,12 @@ const headers = {
         '2GZQT0hpTykckgCnk5ajds55663JisDpmQg3r9gy94YhgO9rDay9NeEzClKm6jcc',
 };
 
+// GET EVERYTHING
 const mongoDbData = (collection: string) => {
     return JSON.stringify({
         collection: collection,
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
-        filter: { status: collection === 'products' ? 'approved' : null },
     });
 };
 
@@ -27,6 +27,25 @@ export const mongoDbConfig = (collection: string) => {
         url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
         headers: headers,
         data: mongoDbData(collection),
+    };
+};
+
+// GENERAL WITH FILTER FOR APPROVED AND IN STOCK 
+const fetchAvailableData = (collection: string) => {
+    return JSON.stringify({
+        collection: collection,
+        dataSource: 'PantriiApp',
+        database: 'pantriiapp',
+        filter: { status: collection === 'products' ? 'approved' : null, amountInStock: collection === 'products' ? {$gt: 0} : null },
+    });
+};
+
+export const fetchAvailableProducts = (collection: string) => {
+    return {
+        method: 'post',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/find',
+        headers: headers,
+        data: fetchAvailableData(collection),
     };
 };
 
@@ -113,7 +132,7 @@ const fetchLatestData = (collection: string) => {
         sort: {
             dateTime: -1,
         },
-        filter: { status: 'approved' },
+        filter: { status: 'approved' , amountInStock: {$gt: 0}},
     });
 };
 
@@ -132,7 +151,7 @@ const fetchFeaturedData = (collection: string) => {
         collection: collection,
         dataSource: 'PantriiApp',
         database: 'pantriiapp',
-        filter: { isFeatured: true, status: 'approved' },
+        filter: { isFeatured: true, status: 'approved', amountInStock: {$gt: 0} },
     });
 };
 
@@ -156,6 +175,7 @@ const categoryProductsData = (categoryId: string, sort?: number) => {
                 $oid: categoryId,
             },
             status: 'approved',
+            amountInStock: {$gt: 0},
         },
         sort: { completedAt: sort },
     });
@@ -360,6 +380,7 @@ const fetchFilteredData = (collection: string, campaign: string) => {
                 $all: [campaign],
             },
             status: 'approved',
+            amountInStock: {$gt: 0},
         },
     });
 };
@@ -382,6 +403,7 @@ const fetchAdvertData = (collection: string, producerTitle: string) => {
         filter: {
             producerTitle: producerTitle,
             status: 'approved',
+            amountInStock: {$gt: 0}
         },
     });
 };
