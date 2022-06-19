@@ -2,7 +2,7 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import { useNavigation } from '@react-navigation/native';
-import { CONSTANTS, SHash, JSHash } from 'react-native-hash';
+import { CONSTANTS, JSHash } from 'react-native-hash';
 
 // Components
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
