@@ -110,7 +110,9 @@ export default function CategoryScreen(props) {
             setSearchValue(text);
         }
     };
-
+    // React.useEffect(() => {
+    //     console.log(categoryProducts?.sort().reverse());
+    // }, []);
     return (
         <View style={styles.container}>
             <SearchBar
@@ -180,10 +182,10 @@ export default function CategoryScreen(props) {
                                     .localeCompare(b.productTitle.normalize()),
                             )) ||
                         (selectedSort?.value === 'AA-A' &&
-                            filteredDataSource?.reverse(
-                                (a, b) =>
-                                    a.productTitle.toLowerCase() <
-                                        b.productTitle.toLowerCase() && -1,
+                            filteredDataSource?.sort((a, b) =>
+                                b.productTitle
+                                    .normalize()
+                                    .localeCompare(a.productTitle.normalize()),
                             )) ||
                         (selectedSort?.value === 'lowest' &&
                             filteredDataSource?.sort(
