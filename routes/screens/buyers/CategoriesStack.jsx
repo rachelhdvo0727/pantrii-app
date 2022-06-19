@@ -4,6 +4,8 @@ import CategoriesMainScreen from './CategoriesMainScreen';
 import CategoryScreen from './CategoryScreen';
 import CategoryProductsListScreen from './CategoryProductsListScreen';
 import ProductScreen from './ProductScreen';
+import SearchScreen from './SearchScreen';
+import TopNavBuyers from './TopNavBuyers';
 
 const Stack = createNativeStackNavigator();
 
@@ -61,6 +63,15 @@ const CategoriesStack = () => {
                     headerBackVisible: false,
                 }}
             />
+            {/* <Stack.Screen
+                name="SearchScreen"
+                component={SearchScreen}
+                options={{
+                    headerBackTitleVisible: false,
+                    headerBackVisible: false,
+                    headerTitle: (props) => <TopNavBuyers {...props} />,
+                }}
+            /> */}
         </Stack.Navigator>
     );
 };

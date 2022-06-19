@@ -10,7 +10,6 @@ import SignUpScreen from './screens/SignUpScreen';
 import * as SecureStore from 'expo-secure-store';
 import { getRoles } from '../redux/slice/roles';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUser, logOut } from '../redux/slice/user';
 
 const Stack = createNativeStackNavigator();
 

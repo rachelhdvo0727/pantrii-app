@@ -6,14 +6,7 @@ import dictionary from '../../../dictionary/general.json';
 import { productImages } from '../../../dictionary/images';
 import { numberFormat } from '../../../utils/functions';
 // Component
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    ScrollView,
-    FlatList,
-} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import HeroCard from '../../../components/buyers/HeroCard';
 import SystemMessageBanner from '../../../components/SystemMessageBanner';
 import CampaignCardSlider from '../../../components/buyers/CampaignCardSlider';
@@ -47,6 +40,7 @@ export default function HomeScreen(props) {
 
     return (
         <SafeAreaView style={styles.container}>
+            {!producerProducts.length === 0 && <Spinner />}
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
@@ -94,6 +88,7 @@ export default function HomeScreen(props) {
                         {producerProducts?.map((item) => (
                             <ProductCard
                                 key={item?._id}
+                                status={item?.status}
                                 productTitle={
                                     productContent?.productTitle[
                                         item?.productTitle

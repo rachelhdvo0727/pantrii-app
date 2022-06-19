@@ -3,26 +3,16 @@ import generalStyles from '../../../styles/General';
 import { categoriesOptions } from '../../../utils/variables';
 import dictionary from '../../../dictionary/general.json';
 // Components
-import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import InputField from '../../../components/InputField';
 import InputFieldSelect from '../../../components/InputFieldSelect';
 import Button from '../../../components/actions/Button';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
 import { Checkbox } from 'react-native-paper';
 import ThermoIcon from '../../../components/svgs/ThermoIcon';
 import OrganicIcon from '../../../components/svgs/OrganicIcon';
 import FrozenIcon from '../../../components/svgs/FrozenIcon';
 import ApprovedModal from '../../../components/ApprovedModal';
-// import * as ImagePicker from 'expo-image-picker';
-// import { ImagePickerMultipleResult } from 'expo-image-picker';
 // API & Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
@@ -104,7 +94,7 @@ export default function UploadProductsScreen(props) {
                     isModalVisible={isModalVisible}
                     waitingIcon
                     messageTitle="Afvente godkend"
-                    messageText="Vi vil gennemgå varesoplysningers og vende tilbage med et status. Tak for din tålmodighed"
+                    messageText={`Vi vil gennemgå varesoplysninger og vende tilbage med et status.\n\n Tak for din tålmodighed!`}
                     hasButton
                     buttonTitle="glæder mig"
                     onPress={() => {
@@ -158,8 +148,7 @@ export default function UploadProductsScreen(props) {
                         name="amountPerPack"
                         control={control}
                         rules={{
-                            required:
-                                'Venligst angiv antal af produkt i én pakke/enhed',
+                            required: 'Antal af produkt i én enhed',
                         }}
                         render={({
                             field: { onChange, onBlur, value },
@@ -208,7 +197,7 @@ export default function UploadProductsScreen(props) {
                         name="bulkPrice"
                         control={control}
                         rules={{
-                            required: 'Pris/kolli er påkrævet',
+                            required: 'Pris /kolli er påkrævet',
                             pattern: {
                                 value: /^\d+$/,
                                 message: 'Kun nummer',
@@ -235,7 +224,7 @@ export default function UploadProductsScreen(props) {
                         name="singlePrice"
                         control={control}
                         rules={{
-                            required: 'Pris/ enhed er påkrævet',
+                            required: 'Pris /enhed er påkrævet',
                         }}
                         render={({
                             field: { onChange, onBlur, value },
@@ -266,8 +255,7 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="hvor mange på lager? *"
-                            inputStyle={styles.fieldsetCell}
+                            label="antal på lager *"
                             placeholder="eks. 10"
                             value={value}
                             onChangeText={onChange}
@@ -279,25 +267,6 @@ export default function UploadProductsScreen(props) {
                         />
                     )}
                 />
-                {/* <Button
-                    title="Upload billeder fra arkiv"
-                    secondary
-                    buttonStyle={[styles.buttons, styles.uploadButton]}
-                    children={
-                        <MaterialIcons
-                            name="photo-library"
-                            size={18}
-                            color="#FFFFFF"
-                        />
-                    }
-                />
-                 {image && (
-                    <Image
-                        source={{ uri: image }}
-                        style={{ width: 150, height: 150 }}
-                    />
-                )} */}
-
                 <Controller
                     name="expiryDuration"
                     control={control}
@@ -306,7 +275,7 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="forventet holdbarhed"
+                            label="holdbarhed"
                             placeholder="x dage/måned/år"
                             value={value}
                             onChangeText={onChange}
@@ -324,6 +293,7 @@ export default function UploadProductsScreen(props) {
                     )}
                     onSelect={onSelectCategory}
                     selectedItem={selectedCategory}
+                    style={styles.selectDropdown}
                 />
                 <Controller
                     name="productDesc"
@@ -457,8 +427,9 @@ const styles = StyleSheet.create({
     },
     fieldset: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
         alignItems: 'center',
+        paddingBottom: 5,
+        paddingTop: 5,
     },
     fieldsetCell: { flex: 1 },
     fieldLabel: {
@@ -469,7 +440,10 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
     },
     buttons: { alignSelf: 'center', marginVertical: 10 },
-    multiplySign: { ...generalStyles.boldText },
+    multiplySign: {
+        ...generalStyles.boldText,
+        fontSize: 20,
+    },
     uploadButton: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
@@ -490,5 +464,8 @@ const styles = StyleSheet.create({
     },
     tagOption: { flexDirection: 'row', alignItems: 'center', width: '50%' },
     icon: { position: 'absolute', left: 50 },
-    createButton: { width: '50%' },
+    createButton: { width: '50%', marginBottom: 25 },
+    selectDropdown: {
+        // ma: 30,
+    },
 });

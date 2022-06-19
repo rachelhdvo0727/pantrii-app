@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, View, TextInput, Text } from 'react-native';
+import {
+    StyleSheet,
+    SafeAreaView,
+    View,
+    TextInput,
+    Text,
+    Dimensions,
+} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '../utils/functions';
 
@@ -43,8 +50,14 @@ export default function InputField({
     focused,
 }: Props) {
     return (
-        <View style={[inputStyle]}>
-            <View style={styles.container}>
+        <View
+            style={[
+                inputStyle,
+                styles.container,
+                multiline && { height: Dimensions.get('window').height / 5.5 },
+            ]}
+        >
+            <View style={styles.textInputContainer}>
                 <Text style={styles.label}>{capitalize(label)}</Text>
                 <TextInput
                     value={value}
@@ -58,6 +71,7 @@ export default function InputField({
                     secureTextEntry={secureTextEntry}
                     maxLength={maxLength}
                     blurOnSubmit
+                    underlineColorAndroid="transparent"
                     style={[
                         styles.textValue,
                         hasDefaultValue && styles.hasDefaultValue,
@@ -87,7 +101,11 @@ export default function InputField({
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10,
+        // height: Dimensions.get('window').height / 10,
+    },
+    textInputContainer: {
+        marginVertical: 20,
+        marginBottom: 5,
         marginHorizontal: 18,
         paddingVertical: 10,
         paddingHorizontal: 25,
@@ -142,11 +160,9 @@ const styles = StyleSheet.create({
     },
     errorMessage: {
         fontFamily: 'TT-Commons-Regular',
-        fontSize: 14,
+        fontSize: 13,
         letterSpacing: 1,
-        lineHeight: 17.5,
-        // marginTop: 1,
-        color: 'red',
+        color: '#FF0000',
     },
     errorIcon: {
         marginRight: 5,

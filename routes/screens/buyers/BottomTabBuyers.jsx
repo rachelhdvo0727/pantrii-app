@@ -15,10 +15,6 @@ import { cartTotalSelector } from '../../../redux/reducer/selector';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabBuyers(props) {
-    // React.useEffect(() => {
-    //     console.log('Total:', total);
-    // });
-
     const total = useSelector(cartTotalSelector);
 
     return (
@@ -113,6 +109,7 @@ export default function BottomTabBuyers(props) {
                 component={CartStack}
                 initialParams={props?.route?.params}
                 options={{
+                    unmountOnBlur: true,
                     headerShown: false,
                     tabBarBadge: <Text>{total}</Text>,
                     tabBarBadgeStyle: {
@@ -137,6 +134,7 @@ export default function BottomTabBuyers(props) {
                 component={UserProfileStack}
                 initialParams={props?.route?.params}
                 options={{
+                    unmountOnBlur: true,
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
