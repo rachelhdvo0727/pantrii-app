@@ -104,10 +104,10 @@ const CategoryProductsListScreen = (props) => {
                     .localeCompare(b?.productTitle.normalize()),
             )) ||
         (selectedSort?.value === 'AA-A' &&
-            filteredDataSource?.reverse(
-                (a, b) =>
-                    a?.productTitle.toLowerCase() <
-                        b?.productTitle.toLowerCase() && -1,
+            filteredDataSource?.sort((a, b) =>
+                b.productTitle
+                    .normalize()
+                    .localeCompare(a.productTitle.normalize()),
             )) ||
         (selectedSort?.value === 'lowest' &&
             filteredDataSource?.sort(
