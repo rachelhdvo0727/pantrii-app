@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-const LANGUAGES = [
+const languages = [
     { code: 'en', label: 'English' },
     { code: 'dk', label: 'Dansk' },
 ];
@@ -21,7 +21,7 @@ const LanguageSelector = () => {
             <View style={styles.row}>
                 <Text style={styles.title}>{t('common:languageSelector')}</Text>
             </View>
-            {LANGUAGES.map((language) => {
+            {languages.map((language) => {
                 const selectedLanguage = language.code === selectedLanguageCode;
 
                 return (
