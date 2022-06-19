@@ -173,15 +173,10 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         paddingHorizontal: 14,
     },
-    errorMessage: {
-<<<<<<< HEAD
+    errorMessage: {´
         ...generalStyles.paragraphText,
-        fontSize: 13,
-=======
-        fontFamily: 'TT-Commons-Regular',
-        fontSize: 13,
+        fontSize: 13,´
         letterSpacing: 1,
->>>>>>> improvements
         color: '#FF0000',
     },
     errorIcon: {
