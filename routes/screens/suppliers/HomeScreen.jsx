@@ -1,7 +1,8 @@
 import React from 'react';
 import generalStyles from '../../../styles/General';
 import { useNavigation } from '@react-navigation/native';
-import dictionary from '../../../dictionary/products.json';
+import productDictionary from '../../../dictionary/products.json';
+import dictionary from '../../../dictionary/general.json';
 import { productImages } from '../../../dictionary/images';
 import { numberFormat } from '../../../utils/functions';
 // Component
@@ -32,7 +33,8 @@ export default function HomeScreen(props) {
         (state) => state?.producerProducts,
     );
     const listConfig = { producerId: user?._id, limit: 3 };
-    const content = dictionary?.products;
+    const content = dictionary?.producer;
+    const productContent = productDictionary?.products;
 
     React.useEffect(() => {
         dispatch(getProductsForProducer(listConfig));
@@ -82,16 +84,23 @@ export default function HomeScreen(props) {
                         />
                     </View>
                     <View style={styles.sectionContent}>
+                        {producerProducts?.length === 0 && (
+                            <Text style={styles.noProductsText}>
+                                {content?.noProductsFound}
+                            </Text>
+                        )}
                         {producerProducts?.map((item) => (
                             <ProductCard
                                 key={item?._id}
                                 productTitle={
-                                    content?.productTitle[item?.productTitle] ||
-                                    item?.productTitle
+                                    productContent?.productTitle[
+                                        item?.productTitle
+                                    ] || item?.productTitle
                                 }
                                 productDesc={
-                                    content?.productDesc[item?.productDesc] ||
-                                    item?.productDesc
+                                    productContent?.productDesc[
+                                        item?.productDesc
+                                    ] || item?.productDesc
                                 }
                                 productUnit={item?.productUnit}
                                 bulkPrice={numberFormat(item?.bulkPrice)}
@@ -147,4 +156,5 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    noProductsText: { ...generalStyles.paragraphText, textAlign: 'center' },
 });
