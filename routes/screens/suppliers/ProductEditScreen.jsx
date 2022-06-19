@@ -149,8 +149,8 @@ const ProductEditScreen = (props) => {
                     productContent.productUnique[product?.productUnique],
                 productUnit: product?.productUnit,
                 amountInStock: product?.amountInStock,
-                bulkPrice: numberFormat(product?.bulkPrice),
-                singlePrice: numberFormat(product?.singlePrice),
+                bulkPrice: product?.bulkPrice,
+                singlePrice: product?.singlePrice,
                 expiryDuration: product?.expiryDuration,
             });
             setHasProductInformation(true);
