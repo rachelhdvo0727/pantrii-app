@@ -8,7 +8,7 @@ import { SLIDER_WIDTH, sortOptions } from '../../../utils/variables';
 import { numberFormat } from '../../../utils/functions';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import { StyleSheet, View, FlatList, TextInput, Text } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import SearchBar from '../../../components/SearchBar';
 import CategoryCard from '../../../components/buyers/CategoryCard';
 import ProductCard from '../../../components/buyers/ProductCard';
@@ -49,13 +49,17 @@ export default function CategoryScreen(props) {
         setSelectedSort(item);
     };
 
+    const [searchValue, setSearchValue] = React.useState('');
+    const [filteredDataSource, setFilteredDataSource] = React.useState([]);
+
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
             headerTitle: categoryContent?.name[categoryName]?.toUpperCase(),
-            headerLeft: () => (
-                <BackIconButton onPress={() => navigation.goBack()} />
-            ),
+            headerLeft: () =>
+                !isAllProductsView && (
+                    <BackIconButton onPress={() => navigation.goBack()} />
+                ),
         });
 
         // Fetch this category's products
@@ -76,8 +80,11 @@ export default function CategoryScreen(props) {
             });
     }, [categoryId, categoryName]);
 
-    const [searchValue, setSearchValue] = React.useState('');
-    const [filteredDataSource, setFilteredDataSource] = React.useState([]);
+    const handleShowSearchScreen = () => {
+        navigation.navigate('SearchScreen', {
+            products: categoryProducts,
+        });
+    };
 
     const searchFilterFunction = (text) => {
         // Check if searched text is not blank
@@ -110,148 +117,153 @@ export default function CategoryScreen(props) {
             setSearchValue(text);
         }
     };
-    // React.useEffect(() => {
-    //     console.log(categoryProducts?.sort().reverse());
-    // }, []);
+
     return (
         <View style={styles.container}>
+            {/* Search directly on the shown list */}
             <SearchBar
                 onChangeText={(text) => searchFilterFunction(text)}
                 value={searchValue}
-            ></SearchBar>
-
-            {/* Categories slider - show on ALL Products view*/}
-            {isAllProductsView ? (
-                <Slider
-                    title="Kategorier"
-                    titleStyle={styles.titleStyle}
-                    layout="default"
-                    hasPagination
-                    data={filteredCategories}
-                    inactiveSlideOpacity={1}
-                    inactiveSlideScale={1}
-                    activeSlideAlignment="start"
-                    snapToInterval={3}
-                    itemWidth={128}
-                    sliderWidth={SLIDER_WIDTH}
-                    renderItem={({ item, index }) => (
-                        <CategoryCard
-                            secondary
-                            key={index}
-                            title={categoryContent?.name[item?.name]}
-                            imageSrc={categoryImages[item?.imageSrc]}
-                            onPress={() => {
-                                navigation.navigate(
-                                    'CategoryProductsListScreen',
-                                    {
-                                        category: item,
-                                    },
-                                );
-                            }}
-                        ></CategoryCard>
-                    )}
-                    dotStyle={styles.dotStyle}
-                    containerStyle={styles.sliderContainer}
-                    inactiveDotScale={1}
-                    inactiveDotStyle={{
-                        backgroundColor: '#BCBCBC',
-                    }}
-                />
-            ) : null}
-
-            <SelectDropDown
-                label="Sortér efter"
-                data={sortOptions}
-                onSelect={onSelectedSort}
-                selectedItem={selectedSort}
             />
-
-            {categoryProducts === null && <Spinner />}
-            {categoryProducts?.length === 0 && (
-                <NotFound
-                    text={`Der findes ikke produkter i ${categoryContent?.name[categoryName]} kategorien`}
+            {/* Categories slider - show on ALL Products view*/}
+            <React.Fragment>
+                {isAllProductsView ? (
+                    <Slider
+                        title="Kategorier"
+                        titleStyle={styles.titleStyle}
+                        layout="default"
+                        hasPagination
+                        data={filteredCategories}
+                        inactiveSlideOpacity={1}
+                        inactiveSlideScale={1}
+                        activeSlideAlignment="start"
+                        snapToInterval={3}
+                        itemWidth={128}
+                        sliderWidth={SLIDER_WIDTH}
+                        renderItem={({ item, index }) => (
+                            <CategoryCard
+                                secondary
+                                key={index}
+                                title={categoryContent?.name[item?.name]}
+                                imageSrc={categoryImages[item?.imageSrc]}
+                                onPress={() => {
+                                    navigation.navigate(
+                                        'CategoryProductsListScreen',
+                                        {
+                                            category: item,
+                                        },
+                                    );
+                                }}
+                            ></CategoryCard>
+                        )}
+                        dotStyle={styles.dotStyle}
+                        containerStyle={styles.sliderContainer}
+                        inactiveDotScale={1}
+                        inactiveDotStyle={{
+                            backgroundColor: '#BCBCBC',
+                        }}
+                    />
+                ) : null}
+                <SelectDropDown
+                    label="Sortér efter"
+                    data={sortOptions}
+                    onSelect={onSelectedSort}
+                    selectedItem={selectedSort}
                 />
-            )}
-            {categoryProducts?.length > 0 && (
-                <FlatList
-                    data={
-                        (selectedSort?.value === 'A-AA' &&
-                            filteredDataSource?.sort((a, b) =>
-                                a.productTitle
-                                    .normalize()
-                                    .localeCompare(b.productTitle.normalize()),
-                            )) ||
-                        (selectedSort?.value === 'AA-A' &&
-                            filteredDataSource?.sort((a, b) =>
-                                b.productTitle
-                                    .normalize()
-                                    .localeCompare(a.productTitle.normalize()),
-                            )) ||
-                        (selectedSort?.value === 'lowest' &&
-                            filteredDataSource?.sort(
-                                (a, b) =>
-                                    parseInt(a.bulkPrice) >
-                                    parseInt(b.bulkPrice),
-                            )) ||
-                        (selectedSort?.value === 'highest' &&
-                            filteredDataSource?.sort(
-                                (a, b) =>
-                                    parseInt(a.bulkPrice) <
-                                    parseInt(b.bulkPrice),
-                            ))
-                    }
-                    // data={filteredDataSource}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => (
-                        <ProductCard
-                            productID={favouriteId?.filter(
-                                (i) => i == item?._id,
-                            )}
-                            productTitle={
-                                productContent.productTitle[
-                                    item?.productTitle
-                                ] || item?.productTitle
-                            }
-                            imageSrc={productImages[item?.imageSrc]}
-                            producerTitle={item?.producerTitle}
-                            productDesc={
-                                productContent.productDesc[item?.productDesc] ||
-                                item?.productDesc
-                            }
-                            productUnit={item?.productUnit}
-                            bulkPrice={numberFormat(item?.bulkPrice)}
-                            singlePrice={numberFormat(item?.singlePrice)}
-                            isCold={item.tags?.find((tag) => tag == 'cold')}
-                            isOrganic={item.tags?.find(
-                                (tag) => tag == 'organic',
-                            )}
-                            isFrozen={item.tags?.find((tag) => tag == 'frozen')}
-                            cardStyle={styles.cardStyle}
-                            onPress={() =>
-                                navigation.navigate('ProductScreen', {
-                                    categoryProducts: categoryProducts,
-                                    product: item,
-                                })
-                            }
-                            onPressAdd={() => {
-                                dispatch(addToCart(item));
-                            }}
-                            onPressFavourite={() => {
-                                dispatch(addToFavourite(item));
-                            }}
-                            onPressUnFavourite={() => {
-                                dispatch(removeFavourite(item._id));
-                            }}
-                        />
-                    )}
-                    numColumns={2}
-                    scrollEnabled={true}
-                    contentContainerStyle={[
-                        styles.productListContainer,
-                        categoryProducts?.length === 1 && styles.shortListStyle,
-                    ]}
-                ></FlatList>
-            )}
+                {categoryProducts === null && <Spinner />}
+                {categoryProducts?.length === 0 && (
+                    <NotFound
+                        text={`Der findes ikke produkter i ${categoryContent?.name[categoryName]} kategorien`}
+                    />
+                )}
+                {/* Search directly on the shown list */}
+                {categoryProducts?.length > 0 && (
+                    <FlatList
+                        data={
+                            (selectedSort?.value === 'A-AA' &&
+                                filteredDataSource?.sort((a, b) =>
+                                    a.productTitle
+                                        .normalize()
+                                        .localeCompare(
+                                            b.productTitle.normalize(),
+                                        ),
+                                )) ||
+                            (selectedSort?.value === 'AA-A' &&
+                                filteredDataSource?.sort((a, b) =>
+                                    b.productTitle
+                                        .normalize()
+                                        .localeCompare(
+                                            a.productTitle.normalize(),
+                                        ),
+                                )) ||
+                            (selectedSort?.value === 'lowest' &&
+                                filteredDataSource?.sort(
+                                    (a, b) =>
+                                        parseInt(a.bulkPrice) >
+                                        parseInt(b.bulkPrice),
+                                )) ||
+                            (selectedSort?.value === 'highest' &&
+                                filteredDataSource?.sort(
+                                    (a, b) =>
+                                        parseInt(a.bulkPrice) <
+                                        parseInt(b.bulkPrice),
+                                ))
+                        }
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <ProductCard
+                                productID={favouriteId?.filter(
+                                    (i) => i == item?._id,
+                                )}
+                                productTitle={
+                                    productContent.productTitle[
+                                        item?.productTitle
+                                    ] || item?.productTitle
+                                }
+                                imageSrc={productImages[item?.imageSrc]}
+                                producerTitle={item?.producerTitle}
+                                productDesc={
+                                    productContent.productDesc[
+                                        item?.productDesc
+                                    ] || item?.productDesc
+                                }
+                                productUnit={item?.productUnit}
+                                bulkPrice={numberFormat(item?.bulkPrice)}
+                                singlePrice={numberFormat(item?.singlePrice)}
+                                isCold={item.tags?.find((tag) => tag == 'cold')}
+                                isOrganic={item.tags?.find(
+                                    (tag) => tag == 'organic',
+                                )}
+                                isFrozen={item.tags?.find(
+                                    (tag) => tag == 'frozen',
+                                )}
+                                cardStyle={styles.cardStyle}
+                                onPress={() =>
+                                    navigation.navigate('ProductScreen', {
+                                        product: item,
+                                    })
+                                }
+                                onPressAdd={() => {
+                                    dispatch(addToCart(item));
+                                }}
+                                onPressFavourite={() => {
+                                    dispatch(addToFavourite(item));
+                                }}
+                                onPressUnFavourite={() => {
+                                    dispatch(removeFavourite(item._id));
+                                }}
+                            />
+                        )}
+                        numColumns={2}
+                        scrollEnabled={true}
+                        contentContainerStyle={[
+                            styles.productListContainer,
+                            categoryProducts?.length === 1 &&
+                                styles.shortListStyle,
+                        ]}
+                    ></FlatList>
+                )}
+            </React.Fragment>
         </View>
     );
 }

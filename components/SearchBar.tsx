@@ -5,6 +5,7 @@ import {
     TextInput,
     ViewStyle,
     StyleProp,
+    Pressable,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -12,9 +13,23 @@ export interface Props {
     style?: StyleProp<ViewStyle>;
     value: React.ComponentProps<typeof TextInput>['value'];
     onChangeText: React.ComponentProps<typeof TextInput>['onChangeText'];
+    onPressIn?: React.ComponentProps<typeof TextInput>['onPressIn'];
+    onPressOut?: React.ComponentProps<typeof TextInput>['onPressOut'];
+    onPress?: React.ComponentProps<typeof Pressable>['onPress'];
+    autoFocus?: React.ComponentProps<typeof TextInput>['autoFocus'];
+    focusedNewScreen?: boolean;
 }
 
-const SearchBar = ({ style, value, onChangeText }: Props) => {
+const SearchBar = ({
+    style,
+    value,
+    onChangeText,
+    onPressOut,
+    onPressIn,
+    autoFocus,
+    onPress,
+    focusedNewScreen,
+}: Props) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
     const onFocus = () => {
@@ -26,25 +41,33 @@ const SearchBar = ({ style, value, onChangeText }: Props) => {
             <View
                 style={[
                     styles.wrapper,
-                    isFocused && {
+                    (isFocused || autoFocus) && {
                         justifyContent: 'flex-start',
                     },
                 ]}
             >
-                <FontAwesome
-                    name="search"
-                    size={16}
-                    color="#A1A1A1"
-                    style={styles.searchIcon}
-                />
+                <Pressable onPress={onPress}>
+                    <FontAwesome
+                        name="search"
+                        size={16}
+                        color="#A1A1A1"
+                        style={styles.searchIcon}
+                    />
+                </Pressable>
 
                 <TextInput
                     onChangeText={onChangeText}
                     value={value}
                     underlineColorAndroid="transparent"
                     placeholder="Søg"
-                    style={[styles.textInput, isFocused && { flex: 1 }]}
+                    style={[
+                        styles.textInput,
+                        (isFocused || autoFocus) && { flex: 1 },
+                    ]}
                     onFocus={onFocus}
+                    onPressIn={onPressIn}
+                    onPressOut={onPressOut}
+                    autoFocus={autoFocus}
                 />
             </View>
         </View>
@@ -67,6 +90,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: 10,
         paddingHorizontal: 15,
+        marginHorizontal: 15,
     },
     searchIcon: {
         paddingRight: 8,

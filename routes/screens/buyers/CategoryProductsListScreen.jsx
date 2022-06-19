@@ -55,6 +55,7 @@ const CategoryProductsListScreen = (props) => {
                 const data = response.data?.documents;
                 setTimeout(() => {
                     setCategoryProducts(data);
+                    setFilteredDataSource(data);
                 }, 500);
             })
             .catch((error) => {
@@ -132,13 +133,14 @@ const CategoryProductsListScreen = (props) => {
                 selectedItem={selectedSort}
             />
             {categoryProducts === null && <Spinner />}
-            {categoryProducts?.length === 0 ? (
+            {categoryProducts?.length === 0 && (
                 <NotFound
                     text={`Der findes ikke produkter i ${
                         categoryContent?.name[category?.name]
                     } kategorien`}
                 />
-            ) : (
+            )}
+            {categoryProducts?.length > 0 && (
                 <FlatList
                     data={sortedList}
                     keyExtractor={(item) => item?._id}
@@ -201,7 +203,7 @@ const CategoryProductsListScreen = (props) => {
 export default CategoryProductsListScreen;
 
 const styles = StyleSheet.create({
-    container: { ...generalStyles.container },
+    container: { ...generalStyles.container, padding: 0 },
     productListContainer: {
         alignItems: 'center',
         justifyContent: 'space-between',
