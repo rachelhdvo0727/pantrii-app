@@ -1,8 +1,6 @@
 import User from '../models/User';
 import Product from '../models/Product';
 import Category from '../models/Category';
-const CryptoJS = require('crypto-js');
-import * as Crypto from 'expo-crypto';
 
 // GENERAL
 const headers = {
