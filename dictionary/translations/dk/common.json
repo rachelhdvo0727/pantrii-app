@@ -1,5 +1,73 @@
 {
-    "settings": {
-        "languageSelector": "Vælg dit sprog"
+    "home":{
+        "newProducts": "Nyheder",
+        "featuredProducts": "Populært lige nu",
+        "campaign": "Kampagner"
+    },
+    "favourites":{
+        "favouritesEmpty": "Dine favoritter er tom"
+    },
+    "cart":{
+        "cartEmpty": "Din kurv er tom",
+        "total": "I alt",
+        "deleteWarning": "Er du sikker på, at du gerne vil slette dette produkt?",
+        "delivery": "Levering",
+        "expectedDelivery": "Forventes leverted",
+        "standardShipping": "Standard shipping",
+        "paymentMethod": "Betalingsmetode",
+        "overview": "Oversigt",
+        "subtotal": "Subtotal",
+        "deliveryNoticeStart": "Køb for",
+        "deliveryNoticeEnd": "mere og få gratis fragt",
+        "creditDebit": "Kredit/ Debit kort",
+        "shippingNotice": "Fri fragt på alle ordrer over"
+    },
+    "profile":{
+        "profileInfo": "Profil information",
+        "address": "Adresse",
+        "buyer": "Erhvervskunde",
+        "producer": "Producent",
+        "firstName": "Fornavn",
+        "lastName": "Efternavm",
+        "email": "Email",
+        "phoneNumber": "Mobilnummer",
+        "addressLine1": "Adresselinje 1",
+        "addressLine2": "Adresselinje 2",
+        "postNumber": "Postnr.",
+        "city": "By",
+        "country": "Land"
+    },
+    "settings":{
+        "languageSelector": "Vælg din sprog"
+    },
+    "labels":{
+        "viewAll": "Se alle",
+        "sort": "Sortér efter",
+        "edit": "Redigér",
+        "search": "Søg",
+        "save": "Gem",
+        "goCheckOut": "Gå til kassen",
+        "goPayment": "Gå til betaling",
+        "goHome": "Gå til hjem",
+        "yes": "Ja",
+        "no": "Nej",
+        "free": "Gratis",
+        "cardholderName": "Navn på kortet ",
+        "cardNumber": "Kortnummer ",
+        "validDate": "Gyldigt til ",
+        "cvv": "Kontrolcifre ",
+        "isRequired": "er påkrævet",
+        "pay": "Betal",
+        "approvedMessage": "Godkendt",
+        "orderSuccess": "Din ordre er blevet bekræftet",
+        "logOut": "Log mig ud",
+        "addToCart": "Tilføj til kurv",
+        "added": "Tilføjet",
+        "favourite": "Favorite",
+        "details": "Detaljer",
+        "productStory": "Produktbeskrivelse",
+        "productUnique": "Produktkendetegnelse",
+        "unit": "enhed",
+        "bulk": "kolli"
     }
 }

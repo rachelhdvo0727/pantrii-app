@@ -19,7 +19,9 @@ const LanguageSelector = () => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <Text style={styles.title}>{t('common:languageSelector')}</Text>
+                <Text style={styles.title}>
+                    {t('common:settings.languageSelector')}
+                </Text>
             </View>
             {languages.map((language) => {
                 const selectedLanguage = language.code === selectedLanguageCode;

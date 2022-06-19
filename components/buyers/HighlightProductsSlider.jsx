@@ -20,6 +20,8 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../redux/reducer/FavouriteReducer';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 const HighLightProductsSlider = () => {
     const [index, setIndex] = React.useState(0);
@@ -33,6 +35,8 @@ const HighLightProductsSlider = () => {
     const dispatch = useDispatch();
     const favourite = useSelector((state) => state.favourite);
     const favouriteId = favourite.map((i) => i?._id);
+
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         axios(fetchFeaturedProducts('products'))
@@ -48,7 +52,9 @@ const HighLightProductsSlider = () => {
     return (
         <View style={styles.container}>
             <View style={generalStyles.flexHeading}>
-                <Text style={generalStyles.headerH2}>Populært lige nu</Text>
+                <Text style={generalStyles.headerH2}>
+                    {t('common:home.featuredProducts')}
+                </Text>
                 <ViewButton
                     onPress={() => navigation.navigate('HighlightProducts')}
                 />

@@ -3,5 +3,14 @@
     "categories": "Kategorier",
     "favourites": "Favoritter",
     "cart": "Kurv",
-    "profile": "Profil"
+    "profile": "Profil",
+    "newProducts": "NYHEDER",
+    "featuredProducts": "POPULÆRT LIGE NU",
+    "category": "KATEGORIER",
+    "carts": "KURV",
+    "checkOut": "KASSEN",
+    "payment": "BETALING",
+    "profiles": "PROFIL",
+    "editProfile": "REDIGER PROFIL",
+    "editAddress": "REDIGER ADRESSE"
 }

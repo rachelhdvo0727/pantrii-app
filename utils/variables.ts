@@ -1,4 +1,6 @@
 import { Dimensions } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
 
 export const passwordRules =
     'minlength: 20; maxlength: 12; required: lower; required: upper; required: digit;';

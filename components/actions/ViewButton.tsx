@@ -9,6 +9,7 @@ import {
     StyleProp,
     PressableProps,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
     onPress: React.ComponentProps<typeof TouchableOpacity>['onPress'];
@@ -16,9 +17,11 @@ export interface Props {
 }
 
 const ViewButton: React.FC<Props> = ({ style, onPress }) => {
+    const { t } = useTranslation();
+
     return (
         <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
-            <Text style={styles.title}>Se alle</Text>
+            <Text style={styles.title}>{t('common:labels.viewAll')}</Text>
         </TouchableOpacity>
     );
 };

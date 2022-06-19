@@ -24,6 +24,8 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 const CategoryProductsListScreen = (props) => {
     const dispatch = useDispatch();
@@ -39,6 +41,8 @@ const CategoryProductsListScreen = (props) => {
     const onSelectedSort = (item) => {
         setSelectedSort(item);
     };
+
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -127,7 +131,7 @@ const CategoryProductsListScreen = (props) => {
             />
 
             <SelectDropDown
-                label="Sortér efter"
+                label={t('common:labels.sort')}
                 data={sortOptions}
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}

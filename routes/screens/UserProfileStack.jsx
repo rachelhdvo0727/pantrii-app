@@ -2,10 +2,13 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from './ProfileScreen';
 import ProfileEditScreen from './ProfileEditScreen';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
 const UserProfileStack = (props) => {
+    const { t } = useTranslation();
     React.useEffect(() => {
         // console.log('profilestack', props.route);
     });
@@ -33,7 +36,7 @@ const UserProfileStack = (props) => {
                 name="ProfileScreen"
                 component={ProfileScreen}
                 options={{
-                    headerTitle: 'PROFIL',
+                    headerTitle: t('navigate:profiles'),
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}

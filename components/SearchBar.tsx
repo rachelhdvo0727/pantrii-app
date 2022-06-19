@@ -8,6 +8,8 @@ import {
     Pressable,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
     style?: StyleProp<ViewStyle>;
@@ -36,6 +38,8 @@ const SearchBar = ({
         setIsFocused(!isFocused);
     };
 
+    const { t } = useTranslation();
+
     return (
         <View style={[style, styles.container]}>
             <View
@@ -59,7 +63,7 @@ const SearchBar = ({
                     onChangeText={onChangeText}
                     value={value}
                     underlineColorAndroid="transparent"
-                    placeholder="Søg"
+                    placeholder={t('common:labels.search')}
                     style={[
                         styles.textInput,
                         (isFocused || autoFocus) && { flex: 1 },

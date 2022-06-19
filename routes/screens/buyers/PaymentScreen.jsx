@@ -14,12 +14,15 @@ import Modal from 'react-native-modal';
 import { cartTotalPriceSelector } from '../../../redux/reducer/selector';
 import { clear } from '../../../redux/reducer/CartReducer';
 import { useSelector, useDispatch } from 'react-redux';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function PaymentScreen(props) {
     const navigation = useNavigation();
     const user = props?.route?.params?.user;
     const [focused, setFocused] = React.useState(false);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         props?.navigation?.setOptions({
@@ -53,7 +56,9 @@ export default function PaymentScreen(props) {
         <View style={generalStyles.container}>
             <View style={styles.formWrapper}>
                 <View style={styles.flex}>
-                    <Text style={styles.header}>Kredit/ Debit kort</Text>
+                    <Text style={styles.header}>
+                        {t('common:cart.creditDebit')}
+                    </Text>
                     <Image
                         style={styles.image}
                         source={require('../../../assets/kort/kreditkort-logo.png')}
@@ -63,14 +68,16 @@ export default function PaymentScreen(props) {
                     name="name"
                     control={control}
                     rules={{
-                        required: 'Navn er påkrævet',
+                        required:
+                            t('common:labels.cardholderName') +
+                            t('common:labels.isRequired'),
                     }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="Navn på kortet *"
+                            label={t('common:labels.cardholderName') + '*'}
                             placeholder="Hans Hansen"
                             value={value}
                             onChangeText={onChange}
@@ -85,14 +92,16 @@ export default function PaymentScreen(props) {
                     name="number"
                     control={control}
                     rules={{
-                        required: 'Kortnummer er påkrævet',
+                        required:
+                            t('common:labels.cardNumber') +
+                            t('common:labels.isRequired'),
                     }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="Kortnummer *"
+                            label={t('common:labels.cardNumber') + '*'}
                             placeholder="1234-1234-1234-1234"
                             value={value}
                             onChangeText={onChange}
@@ -107,14 +116,16 @@ export default function PaymentScreen(props) {
                     name="expiryDate"
                     control={control}
                     rules={{
-                        required: 'Gyldigt til er påkrævet',
+                        required:
+                            t('common:labels.validDate') +
+                            t('common:labels.isRequired'),
                     }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="Gyldigt til *"
+                            label={t('common:labels.validDate') + '*'}
                             placeholder="MM/YY"
                             value={value}
                             onChangeText={onChange}
@@ -129,14 +140,16 @@ export default function PaymentScreen(props) {
                     name="CVC"
                     control={control}
                     rules={{
-                        required: 'Kontrolcifre er påkrævet',
+                        required:
+                            t('common:labels.cvv') +
+                            t('common:labels.isRequired'),
                     }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="Kontrolcifre *"
+                            label={t('common:labels.cvv') + '*'}
                             placeholder="123"
                             value={value}
                             onChangeText={onChange}
@@ -148,7 +161,7 @@ export default function PaymentScreen(props) {
                     )}
                 ></Controller>
                 <Button
-                    title="Betal"
+                    title={t('common:labels.pay')}
                     primary
                     buttonStyle={styles.buttonStyle}
                     onPress={handleSubmit(onSubmit)}
@@ -173,13 +186,15 @@ export default function PaymentScreen(props) {
                             color="#9DB76E"
                             style={styles.icon}
                         />
-                        <Text style={styles.messageTitle}>godkendt</Text>
+                        <Text style={styles.messageTitle}>
+                            {t('common:labels.approvedMessage')}
+                        </Text>
                         <Text style={styles.messageText}>
-                            Din ordre er blevet bekræftet
+                            {t('common:labels.orderSuccess')}
                         </Text>
                         <Button
                             primary
-                            title="GÅ TIL HJEM"
+                            title={t('common:labels.goHome')}
                             onPress={() => {
                                 dispatch(clear());
                                 navigation.navigate('HomeScreen');

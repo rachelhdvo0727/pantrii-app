@@ -95,7 +95,7 @@ export default function BottomTabBuyers(props) {
                 component={FavouritesScreen}
                 options={{
                     tabBarLabel: t('navigate:favourites'),
-                    headerTitle: 'Favoritter',
+                    headerTitle: t('navigate:favourites'),
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <Ionicons

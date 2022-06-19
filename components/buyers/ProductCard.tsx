@@ -23,6 +23,8 @@ import IconButton from '../actions/IconButton';
 import CloseButton from '../actions/CloseButton';
 import Product from '../../models/Product';
 import Button from '../actions/Button';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
     cardStyle: StyleProp<TouchableOpacityProps>;
@@ -72,6 +74,7 @@ const ProductCard = ({
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+    const { t } = useTranslation();
 
     return (
         <View>
@@ -199,7 +202,7 @@ const ProductCard = ({
                                     />
                                     <IconButton
                                         arrowRight
-                                        title="Detaljer"
+                                        title={t('common:labels.details')}
                                         onPress={onPress}
                                         onPressOut={toggleModal}
                                     />
@@ -208,8 +211,8 @@ const ProductCard = ({
                                     <Button
                                         title={
                                             !addItem
-                                                ? 'Tilføj til kurv'
-                                                : 'Tilføjet'
+                                                ? t('common:labels.addToCart')
+                                                : t('common:labels.added')
                                         }
                                         secondary={addItem ? false : true}
                                         confirmed={addItem ? true : false}

@@ -17,6 +17,8 @@ import { cartTotalPriceSelector } from '../../../redux/reducer/selector';
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
 import InformationCard from '../../../components/InformationCard';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function CartScreen() {
     const dispatch = useDispatch();
@@ -26,11 +28,15 @@ export default function CartScreen() {
     const cart = useSelector((state) => state.cart);
     const totalPrice = useSelector(cartTotalPriceSelector);
 
+    const { t } = useTranslation();
+
     return (
         <View style={styles.wrapper}>
             {cart.length === 0 ? (
                 <View style={styles.wrapperCenter}>
-                    <Text style={styles.emptyText}>Din kurv er tom</Text>
+                    <Text style={styles.emptyText}>
+                        {t('common:cart.cartEmpty')}
+                    </Text>
                 </View>
             ) : (
                 <View style={styles.container}>
@@ -92,10 +98,10 @@ export default function CartScreen() {
                 }
             >
                 <Text style={generalStyles.headerH2}>
-                    I ALT: {numberFormat(totalPrice)}
+                    {t('common:cart.total')}: {numberFormat(totalPrice)}
                 </Text>
                 <Button
-                    title="Gå til kassen"
+                    title={t('common:labels.goCheckOut')}
                     primary
                     onPress={() => navigation.navigate('CheckOutScreen')}
                 />

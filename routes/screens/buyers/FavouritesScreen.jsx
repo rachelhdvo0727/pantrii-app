@@ -8,6 +8,8 @@ import { removeFavourite } from '../../../redux/reducer/FavouriteReducer';
 import { addToCart } from '../../../redux/reducer/CartReducer';
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function FavouritesScreen() {
     const numberFormat = (total) =>
@@ -20,11 +22,15 @@ export default function FavouritesScreen() {
 
     const favourite = useSelector((state) => state.favourite);
 
+    const { t } = useTranslation();
+
     return (
         <SafeAreaView style={[generalStyles.container]}>
             {favourite.length === 0 ? (
                 <View style={styles.wrapperCenter}>
-                    <Text style={styles.emptyText}>Dine favoritter er tom</Text>
+                    <Text style={styles.emptyText}>
+                        {t('common:favourites.favouritesEmpty')}
+                    </Text>
                 </View>
             ) : (
                 <FlatList

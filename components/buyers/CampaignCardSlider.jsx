@@ -11,6 +11,8 @@ import CampaignCard from './CampaignCard';
 import { mongoDbConfig } from '../../utils/api';
 import { campaignImages } from '../../dictionary/images';
 import axios from 'axios';
+//Translations
+import { useTranslation } from 'react-i18next';
 
 const CampaignCardSlider = () => {
     const [index, setIndex] = React.useState(0);
@@ -20,6 +22,8 @@ const CampaignCardSlider = () => {
     const content = dictionary?.campaigns; // DA dictionary
 
     const [products, setProducts] = React.useState([]);
+
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         axios(mongoDbConfig('campaigns'))
@@ -34,7 +38,9 @@ const CampaignCardSlider = () => {
     return (
         <View style={styles.container}>
             <View style={styles.padding}>
-                <Text style={generalStyles.headerH2}>Kampagne</Text>
+                <Text style={generalStyles.headerH2}>
+                    {t('common:home.campaign')}
+                </Text>
             </View>
             <Carousel
                 layout="default"

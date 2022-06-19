@@ -10,6 +10,8 @@ import {
     PressableProps,
 } from 'react-native';
 import IconButton from './actions/IconButton';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export interface SectionInInformationCardProps {
     sectionTitle: string;
@@ -36,6 +38,8 @@ const SectionInInformationCard = ({
     onEdit,
     iconButtonStyle,
 }: SectionInInformationCardProps) => {
+    const { t } = useTranslation();
+
     return (
         <View
             style={[
@@ -53,7 +57,7 @@ const SectionInInformationCard = ({
             {isEditable ? (
                 <IconButton
                     arrowRight
-                    title="Redigér"
+                    title={t('common:labels.edit')}
                     onPress={onEdit}
                     isActive={isEditable}
                     iconButtonStyle={iconButtonStyle}

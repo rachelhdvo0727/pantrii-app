@@ -17,6 +17,8 @@ import NotFound from '../../../components/NotFound';
 import axios from 'axios';
 import { findProducerProducts } from '../../../utils/api';
 import { useDispatch, useSelector } from 'react-redux';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function ProductsScreen(props) {
     const navigation = useNavigation();
@@ -37,6 +39,9 @@ export default function ProductsScreen(props) {
 
     const producerId = userId || user?._id;
     const listConfig = { producerId: producerId, limit: 100 };
+
+    const { t } = useTranslation();
+
     React.useEffect(() => {
         axios(findProducerProducts(listConfig))
             .then((response) => {
@@ -59,7 +64,7 @@ export default function ProductsScreen(props) {
     return (
         <View style={styles.container}>
             <SelectDropDown
-                label="Sortér efter"
+                label={t('common:labels.sort')}
                 data={sortOptions}
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}

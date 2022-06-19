@@ -3,5 +3,14 @@
     "categories": "Categories",
     "favourites": "Favourites",
     "cart": "Cart",
-    "profile": "Profile"
+    "profile": "Profile",
+    "newProducts": "NEW PRODUCTS",
+    "featuredProducts": "POPULAR PRODUCTS",
+    "category": "CATEGORIES",
+    "carts": "CART",
+    "checkOut": "CHECKOUT",
+    "payment": "PAYMENT",
+    "profiles": "PROFILE",
+    "editProfile": "EDIT PROFILE",
+    "editAddress": "EDIT ADDRESS"
 }

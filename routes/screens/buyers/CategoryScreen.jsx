@@ -30,6 +30,8 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function CategoryScreen(props) {
     const navigation = useNavigation();
@@ -54,6 +56,8 @@ export default function CategoryScreen(props) {
 
     const [searchValue, setSearchValue] = React.useState('');
     const [filteredDataSource, setFilteredDataSource] = React.useState([]);
+
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -132,7 +136,7 @@ export default function CategoryScreen(props) {
             <React.Fragment>
                 {isAllProductsView ? (
                     <Slider
-                        title="Kategorier"
+                        title={t('navigate:categories')}
                         titleStyle={styles.titleStyle}
                         layout="default"
                         hasPagination
@@ -168,7 +172,7 @@ export default function CategoryScreen(props) {
                     />
                 ) : null}
                 <SelectDropDown
-                    label="Sortér efter"
+                    label={t('common:labels.sort')}
                     data={sortOptions}
                     onSelect={onSelectedSort}
                     selectedItem={selectedSort}
