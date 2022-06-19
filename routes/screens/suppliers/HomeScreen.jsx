@@ -40,7 +40,6 @@ export default function HomeScreen(props) {
 
     return (
         <SafeAreaView style={styles.container}>
-            {!producerProducts.length === 0 && <Spinner />}
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
@@ -79,7 +78,6 @@ export default function HomeScreen(props) {
                         />
                     </View>
                     <View style={styles.sectionContent}>
-                        {producerProducts === null && <Spinner />}
                         {producerProducts?.length === 0 && (
                             <Text style={styles.noProductsText}>
                                 {content?.noProductsFound}

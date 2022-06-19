@@ -3,7 +3,7 @@ import axios from 'axios';
 import { findProducerProducts } from '../../utils/api';
 
 const initialState = {
-    producerProducts: null,
+    producerProducts: [],
     status: null,
     loading: false,
 };
