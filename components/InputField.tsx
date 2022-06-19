@@ -2,7 +2,6 @@ import React from 'react';
 import generalStyles from '../styles/General';
 import {
     StyleSheet,
-    SafeAreaView,
     View,
     TextInput,
     Text,
@@ -175,8 +174,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
     },
     errorMessage: {
+<<<<<<< HEAD
         ...generalStyles.paragraphText,
         fontSize: 13,
+=======
+        fontFamily: 'TT-Commons-Regular',
+        fontSize: 13,
+        letterSpacing: 1,
+>>>>>>> improvements
         color: '#FF0000',
     },
     errorIcon: {

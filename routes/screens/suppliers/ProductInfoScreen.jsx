@@ -49,51 +49,44 @@ export default function ProductInfoScreen(props) {
     };
 
     return (
-        <React.Fragment>
-            {!product ? (
-                <Spinner />
-            ) : (
-                <ProductInfoCard
-                    isProducerView
-                    status={product?.status}
-                    onEditBottomSection={() => onEditProduct('bottom')}
-                    onEditTopSection={() => onEditProduct('top')}
-                    category={capitalize(categoryContent.name[category?.name])}
-                    amountInStock={product?.amountInStock}
-                    isSoldOut={product?.amountInStock === 0}
-                    isLowOnStock={
-                        product?.amountInStock < 10 ||
-                        product?.amountInStock === 10
-                    }
-                    productID={product?._id}
-                    imageSrc={productImages[product?.imageSrc]}
-                    productTitle={
-                        productContent?.productTitle[product?.productTitle] ||
-                        product?.productTitle
-                    }
-                    producerTitle={product?.producerTitle}
-                    productDesc={
-                        productContent?.productDesc[product?.productDesc] ||
-                        product?.productDesc
-                    }
-                    productUnit={product?.productUnit}
-                    bulkPrice={numberFormat(product?.bulkPrice)}
-                    singlePrice={numberFormat(product?.singlePrice)}
-                    productStory={
-                        productContent.productStory[product?.productStory] ||
-                        product?.productStory
-                    }
-                    productUnique={
-                        productContent.productUnique[product?.productUnique] ||
-                        product?.productUnique
-                    }
-                    isCold={product?.tags?.find((tag) => tag == 'cold')}
-                    isOrganic={product?.tags?.find((tag) => tag == 'organic')}
-                    isFrozen={product?.tags?.find((tag) => tag == 'frozen')}
-                    expiryDuration={product?.expiryDuration}
-                />
-            )}
-        </React.Fragment>
+        <ProductInfoCard
+            isProducerView
+            status={product?.status}
+            onEditBottomSection={() => onEditProduct('bottom')}
+            onEditTopSection={() => onEditProduct('top')}
+            category={capitalize(categoryContent.name[category?.name])}
+            amountInStock={product?.amountInStock}
+            isSoldOut={product?.amountInStock === 0}
+            isLowOnStock={
+                product?.amountInStock < 10 || product?.amountInStock === 10
+            }
+            productID={product?._id}
+            imageSrc={productImages[product?.imageSrc]}
+            productTitle={
+                productContent?.productTitle[product?.productTitle] ||
+                product?.productTitle
+            }
+            producerTitle={product?.producerTitle}
+            productDesc={
+                productContent?.productDesc[product?.productDesc] ||
+                product?.productDesc
+            }
+            productUnit={product?.productUnit}
+            bulkPrice={numberFormat(product?.bulkPrice)}
+            singlePrice={numberFormat(product?.singlePrice)}
+            productStory={
+                productContent.productStory[product?.productStory] ||
+                product?.productStory
+            }
+            productUnique={
+                productContent.productUnique[product?.productUnique] ||
+                product?.productUnique
+            }
+            isCold={product?.tags?.find((tag) => tag == 'cold')}
+            isOrganic={product?.tags?.find((tag) => tag == 'organic')}
+            isFrozen={product?.tags?.find((tag) => tag == 'frozen')}
+            expiryDuration={product?.expiryDuration}
+        />
     );
 }
 
