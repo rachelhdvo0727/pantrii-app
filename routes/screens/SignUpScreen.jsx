@@ -14,8 +14,6 @@ import ApprovedModal from '../../components/ApprovedModal';
 // API
 import { createUser } from '../../redux/slice/createUser';
 import { useDispatch, useSelector } from 'react-redux';
-import * as Crypto from 'expo-crypto';
-const CryptoJS = require('crypto-js');
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
