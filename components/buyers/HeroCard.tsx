@@ -16,9 +16,17 @@ export interface Props {
     imageSrc: React.ComponentProps<typeof ImageBackground>['source'];
     secondary?: boolean;
     banner?: boolean;
+    imageStyle?: React.ComponentProps<typeof ImageBackground>['imageStyle'];
 }
 
-const HeroCard = ({ title, imageSrc, onPress, secondary, banner }: Props) => {
+const HeroCard = ({
+    title,
+    imageSrc,
+    onPress,
+    secondary,
+    banner,
+    imageStyle,
+}: Props) => {
     return (
         <React.Fragment>
             {banner ? (
@@ -32,7 +40,7 @@ const HeroCard = ({ title, imageSrc, onPress, secondary, banner }: Props) => {
                         source={imageSrc}
                         style={styles.imageBg}
                         resizeMode="cover"
-                        imageStyle={{ borderRadius: banner ? 0 : 10 }}
+                        imageStyle={[{ borderRadius: 0 }, imageStyle]}
                     >
                         <Text style={styles.featuredTitle}>{title}</Text>
                     </ImageBackground>
@@ -49,7 +57,7 @@ const HeroCard = ({ title, imageSrc, onPress, secondary, banner }: Props) => {
                         source={imageSrc}
                         style={styles.imageBg}
                         resizeMode="cover"
-                        imageStyle={{ borderRadius: banner ? 0 : 10 }}
+                        imageStyle={{ borderRadius: 10 }}
                     >
                         <Text style={styles.featuredTitle}>{title}</Text>
                     </ImageBackground>

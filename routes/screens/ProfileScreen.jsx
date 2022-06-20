@@ -39,6 +39,7 @@ export default function ProfileScreen(props) {
                 title={content[userRole]}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
+                imageStyle={{ borderRadius: 10 }}
             />
             <InformationCard style={styles.informationCard}>
                 <SectionInInformationCard
