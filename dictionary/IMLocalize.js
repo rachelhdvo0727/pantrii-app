@@ -51,6 +51,7 @@ i18n
     // set options
     .init({
         resources: LANGUAGES,
+        lng: 'dk',
         react: {
             useSuspense: false,
         },
