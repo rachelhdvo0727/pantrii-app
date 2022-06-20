@@ -24,28 +24,6 @@ const loadFonts = () => {
 export default function App() {
     const [fontLoaded, setFontLoaded] = React.useState(false);
 
-    React.useEffect(() => {
-        // (async function () {
-        //     try {
-        //         const user = await SecureStore.getItemAsync('user');
-        //         if (user?.length !== 0) {
-        //             const parsedUser = JSON.parse(user);
-        //             setLoggedInUser(parsedUser);
-        //             // console.log('found user', parsedUser);
-        //             parsedUser?.roleTitle === 'producer' &&
-        //                 setInitialRoute('BottomTabSuppliers');
-        //             parsedUser?.roleTitle === 'buyer' &&
-        //                 setInitialRoute('BottomTabBuyers');
-        //         } else {
-        //             setLoggedInUser({});
-        //             setInitialRoute('LogInScreen');
-        //         }
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // })();
-    }, []);
-
     return (
         <Provider store={store}>
             {!fontLoaded ? (
