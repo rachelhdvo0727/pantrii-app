@@ -57,7 +57,7 @@ const CampaignCardSlider = () => {
                                 product: item,
                             })
                         }
-                        title={content?.title[item?.title]}
+                        title={t('campaigns:campaigns.title.' + item?.title)}
                         imageSrc={campaignImages[item?.imageSrc]}
                     />
                 )}

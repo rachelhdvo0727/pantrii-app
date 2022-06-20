@@ -57,7 +57,9 @@ export default function ProductInfoScreen(props) {
             status={product?.status}
             onEditBottomSection={() => onEditProduct('bottom')}
             onEditTopSection={() => onEditProduct('top')}
-            category={capitalize(categoryContent.name[category?.name])}
+            category={capitalize(
+                t('categories:categories.name.' + category?.name),
+            )}
             amountInStock={product?.amountInStock}
             isSoldOut={product?.amountInStock === 0}
             isLowOnStock={

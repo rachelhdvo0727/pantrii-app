@@ -40,8 +40,9 @@ export default function CampaignScreen(props) {
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle:
-                campaignContent?.title[campaignTitle?.title]?.toUpperCase(),
+            headerTitle: t(
+                'campaigns:campaigns.title.' + campaignTitle?.title,
+            ).toUpperCase(),
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
@@ -60,7 +61,7 @@ export default function CampaignScreen(props) {
     return (
         <SafeAreaView style={[generalStyles.container]}>
             <HeroCard
-                title={campaignContent.title[campaignTitle?.title]}
+                title={t('campaigns:campaigns.title.' + campaignTitle?.title)}
                 imageSrc={campaignImages[campaignTitle?.imageSrc]}
                 banner
             />
