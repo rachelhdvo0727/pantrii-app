@@ -2,6 +2,7 @@ import React from 'react';
 import generalStyles from '../../../styles/General';
 import { categoriesOptions } from '../../../utils/variables';
 import dictionary from '../../../dictionary/general.json';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import InputField from '../../../components/InputField';
@@ -22,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function UploadProductsScreen(props) {
     const dispatch = useDispatch();
+    const navigation = useNavigation();
     const { categories } = useSelector((state) => state?.categories);
     const { user } = useSelector((state) => state.user);
     const loggedInUser = props?.route?.params.loggedInUser;
@@ -99,6 +101,7 @@ export default function UploadProductsScreen(props) {
                     messageTitle={t('common:labels.waitingApproval')}
                     messageText={t('common:labels.waitingApprovalMsg')}
                     buttonTitle={t('common:labels.proceed')}
+                    hasButton
                     onPress={() => {
                         navigation.goBack();
                     }}
@@ -318,7 +321,7 @@ export default function UploadProductsScreen(props) {
                     )}
                 />
                 <InputFieldSelect
-                    label={t('common:categories.categories') + ' *'}
+                    label={t('common:categories.categories')}
                     placeholder={t('common:placeholders.chooseCategory')}
                     data={categoriesOptions?.sort((a, b) => {
                         return selectedLanguageCode === 'dk'
@@ -361,7 +364,7 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label={t('common:products.productStory') + ' *'}
+                            label={t('common:products.productStory')}
                             placeholder={t('common:placeholders.example')}
                             multiline
                             value={value}
@@ -381,7 +384,7 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label={t('common:products.productUnique') + ' *'}
+                            label={t('common:products.productUnique')}
                             placeholder={t('common:placeholders.example')}
                             multiline
                             value={value}

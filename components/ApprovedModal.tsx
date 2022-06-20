@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
         ...generalStyles.headerH1,
         color: '#000000',
         paddingVertical: 10,
+        textAlign: 'center',
     },
     messageText: {
         ...generalStyles.paragraphText,
