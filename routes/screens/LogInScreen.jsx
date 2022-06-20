@@ -91,7 +91,9 @@ export default function LogInScreen(props) {
                     />
                     <AppLogo style={styles.icon}></AppLogo>
                     <View style={styles.formWrapper}>
-                        <Text style={styles.header}>log ind</Text>
+                        <Text style={styles.header}>
+                            {t('common:labels.logIn')}
+                        </Text>
 
                         <Controller
                             name="email"
