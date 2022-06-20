@@ -40,10 +40,10 @@ export const unitOptions = [
 
 // Category dropdown
 export const categoriesOptions = [
-    {
-        label: { dk: 'andre', en: 'other' },
-        value: 'other',
-    },
+    // {
+    //     label: { dk: 'andre', en: 'other' },
+    //     value: 'other',
+    // },
     {
         label: { dk: 'brød', en: 'bread' },
         value: 'bread',
