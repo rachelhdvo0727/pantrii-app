@@ -37,7 +37,7 @@ const NewProductsSlider = () => {
     const favourite = useSelector((state) => state.favourite);
     const favouriteId = favourite.map((i) => i?._id);
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         // Fetch all categories from MongoDB api
@@ -71,10 +71,10 @@ const NewProductsSlider = () => {
                 renderItem={({ item }) => (
                     <ProductCard
                         productID={favouriteId?.filter((i) => i == item?._id)}
-                        productTitle={
-                            content.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
+                        productTitle={t(
+                            'products:products.productTitle.' +
+                                item?.productTitle,
+                        )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
                         productDesc={
