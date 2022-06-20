@@ -1,17 +1,17 @@
 {
-    "home":{
+    "home": {
         "newProducts": "Nyheder",
         "featuredProducts": "Populært lige nu",
         "campaign": "Kampagner"
     },
-    "favourites":{
+    "favourites": {
         "favouritesEmpty": "Dine yndlingsprodukter vises hér. Husk at tap 🧡 på et produkt"
     },
-    "categories":{
+    "categories": {
         "category": "Kategori",
         "categories": "Kategorier"
     },
-    "cart":{
+    "cart": {
         "cartEmpty": "Din kurv er tom",
         "total": "I alt",
         "deleteWarning": "Er du sikker på, at du gerne vil slette dette produkt?",
@@ -26,7 +26,7 @@
         "creditDebit": "Kredit/ Debit kort",
         "shippingNotice": "Fri fragt på alle ordrer over"
     },
-    "profile":{
+    "profile": {
         "profileInfo": "Profil information",
         "address": "Adresse",
         "buyer": "Erhvervskunde",
@@ -42,7 +42,7 @@
         "country": "Land",
         "password": "Adgangskode"
     },
-    "products":{
+    "products": {
         "productName": "Produktnavn ",
         "brandName": "Navn på brand ",
         "unit": "Enhed ",
@@ -59,10 +59,10 @@
         "productStory": "Produkthistorie",
         "productUnique": "Produktkendetegnelse"
     },
-    "settings":{
-        "languageSelector": "Vælg din sprog"
+    "settings": {
+        "languageSelector": "Vælg dit sprog"
     },
-    "labels":{
+    "labels": {
         "viewAll": "Se alle",
         "sort": "Sortér efter",
         "edit": "Redigér",
@@ -115,10 +115,10 @@
         "warning": "OBS: ",
         "editLongText": "Indhold i dette felt oversættes og godkendes af vores team. Dit produkt vil sættes til 'Pending' og ikke vises på vores marketplace midlertidligt."
     },
-    "placeholders":{
+    "placeholders": {
         "chooseCategory": "Vælge en kategorie",
         "amountInStock": "eks. 10",
         "expiryDuration": "x dage/måned/år",
-        "example": "Eksempel"  
+        "example": "Eksempel"
     }
 }

@@ -4,7 +4,7 @@ import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Button from '../../components/actions/Button';
 import HeroCard from '../../components/buyers/HeroCard';
 import InformationCard from '../../components/InformationCard';
@@ -37,12 +37,13 @@ export default function ProfileScreen(props) {
     };
 
     return (
-        <View style={generalStyles.container}>
+        <ScrollView style={generalStyles.container}>
             <HeroCard
                 banner
                 title={content[userRole]}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
+                imageStyle={{ borderRadius: 10 }}
             />
             <InformationCard style={styles.informationCard}>
                 <SectionInInformationCard
@@ -109,8 +110,8 @@ export default function ProfileScreen(props) {
                 buttonStyle={styles.buttonStyle}
                 onPress={handleLogOut}
             ></Button>
-            <LanguageSelector />
-        </View>
+            <LanguageSelector style={styles.languageOptions} />
+        </ScrollView>
     );
 }
 
@@ -140,4 +141,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 40,
     },
+    languageOptions: { alignSelf: 'flex-start' },
 });
