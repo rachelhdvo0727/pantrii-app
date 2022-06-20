@@ -231,8 +231,7 @@ export default function UploadProductsScreen(props) {
                                 label={t('common:products.bulkPrice') + ' *'}
                                 inputStyle={styles.fieldsetCell}
                                 placeholder={
-                                    '                 /' +
-                                    t('common:labels.bulk')
+                                    '              /' + t('common:labels.bulk')
                                 }
                                 value={value}
                                 onChangeText={onChange}
@@ -260,8 +259,7 @@ export default function UploadProductsScreen(props) {
                                 label={t('common:products.unitPrice') + ' *'}
                                 inputStyle={styles.fieldsetCell}
                                 placeholder={
-                                    '                 /' +
-                                    t('common:labels.unit')
+                                    '              /' + t('common:labels.unit')
                                 }
                                 value={value}
                                 onChangeText={onChange}

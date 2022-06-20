@@ -46,9 +46,9 @@
     "products": {
         "productName": "Product name ",
         "brandName": "Brand name ",
-        "unit": "Unit per bulk ",
-        "bulkPrice": "Price /bulk",
-        "unitPrice": "Price/ unit",
+        "unit": "Unit/bulk ",
+        "bulkPrice": "Price/bulk",
+        "unitPrice": "Price/unit",
         "productDesc": "Product description",
         "cold": "Cold",
         "frozen": "Frozen",
@@ -59,7 +59,7 @@
         "expiryDuration": "Expires in",
         "productStory": "Product story",
         "productUnique": "Product identification",
-        "weight": "Weight "
+        "weight": "Weight/bulk "
     },
     "settings": {
         "languageSelector": "Select your language"

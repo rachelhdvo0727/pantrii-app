@@ -46,9 +46,9 @@
     "products": {
         "productName": "Produktnavn ",
         "brandName": "Navn på brand ",
-        "unit": "Enhed ",
-        "bulkPrice": "Pris /kolli",
-        "unitPrice": "Pris/ enhed",
+        "unit": "Enhed/kolli",
+        "bulkPrice": "Pris/kolli",
+        "unitPrice": "Pris/enhed",
         "productDesc": "Produktbeskrivelse",
         "cold": "Kold",
         "frozen": "Frost",
@@ -59,7 +59,7 @@
         "expiryDuration": "Forventet holdbarhed",
         "productStory": "Produkthistorie",
         "productUnique": "Produktkendetegnelse",
-        "weight": "Vælgt "
+        "weight": "Vælgt/kolli"
     },
     "settings": {
         "languageSelector": "Vælg dit sprog"
