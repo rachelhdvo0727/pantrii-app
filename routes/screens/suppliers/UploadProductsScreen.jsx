@@ -96,10 +96,9 @@ export default function UploadProductsScreen(props) {
                 <ApprovedModal
                     isModalVisible={isModalVisible}
                     waitingIcon
-                    messageTitle="Afvente godkend"
-                    messageText={`Vi vil gennemgå varesoplysninger og vende tilbage med et status.\n\n Tak for din tålmodighed!`}
-                    hasButton
-                    buttonTitle="glæder mig"
+                    messageTitle={t('common:labels.waitingApproval')}
+                    messageText={t('common:labels.waitingApprovalMsg')}
+                    buttonTitle={t('common:labels.proceed')}
                     onPress={() => {
                         navigation.goBack();
                     }}
@@ -110,15 +109,17 @@ export default function UploadProductsScreen(props) {
                     name="productTitle"
                     control={control}
                     rules={{
-                        required: 'Produktnavn er påkrævet',
+                        required:
+                            t('common:products.productName') +
+                            t('common:labels.isRequired'),
                     }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="produktnavn *"
-                            placeholder="Eksempel"
+                            label={t('common:products.productName') + '*'}
+                            placeholder={t('common:placeholders.example')}
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -131,13 +132,18 @@ export default function UploadProductsScreen(props) {
                 <Controller
                     name="producerTitle"
                     control={control}
+                    rules={{
+                        required:
+                            t('common:products.brandName') +
+                            t('common:labels.isRequired'),
+                    }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="navn på brand"
-                            placeholder="Eksempel"
+                            label={t('common:products.brandName') + '*'}
+                            placeholder={t('common:placeholders.example')}
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -151,16 +157,20 @@ export default function UploadProductsScreen(props) {
                         name="amountPerPack"
                         control={control}
                         rules={{
-                            required: 'Antal af produkt i én enhed',
+                            required:
+                                t('common:products.unit') +
+                                t('common:labels.isRequired'),
                         }}
                         render={({
                             field: { onChange, onBlur, value },
                             fieldState: { error },
                         }) => (
                             <InputField
-                                label="antal *"
+                                label={t('common:products.unit') + '*'}
                                 inputStyle={styles.fieldsetCell}
-                                placeholder="eks. 10"
+                                placeholder={t(
+                                    'common:placeholders.amountInStock',
+                                )}
                                 value={value}
                                 onChangeText={onChange}
                                 onBlur={onBlur}
@@ -175,16 +185,20 @@ export default function UploadProductsScreen(props) {
                         name="weight"
                         control={control}
                         rules={{
-                            required: 'Produktvægt er påkrævet',
+                            required:
+                                t('common:products.weight') +
+                                t('common:labels.isRequired'),
                         }}
                         render={({
                             field: { onChange, onBlur, value },
                             fieldState: { error },
                         }) => (
                             <InputField
-                                label="vægt *"
+                                label={t('common:products.weight') + '*'}
                                 inputStyle={styles.fieldsetCell}
-                                placeholder="eks. 10g"
+                                placeholder={t(
+                                    'common:placeholders.amountInStock',
+                                )}
                                 value={value}
                                 onChangeText={onChange}
                                 onBlur={onBlur}
@@ -200,10 +214,13 @@ export default function UploadProductsScreen(props) {
                         name="bulkPrice"
                         control={control}
                         rules={{
-                            required: 'Pris /kolli er påkrævet',
+                            required:
+                                t('common:products.bulkPrice') +
+                                ' ' +
+                                t('common:labels.isRequired'),
                             pattern: {
                                 value: /^\d+$/,
-                                message: 'Kun nummer',
+                                message: t('common:labels.onlyNumber'),
                             },
                         }}
                         render={({
@@ -211,9 +228,12 @@ export default function UploadProductsScreen(props) {
                             fieldState: { error },
                         }) => (
                             <InputField
-                                label="pris /kolli *"
+                                label={t('common:products.bulkPrice') + ' *'}
                                 inputStyle={styles.fieldsetCell}
-                                placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
+                                placeholder={
+                                    '                 /' +
+                                    t('common:labels.bulk')
+                                }
                                 value={value}
                                 onChangeText={onChange}
                                 onBlur={onBlur}
@@ -227,16 +247,22 @@ export default function UploadProductsScreen(props) {
                         name="singlePrice"
                         control={control}
                         rules={{
-                            required: 'Pris /enhed er påkrævet',
+                            required:
+                                t('common:products.unitPrice') +
+                                ' ' +
+                                t('common:labels.isRequired'),
                         }}
                         render={({
                             field: { onChange, onBlur, value },
                             fieldState: { error },
                         }) => (
                             <InputField
-                                label="pris /enhed *"
+                                label={t('common:products.unitPrice') + ' *'}
                                 inputStyle={styles.fieldsetCell}
-                                placeholder="&emsp;&emsp;&ensp;/enhed"
+                                placeholder={
+                                    '                 /' +
+                                    t('common:labels.unit')
+                                }
                                 value={value}
                                 onChangeText={onChange}
                                 onBlur={onBlur}
@@ -251,15 +277,18 @@ export default function UploadProductsScreen(props) {
                     name="amountInStock"
                     control={control}
                     rules={{
-                        required: 'Venligst angiv antal af produkt på lager',
+                        required:
+                            t('common:products.quantityStock') +
+                            ' ' +
+                            t('common:labels.isRequired'),
                     }}
                     render={({
                         field: { onChange, onBlur, value },
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="antal på lager *"
-                            placeholder="eks. 10"
+                            label={t('common:products.quantityStock') + ' *'}
+                            placeholder={t('common:placeholders.amountInStock')}
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -278,8 +307,10 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="holdbarhed"
-                            placeholder="x dage/måned/år"
+                            label={t('common:products.expiryDuration') + ' *'}
+                            placeholder={t(
+                                'common:placeholders.expiryDuration',
+                            )}
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
@@ -289,8 +320,8 @@ export default function UploadProductsScreen(props) {
                     )}
                 />
                 <InputFieldSelect
-                    label="kategorier *"
-                    placeholder="Vælge en kategori"
+                    label={t('common:categories.categories') + ' *'}
+                    placeholder={t('common:placeholders.chooseCategory')}
                     data={categoriesOptions?.sort((a, b) =>
                         a.label.normalize().localeCompare(b.label.normalize()),
                     )}
@@ -306,8 +337,8 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="produktbeskrivelse"
-                            placeholder="Eksempel"
+                            label={t('common:products.productDesc') + ' *'}
+                            placeholder={t('common:placeholders.example')}
                             multiline
                             value={value}
                             onChangeText={onChange}
@@ -326,8 +357,8 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="produkthistorie"
-                            placeholder="Eksempel"
+                            label={t('common:products.productStory') + ' *'}
+                            placeholder={t('common:placeholders.example')}
                             multiline
                             value={value}
                             onChangeText={onChange}
@@ -346,8 +377,8 @@ export default function UploadProductsScreen(props) {
                         fieldState: { error },
                     }) => (
                         <InputField
-                            label="produktkendetegnelse"
-                            placeholder="Eksempel"
+                            label={t('common:products.productUnique') + ' *'}
+                            placeholder={t('common:placeholders.example')}
                             multiline
                             value={value}
                             onChangeText={onChange}
@@ -358,12 +389,14 @@ export default function UploadProductsScreen(props) {
                         />
                     )}
                 />
-                <Text style={styles.fieldLabel}>Tags</Text>
+                <Text style={styles.fieldLabel}>
+                    {t('common:products.tags')}
+                </Text>
                 <View style={styles.checkboxGroup}>
                     <View style={styles.tagOption}>
                         <ThermoIcon style={styles.icon} />
                         <Checkbox.Item
-                            label={'    ' + content?.tags?.isCold}
+                            label={'    ' + t('common:products.cold')}
                             value="cold"
                             status={isCold ? 'checked' : 'unchecked'}
                             onPress={() => {
@@ -379,7 +412,7 @@ export default function UploadProductsScreen(props) {
                     <View style={styles.tagOption}>
                         <FrozenIcon style={styles.icon} />
                         <Checkbox.Item
-                            label={'    ' + content?.tags?.isFrozen}
+                            label={'    ' + t('common:products.frozen')}
                             status={isFrozen ? 'checked' : 'unchecked'}
                             onPress={(value) => {
                                 setIsFrozen(!isFrozen);
@@ -395,7 +428,7 @@ export default function UploadProductsScreen(props) {
                     <View style={styles.tagOption}>
                         <OrganicIcon style={styles.icon} />
                         <Checkbox.Item
-                            label={'    ' + content?.tags?.isOrganic}
+                            label={'    ' + t('common:products.organic')}
                             status={isOrganic ? 'checked' : 'unchecked'}
                             value="organic"
                             onPress={() => {
@@ -410,7 +443,7 @@ export default function UploadProductsScreen(props) {
                     </View>
                 </View>
                 <Button
-                    title="Opret"
+                    title={t('common:labels.upload')}
                     primary
                     buttonStyle={[styles.buttons, styles.createButton]}
                     onPress={handleSubmit(onSubmit)}

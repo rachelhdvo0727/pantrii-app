@@ -57,7 +57,8 @@
         "quantityStock": "Quantity in stock",
         "expiryDuration": "Expires in",
         "productStory": "Product story",
-        "productUnique": "Product identification"
+        "productUnique": "Product identification",
+        "weight": "Weight "
     },
     "settings":{
         "languageSelector": "Select your language"
@@ -83,6 +84,8 @@
         "phoneRequirement": "must be 8 numbers without country code",
         "pay": "Pay",
         "approvedMessage": "Approved",
+        "waitingApproval": "Waiting for approval",
+        "waitingApprovalMsg": "We will review item information and return with a status.\n\n Thank you for your patience!",
         "orderSuccess": "Your order has been approved",
         "logOut": "Log out",
         "logIn": "Log in",
@@ -113,7 +116,10 @@
         "pending": "Pending",
         "showEnglishContent": "Please make edits in English",
         "warning": "Warning: ",
-        "editLongText": "Content in this field will be translated and approved by our team. Your product will be set to 'Pending' and will not be displayed on our marketplace temporarily."
+        "editLongText": "Content in this field will be translated and approved by our team. Your product will be set to 'Pending' and will not be displayed on our marketplace temporarily.",
+        "proceed": "proceed",
+        "onlyNumber": "only numbers",
+        "upload": "Upload"
     },  
     "placeholders":{
         "chooseCategory": "Choose a category",

@@ -92,7 +92,7 @@ export default function BottomTabSuppliers(props) {
                 options={{
                     tabBarLabel: t('navigate:upload'),
                     unmountOnBlur: true,
-                    headerTitle: 'opret et produkt',
+                    headerTitle: t('navigate:uploadProduct'),
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <AntDesign

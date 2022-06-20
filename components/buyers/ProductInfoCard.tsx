@@ -141,10 +141,10 @@ const ProductInfoCard = ({
                         </View>
                         <View style={styles.priceWrapper}>
                             <Text style={styles.bulkPrice}>
-                                {bulkPrice}/kolli
+                                {bulkPrice}/{t('common:labels.bulk')}
                             </Text>
                             <Text style={styles.singularPrice}>
-                                {singlePrice}/enhed
+                                {singlePrice}/{t('common:labels.unit')}
                             </Text>
                             {isProducerView && (
                                 <Text

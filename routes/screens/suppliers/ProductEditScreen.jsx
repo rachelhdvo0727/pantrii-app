@@ -207,7 +207,9 @@ const ProductEditScreen = (props) => {
                             }) => (
                                 <InputField
                                     label={t('common:products.productName')}
-                                    placeholder="Eksempel"
+                                    placeholder={t(
+                                        'common:placeholders.example',
+                                    )}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -296,7 +298,10 @@ const ProductEditScreen = (props) => {
                                     <InputField
                                         label={t('common:products.bulkPrice')}
                                         inputStyle={styles.fieldsetCell}
-                                        placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
+                                        placeholder={
+                                            '                 /' +
+                                            t('common:labels.bulk')
+                                        }
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -326,7 +331,10 @@ const ProductEditScreen = (props) => {
                                             t('common:products.unitPrice') + '*'
                                         }
                                         inputStyle={styles.fieldsetCell}
-                                        placeholder="&emsp;&emsp;&ensp;/enhed"
+                                        placeholder={
+                                            '                 /' +
+                                            t('common:labels.unit')
+                                        }
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
