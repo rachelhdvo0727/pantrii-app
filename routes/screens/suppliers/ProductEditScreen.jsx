@@ -28,12 +28,15 @@ import { Feather } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { findProduct, updateProduct } from '../../../redux/slice/product';
 import { getCategories } from '../../../redux/slice/categories';
+//Translations
+import { useTranslation } from 'react-i18next';
 
 const ProductEditScreen = (props) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const content = dictionary;
     const productContent = productDictionary?.products;
+    const { t } = useTranslation();
 
     const informationSection = props?.route?.params?.informationSection;
     const { categories } = useSelector((state) => state?.categories);
@@ -146,7 +149,7 @@ const ProductEditScreen = (props) => {
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle: `REDIGER PRODUKT`,
+            headerTitle: t('navigate:editProduct'),
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
@@ -186,7 +189,7 @@ const ProductEditScreen = (props) => {
                 <Text style={styles.formHeaderText}>
                     <Feather name="edit-2" size={13} color="black" />
                     {'  '}
-                    {dictionary.producer.warning.showEnglishContent}
+                    {t('common:labels.showEnglishContent')}
                 </Text>
                 {informationSection === 'top' && (
                     <React.Fragment>
@@ -194,15 +197,19 @@ const ProductEditScreen = (props) => {
                             name="productTitle"
                             control={control}
                             rules={{
-                                required: 'Produktnavn er påkrævet',
+                                required:
+                                    t('common:products.productName') +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="produktnavn"
-                                    placeholder="Eksempel"
+                                    label={t('common:products.productName')}
+                                    placeholder={t(
+                                        'common:placeholders.example',
+                                    )}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -216,16 +223,12 @@ const ProductEditScreen = (props) => {
                                     warningText={
                                         <React.Fragment>
                                             <Text style={styles.warningTitle}>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .obs
-                                                }
+                                                {t('common:labels.warning')}
                                             </Text>
                                             <Text>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .editLongText
-                                                }
+                                                {t(
+                                                    'common:labels.editLongText',
+                                                )}
                                             </Text>
                                         </React.Fragment>
                                     }
@@ -240,7 +243,7 @@ const ProductEditScreen = (props) => {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="navn på brand"
+                                    label={t('common:products.brandName')}
                                     placeholder="Eksempel"
                                     value={value}
                                     onChangeText={onChange}
@@ -257,15 +260,14 @@ const ProductEditScreen = (props) => {
                             name="productUnit"
                             control={control}
                             rules={{
-                                required:
-                                    'Venligst angiv antal af produkt i én pakke/enhed',
+                                required: t('common:products.unitRequirement'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="enhed"
+                                    label={t('common:products.unit')}
                                     placeholder="eks. 10"
                                     value={value}
                                     onChangeText={onChange}
@@ -285,16 +287,21 @@ const ProductEditScreen = (props) => {
                                 name="bulkPrice"
                                 control={control}
                                 rules={{
-                                    required: 'Pris/kolli er påkrævet',
+                                    required:
+                                        t('common:products.bulkPrice') +
+                                        t('common:labels.isRequired'),
                                 }}
                                 render={({
                                     field: { onChange, onBlur, value },
                                     fieldState: { error },
                                 }) => (
                                     <InputField
-                                        label="pris /kolli"
+                                        label={t('common:products.bulkPrice')}
                                         inputStyle={styles.fieldsetCell}
-                                        placeholder="&emsp;&emsp;&emsp;&ensp;/kolli"
+                                        placeholder={
+                                            '                 /' +
+                                            t('common:labels.bulk')
+                                        }
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -311,16 +318,23 @@ const ProductEditScreen = (props) => {
                                 name="singlePrice"
                                 control={control}
                                 rules={{
-                                    required: 'Pris/ enhed er påkrævet',
+                                    required:
+                                        t('common:products.unitPrice') +
+                                        t('common:labels.isRequired'),
                                 }}
                                 render={({
                                     field: { onChange, onBlur, value },
                                     fieldState: { error },
                                 }) => (
                                     <InputField
-                                        label="pris /enhed *"
+                                        label={
+                                            t('common:products.unitPrice') + '*'
+                                        }
                                         inputStyle={styles.fieldsetCell}
-                                        placeholder="&emsp;&emsp;&ensp;/enhed"
+                                        placeholder={
+                                            '                 /' +
+                                            t('common:labels.unit')
+                                        }
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -343,7 +357,7 @@ const ProductEditScreen = (props) => {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="produktbeskrivelse"
+                                    label={t('common:products.productDesc')}
                                     placeholder="Eksempel"
                                     multiline
                                     value={value}
@@ -359,16 +373,12 @@ const ProductEditScreen = (props) => {
                                     warningText={
                                         <React.Fragment>
                                             <Text style={styles.warningTitle}>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .obs
-                                                }
+                                                {t('common:labels.warning')}
                                             </Text>
                                             <Text>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .editLongText
-                                                }
+                                                {t(
+                                                    'common:labels.editLongText',
+                                                )}
                                             </Text>
                                         </React.Fragment>
                                     }
@@ -377,13 +387,13 @@ const ProductEditScreen = (props) => {
                         />
 
                         <Text style={[styles.fieldLabel, { marginTop: 10 }]}>
-                            Tags
+                            {t('common:products.tags')}
                         </Text>
                         <View style={styles.checkboxGroup}>
                             <View style={styles.tagOption}>
                                 <ThermoIcon style={styles.icon} />
                                 <Checkbox.Item
-                                    label={'    ' + content?.tags?.isCold}
+                                    label={'    ' + t('common:products.cold')}
                                     value="cold"
                                     status={isCold ? 'checked' : 'unchecked'}
                                     onPress={() => {
@@ -400,7 +410,7 @@ const ProductEditScreen = (props) => {
                             <View style={styles.tagOption}>
                                 <FrozenIcon style={styles.icon} />
                                 <Checkbox.Item
-                                    label={'    ' + content?.tags?.isFrozen}
+                                    label={'    ' + t('common:products.frozen')}
                                     status={isFrozen ? 'checked' : 'unchecked'}
                                     onPress={() => {
                                         setIsFrozen(!isFrozen);
@@ -417,7 +427,9 @@ const ProductEditScreen = (props) => {
                             <View style={styles.tagOption}>
                                 <OrganicIcon style={styles.icon} />
                                 <Checkbox.Item
-                                    label={'    ' + content?.tags?.isOrganic}
+                                    label={
+                                        '    ' + t('common:products.organic')
+                                    }
                                     status={isOrganic ? 'checked' : 'unchecked'}
                                     value="organic"
                                     onPress={() => {
@@ -438,8 +450,10 @@ const ProductEditScreen = (props) => {
                 {informationSection === 'bottom' && (
                     <React.Fragment>
                         <InputFieldSelect
-                            label="kategorier"
-                            placeholder="Vælge en kategorie"
+                            label={t('common:categories.categories')}
+                            placeholder={t(
+                                'common:placeholders.chooseCategory',
+                            )}
                             data={categoriesOptions?.sort((a, b) =>
                                 a.label
                                     .normalize()
@@ -458,15 +472,19 @@ const ProductEditScreen = (props) => {
                             control={control}
                             rules={{
                                 required:
-                                    'Venligst angiv antal af produkt på lager',
+                                    t('common:products.quantityStock') +
+                                    ' ' +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="Antal på lager"
-                                    placeholder="eks. 10"
+                                    label={t('common:products.quantityStock')}
+                                    placeholder={t(
+                                        'common:placeholders.amountInStock',
+                                    )}
                                     value={value?.toString()}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -487,8 +505,10 @@ const ProductEditScreen = (props) => {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="forventet holdbarhed"
-                                    placeholder="x dage/måned/år"
+                                    label={t('common:products.expiryDuration')}
+                                    placeholder={t(
+                                        'common:placeholders.expiryDuration',
+                                    )}
                                     value={value}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -509,8 +529,10 @@ const ProductEditScreen = (props) => {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="produkthistorie"
-                                    placeholder="Eksempel"
+                                    label={t('common:products.productStory')}
+                                    placeholder={t(
+                                        'common:placeholders.example',
+                                    )}
                                     multiline
                                     value={value}
                                     onChangeText={onChange}
@@ -525,16 +547,12 @@ const ProductEditScreen = (props) => {
                                     warningText={
                                         <React.Fragment>
                                             <Text style={styles.warningTitle}>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .obs
-                                                }
+                                                {t('common:labels.warning')}
                                             </Text>
                                             <Text>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .editLongText
-                                                }
+                                                {t(
+                                                    'common:labels.editLongText',
+                                                )}
                                             </Text>
                                         </React.Fragment>
                                     }
@@ -549,8 +567,10 @@ const ProductEditScreen = (props) => {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="produktkendetegnelse"
-                                    placeholder="Eksempel"
+                                    label={t('common:products.productUnique')}
+                                    placeholder={t(
+                                        'common:placeholders.example',
+                                    )}
                                     multiline
                                     value={value}
                                     onChangeText={onChange}
@@ -565,16 +585,12 @@ const ProductEditScreen = (props) => {
                                     warningText={
                                         <React.Fragment>
                                             <Text style={styles.warningTitle}>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .obs
-                                                }
+                                                {t('common:labels.warning')}
                                             </Text>
                                             <Text>
-                                                {
-                                                    dictionary.producer.warning
-                                                        .editLongText
-                                                }
+                                                {t(
+                                                    'common:labels.editLongText',
+                                                )}
                                             </Text>
                                         </React.Fragment>
                                     }
@@ -586,7 +602,7 @@ const ProductEditScreen = (props) => {
                 <Button
                     primary
                     buttonStyle={styles.buttonStyle}
-                    title="Gem"
+                    title={t('common:labels.save')}
                     disabled={hasProductInformation}
                     onPress={handleSubmit(onSubmit)}
                 ></Button>

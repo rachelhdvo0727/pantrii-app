@@ -1,0 +1,21 @@
+{
+    "home": "Hjem",
+    "categories": "Kategorier",
+    "favourites": "Favoritter",
+    "cart": "Kurv",
+    "profile": "Profil",
+    "products": "Produkter",
+    "upload": "Opret",
+    "newProducts": "NYHEDER",
+    "featuredProducts": "POPULÆRT LIGE NU",
+    "category": "KATEGORIER",
+    "carts": "KURV",
+    "checkOut": "KASSEN",
+    "payment": "BETALING",
+    "profiles": "PROFIL",
+    "editProfile": "REDIGER PROFIL",
+    "editAddress": "REDIGER ADRESSE",
+    "allProducts": "ALLE PRODUKTER",
+    "editProduct": "REDIGER PRODUKT",
+    "uploadProduct": "OPRET ET PRODUKT"
+}

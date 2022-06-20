@@ -4,14 +4,17 @@ import dictionary from '../../dictionary/general.json';
 import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native';
 // Components
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Button from '../../components/actions/Button';
 import HeroCard from '../../components/buyers/HeroCard';
 import InformationCard from '../../components/InformationCard';
 import SectionInInformationCard from '../../components/SectionInInformationCard';
+import LanguageSelector from '../../components/actions/LanguageSelector';
 // API
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/slice/user';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileScreen(props) {
     const content = dictionary?.customerTypes;
@@ -19,6 +22,7 @@ export default function ProfileScreen(props) {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state?.user);
     const userRole = props?.route?.params?.currentRole;
+    const { t } = useTranslation();
 
     const onEdit = (information) => {
         navigation.navigate('ProfileEditScreen', {
@@ -33,10 +37,10 @@ export default function ProfileScreen(props) {
     };
 
     return (
-        <View style={generalStyles.container}>
+        <ScrollView style={generalStyles.container}>
             <HeroCard
                 banner
-                title={content[userRole]}
+                title={t('common:profile.' + userRole)}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
                 imageStyle={{ borderRadius: 10 }}
@@ -44,7 +48,7 @@ export default function ProfileScreen(props) {
             <InformationCard style={styles.informationCard}>
                 <SectionInInformationCard
                     isTopSection
-                    sectionTitle="Profil information"
+                    sectionTitle={t('common:profile.profileInfo')}
                     sectionContent={
                         <React.Fragment>
                             <Text style={styles.highlightText}>
@@ -70,7 +74,7 @@ export default function ProfileScreen(props) {
                     onEdit={() => onEdit('profile')}
                 ></SectionInInformationCard>
                 <SectionInInformationCard
-                    sectionTitle="Adresse"
+                    sectionTitle={t('common:profile.address')}
                     isLastSection
                     sectionContent={
                         <React.Fragment>
@@ -102,11 +106,12 @@ export default function ProfileScreen(props) {
             </InformationCard>
             <Button
                 outlined
-                title="log mig ud"
+                title={t('common:labels.logOut')}
                 buttonStyle={styles.buttonStyle}
                 onPress={handleLogOut}
             ></Button>
-        </View>
+            <LanguageSelector style={styles.languageOptions} />
+        </ScrollView>
     );
 }
 
@@ -136,4 +141,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 40,
     },
+    languageOptions: { alignSelf: 'flex-start' },
 });

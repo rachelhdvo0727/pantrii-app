@@ -16,6 +16,8 @@ import { useSelector } from 'react-redux';
 // Dictionary
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function CheckOutScreen(props) {
     const navigation = useNavigation();
@@ -24,6 +26,7 @@ export default function CheckOutScreen(props) {
     const content = dictionary?.products;
 
     const cart = useSelector((state) => state.cart);
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -47,7 +50,7 @@ export default function CheckOutScreen(props) {
 
     const Address = () => (
         <SectionInInformationCard
-            sectionTitle="Adresse"
+            sectionTitle={t('common:profile.address')}
             isTopSection
             sectionContent={
                 <React.Fragment>
@@ -88,7 +91,7 @@ export default function CheckOutScreen(props) {
 
     const Delivery = () => (
         <SectionInInformationCard
-            sectionTitle="Levering"
+            sectionTitle={t('common:cart.delivery')}
             isTopSection
             sectionContent={
                 <React.Fragment>
@@ -99,8 +102,11 @@ export default function CheckOutScreen(props) {
                             color="black"
                             iconStyle={{ marginRight: 10 }}
                         />
-                        {content.delivery.standardShipping}&nbsp;
-                        {totalPrice > freeDelivery ? 'Gratis' : delivery}
+                        &nbsp;
+                        {t('common:cart.standardShipping')}:&nbsp;
+                        {totalPrice > freeDelivery
+                            ? t('common:labels.free')
+                            : delivery}
                     </Text>
                     <Text style={styles.flexText}>
                         <MaterialCommunityIcons
@@ -108,8 +114,8 @@ export default function CheckOutScreen(props) {
                             size={14}
                             color="black"
                         />
-                        {content.delivery.deliveryDate} &nbsp;
-                        {deliveryDate}
+                        &nbsp;
+                        {t('common:cart.expectedDelivery')}:&nbsp;{deliveryDate}
                     </Text>
                 </React.Fragment>
             }
@@ -118,11 +124,13 @@ export default function CheckOutScreen(props) {
 
     const PaymentMethod = () => (
         <SectionInInformationCard
-            sectionTitle="Betalingsmetode"
+            sectionTitle={t('common:cart.paymentMethod')}
             isTopSection
             sectionContent={
                 <React.Fragment>
-                    <Text style={styles.text}>Kredit/ Debit kort</Text>
+                    <Text style={styles.text}>
+                        {t('common:cart.creditDebit')}
+                    </Text>
                 </React.Fragment>
             }
         ></SectionInInformationCard>
@@ -130,7 +138,7 @@ export default function CheckOutScreen(props) {
 
     const Overview = () => (
         <SectionInInformationCard
-            sectionTitle="Oversigt"
+            sectionTitle={t('common:cart.overview')}
             isLastSection
             sectionContent={
                 <React.Fragment>
@@ -140,11 +148,10 @@ export default function CheckOutScreen(props) {
                                 <ProductCardList
                                     key={item._id}
                                     secondary
-                                    productTitle={
-                                        content.productTitle[
-                                            item?.productTitle
-                                        ] || item?.productTitle
-                                    }
+                                    productTitle={t(
+                                        'products:products.productTitle.' +
+                                            item?.productTitle,
+                                    )}
                                     imageSrc={productImages[item?.imageSrc]}
                                     producerTitle={item?.producerTitle}
                                     productUnit={item?.productUnit}
@@ -182,15 +189,21 @@ export default function CheckOutScreen(props) {
                         })}
                     </View>
                     <View style={styles.flex}>
-                        <Text style={styles.H1}>Subtotal:</Text>
+                        <Text style={styles.H1}>
+                            {t('common:cart.subtotal')}:
+                        </Text>
                         <Text style={[styles.H1, styles.flexEnd]}>
                             {numberFormat(totalPrice)}
                         </Text>
                     </View>
                     <View style={styles.flex}>
-                        <Text style={styles.H1}>Levering:</Text>
                         <Text style={styles.H1}>
-                            {totalPrice > freeDelivery ? 'Gratis' : delivery}
+                            {t('common:cart.delivery')}:
+                        </Text>
+                        <Text style={styles.H1}>
+                            {totalPrice > freeDelivery
+                                ? t('common:labels.free')
+                                : delivery}
                         </Text>
                     </View>
                     {totalPrice < freeDelivery ? (
@@ -199,8 +212,9 @@ export default function CheckOutScreen(props) {
                                 (styles.text, { paddingTop: 10, fontSize: 12 })
                             }
                         >
-                            Køb for {numberFormat(freeDelivery - totalPrice)}{' '}
-                            mere og få gratis fragt
+                            {t('common:cart.deliveryNoticeStart')}{' '}
+                            {numberFormat(freeDelivery - totalPrice)}{' '}
+                            {t('common:cart.deliveryNoticeEnd')}
                         </Text>
                     ) : null}
                 </React.Fragment>
@@ -220,13 +234,13 @@ export default function CheckOutScreen(props) {
             </ScrollView>
             <View style={styles.bottomWrapper}>
                 <Text style={generalStyles.headerH2}>
-                    I ALT:{' '}
+                    {t('common:cart.total')}:{' '}
                     {totalPrice > freeDelivery
                         ? numberFormat(totalPrice)
                         : numberFormat(totalPrice + standardDelivery)}
                 </Text>
                 <Button
-                    title="Gå til betaling"
+                    title={t('common:labels.goPayment')}
                     primary
                     onPress={() => navigation.navigate('PaymentScreen')}
                 />

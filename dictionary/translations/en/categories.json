@@ -1,0 +1,16 @@
+{
+    "categories": {
+        "name": {
+            "allProducts": "All products",
+            "bread": "bread",
+            "dairy": "dairy",
+            "dessert": "dessert",
+            "meat": "meat",
+            "colonial": "colonial",
+            "drinks": "drinks",
+            "plantbased": "plantbased",
+            "fruitsAndVeggies": "fruits & vegetables",
+            "fishAndSeafood": "seafood"
+        }
+    }
+}

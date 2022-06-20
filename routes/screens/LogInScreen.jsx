@@ -4,16 +4,18 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import { CONSTANTS, JSHash } from 'react-native-hash';
 // Components
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
-import Spinner from '../../components/Spinner';
 import SplashScreen from './SplashScreen';
+import LanguageSelector from '../../components/actions/LanguageSelector';
 // API
 import * as SecureStore from 'expo-secure-store';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser, logOut } from '../../redux/slice/user';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
@@ -21,6 +23,8 @@ export default function LogInScreen(props) {
     const { roles } = useSelector((state) => state.roles);
     const { user } = useSelector((state) => state.user);
     const [showLoading, setShowLoading] = React.useState(true);
+
+    const { t } = useTranslation();
 
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -81,15 +85,23 @@ export default function LogInScreen(props) {
                 <SplashScreen />
             ) : (
                 <React.Fragment>
+                    <LanguageSelector
+                        quickDisplay
+                        style={styles.languageOptions}
+                    />
                     <AppLogo style={styles.icon}></AppLogo>
                     <View style={styles.formWrapper}>
-                        <Text style={styles.header}>log ind</Text>
+                        <Text style={styles.header}>
+                            {t('common:labels.logIn')}
+                        </Text>
 
                         <Controller
                             name="email"
                             control={control}
                             rules={{
-                                required: 'Email er påkrævet',
+                                required:
+                                    t('common:profile.email') +
+                                    t('common:labels.isRequired'),
                                 pattern: {
                                     value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                                     message: 'Din email er ugyldig',
@@ -100,7 +112,7 @@ export default function LogInScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="email"
+                                    label={t('common:profile.email')}
                                     placeholder="john@mail.com"
                                     value={value}
                                     onChangeText={onChange}
@@ -116,7 +128,9 @@ export default function LogInScreen(props) {
                             name="password"
                             control={control}
                             rules={{
-                                required: 'Adgangskode er påkrævet',
+                                required:
+                                    t('common:profile.password') +
+                                    t('common:labels.isRequired'),
                                 minLength: {
                                     value: 12,
                                     message:
@@ -133,7 +147,7 @@ export default function LogInScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="adgangskode"
+                                    label={t('common:profile.password')}
                                     placeholder="**********"
                                     value={value}
                                     onChangeText={onChange}
@@ -147,7 +161,7 @@ export default function LogInScreen(props) {
                         ></Controller>
 
                         <Button
-                            title="log ind"
+                            title={t('common:labels.logIn')}
                             onPress={handleSubmit(onSubmit)}
                             primary
                             buttonStyle={[
@@ -156,10 +170,10 @@ export default function LogInScreen(props) {
                             ]}
                         ></Button>
                         <Text style={styles.mediumText}>
-                            Jeg er ny hér. Registrer mig.
+                            {t('common:labels.signUpText')}
                         </Text>
                         <Button
-                            title="bliv kunde"
+                            title={t('common:labels.becomeCustomer')}
                             outlined
                             buttonStyle={styles.buttonStyle}
                             onPress={showSignUp}
@@ -189,7 +203,6 @@ const styles = StyleSheet.create({
     formWrapper: {
         width: '95%',
     },
-
     buttonStyle: {
         alignSelf: 'center',
     },
@@ -199,5 +212,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 25,
         marginBottom: 15,
+    },
+    languageOptions: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        top: 70,
+        right: 30,
     },
 });

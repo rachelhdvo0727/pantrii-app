@@ -22,6 +22,8 @@ import Product from '../../models/Product';
 import Button from '../actions/Button';
 // Dictionary
 import dictionary from '../../dictionary/products.json';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
     productID: string;
@@ -85,7 +87,7 @@ const ProductInfoCard = ({
     const carouselRef = React.useRef(null);
     const content = dictionary?.products;
     const [addItem, setAddItem] = React.useState(false);
-
+    const { t } = useTranslation();
     // Delivery cost
     const deliveryPrice = '2000';
     // Delivery date
@@ -139,10 +141,10 @@ const ProductInfoCard = ({
                         </View>
                         <View style={styles.priceWrapper}>
                             <Text style={styles.bulkPrice}>
-                                {bulkPrice}/kolli
+                                {bulkPrice}/{t('common:labels.bulk')}
                             </Text>
                             <Text style={styles.singularPrice}>
-                                {singlePrice}/enhed
+                                {singlePrice}/{t('common:labels.unit')}
                             </Text>
                             {isProducerView && (
                                 <Text
@@ -165,7 +167,7 @@ const ProductInfoCard = ({
                     {isProducerView && (
                         <IconButton
                             arrowRight
-                            title="Redigér"
+                            title={t('common:labels.edit')}
                             onPress={onEditTopSection}
                             isActive={isProducerView}
                             iconButtonStyle={styles.editButton}
@@ -175,7 +177,9 @@ const ProductInfoCard = ({
 
                 {!isProducerView ? (
                     <View style={styles.wrapper}>
-                        <Text style={styles.headerH1}>Levering</Text>
+                        <Text style={styles.headerH1}>
+                            {t('common:cart.delivery')}
+                        </Text>
                         <Text style={styles.flexText}>
                             <Feather
                                 name="box"
@@ -183,7 +187,7 @@ const ProductInfoCard = ({
                                 color="black"
                                 iconStyle={{ marginRight: 10 }}
                             />
-                            {content.delivery.deliveryCost}
+                            &nbsp;{t('common:cart.shippingNotice')}&nbsp;
                             {numberFormat(deliveryPrice)}
                         </Text>
                         <Text style={styles.flexText}>
@@ -192,7 +196,7 @@ const ProductInfoCard = ({
                                 size={14}
                                 color="black"
                             />
-                            {content.delivery.deliveryDate} &nbsp;
+                            &nbsp;{t('common:cart.expectedDelivery')}&nbsp;
                             {deliveryDate}
                         </Text>
                     </View>
@@ -202,7 +206,9 @@ const ProductInfoCard = ({
                     {isProducerView ? (
                         <View style={styles.producerMidSection}>
                             <View>
-                                <Text style={styles.headerH1}>Kategori</Text>
+                                <Text style={styles.headerH1}>
+                                    {t('common:categories.category')}
+                                </Text>
                                 <Text style={styles.p}>{category}</Text>
                             </View>
                             <View>
@@ -212,7 +218,7 @@ const ProductInfoCard = ({
                                         { textAlign: 'right' },
                                     ]}
                                 >
-                                    Antal
+                                    {t('common:labels.quantity')}
                                 </Text>
                                 {isSoldOut ? (
                                     <Text
@@ -221,7 +227,7 @@ const ProductInfoCard = ({
                                             styles.amountNegative,
                                         ]}
                                     >
-                                        UDSOLGT
+                                        {t('common:labels.soldOut')}
                                     </Text>
                                 ) : (
                                     <Text
@@ -239,11 +245,17 @@ const ProductInfoCard = ({
                         </View>
                     ) : null}
 
-                    <Text style={styles.headerH1}>Produktbeskrivelse</Text>
+                    <Text style={styles.headerH1}>
+                        {t('common:labels.productStory')}
+                    </Text>
                     <Text style={styles.p}>{productStory}</Text>
-                    <Text style={styles.headerH1}>Produktkendetegnelse</Text>
+                    <Text style={styles.headerH1}>
+                        {t('common:labels.productUnique')}
+                    </Text>
                     <Text style={styles.p}>{productUnique}</Text>
-                    <Text style={styles.headerH1}>Forventet holdbarhed</Text>
+                    <Text style={styles.headerH1}>
+                        {t('common:cart.expectedDelivery')}
+                    </Text>
                     <Text style={styles.flexText}>
                         <MaterialCommunityIcons
                             name="clock-time-two-outline"
@@ -256,7 +268,7 @@ const ProductInfoCard = ({
                     {isProducerView && (
                         <IconButton
                             arrowRight
-                            title="Redigér"
+                            title={t('common:labels.edit')}
                             onPress={onEditBottomSection}
                             isActive={isProducerView}
                             iconButtonStyle={styles.editButton}
@@ -276,7 +288,11 @@ const ProductInfoCard = ({
                         }
                     />
                     <Button
-                        title={!addItem ? 'Tilføj til kurv' : 'Tilføjet'}
+                        title={
+                            !addItem
+                                ? t('common:labels.addToCart')
+                                : t('common:labels.added')
+                        }
                         secondary={addItem ? false : true}
                         confirmed={addItem ? true : false}
                         onPressOut={() =>

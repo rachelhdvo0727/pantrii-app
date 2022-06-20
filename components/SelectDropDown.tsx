@@ -1,5 +1,8 @@
 import React from 'react';
 import generalStyles from '../styles/General';
+import { useTranslation } from 'react-i18next';
+import { capitalize } from '../utils/functions';
+import { Option } from './InputFieldSelect';
 // Components
 import {
     StyleSheet,
@@ -9,12 +12,6 @@ import {
     FlatList,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { capitalize } from '../utils/functions';
-
-export interface Option {
-    label: string;
-    value: string;
-}
 
 export interface Props {
     label: string;
@@ -31,6 +28,9 @@ export default function SelectDropDown({
 }: Props) {
     const [visible, setVisible] = React.useState(false);
     const [selectedOption, setSelectedItem] = React.useState(selectedItem);
+
+    const { i18n } = useTranslation();
+    const selectedLanguageCode = i18n.language;
 
     const toggleDropdown = () => {
         setVisible(!visible);
@@ -55,7 +55,10 @@ export default function SelectDropDown({
                     selectedOption?.label === item?.label && styles.currentSort,
                 ]}
             >
-                {capitalize(item?.label)}&emsp;&emsp;
+                {selectedLanguageCode === 'dk'
+                    ? capitalize(item?.label.dk)
+                    : capitalize(item?.label.en)}
+                &emsp;&emsp;
             </Text>
         </TouchableOpacity>
     );
@@ -81,10 +84,15 @@ export default function SelectDropDown({
                 <Text
                     style={[
                         styles.buttonText,
-                        selectedOption?.label !== '' && styles.currentSort,
+                        (selectedOption?.label.dk !== '' ||
+                            selectedOption?.label.en !== '') &&
+                            styles.currentSort,
                     ]}
                 >
-                    {selectedOption?.label ? ': ' + selectedOption?.label : ''}
+                    {selectedLanguageCode === 'dk' &&
+                        ': ' + selectedOption?.label.dk}
+                    {selectedLanguageCode === 'en' &&
+                        ': ' + selectedOption?.label.en}
                 </Text>
             ) : null}
 

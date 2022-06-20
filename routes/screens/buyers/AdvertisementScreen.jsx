@@ -20,10 +20,13 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 export default function AdvertisementScreen(props) {
     const navigation = useNavigation();
     const productContent = productDictionary?.products;
+    const { t } = useTranslation();
 
     const advert = props?.route?.params?.product;
     const [products, setProducts] = React.useState([]);
@@ -65,16 +68,16 @@ export default function AdvertisementScreen(props) {
                     <ProductCard
                         secondary
                         productID={favouriteId?.filter((i) => i == item?._id)}
-                        productTitle={
-                            productContent.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
+                        productTitle={t(
+                            'products:products.productTitle.' +
+                                item?.productTitle,
+                        )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={
-                            productContent.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
+                        productDesc={t(
+                            'products:products.productDesc.' +
+                                item?.productDesc,
+                        )}
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

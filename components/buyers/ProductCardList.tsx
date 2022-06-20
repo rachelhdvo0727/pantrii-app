@@ -21,6 +21,8 @@ import InformationCard from '../InformationCard';
 import Modal from 'react-native-modal';
 import Button from '../actions/Button';
 import generalStyles from '../../styles/General';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
     cardStyle: StyleProp<PressableProps>;
@@ -57,6 +59,7 @@ const ProductCardList = ({
     secondary,
 }: Props) => {
     const [isModalVisible, setModalVisible] = useState(false);
+    const { t } = useTranslation();
     return (
         <View style={[styles.container, secondary && styles.secondary]}>
             {!secondary ? (
@@ -142,15 +145,17 @@ const ProductCardList = ({
                 <View style={styles.modalWrapper}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>
-                            Er du sikker på, at du gerne vil slette dette
-                            produkt?
+                            {t('common:cart.deleteWarning')}
                         </Text>
                         <View style={styles.flex}>
                             <Button
                                 onPress={() => setModalVisible(false)}
-                                title="Nej"
+                                title={t('common:labels.no')}
                             />
-                            <Button onPress={onPressDelete} title="Ja" />
+                            <Button
+                                onPress={onPressDelete}
+                                title={t('common:labels.yes')}
+                            />
                         </View>
                     </View>
                 </View>

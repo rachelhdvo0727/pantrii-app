@@ -7,10 +7,12 @@ import ProductsStack from './ProductsStack';
 import UploadProductsScreen from './UploadProductsScreen';
 import TopNavSuppliers from './TopNavSuppliers';
 import UserProfileStack from '../UserProfileStack';
+import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabSuppliers(props) {
+    const { t } = useTranslation();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -48,6 +50,7 @@ export default function BottomTabSuppliers(props) {
                 component={HomeStack}
                 initialParams={props?.route?.params}
                 options={{
+                    tabBarLabel: t('navigate:home'),
                     unmountOnBlur: true,
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
@@ -66,6 +69,7 @@ export default function BottomTabSuppliers(props) {
                 component={ProductsStack}
                 initialParams={props?.route?.params}
                 options={{
+                    tabBarLabel: t('navigate:products'),
                     unmountOnBlur: true,
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
@@ -86,8 +90,9 @@ export default function BottomTabSuppliers(props) {
                 component={UploadProductsScreen}
                 initialParams={props?.route?.params}
                 options={{
+                    tabBarLabel: t('navigate:upload'),
                     unmountOnBlur: true,
-                    headerTitle: 'opret et produkt',
+                    headerTitle: t('navigate:uploadProduct'),
                     tabBarIcon: ({ focused, color }) => (
                         <View style={focused && styles.focusedBottomtab}>
                             <AntDesign
@@ -104,6 +109,7 @@ export default function BottomTabSuppliers(props) {
                 component={UserProfileStack}
                 initialParams={props?.route?.params}
                 options={{
+                    tabBarLabel: t('navigate:profile'),
                     unmountOnBlur: true,
                     headerShown: false,
                     headerTitle: (props) => <TopNavSuppliers {...props} />,

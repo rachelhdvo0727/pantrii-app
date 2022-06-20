@@ -8,11 +8,14 @@ import PaymentScreen from './PaymentScreen';
 // Redux
 import { cartTotalSelector } from '../../../redux/reducer/selector';
 import { useSelector } from 'react-redux';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
 const CartStack = (props) => {
     const total = useSelector(cartTotalSelector);
+    const { t } = useTranslation();
 
     return (
         <Stack.Navigator
@@ -37,7 +40,7 @@ const CartStack = (props) => {
                 name="CartScreen"
                 component={CartScreen}
                 options={{
-                    headerTitle: 'KURV',
+                    headerTitle: t('navigate:carts'),
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}
@@ -48,7 +51,7 @@ const CartStack = (props) => {
                     name="CheckOutScreen"
                     component={CheckOutScreen}
                     options={{
-                        headerTitle: 'KASSEN',
+                        headerTitle: t('navigate:checkOut'),
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     }}
@@ -60,7 +63,7 @@ const CartStack = (props) => {
                     name="PaymentScreen"
                     component={PaymentScreen}
                     options={{
-                        headerTitle: 'BETALING',
+                        headerTitle: t('navigate:payment'),
                         headerBackTitleVisible: false,
                         headerBackVisible: false,
                     }}

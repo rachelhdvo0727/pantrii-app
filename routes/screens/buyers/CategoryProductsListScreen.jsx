@@ -24,6 +24,8 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 const CategoryProductsListScreen = (props) => {
     const dispatch = useDispatch();
@@ -40,10 +42,14 @@ const CategoryProductsListScreen = (props) => {
         setSelectedSort(item);
     };
 
+    const { t } = useTranslation();
+
     React.useEffect(() => {
         // Update Screen's headerTitle
         props?.navigation?.setOptions({
-            headerTitle: categoryContent?.name[category?.name]?.toUpperCase(),
+            headerTitle: t(
+                'categories:categories.name.' + category?.name,
+            )?.toUpperCase(),
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
@@ -71,12 +77,13 @@ const CategoryProductsListScreen = (props) => {
         if (text) {
             // Filter the categoryProducts
             const newData = categoryProducts.filter((item) => {
-                const searchedProductNames = productContent.productTitle[
-                    item?.productTitle
-                ]
-                    ? productContent.productTitle[
-                          item?.productTitle
-                      ].toLowerCase()
+                const searchedProductNames = t(
+                    'products:products.productTitle.' + item?.productTitle,
+                )
+                    ? t(
+                          'products:products.productTitle.' +
+                              item?.productTitle,
+                      ).toLowerCase()
                     : ''.toLowerCase();
 
                 const searchedProducerNames = item?.producerTitle
@@ -127,18 +134,14 @@ const CategoryProductsListScreen = (props) => {
             />
 
             <SelectDropDown
-                label="Sortér efter"
+                label={t('common:labels.sort')}
                 data={sortOptions}
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}
             />
             {categoryProducts === null && <Spinner />}
             {categoryProducts?.length === 0 && (
-                <NotFound
-                    text={`Der findes ikke produkter i ${
-                        categoryContent?.name[category?.name]
-                    } kategorien`}
-                />
+                <NotFound text={t('common:categories.notFound')} />
             )}
             {categoryProducts?.length > 0 && (
                 <FlatList
@@ -149,17 +152,16 @@ const CategoryProductsListScreen = (props) => {
                             productID={favouriteId?.filter(
                                 (i) => i == item?._id,
                             )}
-                            productTitle={
-                                productContent.productTitle[
-                                    item?.productTitle
-                                ] || item?.productTitle
-                            }
+                            productTitle={t(
+                                'products:products.productTitle.' +
+                                    item?.productTitle,
+                            )}
                             imageSrc={productImages[item?.imageSrc]}
                             producerTitle={item?.producerTitle}
-                            productDesc={
-                                productContent.productDesc[item?.productDesc] ||
-                                item?.productDesc
-                            }
+                            productDesc={t(
+                                'products:products.productDesc.' +
+                                    item?.productDesc,
+                            )}
                             productUnit={item?.productUnit}
                             bulkPrice={numberFormat(item?.bulkPrice)}
                             singlePrice={numberFormat(item?.singlePrice)}

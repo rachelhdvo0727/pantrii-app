@@ -10,11 +10,13 @@ import CampaignScreen from './CampaignScreen';
 import AdvertisementScreen from './AdvertisementScreen';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
     const navigation = useNavigation();
+    const { t } = useTranslation();
     return (
         <Stack.Navigator
             screenOptions={{
@@ -45,7 +47,7 @@ const HomeStack = () => {
                 name="NewProducts"
                 component={NewProductsScreen}
                 options={{
-                    headerTitle: 'NYHEDER',
+                    headerTitle: t('navigate:newProducts'),
                     headerBackTitle: '',
                     headerLeft: () => (
                         <BackIconButton onPress={() => navigation.goBack()} />
@@ -56,21 +58,13 @@ const HomeStack = () => {
                 name="HighlightProducts"
                 component={HighLightProductsScreen}
                 options={{
-                    headerTitle: 'POPULÆRT LIGE NU',
+                    headerTitle: t('navigate:featuredProducts'),
                     headerBackTitle: '',
                     headerLeft: () => (
                         <BackIconButton onPress={() => navigation.goBack()} />
                     ),
                 }}
             />
-            {/* <Stack.Screen
-                name="CategoryScreen"
-                component={CategoryScreen}
-                options={{
-                    headerBackTitleVisible: false,
-                    headerBackVisible: false,
-                }}
-            /> */}
             <Stack.Screen
                 name="ProductScreen"
                 component={ProductScreen}

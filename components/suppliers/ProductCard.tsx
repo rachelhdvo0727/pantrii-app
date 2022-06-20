@@ -5,6 +5,8 @@ import { capitalize } from '../../utils/functions';
 // Components
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import InformationCard from '../InformationCard';
+//Translations
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
     onPress?: React.ComponentProps<typeof TouchableOpacity>['onPress'];
@@ -35,6 +37,8 @@ const ProductCard = ({
     isLowOnStock,
     status,
 }: Props) => {
+    const { t } = useTranslation();
+
     return (
         <TouchableOpacity onPress={onPress}>
             <InformationCard style={[styles.container, cardStyle]}>
@@ -59,11 +63,11 @@ const ProductCard = ({
                                         styles.amountNegative,
                                     ]}
                                 >
-                                    UDSOLGT
+                                    {t('common:labels.soldOut')}
                                 </Text>
                             ) : (
                                 <Text style={styles.amountText}>
-                                    Antal:&ensp;
+                                    {t('common:labels.quantity')}:&ensp;
                                     <Text
                                         style={
                                             isLowOnStock
@@ -109,7 +113,7 @@ const ProductCard = ({
                                         fontSize: 11,
                                     }}
                                 >
-                                    &thinsp; /kolli
+                                    &thinsp; /{t('common:labels.bulk')}
                                 </Text>
                             </Text>
                             <Text style={styles.singularPrice}>
@@ -119,7 +123,7 @@ const ProductCard = ({
                                         fontSize: 11,
                                     }}
                                 >
-                                    &thinsp; /enhed
+                                    &thinsp; /{t('common:labels.unit')}
                                 </Text>
                             </Text>
                         </View>
@@ -201,7 +205,7 @@ const styles = StyleSheet.create({
     },
     amountPositive: { color: '#9DB76E' },
     amountLow: { color: '#EA6F2D' },
-    amountNegative: { color: '#FF0000' },
+    amountNegative: { color: '#FF0000', textTransform: 'uppercase' },
     bulkPrice: {
         fontSize: 14,
         fontFamily: 'TT-Commons-DemiBold',

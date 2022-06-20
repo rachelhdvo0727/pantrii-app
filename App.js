@@ -5,6 +5,13 @@ import AppLoading from 'expo-app-loading';
 import Navigation from './routes/Navigation';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { I18nextProvider } from 'react-i18next';
+import i18next from 'i18next';
+import './dictionary/IMLocalize';
+
+// Dictionary
+import en from './dictionary/translations/en';
+import dk from './dictionary/translations/dk';
 
 const loadFonts = () => {
     return Font.loadAsync({

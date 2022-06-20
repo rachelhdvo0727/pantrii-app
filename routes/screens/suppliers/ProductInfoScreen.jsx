@@ -14,6 +14,8 @@ import Spinner from '../../../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { findCategory } from '../../../redux/slice/categories';
 import { findProduct } from '../../../redux/slice/product';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function ProductInfoScreen(props) {
     const navigation = useNavigation();
@@ -23,6 +25,7 @@ export default function ProductInfoScreen(props) {
     const productId = props?.route?.params?.productId;
     const { product } = useSelector((state) => state?.product);
     const category = useSelector((state) => state.categories?.category);
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         // Update Screen's headerTitle
@@ -54,7 +57,9 @@ export default function ProductInfoScreen(props) {
             status={product?.status}
             onEditBottomSection={() => onEditProduct('bottom')}
             onEditTopSection={() => onEditProduct('top')}
-            category={capitalize(categoryContent.name[category?.name])}
+            category={capitalize(
+                t('categories:categories.name.' + category?.name),
+            )}
             amountInStock={product?.amountInStock}
             isSoldOut={product?.amountInStock === 0}
             isLowOnStock={
@@ -63,29 +68,32 @@ export default function ProductInfoScreen(props) {
             productID={product?._id}
             imageSrc={productImages[product?.imageSrc]}
             productTitle={
-                productContent?.productTitle[product?.productTitle] ||
+                t('products:products.productTitle.' + product?.productTitle) ||
                 product?.productTitle
             }
             producerTitle={product?.producerTitle}
             productDesc={
-                productContent?.productDesc[product?.productDesc] ||
+                t('products:products.productDesc.' + product?.productDesc) ||
                 product?.productDesc
             }
             productUnit={product?.productUnit}
             bulkPrice={numberFormat(product?.bulkPrice)}
             singlePrice={numberFormat(product?.singlePrice)}
             productStory={
-                productContent.productStory[product?.productStory] ||
-                product?.productStory
+                t('products:products.productStory.' + product?.productStory) ||
+                product?.productproductStoryDesc
             }
             productUnique={
-                productContent.productUnique[product?.productUnique] ||
-                product?.productUnique
+                t(
+                    'products:products.productUnique.' + product?.productUnique,
+                ) || product?.productUnique
             }
             isCold={product?.tags?.find((tag) => tag == 'cold')}
             isOrganic={product?.tags?.find((tag) => tag == 'organic')}
             isFrozen={product?.tags?.find((tag) => tag == 'frozen')}
-            expiryDuration={product?.expiryDuration}
+            expiryDuration={
+                product?.expiryDuration + t('products:products.expiration.days')
+            }
         />
     );
 }

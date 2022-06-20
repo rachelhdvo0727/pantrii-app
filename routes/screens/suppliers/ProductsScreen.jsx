@@ -17,6 +17,8 @@ import NotFound from '../../../components/NotFound';
 import axios from 'axios';
 import { findProducerProducts } from '../../../utils/api';
 import { useDispatch, useSelector } from 'react-redux';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function ProductsScreen(props) {
     const navigation = useNavigation();
@@ -37,6 +39,9 @@ export default function ProductsScreen(props) {
 
     const producerId = userId || user?._id;
     const listConfig = { producerId: producerId, limit: 100 };
+
+    const { t } = useTranslation();
+
     React.useEffect(() => {
         let isMounted = true; // mutable flag
         axios(findProducerProducts(listConfig))
@@ -64,7 +69,7 @@ export default function ProductsScreen(props) {
     return (
         <View style={styles.container}>
             <SelectDropDown
-                label="Sortér efter"
+                label={t('common:labels.sort')}
                 data={sortOptions}
                 onSelect={onSelectedSort}
                 selectedItem={selectedSort}
@@ -72,7 +77,7 @@ export default function ProductsScreen(props) {
             <View style={styles.filtersContainer}>
                 <IconButton
                     outlined
-                    title={content?.inStock}
+                    title={t('common:labels.inStock')}
                     onPress={() => setFilterInStock(!filterInStock)}
                     iconButtonStyle={{
                         borderColor: '#9DB76E',
@@ -85,7 +90,7 @@ export default function ProductsScreen(props) {
                 />
                 <IconButton
                     outlined
-                    title={content?.lowOnStock}
+                    title={t('common:labels.lowInStock')}
                     onPress={() => setFilterLowOnStock(!filterLowOnStock)}
                     iconButtonStyle={{
                         borderColor: '#EA6F2D',
@@ -100,7 +105,7 @@ export default function ProductsScreen(props) {
                 />
                 <IconButton
                     outlined
-                    title={content?.soldOut}
+                    title={t('common:labels.soldOut')}
                     onPress={() => setFilterSoldOut(!filterSoldOut)}
                     iconButtonStyle={{
                         borderColor: '#FF0000',
@@ -152,16 +157,18 @@ export default function ProductsScreen(props) {
                             <ProductCard
                                 status={item?.status}
                                 productTitle={
-                                    productContent?.productTitle[
-                                        item?.productTitle
-                                    ] || item?.productTitle
+                                    t(
+                                        'products:products.productTitle.' +
+                                            item?.productTitle,
+                                    ) || item?.productTitle
                                 }
                                 imageSrc={productImages[item?.imageSrc]}
                                 producerTitle={item?.producerTitle}
                                 productDesc={
-                                    productContent?.productDesc[
-                                        item?.productDesc
-                                    ] || item?.productDesc
+                                    t(
+                                        'products:products.productDesc.' +
+                                            item?.productDesc,
+                                    ) || item?.productDesc
                                 }
                                 productUnit={item?.productUnit}
                                 bulkPrice={numberFormat(item?.bulkPrice)}

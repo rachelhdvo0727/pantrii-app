@@ -5,11 +5,14 @@ import ProductInfoScreen from './ProductInfoScreen';
 import ProductEditScreen from './ProductEditScreen';
 import BackIconButton from '../../../components/actions/BackIconButton';
 import { useNavigation } from '@react-navigation/native';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
 const ProductsStack = () => {
     const navigation = useNavigation();
+    const { t } = useTranslation();
     return (
         <Stack.Navigator
             initialRouteName="ProductsScreen"
@@ -32,7 +35,7 @@ const ProductsStack = () => {
                 name="ProductsScreen"
                 component={ProductsScreen}
                 options={{
-                    headerTitle: 'ALLE PRODUKTER',
+                    headerTitle: t('navigate:allProducts'),
                 }}
             />
             <Stack.Screen
@@ -43,7 +46,7 @@ const ProductsStack = () => {
                 name="ProductEditScreen"
                 component={ProductEditScreen}
                 options={{
-                    headerTitle: 'REDIGER PRODUKT',
+                    headerTitle: t('navigate:editProduct'),
                 }}
             />
         </Stack.Navigator>

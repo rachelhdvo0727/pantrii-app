@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
     onPress: React.ComponentProps<typeof Pressable>['onPress'];
@@ -9,6 +11,7 @@ export interface Props {
 }
 
 const FavoriteButton: React.FC<Props> = ({ isActive, onPress, onPressOut }) => {
+    const { t } = useTranslation();
     return (
         <Pressable
             style={[styles.container, isActive ? styles.isActive : null]}
@@ -17,7 +20,7 @@ const FavoriteButton: React.FC<Props> = ({ isActive, onPress, onPressOut }) => {
         >
             <View style={styles.wrapper}>
                 <Text style={[styles.title, isActive ? styles.isActive : null]}>
-                    Favorite
+                    {t('common:labels.favourite')}
                 </Text>
                 <FontAwesome
                     name="heart-o"

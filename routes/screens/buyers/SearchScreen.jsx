@@ -16,6 +16,8 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 const SearchScreen = (props) => {
     const navigation = useNavigation();
@@ -23,6 +25,7 @@ const SearchScreen = (props) => {
     const categoryContent = categoryDictionary?.categories;
     const productContent = productDictionary?.products;
     const products = props?.route?.params?.products;
+    const { t } = useTranslation();
 
     React.useEffect(() => {}, []);
 
@@ -77,16 +80,16 @@ const SearchScreen = (props) => {
                 renderItem={({ item }) => (
                     <ProductCard
                         productID={favouriteId?.filter((i) => i == item?._id)}
-                        productTitle={
-                            productContent.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
+                        productTitle={t(
+                            'products:products.productTitle.' +
+                                item?.productTitle,
+                        )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={
-                            productContent.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
+                        productDesc={t(
+                            'products:products.productDesc.' +
+                                item?.productDesc,
+                        )}
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

@@ -6,10 +6,13 @@ import CategoryProductsListScreen from './CategoryProductsListScreen';
 import ProductScreen from './ProductScreen';
 import SearchScreen from './SearchScreen';
 import TopNavBuyers from './TopNavBuyers';
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
 const CategoriesStack = () => {
+    const { t } = useTranslation();
+
     return (
         <Stack.Navigator
             screenOptions={{
@@ -33,7 +36,7 @@ const CategoriesStack = () => {
                 name="CategoriesMainScreen"
                 component={CategoriesMainScreen}
                 options={{
-                    headerTitle: 'KATEGORIER',
+                    headerTitle: t('navigate:category'),
                     headerBackTitleVisible: false,
                     headerBackVisible: false,
                 }}

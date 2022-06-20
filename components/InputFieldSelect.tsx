@@ -1,7 +1,7 @@
 import React from 'react';
 import generalStyles from '../styles/General';
-import categoryDic from '../dictionary/categories.json';
 import { capitalize } from '../utils/functions';
+import { useTranslation } from 'react-i18next';
 // Components
 import {
     StyleSheet,
@@ -10,12 +10,11 @@ import {
     View,
     SafeAreaView,
     ScrollView,
-    Dimensions,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export interface Option {
-    label: string;
+    label: { dk: string; en: string };
     value: string;
 }
 
@@ -47,6 +46,9 @@ export default function InputFieldSelect({
     const [selectedOption, setSelectedItem] = React.useState(selectedItem);
     const [isValueChanged, setIsValueChanged] = React.useState(false);
 
+    const { i18n } = useTranslation();
+    const selectedLanguageCode = i18n.language;
+
     const toggleDropdown = () => {
         setVisible(!visible);
         setIsValueChanged(true);
@@ -74,7 +76,9 @@ export default function InputFieldSelect({
                         styles.currentOption,
                 ]}
             >
-                {capitalize(item?.label)}
+                {selectedLanguageCode === 'dk'
+                    ? capitalize(item?.label.dk)
+                    : capitalize(item?.label.en)}
             </Text>
         </TouchableOpacity>
     );

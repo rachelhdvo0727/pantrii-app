@@ -1,0 +1,21 @@
+{
+    "home": "Home",
+    "categories": "Categories",
+    "favourites": "Favourites",
+    "cart": "Cart",
+    "profile": "Profile",
+    "products": "Products",
+    "upload": "Upload",
+    "newProducts": "NEW PRODUCTS",
+    "featuredProducts": "POPULAR PRODUCTS",
+    "category": "CATEGORIES",
+    "carts": "CART",
+    "checkOut": "CHECKOUT",
+    "payment": "PAYMENT",
+    "profiles": "PROFILE",
+    "editProfile": "EDIT PROFILE",
+    "editAddress": "EDIT ADDRESS",
+    "allProducts": "ALL PRODUCTS",
+    "editProduct": "EDIT PRODUCT",
+    "uploadProduct": "UPLOAD A PRODUCT"
+}

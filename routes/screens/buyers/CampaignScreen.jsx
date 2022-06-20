@@ -21,11 +21,14 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 export default function CampaignScreen(props) {
     const navigation = useNavigation();
     const campaignContent = dictionary?.campaigns; // DA dictionary
     const productContent = productDictionary?.products;
+    const { t } = useTranslation();
 
     const campaignTitle = props?.route?.params?.product;
     const [products, setProducts] = React.useState([]);
@@ -37,8 +40,9 @@ export default function CampaignScreen(props) {
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle:
-                campaignContent?.title[campaignTitle?.title]?.toUpperCase(),
+            headerTitle: t(
+                'campaigns:campaigns.title.' + campaignTitle?.title,
+            ).toUpperCase(),
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
@@ -57,7 +61,7 @@ export default function CampaignScreen(props) {
     return (
         <SafeAreaView style={[generalStyles.container]}>
             <HeroCard
-                title={campaignContent.title[campaignTitle?.title]}
+                title={t('campaigns:campaigns.title.' + campaignTitle?.title)}
                 imageSrc={campaignImages[campaignTitle?.imageSrc]}
                 banner
             />
@@ -68,16 +72,16 @@ export default function CampaignScreen(props) {
                     <ProductCard
                         secondary
                         productID={favouriteId?.filter((i) => i == item?._id)}
-                        productTitle={
-                            productContent.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
+                        productTitle={t(
+                            'products:products.productTitle.' +
+                                item?.productTitle,
+                        )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={
-                            productContent.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
+                        productDesc={t(
+                            'products:products.productDesc.' +
+                                item?.productDesc,
+                        )}
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

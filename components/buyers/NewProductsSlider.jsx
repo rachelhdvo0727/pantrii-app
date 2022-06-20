@@ -19,6 +19,8 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../redux/reducer/FavouriteReducer';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 
@@ -35,6 +37,8 @@ const NewProductsSlider = () => {
     const favourite = useSelector((state) => state.favourite);
     const favouriteId = favourite.map((i) => i?._id);
 
+    const { t } = useTranslation();
+
     React.useEffect(() => {
         // Fetch all categories from MongoDB api
         axios(fetchLatestProducts('products'))
@@ -50,7 +54,9 @@ const NewProductsSlider = () => {
     return (
         <View style={styles.container}>
             <View style={generalStyles.flexHeading}>
-                <Text style={generalStyles.headerH2}>Nyheder</Text>
+                <Text style={generalStyles.headerH2}>
+                    {t('common:home.newProducts')}
+                </Text>
                 <ViewButton
                     onPress={() => navigation.navigate('NewProducts')}
                 />
@@ -65,16 +71,16 @@ const NewProductsSlider = () => {
                 renderItem={({ item }) => (
                     <ProductCard
                         productID={favouriteId?.filter((i) => i == item?._id)}
-                        productTitle={
-                            content.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
+                        productTitle={t(
+                            'products:products.productTitle.' +
+                                item?.productTitle,
+                        )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={
-                            content.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
+                        productDesc={t(
+                            'products:products.productDesc.' +
+                                item?.productDesc,
+                        )}
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

@@ -13,6 +13,8 @@ import { Feather } from '@expo/vector-icons';
 // API
 import { updateUser } from '../../redux/slice/user';
 import { useSelector, useDispatch } from 'react-redux';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileEditScreen(props) {
     const navigation = useNavigation();
@@ -20,13 +22,14 @@ export default function ProfileEditScreen(props) {
     const content = dictionary?.customerTypes;
     const userRole = props.route?.params?.userRole;
     const { user } = useSelector((state) => state?.user);
+    const { t } = useTranslation();
 
     const informationType = props.route?.params?.informationType;
     const information =
         informationType === 'profile'
-            ? 'profil'
+            ? t('navigate:profile')
             : informationType === 'address'
-            ? 'adresse'
+            ? t('common:profile.address')
             : null;
 
     const [hasUserInformation, setHasUserInformation] = React.useState(false);
@@ -34,7 +37,9 @@ export default function ProfileEditScreen(props) {
 
     React.useEffect(() => {
         props.navigation?.setOptions({
-            headerTitle: `REDIGER ${information.toUpperCase()}`,
+            headerTitle:
+                t('common:labels.edit').toUpperCase() +
+                ` ${information.toUpperCase()}`,
             headerLeft: () => (
                 <BackIconButton onPress={() => navigation.goBack()} />
             ),
@@ -106,7 +111,7 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="fornavn *"
+                                    label={t('common:profile.firstName') + '*'}
                                     placeholder="John"
                                     value={value}
                                     onChangeText={onChange}
@@ -129,7 +134,7 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="efternavn *"
+                                    label={t('common:profile.lastName') + '*'}
                                     placeholder="Eksempel"
                                     value={value}
                                     onChangeText={onChange}
@@ -158,7 +163,7 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="email *"
+                                    label={t('common:profile.email') + '*'}
                                     placeholder="eksemple@mail.com"
                                     value={value}
                                     onChangeText={onChange}
@@ -188,7 +193,9 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="mobilnummer *"
+                                    label={
+                                        t('common:profile.phoneNumber') + '*'
+                                    }
                                     placeholder="57575757"
                                     value={value}
                                     onChangeText={onChange}
@@ -209,14 +216,18 @@ export default function ProfileEditScreen(props) {
                             name={`address.line1`}
                             control={control}
                             rules={{
-                                required: 'Adresse er påkrævet',
+                                required:
+                                    t('common:profile.address') +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="adresselinje 1 *"
+                                    label={
+                                        t('common:profile.addressLine1') + '*'
+                                    }
                                     placeholder="Vejnavn og husnummer"
                                     value={value}
                                     onChangeText={onChange}
@@ -238,7 +249,9 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="adresselinje 2"
+                                    label={
+                                        t('common:profile.addressLine2') + '*'
+                                    }
                                     placeholder="Evt. dørnummer"
                                     value={value}
                                     onChangeText={onChange}
@@ -257,14 +270,18 @@ export default function ProfileEditScreen(props) {
                                 name={`address.zipCode`}
                                 control={control}
                                 rules={{
-                                    required: 'Postnr. er påkrævet',
+                                    required:
+                                        t('common:profile.postNumber') +
+                                        t('common:labels.isRequired'),
                                 }}
                                 render={({
                                     field: { onChange, onBlur, value },
                                     fieldState: { error },
                                 }) => (
                                     <InputField
-                                        label="postnr. *"
+                                        label={
+                                            t('common:profile.postNumber') + '*'
+                                        }
                                         placeholder="2000"
                                         value={value}
                                         onChangeText={onChange}
@@ -283,14 +300,16 @@ export default function ProfileEditScreen(props) {
                                 name={`address.city`}
                                 control={control}
                                 rules={{
-                                    required: 'By er påkrævet',
+                                    required:
+                                        t('common:profile.city') +
+                                        t('common:labels.isRequired'),
                                 }}
                                 render={({
                                     field: { onChange, onBlur, value },
                                     fieldState: { error },
                                 }) => (
                                     <InputField
-                                        label="by *"
+                                        label={t('common:profile.city') + '*'}
                                         placeholder="København"
                                         autoComplete
                                         value={value}
@@ -309,14 +328,16 @@ export default function ProfileEditScreen(props) {
                             name={`address.country`}
                             control={control}
                             rules={{
-                                required: 'Land er påkrævet',
+                                required:
+                                    t('common:profile.country') +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="land *"
+                                    label={t('common:profile.country') + '*'}
                                     placeholder="Danmark"
                                     autoComplete={false}
                                     value={value}
@@ -335,7 +356,7 @@ export default function ProfileEditScreen(props) {
                     primary
                     buttonStyle={styles.buttonStyle}
                     disabled={hasUserInformation}
-                    title="Gem"
+                    title={t('common:labels.save')}
                     onPress={handleSubmit(onSubmit)}
                 ></Button>
             </View>
