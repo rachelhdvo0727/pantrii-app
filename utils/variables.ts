@@ -1,7 +1,6 @@
 import { Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-
 export const passwordRules =
     'minlength: 20; maxlength: 12; required: lower; required: upper; required: digit;';
 
@@ -23,7 +22,7 @@ export const unitOptions = [
     { label: 'kg', value: 'kg' },
     { label: 'ml', value: 'ml' },
     { label: 'cl', value: 'cl' },
-    { label: 'dl', value: 'dl' },
+    { label: 'dl', value: 'd¢l' },
     { label: 'l', value: 'l' },
 ];
 

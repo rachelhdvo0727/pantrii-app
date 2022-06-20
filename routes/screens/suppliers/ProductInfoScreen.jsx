@@ -14,6 +14,8 @@ import Spinner from '../../../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { findCategory } from '../../../redux/slice/categories';
 import { findProduct } from '../../../redux/slice/product';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function ProductInfoScreen(props) {
     const navigation = useNavigation();
@@ -23,6 +25,7 @@ export default function ProductInfoScreen(props) {
     const productId = props?.route?.params?.productId;
     const { product } = useSelector((state) => state?.product);
     const category = useSelector((state) => state.categories?.category);
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         // Update Screen's headerTitle

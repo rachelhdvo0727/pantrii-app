@@ -120,7 +120,9 @@
         "editLongText": "Indhold i dette felt oversættes og godkendes af vores team. Dit produkt vil sættes til 'Pending' og ikke vises på vores marketplace midlertidligt.",
         "proceed": "glæder mig",
         "onlyNumber": "kun nummer",
-        "upload": "Opret"
+        "upload": "Opret",
+        "producer": "producent",
+        "customer": "erhvervskunde"
     },
     "placeholders": {
         "chooseCategory": "Vælge en kategorie",

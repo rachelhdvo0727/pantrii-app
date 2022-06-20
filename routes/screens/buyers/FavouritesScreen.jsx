@@ -107,5 +107,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'TT-Commons-Medium',
         letterSpacing: 0.5,
+        textAlign: 'center',
+        paddingHorizontal: 30,
     },
 });

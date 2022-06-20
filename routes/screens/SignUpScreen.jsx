@@ -92,7 +92,7 @@ export default function LogInScreen(props) {
                         >
                             <View style={styles.radioButtonGroup}>
                                 <RadioButton.Item
-                                    label={content[roles[0]?.role]}
+                                    label={t('common:labels.producer')}
                                     value={roles[0]?._id}
                                     status={
                                         value === content?.customer
@@ -105,7 +105,7 @@ export default function LogInScreen(props) {
                                     labelStyle={styles.radioButtonLabel}
                                 />
                                 <RadioButton.Item
-                                    label={content[roles[1]?.role]}
+                                    label={t('common:labels.customer')}
                                     status={
                                         value === content?.producer
                                             ? 'checked'
@@ -298,9 +298,7 @@ export default function LogInScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label={
-                                        t('common:profile.addressLine2') + '*'
-                                    }
+                                    label={t('common:profile.addressLine2')}
                                     placeholder="Evt. dørnummer"
                                     value={value}
                                     onChangeText={onChange}

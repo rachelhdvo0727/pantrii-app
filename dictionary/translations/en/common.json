@@ -120,9 +120,13 @@
         "editLongText": "Content in this field will be translated and approved by our team. Your product will be set to 'Pending' and will not be displayed on our marketplace temporarily.",
         "proceed": "proceed",
         "onlyNumber": "only numbers",
-        "upload": "Upload"
+        "upload": "Upload",
+        "producer": "producer",
+        "customer": "customer"
     },
     "placeholders": {
+        "producer": "producer",
+        "customer": "customer",
         "chooseCategory": "Choose a category",
         "amountInStock": "example. 10",
         "expiryDuration": "x days/months/years",

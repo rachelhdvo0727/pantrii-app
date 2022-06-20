@@ -40,7 +40,7 @@ export default function ProfileScreen(props) {
         <ScrollView style={generalStyles.container}>
             <HeroCard
                 banner
-                title={content[userRole]}
+                title={t('common:profile.' + userRole)}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
                 imageStyle={{ borderRadius: 10 }}
