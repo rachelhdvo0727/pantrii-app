@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     },
     selectedText: {
         ...generalStyles.boldText,
-        color: 'tomato',
+        color: '#9DB76E',
         paddingVertical: 4,
     },
 });
