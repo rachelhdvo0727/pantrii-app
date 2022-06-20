@@ -9,9 +9,12 @@ import Spinner from '../../../components/Spinner';
 // API
 import { getCategories } from '../../../redux/slice/categories';
 import { useSelector, useDispatch } from 'react-redux';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function CategoriesMainScreen() {
     const content = dictionary?.categories; // DA dictionary
+    const { t } = useTranslation();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const { categories } = useSelector((state) => state.categories);
@@ -30,7 +33,7 @@ export default function CategoriesMainScreen() {
                 keyExtractor={(item) => item?._id}
                 renderItem={({ item }) => (
                     <CategoryCard
-                        title={content.name[item?.name]}
+                        title={t('categories:categories.name.' + item?.name)}
                         imageSrc={categoryImages[item?.imageSrc]}
                         cardStyle={styles.cardContainer}
                         onPress={() => {

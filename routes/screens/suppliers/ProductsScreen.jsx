@@ -157,16 +157,18 @@ export default function ProductsScreen(props) {
                             <ProductCard
                                 status={item?.status}
                                 productTitle={
-                                    productContent?.productTitle[
-                                        item?.productTitle
-                                    ] || item?.productTitle
+                                    t(
+                                        'products:products.productTitle.' +
+                                            item?.productTitle,
+                                    ) || item?.productTitle
                                 }
                                 imageSrc={productImages[item?.imageSrc]}
                                 producerTitle={item?.producerTitle}
                                 productDesc={
-                                    productContent?.productDesc[
-                                        item?.productDesc
-                                    ] || item?.productDesc
+                                    t(
+                                        'products:products.productDesc.' +
+                                            item?.productDesc,
+                                    ) || item?.productDesc
                                 }
                                 productUnit={item?.productUnit}
                                 bulkPrice={numberFormat(item?.bulkPrice)}

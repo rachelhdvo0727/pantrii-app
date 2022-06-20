@@ -41,7 +41,7 @@
             "Wine Gum, Vegan": "Vingummi, Vegansk",
             "Cold cuts": "Pålæg",
             "Gifler":"Gifler",
-            "Beer":"Øl",
+            "Quinoa Beer":"Quinoa Øl",
             "Oats":"Havre"
         },
         "productStory": {
@@ -77,8 +77,12 @@
             "Produced on the bananas that are in surplus in the retail trade due to the bananas' visual challenges.": "Produceret på de bananer som er i overskud i detailhandlen grundet bananernes visuelle udfordringer.",
             "The wine gums have a soft consistency and are shaped like small fish, hearts and drops flavored with red berries and other fruits. In addition, they are vaginal as well as gluten free.": "Vingummierne har en blød konsistens og er formet som små fisk, hjerter og dråber tilsmagt røde bær og andre frugter. Derudover er de vaganske samt glutenfri.",
             "Our date forks consist of a delicious cookie dough with fillings made from dates, cinnamon and vanilla.": "Vores daddelgifler består af en lækker småkagedej med fyld lavet af dadler, kanel og vanilje.",
-            "World novelty: First quinoa beer brewed exclusively on quinoa, yeast and hops - without the use of malting barley or other grains. Produced on Danish, organic quinoa seeds without additives. The quinoa seeds used are without saponin (bitter substance), which ensures a good taste every time.":"Verdensnyhed: Første quinoa øl brygget udelukkende på quinoa, gær og humle - altså uden brug af maltbyg eller andre kornarter. Produceret på danske, økologiske quinoafrø uden tilsætningstoffer. Quinoa frøene som benyttes er uden saponin (bitterstof), hvilket sikrer en god smag hver gang.",
-            "Of organic raw materials":"Af økologiske råvarer"
+            "World novelty - First quinoa beer brewed exclusively on quinoa, yeast and hops - without the use of malting barley or other grains. Produced on Danish, organic quinoa seeds without additives. The quinoa seeds used are without saponin (bitter substance), which ensures a good taste every time.":"Verdensnyhed: Første quinoa øl brygget udelukkende på quinoa, gær og humle - altså uden brug af maltbyg eller andre kornarter. Produceret på danske, økologiske quinoafrø uden tilsætningstoffer. Quinoa frøene som benyttes er uden saponin (bitterstof), hvilket sikrer en god smag hver gang.",
+            "Of organic raw materials":"Af økologiske råvarer",
+            "Danish grilled sausage":"Dansk grillpølse"
+        },
+        "expiration":{
+            "days": " dage"
         }
     }
 }

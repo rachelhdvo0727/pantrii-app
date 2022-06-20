@@ -1,11 +1,13 @@
 import navigate from './navigate';
 import common from './common';
 import products from './products';
-import catergories from './categories';
+import categories from './categories';
+import campaigns from './campaigns';
 
 export default {
     navigate,
     common,
     products,
-    catergories,
+    categories,
+    campaigns,
 };

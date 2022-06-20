@@ -17,10 +17,13 @@ import ProductCard from '../../../components/buyers/ProductCard';
 // Dictionary
 import dictionary from '../../../dictionary/products';
 import { productImages } from '../../../dictionary/images';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 export default function NewProductsScreen() {
     const navigation = useNavigation();
     const content = dictionary?.products; // DA dictionary
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
     const favourite = useSelector((state) => state.favourite);
@@ -46,16 +49,16 @@ export default function NewProductsScreen() {
                     <ProductCard
                         secondary
                         productID={favouriteId?.filter((i) => i == item?._id)}
-                        productTitle={
-                            content.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
+                        productTitle={t(
+                            'products:products.productTitle.' +
+                                item?.productTitle,
+                        )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={
-                            content.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
+                        productDesc={t(
+                            'products:products.productDesc.' +
+                                item?.productDesc,
+                        )}
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

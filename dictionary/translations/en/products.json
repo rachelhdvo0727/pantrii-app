@@ -41,7 +41,7 @@
             "Wine Gum, Vegan": "Wine Gum, Vegan",
             "Cold cuts": "Cold cuts",
             "Gifler":"Gifler",
-            "Beer":"Beer",
+            "Quinoa Beer":"Quinoa Beer",
             "Oats":"Oats"
         },
         "productStory": {
@@ -77,8 +77,12 @@
             "Produced on the bananas that are in surplus in the retail trade due to the bananas' visual challenges.": "Produced on the bananas that are in surplus in the retail trade due to the bananas' visual challenges.",
             "The wine gums have a soft consistency and are shaped like small fish, hearts and drops flavored with red berries and other fruits. In addition, they are vaginal as well as gluten free.": "The wine gums have a soft consistency and are shaped like small fish, hearts and drops flavored with red berries and other fruits. In addition, they are vaginal as well as gluten free.",
             "Our date forks consist of a delicious cookie dough with fillings made from dates, cinnamon and vanilla.": "Our date forks consist of a delicious cookie dough with fillings made from dates, cinnamon and vanilla.",
-            "World novelty: First quinoa beer brewed exclusively on quinoa, yeast and hops - without the use of malting barley or other grains. Produced on Danish, organic quinoa seeds without additives. The quinoa seeds used are without saponin (bitter substance), which ensures a good taste every time.":"World novelty: First quinoa beer brewed exclusively on quinoa, yeast and hops - without the use of malting barley or other grains. Produced on Danish, organic quinoa seeds without additives. The quinoa seeds used are without saponin (bitter substance), which ensures a good taste every time.",
-            "Of organic raw materials":"Of organic raw materials"
+            "World novelty - First quinoa beer brewed exclusively on quinoa, yeast and hops - without the use of malting barley or other grains. Produced on Danish, organic quinoa seeds without additives. The quinoa seeds used are without saponin (bitter substance), which ensures a good taste every time.": "World novelty: First quinoa beer brewed exclusively on quinoa, yeast and hops - without the use of malting barley or other grains. Produced on Danish, organic quinoa seeds without additives. The quinoa seeds used are without saponin (bitter substance), which ensures a good taste every time.",
+            "Of organic raw materials":"Of organic raw materials",
+            "Danish grilled sausage":"Danish grilled sausage"
+        },
+        "expiration":{
+            "days": " days"
         }
     }
 }

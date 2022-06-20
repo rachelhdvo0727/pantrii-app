@@ -148,11 +148,10 @@ export default function CheckOutScreen(props) {
                                 <ProductCardList
                                     key={item._id}
                                     secondary
-                                    productTitle={
-                                        content.productTitle[
-                                            item?.productTitle
-                                        ] || item?.productTitle
-                                    }
+                                    productTitle={t(
+                                        'products:products.productTitle.' +
+                                            item?.productTitle,
+                                    )}
                                     imageSrc={productImages[item?.imageSrc]}
                                     producerTitle={item?.producerTitle}
                                     productUnit={item?.productUnit}

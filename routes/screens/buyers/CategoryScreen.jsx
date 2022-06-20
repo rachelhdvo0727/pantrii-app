@@ -62,7 +62,9 @@ export default function CategoryScreen(props) {
     React.useEffect(() => {
         // Update Screen's headerTitle
         props.navigation?.setOptions({
-            headerTitle: categoryContent?.name[categoryName]?.toUpperCase(),
+            headerTitle: t(
+                'categories:categories.name.' + categoryName,
+            )?.toUpperCase(),
             headerLeft: () =>
                 !isAllProductsView && (
                     <BackIconButton onPress={() => navigation.goBack()} />
@@ -98,12 +100,13 @@ export default function CategoryScreen(props) {
         if (text) {
             // Filter the categoryProducts
             const newData = categoryProducts.filter((item) => {
-                const searchedProductNames = productContent.productTitle[
-                    item?.productTitle
-                ]
-                    ? productContent.productTitle[
-                          item?.productTitle
-                      ].toLowerCase()
+                const searchedProductNames = t(
+                    'products:products.productTitle.' + item?.productTitle,
+                )
+                    ? t(
+                          'products:products.productTitle.' +
+                              item?.productTitle,
+                      ).toLowerCase()
                     : ''.toLowerCase();
 
                 const searchedProducerNames = item?.producerTitle
@@ -151,7 +154,9 @@ export default function CategoryScreen(props) {
                             <CategoryCard
                                 secondary
                                 key={index}
-                                title={categoryContent?.name[item?.name]}
+                                title={t(
+                                    'categories:categories.name.' + item?.name,
+                                )}
                                 imageSrc={categoryImages[item?.imageSrc]}
                                 onPress={() => {
                                     navigation.navigate(
@@ -179,9 +184,7 @@ export default function CategoryScreen(props) {
                 />
                 {categoryProducts === null && <Spinner />}
                 {categoryProducts?.length === 0 && (
-                    <NotFound
-                        text={`Der findes ikke produkter i ${categoryContent?.name[categoryName]} kategorien`}
-                    />
+                    <NotFound text={t('common:categories.notFound')} />
                 )}
                 {/* Search directly on the shown list */}
                 {categoryProducts?.length > 0 && (
@@ -222,18 +225,16 @@ export default function CategoryScreen(props) {
                                 productID={favouriteId?.filter(
                                     (i) => i == item?._id,
                                 )}
-                                productTitle={
-                                    productContent.productTitle[
-                                        item?.productTitle
-                                    ] || item?.productTitle
-                                }
+                                productTitle={t(
+                                    'products:products.productTitle.' +
+                                        item?.productTitle,
+                                )}
                                 imageSrc={productImages[item?.imageSrc]}
                                 producerTitle={item?.producerTitle}
-                                productDesc={
-                                    productContent.productDesc[
-                                        item?.productDesc
-                                    ] || item?.productDesc
-                                }
+                                productDesc={t(
+                                    'products:products.productDesc.' +
+                                        item?.productDesc,
+                                )}
                                 productUnit={item?.productUnit}
                                 bulkPrice={numberFormat(item?.bulkPrice)}
                                 singlePrice={numberFormat(item?.singlePrice)}

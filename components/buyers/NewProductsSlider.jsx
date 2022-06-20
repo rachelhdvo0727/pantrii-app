@@ -77,10 +77,10 @@ const NewProductsSlider = () => {
                         )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={
-                            content.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
+                        productDesc={t(
+                            'products:products.productDesc.' +
+                                item?.productDesc,
+                        )}
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

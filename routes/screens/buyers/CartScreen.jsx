@@ -46,11 +46,10 @@ export default function CartScreen() {
                             keyExtractor={(item) => item?._id}
                             renderItem={({ item }) => (
                                 <ProductCardList
-                                    productTitle={
-                                        content.productTitle[
-                                            item?.productTitle
-                                        ] || item?.productTitle
-                                    }
+                                    productTitle={t(
+                                        'products:products.productTitle.' +
+                                            item?.productTitle,
+                                    )}
                                     imageSrc={productImages[item?.imageSrc]}
                                     producerTitle={item?.producerTitle}
                                     productUnit={item?.productUnit}

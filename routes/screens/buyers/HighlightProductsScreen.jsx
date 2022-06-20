@@ -18,10 +18,13 @@ import {
     addToFavourite,
     removeFavourite,
 } from '../../../redux/reducer/FavouriteReducer';
+//Translation
+import { useTranslation } from 'react-i18next';
 
 export default function HighlightProductsScreen() {
     const navigation = useNavigation();
     const content = dictionary?.products; // DA dictionary
+    const { t } = useTranslation();
 
     const [products, setProducts] = React.useState([]);
 
@@ -48,16 +51,16 @@ export default function HighlightProductsScreen() {
                     <ProductCard
                         secondary
                         productID={favouriteId?.filter((i) => i == item?._id)}
-                        productTitle={
-                            content.productTitle[item?.productTitle] ||
-                            item?.productTitle
-                        }
+                        productTitle={t(
+                            'products:products.productTitle.' +
+                                item?.productTitle,
+                        )}
                         imageSrc={productImages[item?.imageSrc]}
                         producerTitle={item?.producerTitle}
-                        productDesc={
-                            content.productDesc[item?.productDesc] ||
-                            item?.productDesc
-                        }
+                        productDesc={t(
+                            'products:products.productDesc.' +
+                                item?.productDesc,
+                        )}
                         productUnit={item?.productUnit}
                         bulkPrice={numberFormat(item?.bulkPrice)}
                         singlePrice={numberFormat(item?.singlePrice)}

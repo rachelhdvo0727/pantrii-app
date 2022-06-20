@@ -1,17 +1,18 @@
 {
-    "home":{
+    "home": {
         "newProducts": "New products",
         "featuredProducts": "Popular products",
         "campaign": "Campaigns"
     },
-    "favourites":{
+    "favourites": {
         "favouritesEmpty": "Your favourites are empty. Remember to tap 🧡 on a product"
     },
-    "categories":{
+    "categories": {
         "category": "Category",
-        "categories": "Categories"
+        "categories": "Categories",
+        "notFound": "Sorry, we could not find any products in this category"
     },
-    "cart":{
+    "cart": {
         "cartEmpty": "Your cart is empty",
         "total": "In total",
         "deleteWarning": "Are you sure you want to delete this item?",
@@ -26,7 +27,7 @@
         "creditDebit": "Credit/ Debit card",
         "shippingNotice": "Free shipping on all orders over"
     },
-    "profile":{
+    "profile": {
         "profileInfo": "Profile information",
         "address": "Address",
         "buyer": "Buyer",
@@ -42,7 +43,7 @@
         "country": "Country ",
         "password": "Password "
     },
-    "products":{
+    "products": {
         "productName": "Product name ",
         "brandName": "Brand name ",
         "unit": "Unit per bulk ",
@@ -60,10 +61,10 @@
         "productUnique": "Product identification",
         "weight": "Weight "
     },
-    "settings":{
+    "settings": {
         "languageSelector": "Select your language"
     },
-    "labels":{
+    "labels": {
         "viewAll": "View all",
         "sort": "Sorted by",
         "edit": "Edit",
@@ -120,11 +121,11 @@
         "proceed": "proceed",
         "onlyNumber": "only numbers",
         "upload": "Upload"
-    },  
-    "placeholders":{
+    },
+    "placeholders": {
         "chooseCategory": "Choose a category",
         "amountInStock": "example. 10",
         "expiryDuration": "x days/months/years",
-        "example": "Example"        
+        "example": "Example"
     }
 }
