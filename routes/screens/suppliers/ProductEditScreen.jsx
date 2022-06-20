@@ -76,7 +76,7 @@ const ProductEditScreen = (props) => {
     const { control, handleSubmit, reset } = useForm({});
 
     const onSubmit = (data) => {
-        parseInt(data.amountInStock, 10); // change back to Number for POST
+        data.amountInStock = parseInt(data.amountInStock); // change back to Number for POST
         data.tags = [
             isCold ? checkedCold : '',
             isFrozen ? checkedFrozen : '',

@@ -17,7 +17,7 @@ import { Entypo } from '@expo/vector-icons';
 import Spinner from '../../../components/Spinner';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductsForProducer } from '../../../redux/slice/producerProducts';
+import { getProductsForProducer } from '../../../redux/slice/product';
 //Translations
 import { useTranslation } from 'react-i18next';
 
@@ -30,13 +30,12 @@ export default function HomeScreen(props) {
     );
     const listConfig = { producerId: user?._id, limit: 3 };
     const content = dictionary?.producer;
-    const productContent = productDictionary?.products;
 
     const { t } = useTranslation();
 
     React.useEffect(() => {
         dispatch(getProductsForProducer(listConfig));
-    }, []);
+    }, [producerProducts]);
 
     const handleCreateProduct = () => {
         navigation.navigate('Opret');

@@ -175,8 +175,8 @@ export default function ProductsScreen(props) {
                                 singlePrice={numberFormat(item?.singlePrice)}
                                 amountInStock={item?.amountInStock}
                                 isLowOnStock={
-                                    item?.amountInStock < 10 ||
-                                    item?.amountInStock === 10
+                                    item?.amountInStock < 10 &&
+                                    item?.amountInStock !== 0
                                 }
                                 isSoldOut={item?.amountInStock === 0}
                                 onPress={() => {
