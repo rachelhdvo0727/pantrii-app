@@ -22,11 +22,11 @@ import { useTranslation } from 'react-i18next';
 
 export default function UploadProductsScreen(props) {
     const dispatch = useDispatch();
-    const content = dictionary;
     const { categories } = useSelector((state) => state?.categories);
     const { user } = useSelector((state) => state.user);
     const loggedInUser = props?.route?.params.loggedInUser;
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const selectedLanguageCode = i18n.language;
 
     const [selectedCategory, setSelectedCategory] = React.useState();
     const onSelectCategory = (item) => {
@@ -320,9 +320,15 @@ export default function UploadProductsScreen(props) {
                 <InputFieldSelect
                     label={t('common:categories.categories') + ' *'}
                     placeholder={t('common:placeholders.chooseCategory')}
-                    data={categoriesOptions?.sort((a, b) =>
-                        a.label.normalize().localeCompare(b.label.normalize()),
-                    )}
+                    data={categoriesOptions?.sort((a, b) => {
+                        return selectedLanguageCode === 'dk'
+                            ? a.label.dk
+                                  .normalize()
+                                  .localeCompare(b.label.dk.normalize())
+                            : a.label.en
+                                  .normalize()
+                                  .localeCompare(b.label.en.normalize());
+                    })}
                     onSelect={onSelectCategory}
                     selectedItem={selectedCategory}
                     style={styles.selectDropdown}

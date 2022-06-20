@@ -9,10 +9,22 @@ export const SLIDER_WIDTH = Dimensions.get('window').width;
 
 // Sort options
 export const sortOptions = [
-    { label: 'Produktnavn A-Å', value: 'A-AA' },
-    { label: 'Produktnavn Å-A', value: 'AA-A' },
-    { label: 'Laveste pris', value: 'lowest' },
-    { label: 'Højeste pris', value: 'highest' },
+    {
+        label: { dk: 'Produktnavn A-Å', en: 'Product name A-AA' },
+        value: 'A-AA',
+    },
+    {
+        label: { dk: 'Produktnavn Å-A', en: 'Product name AA-A' },
+        value: 'AA-A',
+    },
+    {
+        label: { dk: 'Laveste pris', en: 'Lowest price' },
+        value: 'lowest',
+    },
+    {
+        label: { dk: 'Højeste pris', en: 'Highest price' },
+        value: 'highest',
+    },
 ];
 
 // Unit options
@@ -22,20 +34,50 @@ export const unitOptions = [
     { label: 'kg', value: 'kg' },
     { label: 'ml', value: 'ml' },
     { label: 'cl', value: 'cl' },
-    { label: 'dl', value: 'd¢l' },
+    { label: 'dl', value: 'dl' },
     { label: 'l', value: 'l' },
 ];
 
 // Category dropdown
 export const categoriesOptions = [
-    { label: 'andre', value: 'other' },
-    { label: 'brød', value: 'bread' },
-    { label: 'mejeri', value: 'dairy' },
-    { label: 'kage', value: 'dessert' },
-    { label: 'kød', value: 'meat' },
-    { label: 'kolonial', value: 'colonial' },
-    { label: 'drikkevarer', value: 'drinks' },
-    { label: 'plantebaseret', value: 'plantbased' },
-    { label: 'frugt & grønt', value: 'fruitsAndVeggies' },
-    { label: 'fisk & skaldyr', value: 'fishAndSeafood' },
+    {
+        label: { dk: 'andre', en: 'other' },
+        value: 'other',
+    },
+    {
+        label: { dk: 'brød', en: 'bread' },
+        value: 'bread',
+    },
+    {
+        label: { dk: 'mejeri', en: 'dairy' },
+        value: 'dairy',
+    },
+    {
+        label: { dk: 'kage', en: 'dessert' },
+        value: 'dessert',
+    },
+    {
+        label: { dk: 'kød', en: 'meat' },
+        value: 'meat',
+    },
+    {
+        label: { dk: 'kolonial', en: 'colonial' },
+        value: 'colonial',
+    },
+    {
+        label: { dk: 'drikkevarer', en: 'drinks' },
+        value: 'drinks',
+    },
+    {
+        label: { dk: 'plantebaseret', en: 'plantbased' },
+        value: 'plantbased',
+    },
+    {
+        label: { dk: 'Frugt & Grøntsager', en: 'fruits & Veggies' },
+        value: 'fruitsAndVeggies',
+    },
+    {
+        label: { dk: 'Fisk & Skaldyr', en: 'fish & Seafood' },
+        value: 'fishAndSeafood',
+    },
 ];
