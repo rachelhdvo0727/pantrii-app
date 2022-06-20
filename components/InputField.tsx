@@ -173,9 +173,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         paddingHorizontal: 14,
     },
-    errorMessage: {´
+    errorMessage: {
         ...generalStyles.paragraphText,
-        fontSize: 13,´
+        fontSize: 13,
         letterSpacing: 1,
         color: '#FF0000',
     },
