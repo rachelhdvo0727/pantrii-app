@@ -1,12 +1,6 @@
 import React from 'react';
 import generalStyles from '../styles/General';
-import {
-    StyleSheet,
-    View,
-    TextInput,
-    Text,
-    Dimensions,
-} from 'react-native';
+import { StyleSheet, View, TextInput, Text, Dimensions } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { capitalize } from '../utils/functions';
 
@@ -63,7 +57,7 @@ export default function InputField({
                 multiline && { height: Dimensions.get('window').height / 5.5 },
                 withWarning &&
                     multiline && {
-                        height: Dimensions.get('window').height / 4.3,
+                        height: Dimensions.get('window').height / 4.25,
                     },
             ]}
         >
