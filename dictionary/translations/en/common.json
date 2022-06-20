@@ -120,8 +120,8 @@
         "proceed": "proceed",
         "onlyNumber": "only numbers",
         "upload": "Upload",
-        "producer": "producent",
-        "customer": "erhvervskunde"
+        "producer": "producer",
+        "customer": "customer"
     },
     "placeholders": {
         "producer": "producer",
