@@ -34,9 +34,8 @@ import { useTranslation } from 'react-i18next';
 const ProductEditScreen = (props) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const content = dictionary;
-    const productContent = productDictionary?.products;
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const selectedLanguageCode = i18n.language;
 
     const informationSection = props?.route?.params?.informationSection;
     const { categories } = useSelector((state) => state?.categories);
@@ -454,11 +453,17 @@ const ProductEditScreen = (props) => {
                             placeholder={t(
                                 'common:placeholders.chooseCategory',
                             )}
-                            data={categoriesOptions?.sort((a, b) =>
-                                a.label
-                                    .normalize()
-                                    .localeCompare(b.label.normalize()),
-                            )}
+                            data={categoriesOptions?.sort((a, b) => {
+                                return selectedLanguageCode === 'dk'
+                                    ? a.label.dk
+                                          .normalize()
+                                          .localeCompare(b.label.dk.normalize())
+                                    : a.label.en
+                                          .normalize()
+                                          .localeCompare(
+                                              b.label.en.normalize(),
+                                          );
+                            })}
                             onSelect={onSelectCategory}
                             selectedItem={selectedCategory}
                             hasDefaultValue
