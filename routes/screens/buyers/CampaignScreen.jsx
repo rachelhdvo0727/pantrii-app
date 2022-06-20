@@ -57,7 +57,7 @@ export default function CampaignScreen(props) {
     return (
         <SafeAreaView style={[generalStyles.container]}>
             <HeroCard
-                title={campaignTitle?.title}
+                title={campaignContent.title[campaignTitle?.title]}
                 imageSrc={campaignImages[campaignTitle?.imageSrc]}
                 banner
             />
