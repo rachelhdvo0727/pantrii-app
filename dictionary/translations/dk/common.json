@@ -5,7 +5,7 @@
         "campaign": "Kampagner"
     },
     "favourites": {
-        "favouritesEmpty": "Dine yndlingsprodukter vises hér. Husk at tap 🧡 på et produkt"
+        "favouritesEmpty": "Dine yndlingsprodukter vises hér.\nHusk at tap 🧡 på et produkt."
     },
     "categories": {
         "category": "Kategori",
@@ -93,7 +93,7 @@
         "becomeCustomer": "Bliv kunde",
         "signUpText": "Jeg er ny hér. Registrer mig.",
         "signUp": "Registrér mig",
-        "customerText": "Har du allerede en konto? Velkommen tilbage!",
+        "customerText": "Har du allerede en konto?\nVelkommen tilbage!",
         "addToCart": "Tilføj til kurv",
         "added": "Tilføjet",
         "favourite": "Favorite",

@@ -5,7 +5,7 @@
         "campaign": "Campaigns"
     },
     "favourites": {
-        "favouritesEmpty": "Your favourites are empty. Remember to tap 🧡 on a product"
+        "favouritesEmpty": "Your favourites are empty.\nRemember to tap 🧡 on a product"
     },
     "categories": {
         "category": "Category",
@@ -93,7 +93,7 @@
         "becomeCustomer": "Become a customer",
         "signUpText": "I am new here. Register me.",
         "signUp": "Sign up",
-        "customerText": "Already have an account? Welcome back!",
+        "customerText": "Already have an account?\nWelcome back!",
         "addToCart": "Add to cart",
         "added": "Added",
         "favourite": "Favourite",
