@@ -4,12 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import { CONSTANTS, JSHash } from 'react-native-hash';
 // Components
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/actions/Button';
 import InputField from '../../components/InputField';
 import AppLogo from '../../components/svgs/AppLogo';
-import Spinner from '../../components/Spinner';
 import SplashScreen from './SplashScreen';
+import LanguageSelector from '../../components/actions/LanguageSelector';
 // API
 import * as SecureStore from 'expo-secure-store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -85,9 +85,15 @@ export default function LogInScreen(props) {
                 <SplashScreen />
             ) : (
                 <React.Fragment>
+                    <LanguageSelector
+                        quickDisplay
+                        style={styles.languageOptions}
+                    />
                     <AppLogo style={styles.icon}></AppLogo>
                     <View style={styles.formWrapper}>
-                        <Text style={styles.header}>log ind</Text>
+                        <Text style={styles.header}>
+                            {t('common:labels.logIn')}
+                        </Text>
 
                         <Controller
                             name="email"
@@ -197,7 +203,6 @@ const styles = StyleSheet.create({
     formWrapper: {
         width: '95%',
     },
-
     buttonStyle: {
         alignSelf: 'center',
     },
@@ -207,5 +212,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 25,
         marginBottom: 15,
+    },
+    languageOptions: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        top: 70,
+        right: 30,
     },
 });
