@@ -4,6 +4,8 @@
     "favourites": "Favourites",
     "cart": "Cart",
     "profile": "Profile",
+    "products": "Products",
+    "upload": "Upload",
     "newProducts": "NEW PRODUCTS",
     "featuredProducts": "POPULAR PRODUCTS",
     "category": "CATEGORIES",
@@ -12,5 +14,7 @@
     "payment": "PAYMENT",
     "profiles": "PROFILE",
     "editProfile": "EDIT PROFILE",
-    "editAddress": "EDIT ADDRESS"
+    "editAddress": "EDIT ADDRESS",
+    "allProducts": "ALL PRODUCTS",
+    "editProduct": "EDIT PRODUCT"
 }

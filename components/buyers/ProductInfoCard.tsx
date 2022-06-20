@@ -206,7 +206,9 @@ const ProductInfoCard = ({
                     {isProducerView ? (
                         <View style={styles.producerMidSection}>
                             <View>
-                                <Text style={styles.headerH1}>Kategori</Text>
+                                <Text style={styles.headerH1}>
+                                    {t('common:categories.category')}
+                                </Text>
                                 <Text style={styles.p}>{category}</Text>
                             </View>
                             <View>
@@ -216,7 +218,7 @@ const ProductInfoCard = ({
                                         { textAlign: 'right' },
                                     ]}
                                 >
-                                    Antal
+                                    {t('common:labels.quantity')}
                                 </Text>
                                 {isSoldOut ? (
                                     <Text
@@ -225,7 +227,7 @@ const ProductInfoCard = ({
                                             styles.amountNegative,
                                         ]}
                                     >
-                                        UDSOLGT
+                                        {t('common:labels.soldOut')}
                                     </Text>
                                 ) : (
                                     <Text

@@ -170,7 +170,7 @@ const ProductCard = ({
                                             styles.modalH2,
                                         ]}
                                     >
-                                        {bulkPrice}/kolli
+                                        {bulkPrice}/{t('common:labels.bulk')}
                                     </Text>
                                     <Text
                                         style={[
@@ -178,7 +178,7 @@ const ProductCard = ({
                                             styles.modalH4,
                                         ]}
                                     >
-                                        {singlePrice}/enhed
+                                        {singlePrice}/{t('common:labels.unit')}
                                     </Text>
                                 </View>
                             </View>
@@ -306,7 +306,7 @@ const ProductCard = ({
                                     fontFamily: 'TT-Commons-Regular',
                                 }}
                             >
-                                per kolli
+                                per {t('common:labels.bulk')}
                             </Text>
                         </View>
                         <View

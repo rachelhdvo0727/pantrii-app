@@ -4,6 +4,8 @@
     "favourites": "Favoritter",
     "cart": "Kurv",
     "profile": "Profil",
+    "products": "Produkter",
+    "upload": "Opret",
     "newProducts": "NYHEDER",
     "featuredProducts": "POPULÆRT LIGE NU",
     "category": "KATEGORIER",
@@ -12,5 +14,7 @@
     "payment": "BETALING",
     "profiles": "PROFIL",
     "editProfile": "REDIGER PROFIL",
-    "editAddress": "REDIGER ADRESSE"
+    "editAddress": "REDIGER ADRESSE",
+    "allProducts": "ALLE PRODUKTER",
+    "editProduct": "REDIGER PRODUKT"
 }

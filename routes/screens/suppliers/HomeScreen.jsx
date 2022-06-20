@@ -18,6 +18,8 @@ import Spinner from '../../../components/Spinner';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsForProducer } from '../../../redux/slice/producerProducts';
+//Translations
+import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen(props) {
     const navigation = useNavigation();
@@ -29,6 +31,8 @@ export default function HomeScreen(props) {
     const listConfig = { producerId: user?._id, limit: 3 };
     const content = dictionary?.producer;
     const productContent = productDictionary?.products;
+
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         dispatch(getProductsForProducer(listConfig));
@@ -43,13 +47,16 @@ export default function HomeScreen(props) {
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.section}>
                     <HeroCard
-                        title={`Velkommen tilbage \n ${user?.firstName}`}
+                        title={
+                            t('common:labels.welcomeBack') +
+                            `\n${user?.firstName}`
+                        }
                         secondary
                         imageSrc={require('../../../assets/banners/producer-banner-home.png')}
                     />
                     <Button
                         primary
-                        title="&emsp;Opret vare"
+                        title={' ' + t('common:labels.uploadProduct')}
                         children={
                             <Entypo name="plus" size={17} color="#FFFFFF" />
                         }
@@ -58,21 +65,25 @@ export default function HomeScreen(props) {
                     />
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.headers}>opdateringer</Text>
+                    <Text style={styles.headers}>
+                        {t('common:labels.updates')}
+                    </Text>
                     <View style={styles.sectionContent}>
                         <SystemMessageBanner
-                            text="Vi ændrer vores leveringsgebyr til 50,00 kr./ order"
+                            text={t('common:labels.alertMsg')}
                             isWarning
                         />
                         <SystemMessageBanner
-                            text="Din vare nr. 123456 er godkendt og oprettet"
+                            text={t('common:labels.orderMsg')}
                             isConfirmation
                         />
                     </View>
                 </View>
                 <View style={styles.section}>
                     <View style={styles.headerWithButton}>
-                        <Text style={styles.headers}>dine varer</Text>
+                        <Text style={styles.headers}>
+                            {t('common:labels.yourProducts')}
+                        </Text>
                         <ViewButton
                             onPress={() => navigation.navigate('Produkter')}
                         />

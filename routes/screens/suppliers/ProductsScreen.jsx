@@ -72,7 +72,7 @@ export default function ProductsScreen(props) {
             <View style={styles.filtersContainer}>
                 <IconButton
                     outlined
-                    title={content?.inStock}
+                    title={t('common:labels.inStock')}
                     onPress={() => setFilterInStock(!filterInStock)}
                     iconButtonStyle={{
                         borderColor: '#9DB76E',
@@ -85,7 +85,7 @@ export default function ProductsScreen(props) {
                 />
                 <IconButton
                     outlined
-                    title={content?.lowOnStock}
+                    title={t('common:labels.lowInStock')}
                     onPress={() => setFilterLowOnStock(!filterLowOnStock)}
                     iconButtonStyle={{
                         borderColor: '#EA6F2D',
@@ -100,7 +100,7 @@ export default function ProductsScreen(props) {
                 />
                 <IconButton
                     outlined
-                    title={content?.soldOut}
+                    title={t('common:labels.soldOut')}
                     onPress={() => setFilterSoldOut(!filterSoldOut)}
                     iconButtonStyle={{
                         borderColor: '#FF0000',

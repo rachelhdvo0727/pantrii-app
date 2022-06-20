@@ -5,7 +5,11 @@
         "campaign": "Campaigns"
     },
     "favourites":{
-        "favouritesEmpty": "Your favourites are empty"
+        "favouritesEmpty": "Your favourites are empty. Remember to tap 🧡 on a product"
+    },
+    "categories":{
+        "category": "Category",
+        "categories": "Categories"
     },
     "cart":{
         "cartEmpty": "Your cart is empty",
@@ -27,15 +31,33 @@
         "address": "Address",
         "buyer": "Buyer",
         "producer": "Producer",
-        "firstName": "First name",
-        "lastName": "Last name",
-        "email": "Email",
-        "phoneNumber": "Phone number",
-        "addressLine1": "Address Line 1",
-        "addressLine2": "Address Line 2",
-        "postNumber": "Post nr.",
-        "city": "City",
-        "country": "Country"
+        "firstName": "First name ",
+        "lastName": "Last name ",
+        "email": "Email ",
+        "phoneNumber": "Phone number ",
+        "addressLine1": "Address Line 1 ",
+        "addressLine2": "Address Line 2 ",
+        "postNumber": "Post nr. ",
+        "city": "City ",
+        "country": "Country ",
+        "password": "Password "
+    },
+    "products":{
+        "productName": "Product name ",
+        "brandName": "Brand name ",
+        "unit": "Unit per bulk ",
+        "bulkPrice": "Price /bulk",
+        "unitPrice": "Price/ unit",
+        "productDesc": "Product description",
+        "cold": "Cold",
+        "frozen": "Frozen",
+        "organic": "Organic",
+        "unitRequirement": "Please give a number of unit in one bulk",
+        "tags": "Tags",
+        "quantityStock": "Quantity in stock",
+        "expiryDuration": "Expires in",
+        "productStory": "Product story",
+        "productUnique": "Product identification"
     },
     "settings":{
         "languageSelector": "Select your language"
@@ -57,10 +79,17 @@
         "validDate": "Valid until ",
         "cvv": "CVV ",
         "isRequired": "is required",
+        "passwordRequirement": "must be between 12-20 characters",
+        "phoneRequirement": "must be 8 numbers without country code",
         "pay": "Pay",
         "approvedMessage": "Approved",
         "orderSuccess": "Your order has been approved",
-        "logOut": "Log me out",
+        "logOut": "Log out",
+        "logIn": "Log in",
+        "becomeCustomer": "Become a customer",
+        "signUpText": "I am new here. Register me.",
+        "signUp": "Sign up",
+        "customerText": "Already have an account? Welcome back!",
         "addToCart": "Add to cart",
         "added": "Added",
         "favourite": "Favourite",
@@ -68,6 +97,28 @@
         "productStory": "Product story",
         "productUnique": "Product identification",
         "unit": "unit",
-        "bulk": "bulk"
+        "bulk": "bulk",
+        "newCustomerText": "I am new here",
+        "signUpSuccess": "Your account has been created. Proceed to log in",
+        "welcomeBack": "Welcome back",
+        "uploadProduct": "Upload product",
+        "updates": "Updates",
+        "alertMsg": "We change our delivery fee to DKK 50.00 / order",
+        "orderMsg": "Your product nr. 123456 is approved and uploaded",
+        "yourProducts": "Your products",
+        "soldOut": "Sold out",
+        "lowInStock": "Low in stock",
+        "inStock": "In stock",
+        "quantity": "Qty",
+        "pending": "Pending",
+        "showEnglishContent": "Please make edits in English",
+        "warning": "Warning: ",
+        "editLongText": "Content in this field will be translated and approved by our team. Your product will be set to 'Pending' and will not be displayed on our marketplace temporarily."
+    },  
+    "placeholders":{
+        "chooseCategory": "Choose a category",
+        "amountInStock": "example. 10",
+        "expiryDuration": "x days/months/years",
+        "example": "Example"        
     }
 }

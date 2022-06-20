@@ -110,7 +110,7 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label={t('common:profile.firstName') + ' *'}
+                                    label={t('common:profile.firstName') + '*'}
                                     placeholder="John"
                                     value={value}
                                     onChangeText={onChange}
@@ -133,7 +133,7 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label={t('common:profile.lastName') + ' *'}
+                                    label={t('common:profile.lastName') + '*'}
                                     placeholder="Eksempel"
                                     value={value}
                                     onChangeText={onChange}
@@ -162,7 +162,7 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label={t('common:profile.email') + ' *'}
+                                    label={t('common:profile.email') + '*'}
                                     placeholder="eksemple@mail.com"
                                     value={value}
                                     onChangeText={onChange}
@@ -193,7 +193,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label={
-                                        t('common:profile.phoneNumber') + ' *'
+                                        t('common:profile.phoneNumber') + '*'
                                     }
                                     placeholder="57575757"
                                     value={value}
@@ -225,7 +225,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label={
-                                        t('common:profile.addressLine1') + ' *'
+                                        t('common:profile.addressLine1') + '*'
                                     }
                                     placeholder="Vejnavn og husnummer"
                                     value={value}
@@ -249,7 +249,7 @@ export default function ProfileEditScreen(props) {
                             }) => (
                                 <InputField
                                     label={
-                                        t('common:profile.addressLine2') + ' *'
+                                        t('common:profile.addressLine2') + '*'
                                     }
                                     placeholder="Evt. dørnummer"
                                     value={value}
@@ -279,8 +279,7 @@ export default function ProfileEditScreen(props) {
                                 }) => (
                                     <InputField
                                         label={
-                                            t('common:profile.postNumber') +
-                                            ' *'
+                                            t('common:profile.postNumber') + '*'
                                         }
                                         placeholder="2000"
                                         value={value}
@@ -309,7 +308,7 @@ export default function ProfileEditScreen(props) {
                                     fieldState: { error },
                                 }) => (
                                     <InputField
-                                        label={t('common:profile.city') + ' *'}
+                                        label={t('common:profile.city') + '*'}
                                         placeholder="København"
                                         autoComplete
                                         value={value}
@@ -337,7 +336,7 @@ export default function ProfileEditScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label={t('common:profile.country') + ' *'}
+                                    label={t('common:profile.country') + '*'}
                                     placeholder="Danmark"
                                     autoComplete={false}
                                     value={value}

@@ -17,6 +17,8 @@ import ApprovedModal from '../../../components/ApprovedModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/slice/categories';
 import { createProductForProducer } from '../../../redux/slice/product';
+//Translations
+import { useTranslation } from 'react-i18next';
 
 export default function UploadProductsScreen(props) {
     const dispatch = useDispatch();
@@ -24,6 +26,7 @@ export default function UploadProductsScreen(props) {
     const { categories } = useSelector((state) => state?.categories);
     const { user } = useSelector((state) => state.user);
     const loggedInUser = props?.route?.params.loggedInUser;
+    const { t } = useTranslation();
 
     const [selectedCategory, setSelectedCategory] = React.useState();
     const onSelectCategory = (item) => {

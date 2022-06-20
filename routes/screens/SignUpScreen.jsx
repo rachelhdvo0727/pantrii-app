@@ -15,6 +15,8 @@ import ApprovedModal from '../../components/ApprovedModal';
 // API
 import { createUser } from '../../redux/slice/user';
 import { useDispatch, useSelector } from 'react-redux';
+// Translations
+import { useTranslation } from 'react-i18next';
 
 export default function LogInScreen(props) {
     const navigation = useNavigation();
@@ -23,6 +25,8 @@ export default function LogInScreen(props) {
     // const savedRoles = props?.route.params?.roles;
     const { roles } = useSelector((state) => state?.roles);
     const [value, setValue] = React.useState('');
+
+    const { t } = useTranslation();
 
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -79,7 +83,9 @@ export default function LogInScreen(props) {
 
                     {/* Form */}
                     <View style={styles.formWrapper}>
-                        <Text style={styles.header}>jeg er ny her</Text>
+                        <Text style={styles.header}>
+                            {t('common:labels.newCustomerText')}
+                        </Text>
                         <RadioButton.Group
                             onValueChange={(value) => setValue(value)}
                             value={value}
@@ -117,14 +123,16 @@ export default function LogInScreen(props) {
                             name="firstName"
                             control={control}
                             rules={{
-                                required: 'Fornavn er påkrævet',
+                                required:
+                                    t('common:profile.firstName') +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="fornavn *"
+                                    label={t('common:profile.firstName') + '*'}
                                     placeholder="John"
                                     value={value}
                                     onChangeText={onChange}
@@ -139,14 +147,16 @@ export default function LogInScreen(props) {
                             name="lastName"
                             control={control}
                             rules={{
-                                required: 'Efternavn er påkrævet',
+                                required:
+                                    t('common:profile.lastName') +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="efternavn *"
+                                    label={t('common:profile.lastName') + '*'}
                                     placeholder="Eksempel"
                                     value={value}
                                     onChangeText={onChange}
@@ -161,7 +171,9 @@ export default function LogInScreen(props) {
                             name="email"
                             control={control}
                             rules={{
-                                required: 'Email er påkrævet',
+                                required:
+                                    t('common:profile.email') +
+                                    t('common:labels.isRequired'),
                                 pattern: {
                                     value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                                     message: 'Din email er ugyldig',
@@ -172,7 +184,7 @@ export default function LogInScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="email *"
+                                    label={t('common:profile.email') + '*'}
                                     placeholder="eksemple@mail.com"
                                     value={value}
                                     onChangeText={onChange}
@@ -187,16 +199,20 @@ export default function LogInScreen(props) {
                             name="password"
                             control={control}
                             rules={{
-                                required: 'Adgangskode er påkrævet',
+                                required:
+                                    t('common:profile.password') +
+                                    t('common:labels.isRequired'),
                                 minLength: {
                                     value: 12,
                                     message:
-                                        'Adgangskode skal være mellem 12-20 karakterer',
+                                        t('common:profile.password') +
+                                        t('common:labels.passwordRequirement'),
                                 },
                                 maxLength: {
                                     value: 20,
                                     message:
-                                        'Adgangskode skal være mellem 12-20 karakterer',
+                                        t('common:profile.password') +
+                                        t('common:labels.passwordRequirement'),
                                 },
                             }}
                             render={({
@@ -204,7 +220,7 @@ export default function LogInScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="adgangskode *"
+                                    label={t('common:profile.password') + '*'}
                                     placeholder="**********"
                                     value={value}
                                     onChangeText={onChange}
@@ -221,11 +237,14 @@ export default function LogInScreen(props) {
                             name="phone"
                             control={control}
                             rules={{
-                                required: 'Mobilnummer er påkrævet',
+                                required:
+                                    t('common:profile.phoneNumber') +
+                                    t('common:labels.isRequired'),
                                 pattern: {
                                     value: /^((\(?\+45\)?)?)(\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2})$/,
                                     message:
-                                        'Mobilnummer skal være 8 cifre, uden landskode',
+                                        t('common:profile.phoneNumber') +
+                                        t('common:labels.phoneRequirement'),
                                 },
                             }}
                             render={({
@@ -233,7 +252,9 @@ export default function LogInScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="mobilnummer *"
+                                    label={
+                                        t('common:profile.phoneNumber') + '*'
+                                    }
                                     placeholder="57575757"
                                     value={value}
                                     onChangeText={onChange}
@@ -247,14 +268,18 @@ export default function LogInScreen(props) {
                             name={`address.line1`}
                             control={control}
                             rules={{
-                                required: 'Adresse er påkrævet',
+                                required:
+                                    t('common:profile.addressLine1') +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="adresselinje 1 *"
+                                    label={
+                                        t('common:profile.addressLine1') + '*'
+                                    }
                                     placeholder="Vejnavn og husnummer"
                                     value={value}
                                     onChangeText={onChange}
@@ -273,7 +298,9 @@ export default function LogInScreen(props) {
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="adresselinje 2"
+                                    label={
+                                        t('common:profile.addressLine2') + '*'
+                                    }
                                     placeholder="Evt. dørnummer"
                                     value={value}
                                     onChangeText={onChange}
@@ -289,14 +316,18 @@ export default function LogInScreen(props) {
                                 name={`address.zipCode`}
                                 control={control}
                                 rules={{
-                                    required: 'Postnr. er påkrævet',
+                                    required:
+                                        t('common:profile.postNumber') +
+                                        t('common:labels.isRequired'),
                                 }}
                                 render={({
                                     field: { onChange, onBlur, value },
                                     fieldState: { error },
                                 }) => (
                                     <InputField
-                                        label="postnr. *"
+                                        label={
+                                            t('common:profile.postNumber') + '*'
+                                        }
                                         placeholder="2000"
                                         value={value}
                                         onChangeText={onChange}
@@ -312,14 +343,16 @@ export default function LogInScreen(props) {
                                 name={`address.city`}
                                 control={control}
                                 rules={{
-                                    required: 'By er påkrævet',
+                                    required:
+                                        t('common:profile.city') +
+                                        t('common:labels.isRequired'),
                                 }}
                                 render={({
                                     field: { onChange, onBlur, value },
                                     fieldState: { error },
                                 }) => (
                                     <InputField
-                                        label="by *"
+                                        label={t('common:profile.city') + '*'}
                                         placeholder="København"
                                         autoComplete
                                         value={value}
@@ -335,14 +368,16 @@ export default function LogInScreen(props) {
                             name={`address.country`}
                             control={control}
                             rules={{
-                                required: 'Land er påkrævet',
+                                required:
+                                    t('common:profile.country') +
+                                    t('common:labels.isRequired'),
                             }}
                             render={({
                                 field: { onChange, onBlur, value },
                                 fieldState: { error },
                             }) => (
                                 <InputField
-                                    label="land *"
+                                    label={t('common:profile.country') + '*'}
                                     placeholder="Danmark"
                                     autoComplete={false}
                                     value={value}
@@ -353,15 +388,17 @@ export default function LogInScreen(props) {
                             )}
                         ></Controller>
                         <Button
-                            title="registrér mig"
+                            title={t('common:labels.signUp')}
                             primary
                             buttonStyle={styles.buttonStyle}
                             onPress={handleSubmit(onSubmit)}
                         ></Button>
                     </View>
-                    <Text style={styles.mediumText}>Velkommen tilbage</Text>
+                    <Text style={styles.mediumText}>
+                        {t('common:labels.customerText')}
+                    </Text>
                     <Button
-                        title="log ind"
+                        title={t('common:labels.logIn')}
                         outlined
                         buttonStyle={styles.buttonStyle}
                         onPress={showLogIn}
@@ -371,10 +408,10 @@ export default function LogInScreen(props) {
 
             {/* Success sign uo modal */}
             <ApprovedModal
-                messageTitle="godkendt"
-                messageText="Din konto er oprettet. Fortsæt med at logge ind"
+                messageTitle={t('common:labels.approvedMessage')}
+                messageText={t('common:labels.signUpSuccess')}
                 isModalVisible={modalVisible}
-                buttonTitle="log ind"
+                buttonTitle={t('common:labels.logIn')}
                 hasConfirmedIcon={true}
                 hasButton={true}
                 onRequestClose={() => {
