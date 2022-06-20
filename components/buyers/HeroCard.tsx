@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Text,
     StyleSheet,
-    Pressable,
+    View,
     ImageBackground,
     TouchableOpacity,
 } from 'react-native';
@@ -20,19 +20,42 @@ export interface Props {
 
 const HeroCard = ({ title, imageSrc, onPress, secondary, banner }: Props) => {
     return (
-        <TouchableOpacity
-            style={[styles.featuredWrapper, secondary && styles.secondary]}
-            onPress={onPress}
-        >
-            <ImageBackground
-                source={imageSrc}
-                style={styles.imageBg}
-                resizeMode="cover"
-                imageStyle={{ borderRadius: banner ? 0 : 10 }}
-            >
-                <Text style={styles.featuredTitle}>{title}</Text>
-            </ImageBackground>
-        </TouchableOpacity>
+        <React.Fragment>
+            {banner ? (
+                <View
+                    style={[
+                        styles.featuredWrapper,
+                        secondary && styles.secondary,
+                    ]}
+                >
+                    <ImageBackground
+                        source={imageSrc}
+                        style={styles.imageBg}
+                        resizeMode="cover"
+                        imageStyle={{ borderRadius: banner ? 0 : 10 }}
+                    >
+                        <Text style={styles.featuredTitle}>{title}</Text>
+                    </ImageBackground>
+                </View>
+            ) : (
+                <TouchableOpacity
+                    style={[
+                        styles.featuredWrapper,
+                        secondary && styles.secondary,
+                    ]}
+                    onPress={onPress}
+                >
+                    <ImageBackground
+                        source={imageSrc}
+                        style={styles.imageBg}
+                        resizeMode="cover"
+                        imageStyle={{ borderRadius: banner ? 0 : 10 }}
+                    >
+                        <Text style={styles.featuredTitle}>{title}</Text>
+                    </ImageBackground>
+                </TouchableOpacity>
+            )}
+        </React.Fragment>
     );
 };
 

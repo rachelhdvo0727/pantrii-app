@@ -43,12 +43,17 @@ export default function ProductsScreen(props) {
     const { t } = useTranslation();
 
     React.useEffect(() => {
+        let isMounted = true; // mutable flag
         axios(findProducerProducts(listConfig))
             .then((response) => {
                 const data = response?.data?.documents;
-                setProducts(data);
+                isMounted && setProducts(data);
             })
             .catch((error) => console.error(error));
+        // reset state with flag when component is unmount
+        return () => {
+            isMounted = false;
+        };
     }, [products]);
 
     const filteredData = filterInStock

@@ -39,6 +39,7 @@ export default function ProfileScreen(props) {
     return (
         <View style={generalStyles.container}>
             <HeroCard
+                banner
                 title={content[userRole]}
                 secondary
                 imageSrc={require('../../assets/banners/profile-hero.png')}
