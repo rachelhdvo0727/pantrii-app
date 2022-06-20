@@ -117,7 +117,7 @@
         "pending": "Pending",
         "showEnglishContent": "Please make edits in English",
         "warning": "Warning: ",
-        "editLongText": "Content in this field will be translated and approved by our team. Your product will be set to 'Pending' and will not be displayed on our marketplace temporarily.",
+        "editLongText": "This field's content will be translated and approved by our team. Your product will be set to 'Pending' and not displayed on our marketplace temporarily.",
         "proceed": "proceed",
         "onlyNumber": "only numbers",
         "upload": "Upload",
