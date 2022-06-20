@@ -15,9 +15,6 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 
 export interface Option {
-    // _id: string;
-    // name: string;
-    // imageSrc?: string;
     label: string;
     value: string;
 }

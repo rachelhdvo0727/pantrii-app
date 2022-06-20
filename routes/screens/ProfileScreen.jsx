@@ -53,7 +53,14 @@ export default function ProfileScreen(props) {
                                 {user?.firstName} {user?.lastName}
                             </Text>
                             {user?.email && (
-                                <Text style={styles.text}>{user?.email}</Text>
+                                <Text
+                                    style={[
+                                        styles.text,
+                                        { textTransform: 'none' },
+                                    ]}
+                                >
+                                    {user?.email}
+                                </Text>
                             )}
                             {user?.phone && (
                                 <Text style={styles.text}>{user?.phone}</Text>
@@ -69,7 +76,12 @@ export default function ProfileScreen(props) {
                     isLastSection
                     sectionContent={
                         <React.Fragment>
-                            <Text style={styles.text}>
+                            <Text
+                                style={[
+                                    styles.text,
+                                    { textTransform: 'capitalize' },
+                                ]}
+                            >
                                 {user?.address?.line1} {user?.address?.line2}
                             </Text>
                             <View style={styles.cityWrapper}>
@@ -112,8 +124,9 @@ const styles = StyleSheet.create({
     },
     highlightText: {
         ...generalStyles.mediumText,
+        textTransform: 'capitalize',
     },
-    text: { ...generalStyles.paragraphText },
+    text: { ...generalStyles.paragraphText, textTransform: 'capitalize' },
     cityWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',

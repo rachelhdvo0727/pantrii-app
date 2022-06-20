@@ -76,7 +76,7 @@ const newUserAccountData = (document: User) => {
 export const createUserAccount = (document: User) => {
     return {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/insertOne',
+        url: 'https://data.mongodb-api.com/app/data-oxvtw/endpoint/data/v1/action/insertOne',
         headers: headers,
         data: newUserAccountData(document),
     };

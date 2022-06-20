@@ -2,7 +2,8 @@ import React from 'react';
 import generalStyles from '../../styles/General';
 import dictionary from '../../dictionary/general.json';
 import { useNavigation } from '@react-navigation/native';
-import User from '../../models/User';
+import { CONSTANTS, JSHash } from 'react-native-hash';
+
 // Components
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import Button from '../../components/actions/Button';
@@ -12,7 +13,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { RadioButton } from 'react-native-paper';
 import ApprovedModal from '../../components/ApprovedModal';
 // API
-import { createUser } from '../../redux/slice/createUser';
+import { createUser } from '../../redux/slice/user';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function LogInScreen(props) {
@@ -41,12 +42,22 @@ export default function LogInScreen(props) {
         },
     });
 
+    const _hash = async (data) => {
+        console.log(data);
+    };
+
     const onSubmit = (data) => {
-        data.roleId = value; // add roleId from RadioButton group
-        // Send data
-        dispatch(createUser(data));
-        reset();
-        setModalVisible(true);
+        // Hash password
+        JSHash(data.password, CONSTANTS.HashAlgorithms.sha256)
+            .then((hash) => {
+                data.roleId = value; // add roleId from RadioButton group
+                data.password = hash; // replace password with the hash
+
+                dispatch(createUser(data)); // Send data
+                reset();
+                setModalVisible(true);
+            })
+            .catch((e) => console.log(e));
     };
 
     const showLogIn = () => {
@@ -59,10 +70,6 @@ export default function LogInScreen(props) {
         setModalVisible(!modalVisible);
         navigation?.navigate('LogInScreen');
     };
-
-    // React.useEffect(() => {
-    //     console.log(roles);
-    // }, []);
 
     return (
         <SafeAreaView style={{ flex: 1, paddingTop: 70 }}>
@@ -150,7 +157,6 @@ export default function LogInScreen(props) {
                                 ></InputField>
                             )}
                         ></Controller>
-
                         <Controller
                             name="email"
                             control={control}
@@ -278,7 +284,6 @@ export default function LogInScreen(props) {
                                 ></InputField>
                             )}
                         ></Controller>
-
                         <View style={styles.fieldset}>
                             <Controller
                                 name={`address.zipCode`}
@@ -347,7 +352,6 @@ export default function LogInScreen(props) {
                                 ></InputField>
                             )}
                         ></Controller>
-
                         <Button
                             title="registrér mig"
                             primary
