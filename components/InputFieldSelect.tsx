@@ -72,13 +72,14 @@ export default function InputFieldSelect({
             <Text
                 style={[
                     styles.dropdownText,
-                    selectedOption?.label === item?.label &&
+                    (selectedOption?.label.dk === item?.label?.dk ||
+                        selectedOption?.label.en === item?.label?.en) &&
                         styles.currentOption,
                 ]}
             >
                 {selectedLanguageCode === 'dk'
-                    ? capitalize(item?.label.dk)
-                    : capitalize(item?.label.en)}
+                    ? capitalize(item?.label?.dk)
+                    : capitalize(item?.label?.en)}
             </Text>
         </TouchableOpacity>
     );
@@ -108,12 +109,17 @@ export default function InputFieldSelect({
                         style={[
                             styles.valueText,
                             hasDefaultValue && styles.hasDefaultValue,
-                            selectedOption?.label === selectedOption?.label &&
+                            (selectedOption?.label.dk ===
+                                selectedOption?.label.dk ||
+                                selectedOption?.label.en ===
+                                    selectedOption?.label.en) &&
                                 isValueChanged &&
                                 styles.currentOption,
                         ]}
                     >
-                        {capitalize(selectedOption?.label)}
+                        {selectedLanguageCode === 'dk'
+                            ? capitalize(selectedOption?.label?.dk)
+                            : capitalize(selectedOption?.label?.en)}
                     </Text>
                 ) : (
                     <Text
